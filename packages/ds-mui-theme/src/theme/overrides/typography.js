@@ -25,7 +25,22 @@ var dsTypography = (theme) => (
             fontWeight: '600',
             src: 'url(\'' + NunitoSansBold2 + '\') format(\'woff2\')',
             fallbacks: [{src: 'url(\'' + NunitoSansBold + '\') format(\'woff\')'}]
-        }]
+        }],
+        "root" : {
+            "color" : theme.palette.text.secondary,
+        },
+        "h5":{
+            "color" : theme.palette.text.secondary
+        },
+        "h6":{
+            "color" : theme.palette.text.secondary
+        },
+        "body1":{
+            "color" : theme.palette.text.secondary
+        },
+        "body2":{
+            "color" : theme.palette.text.secondary
+        }
 });
 
 export {dsTypography}

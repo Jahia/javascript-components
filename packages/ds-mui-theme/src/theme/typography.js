@@ -4,6 +4,8 @@ const typography = {
         "light": 300,
         "regular": 400,
         "semiBold": 600,
+        "fontSize" : "16px",
+        "fontWeight" : 400
     },
     "fontFamily": "Nunito Sans",
     "h1": {
@@ -19,7 +21,6 @@ const typography = {
         "fontWeight": 300,
         "letterSpacing": "-0.5px",
         "lineHeight" : "1"
-
     },
     "h3": {
         "fontFamily": "Nunito Sans",
@@ -81,7 +82,8 @@ const typography = {
         "fontSize": "14px",
         "fontWeight": 600,
         "letterSpacing": "1.35px",
-        "lineHeight" : "1.50"
+        "lineHeight" : "1.50",
+        "textTransform": "none"
     },
     "caption": {
         "fontFamily": "Nunito Sans",
@@ -93,9 +95,10 @@ const typography = {
     "overline": {
         "fontFamily": "Nunito Sans",
         "fontSize": "10px",
-        "fontWeight": 400,
+        "fontWeight": 600,
         "letterSpacing": "0.5px",
-        "lineHeight" : "2.66"
+        "lineHeight" : "2.66",
+        "textTransform": "none"
     }
 };
 
