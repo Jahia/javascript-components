@@ -24,6 +24,9 @@ const dsPalette = {
         "disabled": "#91A3ae",
         "contrastText": "#ffffff",
     },
+    "border": {
+        "main": "#D8DEE3"
+    },
     "valid": {
         "main": "#13bd76",
     },
