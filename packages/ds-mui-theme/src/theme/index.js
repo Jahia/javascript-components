@@ -16,6 +16,7 @@ import {dsInput} from "./overrides/input";
 import {dsMenu, dsMenuItem} from "./overrides/menu";
 import {dsPaper} from "./overrides/paper";
 import {dsSelect} from "./overrides/select";
+import {dsIcons} from "./overrides/icon";
 import {dsTable, dsTableCell, dsTableRow, dsTablePagination} from "./overrides/table";
 import {dsTab, dsTabs} from "./overrides/tabs";
 import {dsToolBar} from "./overrides/toolbar";
@@ -69,6 +70,7 @@ const dsLightThemeOverrides = (theme) => ({
     MuiExpansionPanelActions: dsPanelActions(theme),
     MuiPaper: dsPaper(theme),
     MuiSelect: dsSelect(theme),
+    MiuSvgIcon: dsIcons(theme),
     MuiTable: dsTable(theme),
     MuiTableRow: dsTableRow(theme),
     MuiTablePagination: dsTablePagination(theme),
@@ -118,6 +120,7 @@ const dsDarkThemeOverrides = (theme) => ({
     MuiExpansionPanelActions: dsPanelActions(theme),
     MuiPaper: dsPaper(theme),
     MuiSelect: dsSelect(theme),
+    MiuSvgIcon: dsIcons(theme),
     MuiTable: dsTable(theme),
     MuiTableRow: dsTableRow(theme),
     MuiTableCell: dsTableCell(theme),
