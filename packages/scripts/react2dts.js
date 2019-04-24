@@ -1,5 +1,6 @@
-import fs from 'fs';
-import {generateFromFile} from 'react-to-typescript-definitions';
+#!/usr/bin/env node
+const fs = require('fs');
+const generateFromFile = require('react-to-typescript-definitions').generateFromFile;
 
 function dtsGen(source) {
     let target = source.slice(0,-4) + ".d.ts";

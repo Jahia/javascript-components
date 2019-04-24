@@ -1,0 +1,22 @@
+{
+  "name": "@jahia/scripts",
+  "version": "1.0.0",
+  "scripts": {
+    "publish-script": "jahia-publish"
+  },
+  "license": "MIT",
+  "bin": {
+    "jahia-build": "./build.js",
+    "jahia-babel-js": "./babel-js.js",
+    "jahia-babel-module": "./babel-module.js",
+    "jahia-prepare-build": "./prepare-build.js",
+    "jahia-publish": "./publish.js",
+    "jahia-react2dts": "./react2dts.js",
+    "jahia-build-umd": "./build-umd.js"
+  },
+  "dependencies": {
+    "git-branch": "^2.0.1",
+    "mkdir-recursive": "^0.4.0",
+    "react-to-typescript-definitions": "^1.2.0"
+  }
+}

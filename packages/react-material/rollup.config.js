@@ -6,7 +6,7 @@ import glob from 'glob';
 import path from 'path';
 
 export default {
-    input: 'src/index.js',
+    input: 'build/esm/index.js',
     output: {
         file: 'build/lib/react-material.umd.js',
         format: 'umd',
@@ -51,11 +51,6 @@ export default {
             extensions: [ '.js', '.jsx' ]
         }),
         json(),
-        babel({
-            exclude:'node_modules/**',
-            presets: [ [ 'env', { modules: false } ], 'stage-3', 'react' ],
-            plugins: [ 'external-helpers' ]
-        }),
         url({
             limit: 100 * 1024,
             include: ["**/*.woff", "**/*.woff2", "**/*.ttf", "**/*.eot"],
