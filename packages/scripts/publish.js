@@ -18,11 +18,11 @@ if (fs.existsSync('build')) {
 
 var name = 'beta';
 if (branchName.startsWith('feature-')) {
-    name = branchName.replace(/-/g,'');
+    name = branchName.replace(/-/g, '');
     params.push('--tag', name);
 }
 
-build += '-' + name + '.' + (new Date()).toISOString().slice(0,19).replace(/[-:T]/g, '');
+build += '-' + name + '.' + (new Date()).toISOString().slice(0, 19).replace(/[-:T]/g, '');
 
 console.log(build);
 params.push('--no-git-tag-version', '--new-version', build);
@@ -30,5 +30,11 @@ params.push('--no-git-tag-version', '--new-version', build);
 yarn(['publish', ...params], function (err) {
     if (err) {
         console.error(err);
+    } else if (branchName.startsWith('feature-')) {
+        yarn(['tag', 'add', json.name + '@' + build, name], function (err) {
+            if (err) {
+                console.error(err);
+            }
+        });
     }
 });
