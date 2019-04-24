@@ -1,6 +1,6 @@
 {
   "name": "@jahia/test-framework",
-  "version": "1.0.0-beta.20190424160221-beta.20190424160806",
+  "version": "1.0.0",
   "scripts": {
     "publish-script": "jahia-publish"
   },
