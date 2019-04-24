@@ -16,7 +16,7 @@
     "sideEffects": false,
     "license": "MIT",
     "dependencies": {
-        "@jahia/apollo-dx": "^1.0.0-featureBACKLOG10163.1",
+        "@jahia/apollo-dx": "featureBACKLOG10163",
         "apollo-client": "^2.5.1",
         "lodash": "^4.17.10",
         "prop-types": "^15.6.1",
