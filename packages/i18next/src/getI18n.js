@@ -23,7 +23,7 @@ function getI18n(options) {
                         if (options.namespaceResolvers && options.namespaceResolvers[ns]) {
                             value = options.namespaceResolvers[ns](lang);
                         } else {
-                            value = require('@jahia/' + ns + '/locales/' + lang + '.json');
+                            value = require('@jahia/' + ns + '/resources/locales/' + lang + '.json');
                         }
                     } catch (e) {
                         // Not found
