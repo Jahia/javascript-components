@@ -8,12 +8,10 @@
     "publish-script": "jahia-publish",
     "prepare-build": "jahia-prepare-build",
     "build": "jahia-build"
-
   },
   "main": "js/index.js",
   "module": "esm/index.js",
   "typings": "esm/index.d.ts",
-  "typings": "index.d.ts",
   "browser": "lib/i18next.umd.min.js",
   "sideEffects": false,
   "license": "MIT",
