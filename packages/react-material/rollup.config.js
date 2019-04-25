@@ -1,23 +1,9 @@
 import resolve from 'rollup-plugin-node-resolve';
-import babel from 'rollup-plugin-babel';
 import json from 'rollup-plugin-json';
 import url from 'rollup-plugin-url';
-import glob from 'glob';
-import path from 'path';
 
 export default {
     input: 'build/esm/index.js',
-    output: {
-        file: 'build/lib/react-material.umd.js',
-        format: 'umd',
-        name:'jahia.reactmaterial',
-        sourcemap: true,
-        globals: {
-            "@jahia/apollo-dx": "jahia.apollodx",
-            "lodash": "_",
-            "material-ui/styles":"materialUiStyles"
-        }
-    },
     external:[
         "@jahia/icons",
         "@jahia/ds-mui-theme",
@@ -45,7 +31,6 @@ export default {
         "rxjs",
         "rxjs/operators"
     ],
-
     plugins: [
         resolve({
             extensions: [ '.js', '.jsx' ]
