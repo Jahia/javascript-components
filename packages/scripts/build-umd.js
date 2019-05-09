@@ -5,11 +5,11 @@ const path = require('path');
 const fs = require('fs');
 const UglifyJS = require("uglify-js");
 
-let configCode = babel.transformFileSync(path.resolve('./rollup.config.js'), {presets: ['@babel/env']}).code;
-let config = eval(configCode);
+const configCode = babel.transformFileSync(path.resolve('./rollup.config.js'), {presets: ['@babel/env']}).code;
+const config = eval(configCode);
 
 async function build() {
-    var json = require(path.resolve('./package.json'));
+    const json = require(path.resolve('./package.json'));
 
     const bundle = await rollup.rollup(config);
 
