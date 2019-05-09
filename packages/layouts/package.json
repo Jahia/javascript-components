@@ -8,7 +8,7 @@
         "publish-script": "jahia-publish",
         "prepare-build": "jahia-prepare-build",
         "build": "jahia-build",
-      "build-umd": "jahia-build-umd"
+        "build-umd": "jahia-build-umd"
     },
     "main": "js/index.js",
     "module": "esm/index.js",
@@ -16,8 +16,8 @@
     "browser": "lib/layouts.umd.min.js",
     "sideEffects": false,
     "license": "MIT",
-    "peerDependencies":  {
-      "@material-ui/core": "^3.9.3"
+    "peerDependencies": {
+        "@material-ui/core": "^3.9.3"
     },
     "dependencies": {
         "classnames": "^2.2.6",
