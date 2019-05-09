@@ -3,10 +3,12 @@ const path = require('path');
 const fs = require('fs');
 const yarn = require('yarn-api');
 const branch = require('git-branch');
+const util = require('util');
 
-var json = require(path.resolve('./package.json'));
-var build = json.version;
-var branchName = branch.sync();
+const json = require(path.resolve('./package.json'));
+const branchName = branch.sync();
+
+let build = json.version;
 
 let params = [];
 
@@ -16,7 +18,7 @@ if (fs.existsSync('build')) {
     params.push('.');
 }
 
-var name = 'beta';
+let name = 'beta';
 if (branchName.startsWith('feature-')) {
     name = branchName.replace(/-/g, '');
     params.push('--tag', name);
@@ -27,17 +29,7 @@ build += '-' + name + '.' + (new Date()).toISOString().slice(0, 19).replace(/[-:
 console.log(build);
 params.push('--no-git-tag-version', '--new-version', build);
 
-function yarnPromise(params) {
-    return new Promise((resolve, reject) => {
-        yarn(params, err => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve();
-            }
-        });
-    });
-}
+const yarnPromise = util.promisify(yarn);
 
 async function yarnSync(params) {
     let filePath = path.join('.', params[1], 'package.json');
