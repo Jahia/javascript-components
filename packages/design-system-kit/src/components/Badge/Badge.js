@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 
 const styles = theme => ({
     root: {
-        backgroundColor: theme.palette.brand.alpha,
-        color: theme.palette.invert.beta,
+        backgroundColor: theme.palette.ui.omega,
+        color: theme.palette.font.beta,
         margin: '0 ' + theme.spacing.unit + 'px',
         '& svg': {
             width: 14,
@@ -15,10 +15,10 @@ const styles = theme => ({
         }
     },
     normal: {
-        height: theme.spacing.unit * 2.75,
-        minWidth: theme.spacing.unit * 2.75,
-        borderRadius: theme.spacing.unit / 2,
-        padding: 0 + ' 4px'
+        height: theme.spacing.unit * 2.25,
+        minWidth: theme.spacing.unit * 2.25,
+        borderRadius: theme.spacing.unit,
+        padding: `0 ${theme.spacing.unit / 2}px`
     },
     dot: {
         height: theme.spacing.unit,
@@ -29,32 +29,37 @@ const styles = theme => ({
         }
     },
     circle: {
-        height: theme.spacing.unit * 2.75,
-        minWidth: theme.spacing.unit * 2.75,
+        height: theme.spacing.unit * 2.25,
+        minWidth: theme.spacing.unit * 2.25,
         borderRadius: '50%'
     },
     positionInline: {
         display: 'inline-block'
     },
     positionRelative: {},
-    colorPrimary: {
-        backgroundColor: theme.palette.brand.alpha,
-        color: theme.palette.invert.beta
+    colorSuccess: {
+        backgroundColor: theme.palette.support.iota,
+        color: theme.palette.support.beta
     },
-    colorInverted: {
-        backgroundColor: theme.palette.invert.beta
+    colorInfo: {
+        backgroundColor: theme.palette.brand.gamma,
+        color: theme.palette.brand.alpha
     },
-    colorValid: {
-        backgroundColor: theme.palette.support.beta
+    colorGhost: {
+        backgroundColor: theme.palette.ui.alpha,
+        color: theme.palette.font.gamma
     },
     colorWarning: {
-        backgroundColor: theme.palette.support.gamma
+        backgroundColor: theme.palette.support.zeta,
+        color: theme.palette.support.gamma
     },
     colorDanger: {
-        backgroundColor: theme.palette.support.delta
+        backgroundColor: theme.palette.support.omega,
+        color: theme.palette.support.delta
     },
     colorError: {
-        backgroundColor: theme.palette.support.alpha
+        backgroundColor: theme.palette.support.epsilon,
+        color: theme.palette.support.alpha
     },
     badge: {
         position: 'static',
@@ -85,7 +90,7 @@ const Badge = withStyles(styles, {name: 'DsBadge'})(
             {children}
             {icon}
         </MuiBadge>
-    ),
+    )
 );
 
 Badge.propTypes = process.env.NODE_ENV !== 'production' ? {

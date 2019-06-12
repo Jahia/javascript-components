@@ -103,21 +103,22 @@ const dsGenericPalette = {
         overwrite: '#e3a35b'
     },
 
-    // Palette v1.0.0
+    // Palette v0.2.0
     brand: {
         alpha: '#007CB0',
-        beta: '#00A0E3'
+        beta: '#00A0E3',
+        gamma: '#D3E9F3'
     },
     ui: {
         alpha: '#F6FAFC',
         beta: '#3B3D40',
-        gamma: '#1F262A',
-        delta: '#969AA0',
+        gamma: '#303234',
+        delta: '#6D737E',
         epsilon: '#FFFFFF',
-        omega: '#EEF2F4'
+        omega: '#E0E6EA'
     },
     field: {
-        alpha: '#F3F6F8'
+        alpha: '#F9FBFC'
     },
     invert: {
         alpha: '#131C21',
@@ -126,19 +127,23 @@ const dsGenericPalette = {
     font: {
         alpha: '#373C42',
         beta: '#525C65',
-        gamma: '#9197A0'
+        gamma: '#828892'
     },
     hover: {
         alpha: '#086992',
+        beta: '#F2F5F6',
         row: '#F2F5F6'
     },
     support: {
         alpha: '#E0182D',
         beta: '#0EA982',
-        gamma: '#EBBB12',
-        delta: '#E27A00'
+        gamma: '#E8B606',
+        delta: '#E27A00',
+        epsilon: '#FFD3D8',
+        iota: '#DBEFEA',
+        zeta: '#FFF6D5',
+        omega: '#FFE3C0'
     }
-
 };
 
 export {dsGenericPalette};

@@ -14,7 +14,7 @@
     "main": "js/index.js",
     "module": "esm/index.js",
     "typings": "esm/index.d.ts",
-    "browser": "lib/ds-mui-theme.umd.min.js",
+    "browser": "lib/design-system-kit.umd.min.js",
     "sideEffects": false,
     "license": "MIT",
     "peerDependencies": {
