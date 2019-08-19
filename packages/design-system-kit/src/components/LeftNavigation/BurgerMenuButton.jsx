@@ -45,7 +45,8 @@ export const BurgerMenuButton = ({classes, isDrawerOpen, t}) => {
 
 BurgerMenuButton.propTypes = {
     isDrawerOpen: PropTypes.bool,
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    t: PropTypes.func.isRequired
 };
 
 BurgerMenuButton.defaultProps = {
