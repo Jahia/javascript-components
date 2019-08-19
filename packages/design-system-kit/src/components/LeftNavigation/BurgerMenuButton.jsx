@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {translate} from 'react-i18next';
-import {withStyles} from '@material-ui/core';
+import {Tooltip, withStyles} from '@material-ui/core';
 import {compose} from 'recompose';
 import classNames from 'classnames';
 
@@ -17,17 +17,29 @@ const styles = () => ({
     }
 });
 
-export const BurgerMenuButton = ({classes, isDrawerOpen}) => {
+export const BurgerMenuButton = ({classes, isDrawerOpen, t}) => {
     function openMenu() {
         const clickEvent = window.top.document.createEvent('MouseEvents');
         clickEvent.initEvent('click', true, true);
         window.top.document.getElementsByClassName('editmode-managers-menu')[0].dispatchEvent(clickEvent);
     }
 
+    if (isDrawerOpen) {
+        return (
+            <div className={classNames(classes.menuButton, classes.menuButtonBlue)}
+                 data-sel-role="burger-menu"
+                 onClick={openMenu}/>
+        );
+    }
+
     return (
-        <div className={classNames(classes.menuButton, isDrawerOpen && classes.menuButtonBlue)}
-             data-sel-role="burger-menu"
-             onClick={openMenu}/>
+        <Tooltip title={t('label.tooltip.burgerMenu')}
+                 placement="right"
+        >
+            <div className={classNames(classes.menuButton)}
+                 data-sel-role="burger-menu"
+                 onClick={openMenu}/>
+        </Tooltip>
     );
 };
 
@@ -41,6 +53,6 @@ BurgerMenuButton.defaultProps = {
 };
 
 export default compose(
-    translate(),
+    translate('design-system-kit'),
     withStyles(styles, {name: 'DxBurgerMenuButton'})
 )(BurgerMenuButton);
