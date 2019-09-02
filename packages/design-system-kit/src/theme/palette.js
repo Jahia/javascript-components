@@ -115,7 +115,8 @@ const dsGenericPalette = {
         gamma: '#303234',
         delta: '#6D737E',
         epsilon: '#FFFFFF',
-        omega: '#E0E6EA'
+        omega: '#E0E6EA',
+        zeta: '#C1C8D5'
     },
     field: {
         alpha: '#F9FBFC'
