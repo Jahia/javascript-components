@@ -133,7 +133,7 @@ const ValueForwardInputCmp = React.forwardRef(({value, isInputControlled, ...oth
 
 ValueForwardInputCmp.propTypes = {
     isInputControlled: PropTypes.bool.isRequired,
-    value: PropTypes.object
+    value: PropTypes.string
 };
 
 ValueForwardInputCmp.defaultProps = {
