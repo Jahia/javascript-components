@@ -59,13 +59,13 @@ const InputCmp = React.forwardRef(({
     ...others
 }, ref) => {
     const [focus, setFocus] = useState(false);
-    const handleFocus = () => {
-        onFocus();
+    const handleFocus = e => {
+        onFocus(e);
         setFocus(true);
     };
 
-    const handleBlur = () => {
-        onBlur();
+    const handleBlur = e => {
+        onBlur(e);
         setFocus(false);
     };
 
@@ -120,12 +120,33 @@ const InputCmp = React.forwardRef(({
     );
 });
 
+const ValueForwardInputCmp = React.forwardRef(({value, isInputControlled, ...others}, ref) => {
+    return (
+        <InputCmp
+            ref={ref}
+            value={isInputControlled ? value : undefined}
+            defaultValue={!isInputControlled ? value : undefined}
+            {...others}
+        />
+    );
+});
+
+ValueForwardInputCmp.propTypes = {
+    isInputControlled: PropTypes.bool.isRequired,
+    value: PropTypes.object
+};
+
+ValueForwardInputCmp.defaultProps = {
+    value: undefined
+};
+
 const WrappedInputCmp = React.forwardRef(({decimalSeparator, decimalScale, type, ...others}, ref) => {
     if (type && type === 'number') {
         return (
             <NumberFormat
                 ref={ref}
-                customInput={InputCmp}
+                isInputControlled={others.value !== undefined}
+                customInput={ValueForwardInputCmp}
                 decimalScale={decimalScale}
                 decimalSeparator={decimalSeparator}
                 {...others}
