@@ -53,7 +53,7 @@ const styles = theme => ({
     },
     colorWarning: {
         backgroundColor: theme.palette.support.zeta,
-        color: theme.palette.support.gamma
+        color: theme.palette.support.delta
     },
     colorDanger: {
         backgroundColor: theme.palette.support.omega,
