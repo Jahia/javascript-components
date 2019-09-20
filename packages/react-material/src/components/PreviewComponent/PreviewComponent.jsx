@@ -55,7 +55,7 @@ const styles = theme => ({
 });
 
 class PreviewComponentCmp extends React.Component {
-    iframeLoadContent(assets, displayValue, element) {
+    iframeLoadContent(assets, displayValue, element, domLoadedCallback) {
         if (element) {
             let frameDoc = element.document;
             if (element.contentWindow) {
@@ -82,11 +82,15 @@ class PreviewComponentCmp extends React.Component {
                     iframeHeadEl.appendChild(linkEl);
                 });
             }
+
+            if (domLoadedCallback) {
+                domLoadedCallback(frameDoc);
+            }
         }
     }
 
     render() {
-        let {classes, t, data, workspace, fullScreen} = this.props;
+        let {classes, t, data, workspace, fullScreen, domLoadedCallback} = this.props;
         let displayValue = data && data.nodeByPath && data.nodeByPath.renderedContent ? data.nodeByPath.renderedContent.output : '';
         if (displayValue === '') {
             displayValue = t('label.contentManager.contentPreview.noViewAvailable');
@@ -137,7 +141,7 @@ class PreviewComponentCmp extends React.Component {
             >
                 <Paper elevation={1} classes={{root: classes.contentPaper}}>
                     <iframe key={data && data.nodeByPath ? data.nodeByPath.path : 'NoPreviewAvailable'}
-                            ref={element => this.iframeLoadContent(assets, displayValue, element)}
+                            ref={element => this.iframeLoadContent(assets, displayValue, element, domLoadedCallback)}
                             data-sel-role={workspace + '-preview-frame'}
                             className={classes.contentIframe}
                     />
@@ -148,7 +152,8 @@ class PreviewComponentCmp extends React.Component {
 }
 
 PreviewComponentCmp.defaultProps = {
-    fullScreen: false
+    fullScreen: false,
+    domLoadedCallback: null
 };
 
 PreviewComponentCmp.propTypes = {
@@ -156,7 +161,8 @@ PreviewComponentCmp.propTypes = {
     t: PropTypes.func.isRequired,
     data: PropTypes.object.isRequired,
     workspace: PropTypes.string.isRequired,
-    fullScreen: PropTypes.bool
+    fullScreen: PropTypes.bool,
+    domLoadedCallback: PropTypes.func
 };
 
 const PreviewComponent = compose(
