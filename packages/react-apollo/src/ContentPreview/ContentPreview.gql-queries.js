@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 import {PredefinedFragments} from '@jahia/apollo-dx';
 
-export const previewQuery = gql`query previewQueryByWorkspace($path: String!, $templateType: String!, $view: String!, $contextConfiguration: String!, $language: String!, $workspace: Workspace!) {
+export const previewQuery = gql`query previewQueryByWorkspace($path: String!, $templateType: String!, $view: String!, $contextConfiguration: String!, $language: String!, $workspace: Workspace!, $requestAttributes: [InputRenderRequestAttributeInput]) {
     jcr(workspace: $workspace) {
         nodeByPath(path: $path) {
             id: uuid
@@ -10,7 +10,7 @@ export const previewQuery = gql`query previewQueryByWorkspace($path: String!, $t
             lastModified: property(name: "jcr:lastModified", language: $language) {
                 value
             }
-            renderedContent(templateType: $templateType, view: $view, contextConfiguration: $contextConfiguration, language: $language) {
+            renderedContent(templateType: $templateType, view: $view, contextConfiguration: $contextConfiguration, language: $language, requestAttributes: $requestAttributes) {
                 output
                 staticAssets(type: "css") {
                     key
