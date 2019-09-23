@@ -21,8 +21,8 @@ const styles = theme => {
             border: `1px solid ${theme.palette.brand.alpha}`
         },
         readOnly: {
-            background: theme.palette.ui.epsilon,
-            border: `1px solid ${theme.palette.ui.omega}`
+            background: theme.palette.ui.alpha,
+            border: `1px solid ${theme.palette.ui.alpha}`
         },
         // Hack for disabled style as the default disabled style applies on both container AND input element.
         inputDisabled: {
