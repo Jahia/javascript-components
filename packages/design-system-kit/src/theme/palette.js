@@ -139,7 +139,7 @@ const dsGenericPalette = {
         alpha: '#E0182D',
         beta: '#0EA982',
         gamma: '#E8B606',
-        delta: '#E27A00',
+        delta: '#E26A00',
         epsilon: '#FFD3D8',
         iota: '#DBEFEA',
         zeta: '#FFF6D5',
