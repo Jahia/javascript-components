@@ -26,7 +26,11 @@ let styles = theme => ({
     },
     colorInverted: {},
     colorDefault: {},
-    select: {},
+    select: {
+        '&:focus': {
+            backgroundColor: 'transparent'
+        }
+    },
     selectMenu: {},
     icon: {
         top: 'calc(50% - 10px)'
