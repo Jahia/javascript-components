@@ -32,6 +32,9 @@ let styles = theme => ({
     },
     colorInvert: {
         color: theme.palette.invert.beta
+    },
+    colorZeta: {
+        color: theme.palette.ui.zeta
     }
 });
 
