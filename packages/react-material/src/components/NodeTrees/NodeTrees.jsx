@@ -15,9 +15,9 @@ const styles = () => ({
     }
 });
 
-const NodeTreesCmp = ({path, siteKey, classes, nodeTreeConfigs, setRefetch, children}) => {
-    const rootPath = '/sites/' + siteKey;
-    const usedPath = path.startsWith(rootPath) ? path : rootPath;
+const NodeTreesCmp = ({path, rootPath, siteKey, classes, nodeTreeConfigs, setRefetch, children}) => {
+    const root = rootPath || '/sites/' + siteKey;
+    const usedPath = path.startsWith(root) ? path : root;
 
     return (
         <div className={classes.listContainer}>
@@ -26,7 +26,7 @@ const NodeTreesCmp = ({path, siteKey, classes, nodeTreeConfigs, setRefetch, chil
                     <React.Fragment key={nodeTreeConfig.key}>
                         {children({
                             path: usedPath,
-                            rootPath: rootPath + nodeTreeConfig.rootPath,
+                            rootPath: nodeTreeConfig.rootPath.startsWith(root) ? nodeTreeConfig.rootPath : root + nodeTreeConfig.rootPath,
                             selectableTypes: nodeTreeConfig.selectableTypes,
                             dataCmRole: nodeTreeConfig.key,
                             openableTypes: nodeTreeConfig.openableTypes,
@@ -41,6 +41,7 @@ const NodeTreesCmp = ({path, siteKey, classes, nodeTreeConfigs, setRefetch, chil
 };
 
 NodeTreesCmp.defaultProps = {
+    rootPath: undefined,
     setRefetch: null
 };
 
@@ -50,6 +51,7 @@ NodeTreesCmp.propTypes = {
     siteKey: PropTypes.string.isRequired,
     nodeTreeConfigs: PropTypes.arrayOf(PropTypes.object).isRequired,
     children: PropTypes.func.isRequired,
+    rootPath: PropTypes.string,
     setRefetch: PropTypes.func
 };
 
