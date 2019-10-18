@@ -7,7 +7,7 @@ const styles = theme => {
     return {
         root: {
             borderRadius: '1px',
-            background: theme.palette.field.alpha,
+            background: theme.palette.ui.epsilon,
             border: `1px solid ${theme.palette.ui.omega}`,
             boxSizing: 'border-box',
             '&:hover:not($inputDisabled):not($focused):not($error):not($readOnly)': {
