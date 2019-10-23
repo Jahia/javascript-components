@@ -27,6 +27,7 @@ const styles = theme => ({
     topBarActions: {
         flex: '4 1 0%',
         width: 'min-content',
+        minWidth: 'max-content',
         display: 'flex',
         justifyContent: 'flex-end'
     },
