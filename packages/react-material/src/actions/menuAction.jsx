@@ -166,9 +166,11 @@ let display = (context, anchor) => {
                                     render={
                                         ({context}) => {
                                             context.parent.menuDisplayed = true;
+                                            const disabled = context.enabled !== null && context.enabled === false;
                                             return (
                                                 <MenuItem data-sel-role={context.key}
-                                                          disabled={context.enabled !== null && context.enabled === false}
+                                                          data-sel-disabled={disabled}
+                                                          disabled={disabled}
                                                           onClick={e => {
                                                               // First close all menu by closing main menu
                                                               let rootContext = context;
