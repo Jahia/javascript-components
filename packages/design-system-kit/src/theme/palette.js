@@ -133,7 +133,7 @@ const dsGenericPalette = {
     hover: {
         alpha: '#086992',
         beta: '#F2F5F6',
-        row: '#F2F5F6'
+        row: '#EFF2F3'
     },
     support: {
         alpha: '#E0182D',
