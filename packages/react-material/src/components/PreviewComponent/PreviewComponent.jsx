@@ -90,7 +90,7 @@ class PreviewComponentCmp extends React.Component {
     }
 
     render() {
-        let {classes, t, data, workspace, fullScreen, domLoadedCallback, iFrameStyle} = this.props;
+        let {classes, t, data, workspace, fullScreen, domLoadedCallback, iFrameStyle, iframeProps} = this.props;
         let displayValue = data && data.nodeByPath && data.nodeByPath.renderedContent ? data.nodeByPath.renderedContent.output : '';
         if (displayValue === '') {
             displayValue = t('label.contentManager.contentPreview.noViewAvailable');
@@ -144,6 +144,7 @@ class PreviewComponentCmp extends React.Component {
                             ref={element => this.iframeLoadContent(assets, displayValue, element, domLoadedCallback, iFrameStyle)}
                             data-sel-role={workspace + '-preview-frame'}
                             className={classes.contentIframe}
+                            {...iframeProps}
                     />
                 </Paper>
             </div>
@@ -154,7 +155,8 @@ class PreviewComponentCmp extends React.Component {
 PreviewComponentCmp.defaultProps = {
     fullScreen: false,
     domLoadedCallback: null,
-    iFrameStyle: ''
+    iFrameStyle: '',
+    iframeProps: {}
 };
 
 PreviewComponentCmp.propTypes = {
@@ -164,7 +166,8 @@ PreviewComponentCmp.propTypes = {
     workspace: PropTypes.string.isRequired,
     fullScreen: PropTypes.bool,
     domLoadedCallback: PropTypes.func,
-    iFrameStyle: PropTypes.string
+    iFrameStyle: PropTypes.string,
+    iframeProps: PropTypes.object
 };
 
 const PreviewComponent = compose(
