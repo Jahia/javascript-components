@@ -38,7 +38,7 @@ let styles = theme => ({
 });
 
 export const MainLayout = ({classes, topBarProps, help, children}) => (
-    <div className={classes.root}>
+    <main className={classes.root}>
         {help &&
         <div className={classes.metaNav}>
             <Typography variant="overline" color="inherit">{help}</Typography>
@@ -50,7 +50,7 @@ export const MainLayout = ({classes, topBarProps, help, children}) => (
         <div className={classes.content}>
             {children}
         </div>
-    </div>
+    </main>
 );
 
 MainLayout.propTypes = {
