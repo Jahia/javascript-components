@@ -47,7 +47,7 @@ const styles = theme => ({
     }
 });
 
-export const TopBar = ({classes, title, contextModifiers, path, actions}) => (
+export const TopBar = ({classes, title, titleProps, contextModifiers, path, actions}) => (
     <div className={classes.root} data-sel-role="top-bar">
         <div className={classes.topBarContext}>
             <div>
@@ -60,6 +60,8 @@ export const TopBar = ({classes, title, contextModifiers, path, actions}) => (
                             color="invert"
                             className={classes.typoTitle}
                             data-sel-role="top-bar-title"
+                            component="h2"
+                            {...titleProps}
                 >
                     {title}
                 </Typography>
@@ -81,12 +83,14 @@ TopBar.propTypes = {
     classes: PropTypes.object.isRequired,
     contextModifiers: PropTypes.node.isRequired,
     path: PropTypes.node,
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    titleProps: PropTypes.object
 };
 
 TopBar.defaultProps = {
     actions: null,
-    path: null
+    path: null,
+    titleProps: {}
 };
 
 export default compose(
