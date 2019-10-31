@@ -79,8 +79,7 @@ class PickerTreeViewMaterialCmp extends React.Component {
         return (
             <div className={classes.root}>
                 {loading &&
-                <CircularProgress classes={{root: classes.loading}}/>
-                }
+                <CircularProgress classes={{root: classes.loading}}/>}
                 <List disablePadding classes={{root: classes.root}}>
                     {
                         sortedEntries.map(entry => {
@@ -216,6 +215,7 @@ PickerTreeViewMaterialCmp.propTypes = {
     classes: PropTypes.object.isRequired,
     dataCmRole: PropTypes.string.isRequired,
     iconRenderer: PropTypes.func,
+    // eslint-disable-next-line react/boolean-prop-naming
     loading: PropTypes.bool.isRequired,
     onOpenItem: PropTypes.func,
     onSelectItem: PropTypes.func,

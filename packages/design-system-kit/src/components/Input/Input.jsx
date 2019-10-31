@@ -176,8 +176,11 @@ InputCmp.defaultProps = {
 InputCmp.propTypes = {
     classes: PropTypes.object.isRequired,
     defaultValue: PropTypes.string,
+    // eslint-disable-next-line react/boolean-prop-naming
     disabled: PropTypes.bool,
+    // eslint-disable-next-line react/boolean-prop-naming
     error: PropTypes.bool,
+    // eslint-disable-next-line react/boolean-prop-naming
     fullWidth: PropTypes.bool,
     id: PropTypes.string,
     inputProps: PropTypes.object,
@@ -185,6 +188,7 @@ InputCmp.propTypes = {
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
+    // eslint-disable-next-line react/boolean-prop-naming
     readOnly: PropTypes.bool,
     value: PropTypes.string,
     variant: PropTypes.shape({

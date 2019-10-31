@@ -44,8 +44,8 @@ module.exports = {
             maximum: 1,
             when: 'multiline'
         }],
-        'react/require-default-props': [
-            'ignore'
-        ]
+        'react/require-default-props': 0,
+        'react/static-property-placement': 0,
+        'react/state-in-constructor': 0
     }
 };

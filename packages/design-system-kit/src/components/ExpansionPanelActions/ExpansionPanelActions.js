@@ -25,7 +25,7 @@ let styles = theme => ({
 const getClasses = ({variant, classes: {root, action, ...dsClasses}}) => ({
     root: classnames(
         root,
-        dsClasses[variant],
+        dsClasses[variant]
     ),
     action
 });

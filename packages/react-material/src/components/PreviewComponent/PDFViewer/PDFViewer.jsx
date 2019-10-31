@@ -209,6 +209,7 @@ export class PDFViewer extends React.Component {
 PDFViewer.propTypes = {
     classes: PropTypes.object.isRequired,
     file: PropTypes.string.isRequired,
+    // eslint-disable-next-line react/boolean-prop-naming
     fullScreen: PropTypes.bool.isRequired
 };
 

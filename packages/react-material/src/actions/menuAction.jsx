@@ -109,8 +109,7 @@ let display = (context, anchor) => {
                               context.currentMenuHandler.setProps({className: displayed ? '' : context.classes.empty});
                           }
                       };
-                  }
-                  }
+                  }}
                   BackdropProps={{
                       invisible: true,
                       onContextMenu: e => {
@@ -153,15 +152,13 @@ let display = (context, anchor) => {
             <I18n>{t => (
                 <React.Fragment>
                     {context.menuEmptyMessage &&
-                        <MenuItem disabled classes={{root: context.classes.emptyMenuItem}}>{t(context.menuEmptyMessage)}</MenuItem>
-                    }
+                        <MenuItem disabled classes={{root: context.classes.emptyMenuItem}}>{t(context.menuEmptyMessage)}</MenuItem>}
                     <DisplayActions ref={r => setActionsRef(r, context)}
                                     context={{
                                         ...context.originalContext,
                                         displayDisabled: context.menuDisplayDisabled,
                                         parent: context
-                                    }
-                                    }
+                                    }}
                                     filter={context.menuFilter}
                                     render={
                                         ({context}) => {
@@ -197,15 +194,12 @@ let display = (context, anchor) => {
                                                               context.onMouseLeave(context, e);
                                                           })}
                                                 >
-                                                    {/* eslint-disable-next-line */}
                                                     {showIcons &&
                                                         <ListItemIcon>
                                                             {context.buttonIcon ?
                                                                 toIconComponent(context.buttonIcon) :
-                                                                <span className={noIconClass}/>
-                                                            }
-                                                        </ListItemIcon>
-                                                    }
+                                                                <span className={noIconClass}/>}
+                                                        </ListItemIcon>}
                                                     {/* eslint-disable-next-line react/no-danger */}
                                                     <span dangerouslySetInnerHTML={{__html: t(context.buttonLabel, context.buttonLabelParams)}}/>
                                                     {context.icon}

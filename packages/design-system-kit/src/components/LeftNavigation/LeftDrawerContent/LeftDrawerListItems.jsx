@@ -43,8 +43,7 @@ export const LeftDrawerListItems = ({context, actionPath, classes, t}) => (
                                                 <ExpandMore fontSize="small"/> :
                                                 <ChevronRight fontSize="small"/>
                                             ) :
-                                            null
-                                        }
+                                            null}
                                     </div>
                                     {icon}
                                     &nbsp;
@@ -73,5 +72,5 @@ LeftDrawerListItems.propTypes = {
 
 export default compose(
     translate(),
-    withStyles(styles),
+    withStyles(styles)
 )(LeftDrawerListItems);

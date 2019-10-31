@@ -79,6 +79,7 @@ class GenericDialogMutationCmp extends React.Component {
 
 GenericDialogMutationCmp.propTypes = {
     dialogData: PropTypes.object.isRequired,
+    // eslint-disable-next-line react/boolean-prop-naming
     open: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
     onExited: PropTypes.func.isRequired,

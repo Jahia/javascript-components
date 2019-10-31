@@ -98,8 +98,7 @@ export const LeftNavigation = ({context, classes, actionsTarget, secondaryAction
             >
                 <div className={classes.drawerTree}>
                     {drawer.drawerContent &&
-                    drawer.drawerContent.content
-                    }
+                    drawer.drawerContent.content}
                 </div>
             </Drawer>
         </div>
@@ -115,5 +114,5 @@ LeftNavigation.propTypes = {
 };
 
 export default compose(
-    withStyles(styles, {withTheme: true}),
+    withStyles(styles, {withTheme: true})
 )(LeftNavigation);

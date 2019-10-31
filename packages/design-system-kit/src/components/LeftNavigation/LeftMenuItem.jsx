@@ -72,14 +72,14 @@ export const LeftMenuItem = ({classes, t, drawer, context}) => {
                 >
                     {Content}
                 </Badge> :
-                Content
-            }
+                Content}
         </Button>
     );
 };
 
 LeftMenuItem.propTypes = {
     context: PropTypes.object.isRequired,
+    // eslint-disable-next-line react/boolean-prop-naming
     drawer: PropTypes.bool.isRequired,
     classes: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired

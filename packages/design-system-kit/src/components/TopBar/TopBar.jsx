@@ -73,8 +73,7 @@ export const TopBar = ({classes, title, titleProps, contextModifiers, path, acti
         {actions &&
         <div className={classes.topBarActions}>
             {actions}
-        </div>
-        }
+        </div>}
     </div>
 );
 

@@ -86,6 +86,7 @@ DocumentViewer.propTypes = {
     classes: PropTypes.object.isRequired,
     file: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
+    // eslint-disable-next-line react/boolean-prop-naming
     fullScreen: PropTypes.bool
 };
 

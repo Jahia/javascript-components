@@ -118,7 +118,8 @@ function withNotifications() {
                     <NotificationConsumer>{
                         notificationContext => (
                             <WrappedComponent notificationContext={notificationContext} {...this.props}/>
-                        )}
+                        )
+}
                     </NotificationConsumer>
                 );
             }

@@ -103,14 +103,16 @@ class SearchBarCmp extends React.Component {
                         <IconButton disabled>
                             <Search/>
                         </IconButton>
-                    </InputAdornment>}
+                    </InputAdornment>
+}
                 endAdornment={
                        this.state.focus ?
                            <InputAdornment position="end" classes={{root: classes.closeIcon}}>
                                <IconButton onClick={this.onClear}>
                                    <Icon><Close/></Icon>
                                </IconButton>
-                           </InputAdornment> : null}
+                           </InputAdornment> : null
+}
                 style={this.props.style}
                 onChange={this.handleChange}
                 onBlur={this.onBlur}
