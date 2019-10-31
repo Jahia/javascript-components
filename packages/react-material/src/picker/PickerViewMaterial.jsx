@@ -131,6 +131,7 @@ PickerViewMaterial.propTypes = {
     onOpenItem: PropTypes.func,
     textRenderer: PropTypes.func,
     iconRenderer: PropTypes.func,
+    // eslint-disable-next-line react/boolean-prop-naming
     loading: PropTypes.bool.isRequired,
     classes: PropTypes.object.isRequired
 };

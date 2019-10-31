@@ -76,6 +76,7 @@ const client = function (options) {
     };
 
     // Add JCRNode cache resolvers:
+    // eslint-disable-next-line no-unused-vars
     for (let typeName of fragmentMatcher.possibleTypesMap.JCRNode) {
         cacheResolvers[typeName] = {
             nodeInWorkspace: (_, args) => {
@@ -131,7 +132,7 @@ const client = function (options) {
             return kind === 'OperationDefinition' && operation === 'subscription';
         },
         sseLink,
-        httpLink,
+        httpLink
     );
     return new ApolloClient({
         link: ssrMode ? ssrLink : (options.link ? options.link : link),

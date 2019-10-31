@@ -76,7 +76,7 @@ const getClasses = ({variant, color, position, classes: {root, badge, ...myClass
         root,
         myClasses[variant],
         myClasses['color' + _.capitalize(color)],
-        myClasses['position' + _.capitalize(position)],
+        myClasses['position' + _.capitalize(position)]
     ),
     badge
 });

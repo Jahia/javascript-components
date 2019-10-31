@@ -76,6 +76,7 @@ class SiteInfo extends React.Component {
             let siteData = data.jcr ? data.jcr.result.site : data.wsDefault.result.site;
             siteDisplayableName = siteData.displayName;
             let siteLanguages = siteData.languages;
+            // eslint-disable-next-line no-unused-vars
             for (let i in siteLanguages) {
                 if (siteLanguages[i].activeInEdit) {
                     parsedSiteLanguages.push(siteLanguages[i]);

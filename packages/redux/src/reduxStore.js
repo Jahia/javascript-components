@@ -12,7 +12,7 @@ const reduxStore = (function () {
         });
     }
 
-    return createStore((state = {}, action) => _.mapValues(reducers, (value, key) => value(state[key], action)), debugTool);
+    return createStore((state = {}, action = null) => _.mapValues(reducers, (value, key) => value(state[key], action)), debugTool);
 })();
 
 const resetStateReducer = function (state, action) {

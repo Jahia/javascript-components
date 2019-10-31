@@ -75,6 +75,7 @@ export default compose(
 AppLayout.propTypes = {
     children: PropTypes.element.isRequired,
     classes: PropTypes.object.isRequired,
+    // eslint-disable-next-line react/boolean-prop-naming
     expanded: PropTypes.bool,
     leftNavigationProps: PropTypes.object.isRequired
 };
@@ -82,4 +83,3 @@ AppLayout.propTypes = {
 AppLayout.defaultProps = {
     expanded: false
 };
-

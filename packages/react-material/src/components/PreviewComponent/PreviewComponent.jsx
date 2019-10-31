@@ -164,6 +164,7 @@ PreviewComponentCmp.propTypes = {
     t: PropTypes.func.isRequired,
     data: PropTypes.object.isRequired,
     workspace: PropTypes.string.isRequired,
+    // eslint-disable-next-line react/boolean-prop-naming
     fullScreen: PropTypes.bool,
     domLoadedCallback: PropTypes.func,
     iFrameStyle: PropTypes.string,

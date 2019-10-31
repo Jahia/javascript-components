@@ -60,5 +60,5 @@ ToolBar.propTypes = {
 };
 
 export default compose(
-    withStyles(styles, {withTheme: true}),
+    withStyles(styles, {withTheme: true})
 )(ToolBar);

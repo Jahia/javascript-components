@@ -67,8 +67,7 @@ class Option extends React.Component {
                 {data.icon !== null &&
                 <ListItemIcon>
                     <img src={data.icon + '.png'}/>
-                </ListItemIcon>
-                }
+                </ListItemIcon>}
                 <ListItemText>
                     {children}
                 </ListItemText>

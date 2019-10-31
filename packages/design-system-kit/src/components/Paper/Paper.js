@@ -19,7 +19,7 @@ let styles = theme => ({
 const getClasses = ({color, classes: {root, ...myClasses}}) => ({
     root: classnames(
         root,
-        myClasses['color' + _.capitalize(color)],
+        myClasses['color' + _.capitalize(color)]
     )
 });
 

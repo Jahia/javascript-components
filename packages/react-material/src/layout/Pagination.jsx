@@ -35,7 +35,7 @@ class TablePaginationActionsCmp extends React.Component {
 
     handleLastPageButtonClick(event) {
         this.props.onChangePage(event,
-            Math.max(0, Math.ceil(this.props.count / this.props.rowsPerPage) - 1),
+            Math.max(0, Math.ceil(this.props.count / this.props.rowsPerPage) - 1)
         );
     }
 

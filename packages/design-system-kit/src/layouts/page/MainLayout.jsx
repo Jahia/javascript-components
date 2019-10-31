@@ -42,8 +42,7 @@ export const MainLayout = ({classes, topBarProps, help, children}) => (
         {help &&
         <div className={classes.metaNav}>
             <Typography variant="overline" color="inherit">{help}</Typography>
-        </div>
-        }
+        </div>}
         <div className={classes.topBar}>
             <TopBar {...topBarProps}/>
         </div>

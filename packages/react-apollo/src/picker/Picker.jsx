@@ -420,6 +420,7 @@ Picker.propTypes = {
      */
     queryVariables: PropTypes.object,
 
+    // eslint-disable-next-line react/boolean-prop-naming
     hideRoot: PropTypes.bool,
     children: PropTypes.func,
     onOpenItem: PropTypes.func,
