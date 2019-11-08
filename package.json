@@ -5,12 +5,18 @@
     "scripts": {
         "clean": "rm -rf packages/**/build/",
         "lerna-bootstrap": "yarn install && lerna bootstrap --ci",
-        "build": "npm run lint && npm run test && lerna run build",
+        "build": "yarn lint && yarn test && lerna run build",
         "publish": "lerna run publish-script",
         "lint": "eslint --ext js,jsx .",
         "lint:fix": "yarn lint --fix .",
         "test": "lerna --scope @jahia/test-framework run build && jest --coverage",
         "tdd": "jest --watch"
+    },
+    "husky": {
+      "hooks": {
+        "pre-commit": "yarn lint",
+        "pre-push": "yarn test"
+      }
     },
     "license": "MIT",
     "devDependencies": {
@@ -46,6 +52,7 @@
         "eslint-plugin-jest": "^23.0.2",
         "eslint-plugin-react": "^7.16.0",
         "eslint-plugin-react-hooks": "^2.2.0",
+        "husky": "^3.0.5",
         "jest": "^24.7.1",
         "lerna": "^2.11.0",
         "postcss-cssnext": "^3.0.2",
