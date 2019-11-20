@@ -2,9 +2,9 @@ import * as _ from 'lodash';
 
 function composeServices() {
     let actions = Array.prototype.slice.call(arguments);
-    return _.reduce(actions, (acc, action) => {
+    return actions.reduce((acc, action) => {
         if (action) {
-            _.forEach(action, (value, key) => {
+            Object.entries(action).forEach(([key, value]) => {
                 let previous = acc[key];
                 if (typeof previous === 'function') {
                     acc[key] = () => {
