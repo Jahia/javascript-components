@@ -84,7 +84,7 @@ const initRegistry = () => {
                 clearInterval(t);
             };
         });
-        return (context.path === '/test') && (
+        return (value > 2) && (
             <Render context={{
                 ...context,
                 label: context.label + value,
@@ -127,7 +127,17 @@ storiesOf('DisplayAction', module)
     })
     .addDecorator(withKnobs)
     .add('Simple action', () => (
-        <DisplayAction actionKey="test-action-1" context={{path: '/test'}} render={ButtonRenderer}/>
+        <>
+            <div>
+                /test1 : <DisplayAction actionKey="test-action-1" context={{path: '/test1'}} render={ButtonRenderer}/><DisplayAction actionKey="test-action-2" context={{path: '/test1'}} render={ButtonRenderer}/>
+            </div>
+            <div>
+                /test2 : <DisplayAction actionKey="test-action-1" context={{path: '/test2'}} render={ButtonRenderer}/><DisplayAction actionKey="test-action-2" context={{path: '/test1'}} render={ButtonRenderer}/>
+            </div>
+            <div>
+                /test3 : <DisplayAction actionKey="test-action-1" context={{path: '/test3'}} render={ButtonRenderer}/><DisplayAction actionKey="test-action-2" context={{path: '/test1'}} render={ButtonRenderer}/>
+            </div>
+        </>
     ))
     .add('Renderer', () => (
         <DisplayAction actionKey="test-action-1" context={{path: '/test'}} render={LinkRenderer}/>
