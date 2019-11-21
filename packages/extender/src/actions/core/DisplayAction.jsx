@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {registry} from '../../registry';
 import * as _ from 'lodash';
-import {Observable, combineLatest, of} from 'rxjs';
+import {combineLatest, Observable, of} from 'rxjs';
 import {first} from 'rxjs/operators';
 
 let count = 0;
@@ -22,9 +22,9 @@ class StateActionComponent extends React.Component {
                 return enhancedContext.actions.map(action => (
                     <Render key={action.key}
                             context={{
-                    ...enhancedContext,
-                    ...action
-                }}/>
+                                ...enhancedContext,
+                                ...action
+                            }}/>
                 ));
             }
 
@@ -44,8 +44,7 @@ class DisplayActionComponent extends React.Component {
     constructor(props) {
         super(props);
         this.innerRef = React.createRef();
-        this.state = {
-        };
+        this.state = {};
     }
 
     render() {
@@ -132,9 +131,13 @@ class DisplayAction extends React.Component {
         let {actionKey} = this.props;
         let action = registry.get('action', actionKey);
 
+        if (!action) {
+            throw new Error('Cannot find action ' + actionKey);
+        }
+
         let Component;
-        if (typeof action === 'function') {
-            Component = action;
+        if (typeof action.component === 'function') {
+            Component = action.component;
         } else {
             Component = DisplayActionComponent;
 
@@ -159,12 +162,15 @@ class DisplayAction extends React.Component {
         let action = registry.get('action', actionKey);
         let Component = this.Component;
 
-        if (typeof action === 'function') {
-            return <Component key={this.id} id={this.id} render={render} actionKey={actionKey} originalContext={context} {...context}/>;
-        }
-
         let enhancedContext = {...action, ...context, originalContext: context, id: this.id, actionKey};
-        return <Component key={this.id} context={enhancedContext} render={render} actionKey={actionKey} observerRef={observerRef}/>;
+        return (
+            <Component key={this.id}
+                       context={enhancedContext}
+                       render={render}
+                       actionKey={actionKey}
+                       observerRef={observerRef}
+            />
+        );
     }
 }
 
