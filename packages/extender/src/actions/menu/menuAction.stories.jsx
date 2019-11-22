@@ -8,11 +8,11 @@ import {ComponentRendererProvider} from '../componentRenderer';
 import {menuAction} from './menuAction';
 import {action} from '@storybook/addon-actions';
 
-const MenuRenderer = ({parentMenuContext, anchor, isOpen, onClose, onExited, onMouseEnter, onMouseLeave, children}) => {
+const MenuRenderer = ({isSubMenu, anchor, isOpen, onClose, onExited, onMouseEnter, onMouseLeave, children}) => {
     return (
         <>
             {
-                !parentMenuContext &&
+                !isSubMenu &&
                 <div style={{
                     position: 'absolute',
                     width: '100%',
@@ -55,7 +55,7 @@ MenuRenderer.defaultValues = {
 };
 
 MenuRenderer.propTypes = {
-    parentMenuContext: PropTypes.object,
+    isSubMenu: PropTypes.bool.isRequired,
     isOpen: PropTypes.bool.isRequired,
     anchor: PropTypes.object.isRequired,
     onExited: PropTypes.func.isRequired,
@@ -65,22 +65,19 @@ MenuRenderer.propTypes = {
     children: PropTypes.node.isRequired
 };
 
-const MenuItemRenderer = ({context}) => {
+const MenuItemRenderer = ({context, onClick, onMouseEnter, onMouseLeave}) => {
     return (
-        <div style={{margin: 5}}
-             onClick={event => {
-                 context.onClick(context, event);
-             }}
-             onMouseEnter={context.onMouseEnter}
-             onMouseLeave={context.onMouseLeave}
-        >
+        <div style={{margin: 5}} onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
             {context.label}
         </div>
     );
 };
 
 MenuItemRenderer.propTypes = {
-    context: PropTypes.object.isRequired
+    context: PropTypes.object.isRequired,
+    onClick: PropTypes.func.isRequired,
+    onMouseEnter: PropTypes.func.isRequired,
+    onMouseLeave: PropTypes.func.isRequired
 };
 
 const initRegistry = () => {

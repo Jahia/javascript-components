@@ -1,10 +1,11 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {DisplayActions} from '../core/DisplayActions';
 import {registry} from '../../registry';
 import {withKnobs} from '@storybook/addon-knobs';
 import PropTypes from 'prop-types';
-import {ComponentRendererContext, ComponentRendererProvider} from './ComponentRenderer';
+import {ComponentRendererProvider} from './ComponentRenderer';
+import {componentRendererAction} from './componentRenderAction';
 
 const Modal = ({text, onClose}) => (
     <>
@@ -42,30 +43,23 @@ Modal.propTypes = {
     onClose: PropTypes.func.isRequired
 };
 
-const OpenModalComponent = ({context, render: Render}) => {
-    const componentRenderer = useContext(ComponentRendererContext);
+const MyModal = ({context}) => {
     return (
-        <Render context={{
-            ...context,
-            onClick: context => componentRenderer.render('test',
-                <Modal text={context.content}
-                       onClose={() => componentRenderer.destroy('test')}
-                />
-            )
-        }}/>
+        <Modal text={context.content} onClose={context.componentRendererContext.handleDestroy}/>
     );
 };
 
-OpenModalComponent.propTypes = {
-    context: PropTypes.object.isRequired,
-    render: PropTypes.func.isRequired
+MyModal.propTypes = {
+    context: PropTypes.object.isRequired
 };
 
 const initRegistry = () => {
     registry.clear();
 
-    const openModalAction = registry.add('action', 'base-component', {
-        component: OpenModalComponent
+    const openModalAction = registry.add('action', 'base-component', componentRendererAction, {
+        componentRendererContext: {
+            componentToRender: MyModal
+        }
     });
 
     registry.add('action', 'renderer1', openModalAction, {

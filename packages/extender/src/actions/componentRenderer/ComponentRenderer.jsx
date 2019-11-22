@@ -22,7 +22,7 @@ class ComponentRendererProvider extends Component {
                 newState.componentsProps[key] = {...props};
                 return newState;
             }),
-            setProps: (key, props) => this.setState(previous => {
+            setProperties: (key, props) => this.setState(previous => {
                 let newState = {
                     componentsProps: {...previous.componentsProps}
                 };
@@ -42,7 +42,7 @@ class ComponentRendererProvider extends Component {
     }
 
     render() {
-        let components = _.values(_.map(this.state.components, (component, key) => React.cloneElement(component, {key, ...this.state.componentsProps[key]})));
+        let components = _.values(_.map(this.state.components, (component, key) => React.createElement(component, {key, ...this.state.componentsProps[key]})));
         return (
             <ComponentRendererContext.Provider value={this.value}>
                 {components}
