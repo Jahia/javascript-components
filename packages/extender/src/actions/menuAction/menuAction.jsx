@@ -1,10 +1,10 @@
 import React, {useContext, useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {ComponentRendererContext} from '../componentRenderer';
+import {ComponentRendererContext} from '../../ComponentRenderer';
 import {DisplayActions} from '../core/DisplayActions';
 
 const Menu = ({context, menuContext, anchor, isOpen, onExited}) => {
-    const {menu, menuRenderer: MenuRenderer, menuItemRenderer: MenuItemRenderer, originalContext, parentMenuContext} = context;
+    const {menuTarget, menuFilter, menuRenderer: MenuRenderer, menuItemRenderer: MenuItemRenderer, originalContext, parentMenuContext} = context;
     const {onClose, rootMenuContext} = menuContext;
 
     return (
@@ -21,7 +21,8 @@ const Menu = ({context, menuContext, anchor, isOpen, onExited}) => {
                       onExited={onExited}
         >
             <DisplayActions
-                target={menu}
+                target={menuTarget}
+                filter={menuFilter}
                 context={{
                     originalContext,
                     parentMenuContext: context.menuContext,

@@ -1,25 +1,25 @@
 import React, {useContext, useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {ComponentRendererContext} from '../componentRenderer';
+import {ComponentRendererContext} from '../../ComponentRenderer';
 
 const ComponentRendererActionComponent = ({context, render: Render}) => {
     const componentRenderer = useContext(ComponentRendererContext);
 
     context.componentRendererContext = context.componentRendererContext || {};
-    const ctx = context.componentRendererContext;
+    const componentRendererContext = context.componentRendererContext;
 
     useEffect(() => {
-        ctx.id = 'actionComponent-' + context.id;
-        ctx.render = (component, properties) => {
-            componentRenderer.render(ctx.id, component, {context: context, ...properties});
+        componentRendererContext.id = 'actionComponent-' + context.id;
+        componentRendererContext.render = (component, properties) => {
+            componentRenderer.render(componentRendererContext.id, component, {context: context, ...properties});
         };
 
-        ctx.handleDestroy = () => {
-            componentRenderer.destroy(ctx.id);
+        componentRendererContext.handleDestroy = () => {
+            componentRenderer.destroy(componentRendererContext.id);
         };
 
-        ctx.setProperties = properties => {
-            componentRenderer.setProperties(ctx.id, properties);
+        componentRendererContext.setProperties = properties => {
+            componentRenderer.setProperties(componentRendererContext.id, properties);
         };
     });
 
@@ -28,7 +28,7 @@ const ComponentRendererActionComponent = ({context, render: Render}) => {
             <Render
                 context={{
                     ...context,
-                    onClick: () => context.componentRendererContext.render(context.componentRendererContext.componentToRender)
+                    onClick: () => context.componentRendererContext.render(context.componentToRender)
                 }}
             />
         );
