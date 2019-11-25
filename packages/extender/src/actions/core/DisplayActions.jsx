@@ -28,9 +28,24 @@ DisplayActions.defaultProps = {
 };
 
 DisplayActions.propTypes = {
+    /**
+     * The target from which the items will be selected
+     */
     target: PropTypes.string.isRequired,
+
+    /**
+     * The action context
+     */
     context: PropTypes.object.isRequired,
+
+    /**
+     * The render component
+     */
     render: PropTypes.func.isRequired,
+
+    /**
+     * Additional filter function
+     */
     filter: PropTypes.func
 };
 

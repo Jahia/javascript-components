@@ -16,12 +16,13 @@ storiesOf('actions|DisplayAction', module)
     .addDecorator(withKnobs)
     .add('default', () => {
         registry.addOrReplace('action', 'test-action-1', {
-            label: 'test action 1',
+            label: 'Simple action',
             onClick: context => window.alert('action 1 on ' + context.path) // eslint-disable-line no-alert
         });
 
         return (
             <>
+                <div className="description">Display a single action</div>
                 <div>
                     <DisplayAction actionKey="test-action-1" context={{path: '/test1'}} render={ButtonRenderer}/>
                 </div>
@@ -39,8 +40,9 @@ storiesOf('actions|DisplayAction', module)
         });
         return (
             <>
+                <div className="description">Display multiple actions with different contexts</div>
                 <div>
-                    <span>path = /test1</span>
+                    <span style={{margin: '10px'}}>path = /test1</span>
                     <DisplayAction actionKey="test-action-1"
                                    context={{path: '/test1'}}
                                    render={ButtonRenderer}/>
@@ -49,7 +51,7 @@ storiesOf('actions|DisplayAction', module)
                                    render={ButtonRenderer}/>
                 </div>
                 <div>
-                    <span>path = /test2</span>
+                    <span style={{margin: '10px'}}>path = /test2</span>
                     <DisplayAction actionKey="test-action-1"
                                    context={{path: '/test2'}}
                                    render={ButtonRenderer}/>
@@ -58,7 +60,7 @@ storiesOf('actions|DisplayAction', module)
                                    render={ButtonRenderer}/>
                 </div>
                 <div>
-                    <span>path = /test3</span>
+                    <span style={{margin: '10px'}}>path = /test3</span>
                     <DisplayAction actionKey="test-action-1"
                                    context={{path: '/test3'}}
                                    render={ButtonRenderer}/>
@@ -84,8 +86,10 @@ storiesOf('actions|DisplayAction', module)
 
         return (
             <>
+                <div className="description">Create a new action by extending an existing action and adding information
+                    in context
+                </div>
                 <div>
-                    <span>path = /test1</span>
                     <DisplayAction actionKey="compose-1"
                                    context={{path: '/test1'}}
                                    render={ButtonRenderer}/>
@@ -104,14 +108,17 @@ storiesOf('actions|DisplayAction', module)
 
         return (
             <>
+                <div className="description">
+                    The same action can be rendered differently, depending on the render property
+                </div>
                 <div>
-                    <span>Button renderer : </span>
+                    <span style={{margin: '10px'}}>Button renderer : </span>
                     <DisplayAction actionKey="test-action-1"
                                    context={{path: '/test'}}
                                    render={ButtonRenderer}/>
                 </div>
                 <div>
-                    <span>Link renderer : </span>
+                    <span style={{margin: '10px'}}>Link renderer : </span>
                     <DisplayAction actionKey="test-action-1"
                                    context={{path: '/test'}}
                                    render={LinkRenderer}/>
@@ -138,6 +145,10 @@ storiesOf('actions|DisplayAction', module)
         });
         return (
             <>
+                <div className="description">
+                    Action rendering is fully handled by a dedicated component, delegating to render for displaying the
+                    button
+                </div>
                 <div>
                     <DisplayAction actionKey="component-1" context={{path: '/test1'}} render={ButtonRenderer}/>
                 </div>
@@ -176,8 +187,45 @@ storiesOf('actions|DisplayAction', module)
 
         return (
             <>
+                <div className="description">
+                    An action can render asynchronously and update its context
+                </div>
                 <div>
                     <DisplayAction actionKey="async" context={{path: '/test1'}} render={ButtonRenderer}/>
+                </div>
+            </>
+        );
+    })
+    .add('Spawn actions', () => {
+        const SpawnActionsComponent = ({context, render: Render}) => {
+            return context.names.map(name => (
+                <Render key={name}
+                        context={{
+                            ...context,
+                            label: context.label + ' ' + name,
+                            onClick: () => window.alert('Spawn action ' + name) // eslint-disable-line no-alert
+                        }}/>
+            ));
+        };
+
+        SpawnActionsComponent.propTypes = {
+            context: PropTypes.object.isRequired,
+            render: PropTypes.func.isRequired
+        };
+
+        registry.addOrReplace('action', 'spawn', {
+            label: 'child action',
+            names: ['child1', 'child2', 'child3'],
+            component: SpawnActionsComponent
+        });
+
+        return (
+            <>
+                <div className="description">
+                    A single action can spawn multiple buttons
+                </div>
+                <div>
+                    <DisplayAction actionKey="spawn" context={{path: '/test1'}} render={ButtonRenderer}/>
                 </div>
             </>
         );

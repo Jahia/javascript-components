@@ -179,9 +179,24 @@ DisplayAction.defaultProps = {
 };
 
 DisplayAction.propTypes = {
+    /**
+     * The key of the action to display
+     */
     actionKey: PropTypes.string.isRequired,
+
+    /**
+     * The action context
+     */
     context: PropTypes.object.isRequired,
+
+    /**
+     * The render component
+     */
     render: PropTypes.func.isRequired,
+
+    /**
+     * ..
+     */
     observerRef: PropTypes.func
 };
 

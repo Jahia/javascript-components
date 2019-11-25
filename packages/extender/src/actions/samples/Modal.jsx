@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export const Modal = ({text, onClose}) => (
+export const Modal = ({context, onExited}) => (
     <>
         <div style={{
             position: 'absolute',
@@ -12,7 +12,7 @@ export const Modal = ({text, onClose}) => (
             opacity: 0.1,
             backgroundColor: 'black'
         }}
-             onClick={onClose}
+             onClick={onExited}
         />
         <div style={{
             position: 'absolute',
@@ -27,12 +27,12 @@ export const Modal = ({text, onClose}) => (
             justifyContent: 'center'
         }}
         >
-            <div style={{flex: '0 1 auto'}}>{text}</div>
+            <div style={{flex: '0 1 auto'}}>{context.content}</div>
         </div>
     </>
 );
 
 Modal.propTypes = {
-    text: PropTypes.string.isRequired,
-    onClose: PropTypes.func.isRequired
+    context: PropTypes.object.isRequired,
+    onExited: PropTypes.func.isRequired
 };

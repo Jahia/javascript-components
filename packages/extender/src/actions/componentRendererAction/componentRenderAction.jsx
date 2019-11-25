@@ -11,7 +11,7 @@ const ComponentRendererActionComponent = ({context, render: Render}) => {
     useEffect(() => {
         componentRendererContext.id = 'actionComponent-' + context.id;
         componentRendererContext.render = (component, properties) => {
-            componentRenderer.render(componentRendererContext.id, component, {context: context, ...properties});
+            componentRenderer.render(componentRendererContext.id, component, {context: context, onExited: componentRendererContext.handleDestroy, ...properties});
         };
 
         componentRendererContext.handleDestroy = () => {

@@ -16,9 +16,9 @@ storiesOf('actions|componentRendererAction', module)
     })
     .addDecorator(storyFn => <ComponentRendererProvider>{storyFn()}</ComponentRendererProvider>)
     .addDecorator(withKnobs)
-    .add('Dialog', () => {
+    .add('default', () => {
         const openModalAction = registry.addOrReplace('action', 'base-component', componentRendererAction, {
-            componentToRender: ({context}) => <Modal text={context.content} onClose={context.componentRendererContext.handleDestroy}/> // eslint-disable-line react/prop-types
+            componentToRender: Modal
         });
 
         registry.addOrReplace('action', 'renderer-1', openModalAction, {
@@ -33,6 +33,9 @@ storiesOf('actions|componentRendererAction', module)
         });
 
         return (
-            <DisplayActions target="target-renderer" context={{path: '/test'}} render={ButtonRenderer}/>
+            <>
+                <div className="description">Render a modal component on click</div>
+                <DisplayActions target="target-renderer" context={{path: '/test'}} render={ButtonRenderer}/>
+            </>
         );
     });
