@@ -38,7 +38,8 @@ const MenuRenderer = ({isSubMenu, anchor, isOpen, onClose, onExited, onMouseEnte
                 alignItems: 'center',
                 justifyContent: 'center',
                 opacity: isOpen ? 1 : 0,
-                transition: 'opacity 0.2s'
+                transition: 'opacity 0.2s',
+                zIndex: 100
             }}
                  onMouseEnter={onMouseEnter}
                  onMouseLeave={onMouseLeave}
@@ -50,10 +51,6 @@ const MenuRenderer = ({isSubMenu, anchor, isOpen, onClose, onExited, onMouseEnte
             </div>
         </>
     );
-};
-
-MenuRenderer.defaultValues = {
-    parentMenuContext: null
 };
 
 MenuRenderer.propTypes = {
@@ -91,34 +88,35 @@ storiesOf('actions|menuAction', module)
     .addDecorator(storyFn => <ComponentRendererProvider>{storyFn()}</ComponentRendererProvider>)
     .addDecorator(withKnobs)
     .add('default', () => {
-        const [ready, setReady] = useState(false);
-        useEffect(() => {
-            registry.addOrReplace('action', 'default-menu', menuAction, {
-                label: 'menu',
-                menuTarget: 'default-menu',
-                menuRenderer: MenuRenderer,
-                menuItemRenderer: MenuItemRenderer
-            });
-            registry.addOrReplace('action', 'default-menuitem1', {
-                targets: ['default-menu'],
-                label: 'item1',
-                onClick: action('menu item 1')
-            });
-            registry.addOrReplace('action', 'default-menuitem2', {
-                targets: ['default-menu'],
-                label: 'item2',
-                onClick: action('menu item 2')
-            });
-            registry.addOrReplace('action', 'default-menuitem3', {
-                targets: ['default-menu'],
-                label: 'item3',
-                onClick: action('menu item 3')
-            });
-            setReady(true);
-        }, []);
+        registry.addOrReplace('action', 'default-menu', menuAction, {
+            label: 'menu',
+            menuTarget: 'default-menu',
+            menuRenderer: MenuRenderer,
+            menuItemRenderer: MenuItemRenderer
+        });
+        registry.addOrReplace('action', 'default-menuitem1', {
+            targets: ['default-menu'],
+            label: 'item1',
+            onClick: action('menu item 1')
+        });
+        registry.addOrReplace('action', 'default-menuitem2', {
+            targets: ['default-menu'],
+            label: 'item2',
+            onClick: action('menu item 2')
+        });
+        registry.addOrReplace('action', 'default-menuitem3', {
+            targets: ['default-menu'],
+            label: 'item3',
+            onClick: action('menu item 3')
+        });
 
         return (
-            ready && <DisplayAction actionKey="default-menu" context={{path: '/test'}} render={ButtonRenderer}/>
+            <>
+                <div className="description">
+                    Display all items that have the specified target
+                </div>
+                <DisplayAction actionKey="default-menu" context={{path: '/test'}} render={ButtonRenderer}/>
+            </>
         );
     })
     .add('Sub menu', () => {
@@ -159,7 +157,12 @@ storiesOf('actions|menuAction', module)
         });
 
         return (
-            <DisplayAction actionKey="submenu-menu" context={{path: '/test'}} render={ButtonRenderer}/>
+            <>
+                <div className="description">
+                    Displays a menu with items registered with a specific target
+                </div>
+                <DisplayAction actionKey="submenu-menu" context={{path: '/test'}} render={ButtonRenderer}/>
+            </>
         );
     })
     .add('Async actions', () => {
@@ -209,6 +212,11 @@ storiesOf('actions|menuAction', module)
         });
 
         return (
-            <DisplayAction actionKey="async-menu" context={{path: '/test'}} render={ButtonRenderer}/>
+            <>
+                <div className="description">
+                    Example with asynchronous menu items
+                </div>
+                <DisplayAction actionKey="async-menu" context={{path: '/test'}} render={ButtonRenderer}/>
+            </>
         );
     });

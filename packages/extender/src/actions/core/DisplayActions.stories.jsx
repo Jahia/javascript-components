@@ -30,9 +30,14 @@ storiesOf('actions|DisplayActions', module)
             label: 'test action 3 (filter false)'
         });
         return (
-            <DisplayActions target="target-1"
-                            context={{path: '/test'}}
-                            render={ButtonRenderer}/>
+            <>
+                <div className="description">
+                    Display all items that have the specified target
+                </div>
+                <DisplayActions target="target-1"
+                                context={{path: '/test'}}
+                                render={ButtonRenderer}/>
+            </>
         );
     })
     .add('Filtered target', () => {
@@ -53,9 +58,14 @@ storiesOf('actions|DisplayActions', module)
             label: 'test action 3 (filter false)'
         });
         return (
-            <DisplayActions target="target-2"
-                            context={{path: '/test'}}
-                            filter={context => context.valueToFilter}
-                            render={ButtonRenderer}/>
+            <>
+                <div className="description">
+                    The target items can be filtered by a filtering function
+                </div>
+                <DisplayActions target="target-2"
+                                context={{path: '/test'}}
+                                filter={context => context.valueToFilter}
+                                render={ButtonRenderer}/>
+            </>
         );
     });
