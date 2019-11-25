@@ -17,24 +17,22 @@ storiesOf('actions|componentRendererAction', module)
     .addDecorator(storyFn => <ComponentRendererProvider>{storyFn()}</ComponentRendererProvider>)
     .addDecorator(withKnobs)
     .add('Dialog', () => {
-        registry.clear();
-
-        const openModalAction = registry.add('action', 'base-component', componentRendererAction, {
+        const openModalAction = registry.addOrReplace('action', 'base-component', componentRendererAction, {
             componentToRender: ({context}) => <Modal text={context.content} onClose={context.componentRendererContext.handleDestroy}/> // eslint-disable-line react/prop-types
         });
 
-        registry.add('action', 'renderer1', openModalAction, {
-            targets: ['target'],
+        registry.addOrReplace('action', 'renderer-1', openModalAction, {
+            targets: ['target-renderer'],
             label: 'component 1',
             content: 'test 1'
         });
-        registry.add('action', 'renderer2', openModalAction, {
-            targets: ['target'],
+        registry.addOrReplace('action', 'renderer-2', openModalAction, {
+            targets: ['target-renderer'],
             label: 'component 2',
             content: 'test 2'
         });
 
         return (
-            <DisplayActions target="target" context={{path: '/test'}} render={ButtonRenderer}/>
+            <DisplayActions target="target-renderer" context={{path: '/test'}} render={ButtonRenderer}/>
         );
     });

@@ -15,10 +15,7 @@ storiesOf('actions|DisplayAction', module)
     })
     .addDecorator(withKnobs)
     .add('default', () => {
-        registry.clear();
-
-        registry.add('action', 'test-action-1', {
-            targets: ['target:1'],
+        registry.addOrReplace('action', 'test-action-1', {
             label: 'test action 1',
             onClick: context => window.alert('action 1 on ' + context.path) // eslint-disable-line no-alert
         });
@@ -32,15 +29,11 @@ storiesOf('actions|DisplayAction', module)
         );
     })
     .add('Simple action', () => {
-        registry.clear();
-
-        registry.add('action', 'test-action-1', {
-            targets: ['target:1'],
+        registry.addOrReplace('action', 'test-action-1', {
             label: 'test action 1',
             onClick: context => window.alert('action 1 on ' + context.path) // eslint-disable-line no-alert
         });
-        registry.add('action', 'test-action-2', {
-            targets: ['target:2'],
+        registry.addOrReplace('action', 'test-action-2', {
             label: 'test action 2',
             onClick: context => window.alert('action 2 on ' + context.path) // eslint-disable-line no-alert
         });
@@ -77,18 +70,14 @@ storiesOf('actions|DisplayAction', module)
         );
     })
     .add('Composition', () => {
-        registry.clear();
-
-        const base = registry.add('action', 'base', {
+        const base = registry.addOrReplace('action', 'base', {
             onClick: context => window.alert('composed action ' + context.param + '  on ' + context.path) // eslint-disable-line no-alert
         });
-        registry.add('action', 'compose-1', base, {
-            targets: ['target'],
+        registry.addOrReplace('action', 'compose-1', base, {
             param: '1',
             label: 'compose 1'
         });
-        registry.add('action', 'compose-2', base, {
-            targets: ['target'],
+        registry.addOrReplace('action', 'compose-2', base, {
             param: '2',
             label: 'compose 2'
         });
@@ -108,10 +97,7 @@ storiesOf('actions|DisplayAction', module)
         );
     })
     .add('Renderer', () => {
-        registry.clear();
-
-        registry.add('action', 'test-action-1', {
-            targets: ['target:1'],
+        registry.addOrReplace('action', 'test-action-1', {
             label: 'test action 1',
             onClick: context => window.alert('action 1 on ' + context.path) // eslint-disable-line no-alert
         });
@@ -134,8 +120,6 @@ storiesOf('actions|DisplayAction', module)
         );
     })
     .add('Component action', () => {
-        registry.clear();
-
         const TestComponent1 = ({context, render: Render}) => (
             <Render context={{
                 ...context,
@@ -148,8 +132,7 @@ storiesOf('actions|DisplayAction', module)
             render: PropTypes.func.isRequired
         };
 
-        registry.add('action', 'component-1', {
-            targets: ['target'],
+        registry.addOrReplace('action', 'component-1', {
             label: 'component 1',
             component: TestComponent1
         });
@@ -162,8 +145,6 @@ storiesOf('actions|DisplayAction', module)
         );
     })
     .add('Async component action', () => {
-        registry.clear();
-
         const AsyncComponent = ({context, render: Render}) => {
             const [value, setValue] = useState(1);
             useEffect(() => {
@@ -172,17 +153,23 @@ storiesOf('actions|DisplayAction', module)
                     clearInterval(t);
                 };
             });
-            return (value > 2) && (
+            return (value > 1) ? (
                 <Render context={{
                     ...context,
                     label: context.label + value,
                     onClick: () => window.alert('Async action') // eslint-disable-line no-alert
                 }}/>
+            ) : (
+                <span>loading..</span>
             );
         };
 
-        registry.add('action', 'async', {
-            targets: ['target'],
+        AsyncComponent.propTypes = {
+            context: PropTypes.object.isRequired,
+            render: PropTypes.func.isRequired
+        };
+
+        registry.addOrReplace('action', 'async', {
             label: 'async',
             component: AsyncComponent
         });

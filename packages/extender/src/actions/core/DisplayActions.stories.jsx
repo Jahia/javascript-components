@@ -1,7 +1,7 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {DisplayActions} from './DisplayActions';
-import {text, withKnobs} from '@storybook/addon-knobs';
+import {withKnobs} from '@storybook/addon-knobs';
 import markdownNotes from './DisplayActions.md';
 import {ButtonRenderer} from '../samples/ButtonRenderer';
 import {registry} from '../../registry';
@@ -13,51 +13,48 @@ storiesOf('actions|DisplayActions', module)
     })
     .addDecorator(withKnobs)
     .add('default', () => {
-        registry.clear();
-
         const base = {
             onClick: () => window.alert('Action') // eslint-disable-line no-alert
         };
-        registry.add('action', 'test-action-1', base, {
-            targets: ['target:1'],
+        registry.addOrReplace('action', 'test-action-1', base, {
+            targets: ['target-1:1'],
             label: 'test action 1 (filter false)'
         });
-        registry.add('action', 'test-action-2', base, {
-            targets: ['target:2'],
+        registry.addOrReplace('action', 'test-action-2', base, {
+            targets: ['target-1:2'],
             valueToFilter: true,
             label: 'test action 2 (filter true)'
         });
-        registry.add('action', 'test-action-3', base, {
-            targets: ['target:3'],
+        registry.addOrReplace('action', 'test-action-3', base, {
+            targets: ['target-1:3'],
             label: 'test action 3 (filter false)'
         });
         return (
-            <DisplayActions target="target"
-                            context={{path: text('Path', '/test')}}
+            <DisplayActions target="target-1"
+                            context={{path: '/test'}}
                             render={ButtonRenderer}/>
         );
     })
     .add('Filtered target', () => {
-        registry.clear();
         const base = {
             onClick: () => window.alert('Action') // eslint-disable-line no-alert
         };
-        registry.add('action', 'test-action-1', base, {
-            targets: ['target:1'],
+        registry.addOrReplace('action', 'test-action-1', base, {
+            targets: ['target-2:1'],
             label: 'test action 1 (filter false)'
         });
-        registry.add('action', 'test-action-2', base, {
-            targets: ['target:2'],
+        registry.addOrReplace('action', 'test-action-2', base, {
+            targets: ['target-2:2'],
             valueToFilter: true,
             label: 'test action 2 (filter true)'
         });
-        registry.add('action', 'test-action-3', base, {
-            targets: ['target:3'],
+        registry.addOrReplace('action', 'test-action-3', base, {
+            targets: ['target-2:3'],
             label: 'test action 3 (filter false)'
         });
         return (
-            <DisplayActions target="target"
-                            context={{path: text('Path', '/test')}}
+            <DisplayActions target="target-2"
+                            context={{path: '/test'}}
                             filter={context => context.valueToFilter}
                             render={ButtonRenderer}/>
         );

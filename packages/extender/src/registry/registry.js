@@ -6,11 +6,8 @@ class Registry {
         this.registry = {};
     }
 
-    add(type, key) {
+    addOrReplace(type, key) {
         const registryKey = type + '-' + key;
-        if (this.registry[registryKey]) {
-            throw new Error('Entry already exist for key ' + key);
-        }
 
         let actions = Array.prototype.slice.call(arguments, 2);
         let action = composeServices(...actions);
@@ -33,6 +30,15 @@ class Registry {
         return action;
     }
 
+    add(type, key) {
+        const registryKey = type + '-' + key;
+        if (this.registry[registryKey]) {
+            throw new Error('Entry already exist for key ' + key);
+        }
+
+        return this.addOrReplace.apply(this, arguments);
+    }
+
     get(type, key) {
         return this.registry[type + '-' + key];
     }
@@ -43,7 +49,7 @@ class Registry {
         if (target) {
             result = result.filter(item => _.includes(item.targets && item.targets.map(t => t.id), filters.target));
             result = _.sortBy(result, [function (o) {
-                let found = _.find(o.target, function (t) {
+                let found = _.find(o.targets, function (t) {
                     return t.id === filters.target;
                 });
                 return found && found.priority && found.priority !== 0 ? found.priority : 'undefined';

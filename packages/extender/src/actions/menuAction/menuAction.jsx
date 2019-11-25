@@ -38,7 +38,6 @@ const Menu = ({context, menuContext, anchor, isOpen, onExited}) => {
                                       onMouseEnter={event => {
                                           // Moved into a menu item, close current submenu if present
                                           if (context.parentMenuContext.subMenu) {
-                                              console.log(context.parentMenuContext.subMenu);
                                               context.parentMenuContext.closeSubMenu();
                                           }
 

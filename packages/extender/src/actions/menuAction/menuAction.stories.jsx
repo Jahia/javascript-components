@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {storiesOf} from '@storybook/react';
-import {DisplayActions} from '../core/DisplayActions';
+import {DisplayAction} from '../core/DisplayAction';
 import {registry} from '../../registry';
 import {withKnobs} from '@storybook/addon-knobs';
 import PropTypes from 'prop-types';
@@ -91,46 +91,124 @@ storiesOf('actions|menuAction', module)
     .addDecorator(storyFn => <ComponentRendererProvider>{storyFn()}</ComponentRendererProvider>)
     .addDecorator(withKnobs)
     .add('default', () => {
-        registry.clear();
+        const [ready, setReady] = useState(false);
+        useEffect(() => {
+            registry.addOrReplace('action', 'default-menu', menuAction, {
+                label: 'menu',
+                menuTarget: 'default-menu',
+                menuRenderer: MenuRenderer,
+                menuItemRenderer: MenuItemRenderer
+            });
+            registry.addOrReplace('action', 'default-menuitem1', {
+                targets: ['default-menu'],
+                label: 'item1',
+                onClick: action('menu item 1')
+            });
+            registry.addOrReplace('action', 'default-menuitem2', {
+                targets: ['default-menu'],
+                label: 'item2',
+                onClick: action('menu item 2')
+            });
+            registry.addOrReplace('action', 'default-menuitem3', {
+                targets: ['default-menu'],
+                label: 'item3',
+                onClick: action('menu item 3')
+            });
+            setReady(true);
+        }, []);
 
-        registry.add('action', 'menu1', menuAction, {
-            targets: ['target'],
-            label: 'menu 1',
-            menuTarget: 'menu1',
+        return (
+            ready && <DisplayAction actionKey="default-menu" context={{path: '/test'}} render={ButtonRenderer}/>
+        );
+    })
+    .add('Sub menu', () => {
+        registry.addOrReplace('action', 'submenu-menu', menuAction, {
+            label: 'menu',
+            menuTarget: 'submenu-menu',
             menuRenderer: MenuRenderer,
             menuItemRenderer: MenuItemRenderer
         });
-        registry.add('action', 'menu2', menuAction, {
-            targets: ['target', 'menu1'],
-            label: 'menu 2',
-            menuTarget: 'menu2',
+        registry.addOrReplace('action', 'submenu-menu2', menuAction, {
+            targets: ['submenu-menu:4'],
+            label: 'submenu 2',
+            menuTarget: 'submenu-menu2',
             menuRenderer: MenuRenderer,
             menuItemRenderer: MenuItemRenderer
         });
-        registry.add('action', 'menu3', menuAction, {
-            targets: ['target', 'menu2', 'menu1'],
-            label: 'menu 3',
-            menuTarget: 'menu3',
+        registry.addOrReplace('action', 'submenu-menu3', menuAction, {
+            targets: ['submenu-menu:5', 'submenu-menu2:2'],
+            label: 'submenu 3',
+            menuTarget: 'submenu-menu3',
             menuRenderer: MenuRenderer,
             menuItemRenderer: MenuItemRenderer
         });
-        registry.add('action', 'menuitem1', {
-            targets: ['menu1', 'menu2', 'menu3'],
+        registry.addOrReplace('action', 'submenu-menuitem1', {
+            targets: ['submenu-menu:1', 'submenu-menu2:1', 'submenu-menu3:1'],
             label: 'item1',
             onClick: action('menu item 1')
         });
-        registry.add('action', 'menuitem2', {
-            targets: ['menu1'],
+        registry.addOrReplace('action', 'submenu-menuitem2', {
+            targets: ['submenu-menu:2'],
             label: 'item2',
             onClick: action('menu item 2')
         });
-        registry.add('action', 'menuitem3', {
-            targets: ['menu2'],
+        registry.addOrReplace('action', 'submenu-menuitem3', {
+            targets: ['submenu-menu:3'],
             label: 'item3',
             onClick: action('menu item 3')
         });
 
         return (
-            <DisplayActions target="target" context={{path: '/test'}} render={ButtonRenderer}/>
+            <DisplayAction actionKey="submenu-menu" context={{path: '/test'}} render={ButtonRenderer}/>
+        );
+    })
+    .add('Async actions', () => {
+        registry.addOrReplace('action', 'async-menu', menuAction, {
+            label: 'menu',
+            menuTarget: 'async-menu',
+            menuRenderer: MenuRenderer,
+            menuItemRenderer: MenuItemRenderer
+        });
+
+        const AsyncComponent = ({context, render: Render}) => {
+            const [ready, setReady] = useState(false);
+            useEffect(() => {
+                const t = setTimeout(() => setReady(true), context.minTime);
+                return () => {
+                    clearTimeout(t);
+                };
+            });
+            return ready && (
+                <Render context={{
+                    ...context,
+                    label: context.label,
+                    onClick: () => window.alert('Async action') // eslint-disable-line no-alert
+                }}/>
+            );
+        };
+
+        registry.addOrReplace('action', 'async-item0', {
+            targets: ['async-menu:1'],
+            label: 'async',
+            minTime: 0,
+            component: AsyncComponent
+        });
+
+        registry.addOrReplace('action', 'async-item1', {
+            targets: ['async-menu:2'],
+            label: 'async later',
+            minTime: 100,
+            component: AsyncComponent
+        });
+
+        registry.addOrReplace('action', 'async-item2', {
+            targets: ['async-menu:3'],
+            label: 'async more later',
+            minTime: 500,
+            component: AsyncComponent
+        });
+
+        return (
+            <DisplayAction actionKey="async-menu" context={{path: '/test'}} render={ButtonRenderer}/>
         );
     });
