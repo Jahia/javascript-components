@@ -6,8 +6,8 @@ function composeServices() {
                 let previous = acc[key];
                 if (typeof previous === 'function' && typeof value === 'function') {
                     // If function, override the function but pass the previous one as the last parameter
-                    acc[key] = () => {
-                        value.apply(this, [...arguments, previous]);
+                    acc[key] = function () {
+                        return value.apply(this, [...arguments, previous]);
                     };
                 } else if (Array.isArray(previous) && Array.isArray(value)) {
                     // Concatenate arrays
