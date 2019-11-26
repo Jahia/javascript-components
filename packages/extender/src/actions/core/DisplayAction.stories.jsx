@@ -71,35 +71,6 @@ storiesOf('actions|DisplayAction', module)
             </>
         );
     })
-    .add('Composition', () => {
-        const base = registry.addOrReplace('action', 'base', {
-            onClick: context => window.alert('composed action ' + context.param + '  on ' + context.path) // eslint-disable-line no-alert
-        });
-        registry.addOrReplace('action', 'compose-1', base, {
-            param: '1',
-            label: 'compose 1'
-        });
-        registry.addOrReplace('action', 'compose-2', base, {
-            param: '2',
-            label: 'compose 2'
-        });
-
-        return (
-            <>
-                <div className="description">Create a new action by extending an existing action and adding information
-                    in context
-                </div>
-                <div>
-                    <DisplayAction actionKey="compose-1"
-                                   context={{path: '/test1'}}
-                                   render={ButtonRenderer}/>
-                    <DisplayAction actionKey="compose-2"
-                                   context={{path: '/test1'}}
-                                   render={ButtonRenderer}/>
-                </div>
-            </>
-        );
-    })
     .add('Renderer', () => {
         registry.addOrReplace('action', 'test-action-1', {
             label: 'test action 1',
@@ -122,6 +93,43 @@ storiesOf('actions|DisplayAction', module)
                     <DisplayAction actionKey="test-action-1"
                                    context={{path: '/test'}}
                                    render={LinkRenderer}/>
+                </div>
+            </>
+        );
+    })
+    .add('Composition', () => {
+        const base = registry.addOrReplace('action', 'base', {
+            onClick: context => window.alert('composed action - label=' + context.param + ', array=' + context.arrayExample), // eslint-disable-line no-alert
+            arrayExample: ['value1']
+        });
+        registry.addOrReplace('action', 'compose-1', base, {
+            param: '1',
+            label: 'compose 1',
+            arrayExample: ['value2']
+        });
+        registry.addOrReplace('action', 'compose-2', base, {
+            param: '2',
+            label: 'compose 2',
+            onClick: (context, event, superMethod) => window.confirm('composed action - do you want to call overriden action ?') && superMethod(context, event) // eslint-disable-line no-alert
+        });
+
+        return (
+            <>
+                <div className="description">Create a new action by extending an existing action, by adding or replacing information
+                    in context. Overriding context is merged with the base one following these rules :
+                    <ul>
+                        <li>Arrays are concatenated</li>
+                        <li>Functions are replaced, but the overriden function is passed as the last argument on call</li>
+                        <li>Other attributes are replaced</li>
+                    </ul>
+                </div>
+                <div>
+                    <DisplayAction actionKey="compose-1"
+                                   context={{path: '/test1'}}
+                                   render={ButtonRenderer}/>
+                    <DisplayAction actionKey="compose-2"
+                                   context={{path: '/test1'}}
+                                   render={ButtonRenderer}/>
                 </div>
             </>
         );
@@ -151,6 +159,50 @@ storiesOf('actions|DisplayAction', module)
                 </div>
                 <div>
                     <DisplayAction actionKey="component-1" context={{path: '/test1'}} render={ButtonRenderer}/>
+                </div>
+            </>
+        );
+    })
+    .add('Component composition', () => {
+        const TestComponent1 = ({context, render: Render}) => (
+            <Render context={{
+                ...context,
+                onClick: () => window.alert('Component action') // eslint-disable-line no-alert
+            }}/>
+        );
+
+        TestComponent1.propTypes = {
+            context: PropTypes.object.isRequired,
+            render: PropTypes.func.isRequired
+        };
+
+        const TestComponent2 = ({context, render}, refOrContext, Previous) => (
+            <Previous render={render} context={{...context, label: context.label + ' overriden'}}/>
+        );
+
+        TestComponent2.propTypes = {
+            context: PropTypes.object.isRequired,
+            render: PropTypes.func.isRequired
+        };
+
+        const base = registry.addOrReplace('action', 'base', {
+            component: TestComponent1
+        });
+        registry.addOrReplace('action', 'component-compose-1', base, {
+            label: 'compose 1'
+        });
+        registry.addOrReplace('action', 'component-compose-2', base, {
+            label: 'compose 2',
+            component: TestComponent2
+        });
+        return (
+            <>
+                <div className="description">
+                    Component actions can also be composed - the overriden component can still be used as its passed to the render function as last parameter.
+                </div>
+                <div>
+                    <DisplayAction actionKey="component-compose-1" context={{path: '/test1'}} render={ButtonRenderer}/>
+                    <DisplayAction actionKey="component-compose-2" context={{path: '/test1'}} render={ButtonRenderer}/>
                 </div>
             </>
         );
