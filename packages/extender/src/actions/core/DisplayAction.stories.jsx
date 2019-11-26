@@ -56,7 +56,7 @@ storiesOf('actions|DisplayAction', module)
                                    context={{path: '/test2'}}
                                    render={ButtonRenderer}/>
                     <DisplayAction actionKey="test-action-2"
-                                   context={{path: '/test1'}}
+                                   context={{path: '/test2'}}
                                    render={ButtonRenderer}/>
                 </div>
                 <div>
@@ -65,7 +65,7 @@ storiesOf('actions|DisplayAction', module)
                                    context={{path: '/test3'}}
                                    render={ButtonRenderer}/>
                     <DisplayAction actionKey="test-action-2"
-                                   context={{path: '/test1'}}
+                                   context={{path: '/test3'}}
                                    render={ButtonRenderer}/>
                 </div>
             </>
