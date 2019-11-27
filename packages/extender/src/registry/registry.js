@@ -10,7 +10,7 @@ class Registry {
         const registryKey = type + '-' + key;
 
         let actions = Array.prototype.slice.call(arguments, 2);
-        let action = composeServices(...actions);
+        const action = composeServices(...actions);
         action.type = type;
         action.key = key;
 
