@@ -294,7 +294,6 @@ describe('DisplayAction', () => {
         });
 
         const wrapper = mount(
-            <>
                 <DisplayAction actionKey="spawn" context={{path: '/test1'}} render={ButtonRenderer}/>
             </>
         );
