@@ -154,7 +154,7 @@ describe('DisplayActions', () => {
         expect(wrapper.find('.menu').length).toBe(0);
         wrapper.find('button').simulate('click');
 
-        advanceTime();
+        advanceTime(wrapper);
 
         expect(wrapper.find('.menu').length).toBe(1);
         expect(wrapper.find('.menu .menuItem').length).toBe(3);
@@ -164,12 +164,12 @@ describe('DisplayActions', () => {
         const wrapper = getSimpleMenu(jest.fn());
         wrapper.find('button').simulate('click');
 
-        advanceTime();
+        advanceTime(wrapper);
 
         expect(wrapper.find('.backdrop').length).toBe(1);
         wrapper.find('.backdrop').simulate('click');
 
-        advanceTime();
+        advanceTime(wrapper);
 
         expect(wrapper.find('.menu').length).toBe(0);
     });
@@ -179,11 +179,11 @@ describe('DisplayActions', () => {
         const wrapper = getSimpleMenu(fn);
         wrapper.find('button').simulate('click');
 
-        advanceTime();
+        advanceTime(wrapper);
 
         wrapper.find('.menuItem').first().simulate('click');
 
-        advanceTime();
+        advanceTime(wrapper);
 
         expect(wrapper.find('.menu').length).toBe(0);
         expect(fn.mock.calls.length).toBe(1);
@@ -293,7 +293,5 @@ describe('DisplayActions', () => {
 
         advanceTime(wrapper);
         expect(wrapper.find('.menu .menuItem').length).toBe(3);
-
-        console.log(wrapper.html());
     });
 });
