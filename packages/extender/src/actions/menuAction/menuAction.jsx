@@ -8,7 +8,8 @@ const Menu = ({context, menuContext, anchor, isOpen, onExited}) => {
     const {onClose, rootMenuContext} = menuContext;
 
     return (
-        <MenuRenderer isSubMenu={Boolean(parentMenuContext)}
+        <MenuRenderer context={context}
+                      isSubMenu={Boolean(parentMenuContext)}
                       anchor={anchor}
                       isOpen={isOpen}
                       onMouseEnter={() => {
