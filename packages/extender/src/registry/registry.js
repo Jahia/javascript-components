@@ -17,7 +17,7 @@ class Registry {
         if (action.targets) {
             action.targets = action.targets.map(t => {
                 if (typeof t === 'string') {
-                    let spl = t.split(':');
+                    const spl = t.split(':');
                     return ({id: spl[0], priority: spl[1] ? spl[1] : 0});
                 }
 
