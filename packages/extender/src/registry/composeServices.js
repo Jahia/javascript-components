@@ -6,6 +6,7 @@ function composeServices() {
                 let previous = acc[key];
                 if (typeof previous === 'function' && typeof value === 'function') {
                     // If function, override the function but pass the previous one as the last parameter
+                    // Do not convert the following function to a lambda otherwise the arguments will not be coming from the right context
                     acc[key] = function () {
                         return value.apply(this, [...arguments, previous]);
                     };
