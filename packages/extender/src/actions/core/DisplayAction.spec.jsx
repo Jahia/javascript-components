@@ -29,17 +29,18 @@ describe('DisplayAction', () => {
         expect(action.onClick.mock.calls.length).toBe(1);
     });
 
-    it('should call method with different contexts', () => {
+    it('should call method with different values', () => {
         const fn1 = jest.fn();
-        const fn2 = jest.fn();
 
         registry.addOrReplace('action', 'test-action-1', {
             label: 'test action 1',
+            value: 'test1',
             onClick: fn1
         });
         registry.addOrReplace('action', 'test-action-2', {
             label: 'test action 2',
-            onClick: fn2
+            value: 'test2',
+            onClick: fn1
         });
         const wrapper = mount(
             <>
@@ -49,30 +50,35 @@ describe('DisplayAction', () => {
                 <DisplayAction actionKey="test-action-2"
                                context={{path: '/test1'}}
                                render={ButtonRenderer}/>
+            </>
+        );
+        wrapper.find('button').forEach(b => b.simulate('click'));
+        expect(fn1.mock.calls.length).toBe(2);
+        expect(fn1.mock.calls[0][0].value).toBe('test1');
+        expect(fn1.mock.calls[1][0].value).toBe('test2');
+    });
+
+    it('should call method with different contexts', () => {
+        const fn1 = jest.fn();
+
+        registry.addOrReplace('action', 'test-action-1', {
+            label: 'test action 1',
+            onClick: fn1
+        });
+        const wrapper = mount(
+            <>
+                <DisplayAction actionKey="test-action-1"
+                               context={{path: '/test1'}}
+                               render={ButtonRenderer}/>
                 <DisplayAction actionKey="test-action-1"
                                context={{path: '/test2'}}
-                               render={ButtonRenderer}/>
-                <DisplayAction actionKey="test-action-2"
-                               context={{path: '/test2'}}
-                               render={ButtonRenderer}/>
-                <DisplayAction actionKey="test-action-1"
-                               context={{path: '/test3'}}
-                               render={ButtonRenderer}/>
-                <DisplayAction actionKey="test-action-2"
-                               context={{path: '/test3'}}
                                render={ButtonRenderer}/>
             </>
         );
         wrapper.find('button').forEach(b => b.simulate('click'));
-        expect(fn1.mock.calls.length).toBe(3);
+        expect(fn1.mock.calls.length).toBe(2);
         expect(fn1.mock.calls[0][0].path).toBe('/test1');
         expect(fn1.mock.calls[1][0].path).toBe('/test2');
-        expect(fn1.mock.calls[2][0].path).toBe('/test3');
-
-        expect(fn2.mock.calls.length).toBe(3);
-        expect(fn2.mock.calls[0][0].path).toBe('/test1');
-        expect(fn2.mock.calls[1][0].path).toBe('/test2');
-        expect(fn2.mock.calls[2][0].path).toBe('/test3');
     });
 
     it('Renderer', () => {
