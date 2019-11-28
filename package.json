@@ -18,7 +18,7 @@
             "pre-push": "yarn test"
         }
     },
-    "license": "MIT",
+    "license": "SEE LICENSE IN LICENSE.txt FILE",
     "devDependencies": {
         "@babel/cli": "^7.4.4",
         "@babel/core": "^7.4.5",

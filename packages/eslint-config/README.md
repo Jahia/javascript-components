@@ -1,18 +1,33 @@
-# ESLint config
-This package is the [ESLint shareable config](https://eslint.org/docs/developer-guide/shareable-configs.html) to use with your JS project
+<h1 align="center">Welcome to @jahia/eslint-config 👋</h1>
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
+  <a href="../../LICENSE.txt" target="_blank">
+    <img alt="License: JAHIA'S DUAL LICENSING" src="https://img.shields.io/badge/License-JAHIA'S DUAL LICENSING-yellow.svg" />
+  </a>
+  <a href="https://twitter.com/Jahia" target="_blank">
+    <img alt="Twitter: Jahia" src="https://img.shields.io/twitter/follow/Jahia.svg?style=social" />
+  </a>
+</p>
 
-## Setup
+> Provide Jahia ESLint shareable config to lint your JS projects.
 
-- Add this package to the `devDependencies` of the project you intend to add ESLint to.
+## Install
+
+Add this package to the `devDependencies` of the project you intend to add ESLint to.
 This can be accomplished using `yarn` with the following command:
 
-    ````yarn add --dev @jahia/eslint-config````
+```sh
+yarn add -D @jahia/eslint-config
+```
 
-    or using `npm` with the following one:
+or using `npm` with the following one:
 
-    ```npm install @jahia/eslint-config --save-dev```
+```npm i -D @jahia/eslint-config ```
 
-- Create a file named `.eslintrc.json` as a sibling of your `package.json`, with the following content:
+
+## Configure
+
+Create a file named `.eslintrc.json` as a sibling of your `package.json`, with the following content:
 
     ```json
     {
@@ -20,8 +35,8 @@ This can be accomplished using `yarn` with the following command:
     }
     ```
 
-- Update the scripts in your `package.json` to something like:
-    
+Update the scripts in your `package.json` to something like:
+
     ```json
     {
       "build": "yarn lint && yarn webpack",
@@ -30,7 +45,7 @@ This can be accomplished using `yarn` with the following command:
     }
     ```
 
-- Additionally you may want to add a file `.eslintignore` as a sibling of your `package.json`, with the following content:
+Additionally you may want to add a file `.eslintignore` as a sibling of your `package.json`, with the following content:
     ```
     node
     node_modules
@@ -38,19 +53,44 @@ This can be accomplished using `yarn` with the following command:
     build
     ```
 
-- Also depending on your need your can override some rules in the `.eslintrc.json` file by redefining them
+Also depending on your need your can override some rules in the `.eslintrc.json` file by redefining them.
 
-## Migration from local config
+**Many IDE support eslint configuration, do not forget to activate the option**
 
-If you were using a local config, you can probably cleanup some of your devDependencies, here are the list of dependencies from this packages that you can likely remove from your project unless your are explicitely using them:
+## Usage
 
-```json
-{
-    "babel-eslint": "^10.0.1",
-    "eslint-config-xo": "^0.26.0",
-    "eslint-config-xo-react": "^0.19.0",
-    "eslint-plugin-jest": "^22.3.0",
-    "eslint-plugin-react": "^7.11.1",
-    "eslint-plugin-react-hooks": "^1.6.0"
-}
-``` 
+If you added the scripts in your `package.json`, you can do: 
+
+```sh
+yarn lint
+```
+
+or with *npm*:
+
+```sh
+npm run lint
+```
+
+## Author
+
+👤 **Jahia**
+
+* Website: https://www.jahia.com
+* Twitter: [@Jahia](https://twitter.com/Jahia)
+* Github: [@Jahia](https://github.com/Jahia)
+
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://jira.jahia.com).
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
+
+## 📝 License
+
+Copyright © 2019 [Jahia](https://github.com/Jahia).<br />
+This project is [JAHIA'S DUAL LICENSING](../../LICENSE.txt) licensed.
+
+***
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
