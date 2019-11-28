@@ -1,100 +1,118 @@
-# Javascript components
-The goal of this module is to provide multiple javascript [packages](https://github.com/Jahia/javascript-components/tree/master/packages) that can be reused in different javascript applications.
+<h1 align="center">Welcome to Jahia JavaScript Monorepo 👋</h1>
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
+  <a href="./LICENSE.txt" target="_blank">
+    <img alt="License: JAHIA'S DUAL LICENSING" src="https://img.shields.io/badge/JAHIA'S DUAL LICENSING-yellow.svg" />
+  </a>
+  <a href="https://twitter.com/Jahia" target="_blank">
+    <img alt="Twitter: Jahia" src="https://img.shields.io/twitter/follow/Jahia.svg?style=social" />
+  </a>
+</p>
 
-- reusable UI components
-- context information like current node path, type, user, etc
-- GraphQL connection
-- i18n common configuration
+> Monorepo of all front-end library of Jahia
 
-## Usage
-The packages are built and deployed to a private repository. Use the following command to configure your NPM install so that it 
-can find the packages :
+## Projects
 
-```npm login --registry=https://npm.jahia.com --scope=@jahia```
+This project is composed of (click on the link for there documentation):
 
-You should then be able to add a package with a simple `npm` or `yarn` command :
+- [design-system-kit - 💩 - DEPRECATED use moonstone instead](./packages/design-system-kit)
+- [react-material - 💩 - DEPRECATED use moonstone/ui-extender instead](./packages/react-material)
+- [icons - 💩 - DEPRECATED use moonstone instead](./packages/icons)
 
-```yarn add @jahia/react-material```
+- [ui-extender - ⚗ - Allow Jahia module to extend Jahia UI](./packages/ui-extender)
 
-When you make changes to javascript-components, a new beta (snapshot) version is built. You might want to update your dependency. 
-For this purpose, in that project, update the library dependency using the same `yarn add` command, or a `yarn upgrade-interactive`
-This will update the `yarn.lock` file you will have to commit.
+- [eslint-config - 🔧 - Jahia eslint configuration](./packages/design-system-kit)
+- [test-framework - 🔧 - Jest + Enzyme configuration for Jahia needs](./packages/test-framework)
+- [scripts - 🔧 - Jahia internal build script](./packages/scripts)
 
-## Build
-Build is based on [yarn workspaces](https://yarnpkg.com/lang/en/docs/workspaces/) and [lerna](https://github.com/lerna/lerna). 
+
+- [apollo-dx - 🚀 - Provides an apollo-client configured to connect on DX graphql API](./packages/apollo-dx)
+- [react-apollo - 🚀 - Provides helpers methods to manipulate DX nodes, based on graphQL API](./packages/react-apollo)
+- [i18next - 🌐 - Provides an i18next configuration](./packages/i18next)
+- [react-router - ✨ - A router with multiple outlets](./packages/react-router)
+- [redux - 💩 - DEPRECATED no one use it](./packages/redux)
+
+
+## Installation
+
+Jahia use his own npm server, so you have to tell to yarn and npm CLI where to find dependency. In order to achieve that, create a `.npmrc` file and copy past the code below in it.
+
+```
+@jahia:registry=https://npm.jahia.com
+```
+
+Each project are deployed on to a private repository and scoped with `@jahia`.
+You can install any package with:
+
+```sh
+npm i @jahia/package-name
+```
+
+or with yarn : `yarn add @jahia/package-name`.
+
+## Development
+
+### Getting started
+
+We are using Yarn for each project at Jahia and in this project specially the [yarn workspaces](https://yarnpkg.com/lang/en/docs/workspaces/) feature. You can install *yarn* with `npm i -g yarn`.
 It won't work with npm, please only use yarn for building.
 
-At root folder : 
-- `yarn install` to install all dependencies
-- `yarn build` to build all packages
+Before starting developing, you have to install dependencies:
 
-Modules can be built independently by going to packages subfolder, and use `yarn build`. 
+```sh
+yarn
+```
+
+The you can start develop and test using.
+
+```sh
+yarn tdd
+```
+
+Make sure each file respect the eslint configuration.
+
+### Working with yalc
+
+Sometime, when you are working on a JavaScript-Component package, you want to directly test your package on the other project you are working on. Yalc is here to help you do that.
+
+### Build
+
+In order to build every package, in the root folder, run:
+
+```sh
+yarn build
+```
 
 The final build will reside in the `build` subfolder of each package.
 
-If you need to use `yarn link` to use your local build in another package, be sure to type `yarn link` inside the 
-`build` folder, not the sources (package root) folder.
-
-## Packages
-
-### apollo-dx
-
-Provides an apollo-client configured to connect on DX graphql API
-
-### design-system-kit
-
-Provides the Jahia Design System Theme for Matarial UI
-
-### react-apollo
-
-Provides helpers methods to manipulate DX nodes, based on graphQL api
-
-### redux
-Simple redux store with extensible reducers
-
-### i18next
-i18n support is brought by the [i18next library](https://www.i18next.com/). This package provides an i18next configuration.
-
-- i18n file is a JSON file format
-- i18n files are stored in `main/resources/javascript/locales`
-- file name is `<locale>.json` where `locale` is `en`, `de`, `FR_fr`, etc ..
-
-You have to set your React DX application as i18n in our main class wrapper `<I18nextProvider />`
-
-```
-import {getI18n} from '@jahia/i18next'
-
-<I18nextProvider i18n={getI18n({lng:props.dxContext.uilang, contextPath:props.dxContext.contextPath, ns: ['site-settings-seo', 'react-dxcomponents'], defaultNS: 'site-settings-seo', getData:getI18NData})}>
-    <MyCustomComponent {...props} />
-</I18nextProvider>
-```
-
-Note that `MyCustomComponent` declaration must precede wrapping the component with `DxContextProvider`.
-
-In order to use i18n with the `MyCustomComponent`, you need to wrap it with the translation component:
-
-```
-MyCustomComponent = translate('<moduleName>')(SeoSiteSettingsApp);
-
-```
-where `moduleName` is the artifact ID of the module.
-
-This will add the `t` function to the `props` of the component, to be used to get a translated value by a key defined in the `<locale>.json` file:
-
-```{props.t('label.title')}```
+Modules can also be built independently by going to packages subfolder, and use `yarn build`.
 
 
-### react-material
-We use the Material-UI library to build the UI: https://material-ui-next.com
-`<LanguageSwitcher/>`: this component displays a language switcher and changes the locale value in the context as it is changed by the the user via the UI
+### Publish
 
-### react-router
-A router with multiple outlets - it allows to have multiple routes at the same time in the URL, each route applied to different outlets in the page.
+When you make changes to javascript-components, a new beta (snapshot) version is built and published automatically.
 
-### [test-framework](packages/test-framework)
 
-Provides common dependencies, configuration, utilities and mocks for testing JavaScript projects.
- 
-### [@jahia/eslint-config](packages/eslint-config)
+## Author
 
-Provide Jahia ESLint shareable config to lint your JS projects.
+👤 **Jahia Group**
+
+* Website: https://www.jahia.com
+* Twitter: [@Jahia](https://twitter.com/Jahia)
+* Github: [@Jahia](https://github.com/Jahia)
+
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://jira.jahia.org/).
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
+
+## 📝 License
+
+Copyright © 2019 [Jahia Group](https://github.com/Jahia).<br />
+This project use JAHIA'S DUAL LICENSING, see [LICENSE.txt file](./LICENSE.txt).
+
+***
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
