@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Drawer, List, withStyles} from '@material-ui/core';
+import {List, withStyles} from '@material-ui/core';
 import classNames from 'classnames';
 import {DisplayActions} from '@jahia/react-material';
 import LeftMenuItem from './LeftMenuItem';
@@ -85,18 +85,6 @@ export const LeftNavigation = ({context, classes, actionsTarget, secondaryAction
                                 )}
                 />
             </List>
-            <Drawer
-                variant="persistent"
-                classes={{
-                    paper: classNames(classes.drawerPaper, !drawer.drawerOpen && classes.drawerPaperClose)
-                }}
-                open={drawer.drawerOpen}
-            >
-                <div className={classes.drawerTree}>
-                    {drawer.drawerContent &&
-                    drawer.drawerContent.content}
-                </div>
-            </Drawer>
         </div>
     );
 };
