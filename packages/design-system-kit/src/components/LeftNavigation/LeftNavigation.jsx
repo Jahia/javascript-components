@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Drawer, List, ListItem, withStyles} from '@material-ui/core';
+import {Drawer, List, withStyles} from '@material-ui/core';
 import classNames from 'classnames';
-import BurgerMenuButton from './BurgerMenuButton';
 import {DisplayActions} from '@jahia/react-material';
 import LeftMenuItem from './LeftMenuItem';
 import {compose} from 'recompose';
@@ -70,9 +69,6 @@ export const LeftNavigation = ({context, classes, actionsTarget, secondaryAction
         })}
         >
             <List className={classes.list} component="nav">
-                <ListItem button className={classes.menuBurger}>
-                    <BurgerMenuButton title={burgerIconTitle} isDrawerOpen={drawer.drawerOpen}/>
-                </ListItem>
                 <DisplayActions target={actionsTarget}
                                 context={actionContext}
                                 render={({context}) => (
