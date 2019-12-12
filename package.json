@@ -54,7 +54,7 @@
         "eslint-plugin-react": "^7.16.0",
         "eslint-plugin-react-hooks": "^2.2.0",
         "husky": "^3.0.5",
-        "jest": "^24.7.1",
+        "jest": "^24.9.0",
         "lerna": "^2.11.0",
         "postcss-cssnext": "^3.0.2",
         "postcss-each": "^0.10.0",

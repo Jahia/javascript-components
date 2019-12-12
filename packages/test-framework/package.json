@@ -13,9 +13,11 @@
     "./index.js"
   ],
   "dependencies": {
-    "babel-jest": "^24.7.1",
     "enzyme": "^3.9.0",
-    "enzyme-adapter-react-16": "^1.12.1",
-    "jest": "^24.7.1"
+    "enzyme-adapter-react-16": "^1.12.1"
+  },
+  "peerDependencies": {
+    "jest": "^24.9.0",
+    "babel-jest": "^24.9.1"
   }
 }
