@@ -18,7 +18,15 @@ class DisplayActions extends React.Component {
             let found = _.find(o.target, function (t) {
                 return t.id === target;
             });
-            return found && found.priority && found.priority !== 0 ? found.priority : 'undefined';
+
+            if (found && found.priority) {
+                let priority = Number(found.priority);
+                if (!isNaN(priority) && priority !== 0) {
+                    return priority;
+                }
+            }
+
+            return 'undefined';
         }]);
 
         if (filter) {
