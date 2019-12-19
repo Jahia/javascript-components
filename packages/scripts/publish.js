@@ -51,9 +51,12 @@ if (branchName !== 'master') {
 
 // Get new version
 const autoVersionProcess = spawnSync('yarn', ['auto', 'version', '--from', previous]);
-const versionChange = autoVersionProcess.stdout.toString('ascii').split(/\r?\n/)[1];
+const lines = autoVersionProcess.stdout.toString('ascii').split(/\r?\n/);
 
-if (versionChange !== 'patch' && versionChange !== 'minor' && versionChange !== 'major') {
+const commitsCount = lines.length - 3;
+const versionChange = lines[lines.length - 2];
+
+if (commitsCount === 0 || (versionChange !== 'patch' && versionChange !== 'minor' && versionChange !== 'major')) {
     console.log('No new version detected');
     process.exit(0);
 }

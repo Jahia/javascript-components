@@ -16,16 +16,17 @@ class FilterCommitsByFolderPlugin {
     apply(auto) {
         auto.hooks.onCreateLogParse.tap(this.name, logParse => {
             logParse.hooks.omitCommit.tap(this.name, commit => {
-                if (commit.labels.length === 0) {
-                    commit.labels.push('skip-release');
-                }
-
                 // Remove current working directory which is added by a path.resolve
                 // https://github.com/intuit/auto/blob/v8.6.0/packages/core/src/git.ts:309
                 let files = commit.files.map(f => f.substr(process.cwd().length + 1));
 
                 // Keep only files in the requested folder
                 files = files.filter(f => this.options.paths.filter(p => f.startsWith(p)).length > 0);
+
+                // Output the commit hash - needed to count the accepted commits
+                if (files.length > 0) {
+                    console.log(commit.hash);
+                }
 
                 // Skip (return true) if no file in the commit matches one of the base path
                 return files.length === 0;
