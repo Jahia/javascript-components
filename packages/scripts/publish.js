@@ -13,11 +13,12 @@ let buildPath = fs.existsSync('build/package.json') ? 'build' : '.';
 
 const spawnSync = (command, params, options) => {
     let subprocess = spawn.sync(command, params, options);
-    if (subprocess.status !== 0) {
-        if (subprocess.stdout) {
-            console.log(subprocess.stdout.toString('ascii'));
-        }
 
+    if (subprocess.stdout) {
+        console.log(subprocess.stdout.toString('ascii'));
+    }
+
+    if (subprocess.status !== 0) {
         if (subprocess.stderr) {
             console.log('ERROR : ' + subprocess.stderr.toString('ascii'));
         }
@@ -69,7 +70,7 @@ spawnSync('git', ['commit', '-n', '-m', 'Bump ' + projectName + ' version to: ' 
 console.log('Publishing ..');
 
 // Publish
-spawnSync('npm', ['publish', buildPath]);
+spawnSync('yarn', ['publish', buildPath, '--no-git-tag-version', '--new-version', newVersion.substr(1)]);
 
 // Push to repository
 spawnSync('git', ['push', '--no-verify', '--follow-tags']);
