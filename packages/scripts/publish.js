@@ -51,9 +51,8 @@ console.log('Releasing code from branch : ' + branchName + ' to ' + tag);
 spawnSync('yarn', ['auto', 'changelog', '--from', previous]);
 
 // Bump version
-let autoVersionProcess = spawnSync('yarn', ['auto', 'version', '--from', previous]);
-const result = autoVersionProcess.stdout.toString('ascii').split(/\r?\n/);
-const versionChange = result[1];
+const autoVersionProcess = spawnSync('yarn', ['auto', 'version', '--from', previous]);
+const versionChange = autoVersionProcess.stdout.toString('ascii').split(/\r?\n/)[1];
 
 if (versionChange !== 'patch' && versionChange !== 'minor' && versionChange !== 'major') {
     console.log('No new version detected');
@@ -61,7 +60,14 @@ if (versionChange !== 'patch' && versionChange !== 'minor' && versionChange !== 
 }
 
 console.log('Auto version change : ' + versionChange);
-spawnSync('npm', ['version', versionChange, '-m', 'Bump version to: %s [skip ci]']);
+const npmVersionProcess = spawnSync('npm', ['version', versionChange]);
+const newVersion = npmVersionProcess.stdout.toString().split(/\r?\n/)[0];
+console.log(newVersion);
+
+spawnSync('git', ['add', 'package.json']);
+spawnSync('git', ['commit', '-n', '-m', 'Bump ' + projectName + ' version to: ' + newVersion + ' [skip ci]']);
+
+console.log('Publishing ..');
 
 // Publish
 spawnSync('npm', ['publish', buildPath]);
@@ -70,6 +76,6 @@ spawnSync('npm', ['publish', buildPath]);
 spawnSync('git', ['push', '--follow-tags']);
 
 // Do git release
-// spawnSync('yarn', ['auto', 'release', '--from', previous]);
+spawnSync('yarn', ['auto', 'release', '--from', previous]);
 
 console.log('Done');
