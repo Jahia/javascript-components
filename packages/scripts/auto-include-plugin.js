@@ -18,7 +18,9 @@ class FilterCommitsByFolderPlugin {
             logParse.hooks.omitCommit.tap(this.name, commit => {
                 // Remove current working directory which is added by a path.resolve
                 // https://github.com/intuit/auto/blob/v8.6.0/packages/core/src/git.ts:309
-                let files = commit.files.map(f => f.substr(process.cwd().length + 1));
+                const files = commit.files
+                    .map(f => f.substr(process.cwd().length + 1))
+                    .filter(f => this.options.paths.filter(p => f.startsWith(p)).length > 0); // Keep only files in the requested folder
 
                 // Keep only files in the requested folder
                 files = files.filter(f => this.options.paths.filter(p => f.startsWith(p)).length > 0);
