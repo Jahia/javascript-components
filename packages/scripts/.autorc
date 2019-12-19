@@ -1,0 +1,9 @@
+{
+  "owner": "Jahia",
+  "repo": "javascript-components",
+  "plugins": [
+    [
+      "../scripts/auto-include-plugin.js", { "paths": "packages/scripts" }
+    ]
+  ]
+}

@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const branch = require('git-branch');
 const spawn = require('cross-spawn');
+const dotenv = require('dotenv');
 
 const json = require(path.resolve('./package.json'));
 const branchName = branch.sync();
@@ -10,6 +11,8 @@ const branchName = branch.sync();
 let projectName = json.name.substring(json.name.lastIndexOf('/') + 1);
 let previous = projectName + '-v' + json.version;
 let buildPath = fs.existsSync('build/package.json') ? 'build' : '.';
+
+dotenv.config({path: '../../.env'});
 
 const spawnSync = (command, params, options) => {
     let subprocess = spawn.sync(command, params, options);
