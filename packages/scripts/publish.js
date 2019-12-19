@@ -40,15 +40,6 @@ if (branchName !== 'master') {
     process.exit(1);
 }
 
-// Handle canary branches
-// let name = 'beta';
-// if (branchName.startsWith('feature-')) {
-//     name = branchName.replace(/-/g, '');
-//     params.push('--tag', name);
-// }
-//
-// build += '-' + name + '.' + (new Date()).toISOString().slice(0, 19).replace(/[-:T]/g, '');
-
 // Get new version
 const autoVersionProcess = spawnSync('yarn', ['auto', 'version', '--from', previous]);
 const lines = autoVersionProcess.stdout.toString('ascii').split(/\r?\n/);

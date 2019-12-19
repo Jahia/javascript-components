@@ -2,6 +2,7 @@
   "owner": "Jahia",
   "repo": "javascript-components",
   "plugins": [
+    "npm",
     [
       "../scripts/auto-include-plugin.js", { "paths": "packages/apollo-dx" }
     ]
