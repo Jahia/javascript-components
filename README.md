@@ -21,7 +21,8 @@ This project is composed of (click on the link for there documentation):
 
 - [ui-extender - ⚗ - Allow Jahia module to extend Jahia UI](./packages/ui-extender)
 
-- [eslint-config - 🔧 - Jahia eslint configuration](./packages/design-system-kit)
+- [eslint-config - 🔧 - Jahia eslint configuration](./packages/eslint-config)
+- [stylelint-config - 🔧 - Jahia stylelint configuration](./packages/stylelint-config)
 - [test-framework - 🔧 - Jest + Enzyme configuration for Jahia needs](./packages/test-framework)
 - [scripts - 🔧 - Jahia internal build script](./packages/scripts)
 
