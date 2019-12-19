@@ -71,6 +71,7 @@ console.log('Publishing ..');
 spawnSync('yarn', ['publish', buildPath, '--no-git-tag-version', '--new-version', newVersion.substr(1)]);
 
 // Push to repository
+spawnSync('git', ['push']);
 spawnSync('git', ['push', '--tags']);
 
 // Do git release
