@@ -22,9 +22,6 @@ class FilterCommitsByFolderPlugin {
                     .map(f => f.substr(process.cwd().length + 1))
                     .filter(f => this.options.paths.filter(p => f.startsWith(p)).length > 0); // Keep only files in the requested folder
 
-                // Keep only files in the requested folder
-                files = files.filter(f => this.options.paths.filter(p => f.startsWith(p)).length > 0);
-
                 // Output the commit hash - needed to count the accepted commits
                 if (files.length > 0) {
                     console.log(commit.hash);
