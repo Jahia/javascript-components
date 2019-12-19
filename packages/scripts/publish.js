@@ -7,9 +7,7 @@ const spawn = require('cross-spawn');
 const json = require(path.resolve('./package.json'));
 const branchName = branch.sync();
 
-let projectName = json.name.substring(json.name.lastIndexOf('/') + 1);
-let build = json.version;
-let tag = projectName + '-v' + build;
+let projectName = json.name;
 let previous = 'design-system-kit-v1.0.0';
 let buildPath = fs.existsSync('build/package.json') ? 'build' : '.';
 
@@ -30,7 +28,7 @@ const spawnSync = (command, params, options) => {
     return subprocess;
 };
 
-console.log('Releasing code from branch : ' + branchName + ' to ' + tag);
+console.log('Releasing code from branch : ' + branchName);
 
 // Ensure code is called from master
 // if (branchName !== 'master') {
@@ -62,7 +60,8 @@ if (versionChange !== 'patch' && versionChange !== 'minor' && versionChange !== 
 console.log('Auto version change : ' + versionChange);
 const npmVersionProcess = spawnSync('npm', ['version', versionChange]);
 const newVersion = npmVersionProcess.stdout.toString().split(/\r?\n/)[0];
-console.log(newVersion);
+let tag = projectName + '-' + newVersion;
+console.log('Will release ' + tag);
 
 spawnSync('git', ['add', 'package.json']);
 spawnSync('git', ['commit', '-n', '-m', 'Bump ' + projectName + ' version to: ' + newVersion + ' [skip ci]']);
@@ -73,9 +72,9 @@ console.log('Publishing ..');
 spawnSync('npm', ['publish', buildPath]);
 
 // Push to repository
-spawnSync('git', ['push', '--follow-tags']);
+spawnSync('git', ['push', '--no-verify', '--follow-tags']);
 
 // Do git release
-spawnSync('yarn', ['auto', 'release', '--from', previous]);
+spawnSync('yarn', ['auto', 'release', '--use-version', tag, '--from', previous]);
 
 console.log('Done');
