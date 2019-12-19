@@ -35,10 +35,10 @@ const spawnSync = (command, params, options) => {
 console.log('Releasing code from branch : ' + branchName);
 
 // Ensure code is called from master
-// if (branchName !== 'master') {
-//     console.log('Can only release from master branch');
-//     process.exit(1);
-// }
+if (branchName !== 'master') {
+    console.log('Can only release from master branch');
+    process.exit(1);
+}
 
 // Handle canary branches
 // let name = 'beta';
@@ -49,10 +49,7 @@ console.log('Releasing code from branch : ' + branchName);
 //
 // build += '-' + name + '.' + (new Date()).toISOString().slice(0, 19).replace(/[-:T]/g, '');
 
-// Generate changelog
-spawnSync('yarn', ['auto', 'changelog', '--from', previous]);
-
-// Bump version
+// Get new version
 const autoVersionProcess = spawnSync('yarn', ['auto', 'version', '--from', previous]);
 const versionChange = autoVersionProcess.stdout.toString('ascii').split(/\r?\n/)[1];
 
@@ -61,6 +58,10 @@ if (versionChange !== 'patch' && versionChange !== 'minor' && versionChange !== 
     process.exit(0);
 }
 
+// Generate changelog
+spawnSync('yarn', ['auto', 'changelog', '--from', previous]);
+
+// Bump version
 console.log('Auto version change : ' + versionChange);
 const npmVersionProcess = spawnSync('npm', ['version', versionChange]);
 const newVersion = npmVersionProcess.stdout.toString().split(/\r?\n/)[0];
