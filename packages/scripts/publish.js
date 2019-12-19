@@ -8,7 +8,7 @@ const json = require(path.resolve('./package.json'));
 const branchName = branch.sync();
 
 let projectName = json.name;
-let previous = 'design-system-kit-v1.0.0';
+let previous = projectName.substring(projectName.lastIndexOf('/') + 1) + '-v' + json.version;
 let buildPath = fs.existsSync('build/package.json') ? 'build' : '.';
 
 const spawnSync = (command, params, options) => {
