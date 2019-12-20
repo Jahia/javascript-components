@@ -6,7 +6,7 @@
         "clean": "rm -rf packages/**/build/",
         "lerna-bootstrap": "yarn install && lerna bootstrap --ci",
         "build": "yarn lint && yarn test && lerna run build",
-        "publish": "lerna run publish-script",
+        "publish": "lerna --concurrency 1 run publish-script",
         "lint": "eslint --ext js,jsx .",
         "lint:fix": "yarn lint --fix .",
         "test": "lerna --scope @jahia/test-framework run build && jest --coverage",
