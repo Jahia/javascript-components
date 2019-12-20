@@ -1,5 +1,20 @@
 Object.defineProperty(exports, '__esModule', {value: true});
 
+const core = require('@auto-it/core');
+
+const regExp = /^([a-zA-Z0-9-]+)-(v[0-9.]+)$/;
+// Monkey-patch determineNextVersion
+const previous = core.determineNextVersion;
+core.determineNextVersion = (lastVersion, currentVersion, bump, tag) => {
+    // Strip module name from tag
+    const match = lastVersion.match(regExp);
+    if (match) {
+        return previous(match[2], currentVersion, bump, tag);
+    }
+
+    return previous(lastVersion, currentVersion, bump, tag);
+};
+
 /** Ensure a value is an array */
 const arrayify = arr => (Array.isArray(arr) ? arr : [arr]);
 class FilterCommitsByFolderPlugin {
