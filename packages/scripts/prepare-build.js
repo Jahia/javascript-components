@@ -39,5 +39,6 @@ function typingsCopy() {
     });
 }
 
+copyFile('.', 'build', 'README.md');
 copyFile('.', 'build', 'package.json');
 typingsCopy();
