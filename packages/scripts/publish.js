@@ -65,14 +65,15 @@ console.log('Will release ' + tag);
 spawnSync('git', ['add', 'package.json']);
 spawnSync('git', ['commit', '-n', '-m', 'Bump ' + projectName + ' version to: ' + newVersion + ' [skip ci]']);
 
+console.log('Pushing ..');
+
+// Push to repository
+spawnSync('git', ['push']);
+
 console.log('Publishing ..');
 
 // Publish
 spawnSync('yarn', ['publish', buildPath, '--no-git-tag-version', '--new-version', newVersion.substr(1)]);
-
-// Push to repository
-spawnSync('git', ['push']);
-spawnSync('git', ['push', '--tags']);
 
 // Do git release
 spawnSync('yarn', ['auto', 'release', '--use-version', tag, '--from', previous]);
