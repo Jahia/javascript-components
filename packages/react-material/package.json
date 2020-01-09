@@ -1,6 +1,6 @@
 {
   "name": "@jahia/react-material",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "scripts": {
     "babel:js": "jahia-babel-js",
     "babel:module": "jahia-babel-module",
