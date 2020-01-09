@@ -3,7 +3,6 @@ import {List, ListItem, Typography, withStyles} from '@material-ui/core';
 import {ChevronRight, ExpandMore} from '@material-ui/icons';
 import React from 'react';
 import {lodash as _} from 'lodash';
-import {translate} from 'react-i18next';
 import {DisplayActions, toIconComponent} from '@jahia/react-material';
 import {compose} from 'recompose';
 
@@ -16,7 +15,7 @@ const styles = theme => ({
     }
 });
 
-export const LeftDrawerListItems = ({context, actionPath, classes, t}) => (
+export const LeftDrawerListItems = ({context, actionPath, classes}) => (
     <DisplayActions target={context.menu}
                     context={{...context.originalContext, parent: context}}
                     render={actionProps => {
@@ -48,7 +47,7 @@ export const LeftDrawerListItems = ({context, actionPath, classes, t}) => (
                                     {icon}
                                     &nbsp;
                                     <Typography color="textPrimary">
-                                        {t(actionContext.buttonLabel)}
+                                        {actionContext.buttonLabel}
                                     </Typography>
                                 </ListItem>
                                 <List disablePadding classes={{root: classes.nested}}>
@@ -56,7 +55,7 @@ export const LeftDrawerListItems = ({context, actionPath, classes, t}) => (
                                     <LeftDrawerListItems context={actionContext}
                                                          actionPath={actionPath + '/' + actionContext.key}
                                                          classes={classes}
-                                                         t={t}/>}
+                                                         />}
                                 </List>
                             </React.Fragment>
                         );
@@ -66,11 +65,9 @@ export const LeftDrawerListItems = ({context, actionPath, classes, t}) => (
 LeftDrawerListItems.propTypes = {
     actionPath: PropTypes.string.isRequired,
     context: PropTypes.object.isRequired,
-    classes: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired
+    classes: PropTypes.object.isRequired
 };
 
 export default compose(
-    translate(),
     withStyles(styles)
 )(LeftDrawerListItems);

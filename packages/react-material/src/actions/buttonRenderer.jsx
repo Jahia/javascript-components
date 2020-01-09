@@ -1,12 +1,12 @@
 import {Button} from '@jahia/design-system-kit';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {I18n} from 'react-i18next';
+import {Translation} from 'react-i18next';
 import {toIconComponent} from './toIconComponent';
 
 export const buttonRenderer = (buttonProps, showIcon, propagateEvent, upperCaseLabel) => {
     const Render = ({context}) => (
-        <I18n ns={context.buttonLabelNamespace}>
+        <Translation ns={context.buttonLabelNamespace}>
             {t => (
                 <Button data-sel-role={context.key}
                         icon={showIcon && context.buttonIcon && toIconComponent(context.buttonIcon)}
@@ -27,7 +27,7 @@ export const buttonRenderer = (buttonProps, showIcon, propagateEvent, upperCaseL
                     }}/>
                 </Button>
             )}
-        </I18n>
+        </Translation>
     );
 
     Render.propTypes = {
