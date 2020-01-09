@@ -2,6 +2,18 @@
 
 #### 🐛  Bug Fix
 
+- BACKLOG-12055: fix suppresion of a component in react-material [#67](https://github.com/Jahia/javascript-components/pull/67) ([@FBerthelot](https://github.com/FBerthelot))
+
+#### Authors: 1
+
+- Florent Berthelot ([@FBerthelot](https://github.com/FBerthelot))
+
+---
+
+# (Thu Jan 09 2020)
+
+#### 🐛  Bug Fix
+
 - BACKLOG-12055: upgrade react-i18next and delete i18n project [#66](https://github.com/Jahia/javascript-components/pull/66) ([@FBerthelot](https://github.com/FBerthelot))
 
 #### Authors: 1
