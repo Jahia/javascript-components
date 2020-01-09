@@ -7,7 +7,7 @@ import DocumentViewer from './DocumentViewer';
 import PDFViewer from './PDFViewer';
 import ImageViewer from './ImageViewer';
 import {DxContext} from '../DxContext';
-import {translate} from 'react-i18next';
+import {withTranslation} from 'react-i18next';
 import {compose} from 'react-apollo';
 
 const styles = theme => ({
@@ -172,7 +172,7 @@ PreviewComponentCmp.propTypes = {
 };
 
 const PreviewComponent = compose(
-    translate(),
+    withTranslation(),
     withStyles(styles)
 )(PreviewComponentCmp);
 

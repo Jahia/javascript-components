@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {translate} from 'react-i18next';
 import {Tooltip, withStyles} from '@material-ui/core';
 import {compose} from 'recompose';
 import classNames from 'classnames';
@@ -17,7 +16,7 @@ const styles = () => ({
     }
 });
 
-export const BurgerMenuButton = ({classes, isDrawerOpen, t}) => {
+export const BurgerMenuButton = ({classes, isDrawerOpen, title}) => {
     function openMenu() {
         const clickEvent = window.top.document.createEvent('MouseEvents');
         clickEvent.initEvent('click', true, true);
@@ -33,7 +32,7 @@ export const BurgerMenuButton = ({classes, isDrawerOpen, t}) => {
     }
 
     return (
-        <Tooltip title={t('label.tooltip.burgerMenu')}
+        <Tooltip title={title}
                  placement="right"
         >
             <div className={classNames(classes.menuButton)}
@@ -46,7 +45,7 @@ export const BurgerMenuButton = ({classes, isDrawerOpen, t}) => {
 BurgerMenuButton.propTypes = {
     isDrawerOpen: PropTypes.bool,
     classes: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired
+    title: PropTypes.string.isRequired
 };
 
 BurgerMenuButton.defaultProps = {
@@ -54,6 +53,5 @@ BurgerMenuButton.defaultProps = {
 };
 
 export default compose(
-    translate('design-system-kit'),
     withStyles(styles, {name: 'DxBurgerMenuButton'})
 )(BurgerMenuButton);

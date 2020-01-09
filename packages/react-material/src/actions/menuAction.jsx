@@ -1,6 +1,6 @@
 import React from 'react';
 import {Menu, MenuItem, ModalManager} from '@material-ui/core';
-import {I18n} from 'react-i18next';
+import {Translation} from 'react-i18next';
 import {componentRendererAction} from './componentRendererAction';
 import {composeActions} from './composeActions';
 import {DisplayActions} from './DisplayActions';
@@ -149,7 +149,7 @@ let display = (context, anchor) => {
                   }}
                   {...subMenuProps}
         >
-            <I18n>{t => (
+            <Translation>{t => (
                 <React.Fragment>
                     {context.menuEmptyMessage &&
                         <MenuItem disabled classes={{root: context.classes.emptyMenuItem}}>{t(context.menuEmptyMessage)}</MenuItem>}
@@ -211,7 +211,7 @@ let display = (context, anchor) => {
                     />
                 </React.Fragment>
             )}
-            </I18n>
+            </Translation>
         </PureMenu>
     );
 };

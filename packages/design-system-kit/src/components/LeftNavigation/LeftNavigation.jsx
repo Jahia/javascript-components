@@ -57,7 +57,7 @@ const styles = theme => ({
     }
 });
 
-export const LeftNavigation = ({context, classes, actionsTarget, secondaryActionsTarget, drawer}) => {
+export const LeftNavigation = ({context, classes, actionsTarget, secondaryActionsTarget, drawer, burgerIconTitle}) => {
     let actionContext = {
         ...context,
         drawer
@@ -71,7 +71,7 @@ export const LeftNavigation = ({context, classes, actionsTarget, secondaryAction
         >
             <List className={classes.list} component="nav">
                 <ListItem button className={classes.menuBurger}>
-                    <BurgerMenuButton isDrawerOpen={drawer.drawerOpen}/>
+                    <BurgerMenuButton title={burgerIconTitle} isDrawerOpen={drawer.drawerOpen}/>
                 </ListItem>
                 <DisplayActions target={actionsTarget}
                                 context={actionContext}
@@ -110,6 +110,7 @@ LeftNavigation.propTypes = {
     secondaryActionsTarget: PropTypes.string.isRequired,
     context: PropTypes.object.isRequired,
     drawer: PropTypes.object.isRequired,
+    burgerIconTitle: PropTypes.string.isRequired,
     classes: PropTypes.object.isRequired
 };
 

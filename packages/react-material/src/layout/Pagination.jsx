@@ -1,8 +1,7 @@
 import React from 'react';
-import {translate} from 'react-i18next';
+import {withTranslation} from 'react-i18next';
 import {IconButton, Table, TableFooter, TablePagination, TableRow, withStyles} from '@material-ui/core';
 import {FirstPage, KeyboardArrowLeft, KeyboardArrowRight, LastPage} from '@material-ui/icons';
-import * as _ from 'lodash';
 import PropTypes from 'prop-types';
 
 const actionsStyles = theme => ({
@@ -100,7 +99,7 @@ class PaginationCmp extends React.Component {
     }
 
     render() {
-        let {totalCount, pageSize, currentPage, onChangeRowsPerPage, t} = this.props;
+        let {totalCount, pageSize, currentPage, onChangeRowsPerPage, labels} = this.props;
         return (
             <Table>
                 <TableFooter>
@@ -110,8 +109,8 @@ class PaginationCmp extends React.Component {
                         rowsPerPage={pageSize}
                         page={currentPage}
                         ActionsComponent={TablePaginationActions}
-                        labelRowsPerPage={t('label.pagination.rowsPerPage')}
-                        labelDisplayedRows={({from, to, count}) => `${from}-${to} ` + t('label.pagination.of') + ` ${count}`}
+                        labelRowsPerPage={labels.labelRowsPerPage}
+                        labelDisplayedRows={({from, to, count}) => `${from}-${to} ` + labels.of + ` ${count}`}
                         data-jrm-role="table-pagination"
                         onChangePage={this.onChangePage}
                         onChangeRowsPerPage={event => onChangeRowsPerPage(event.target.value)}
@@ -129,9 +128,10 @@ PaginationCmp.propTypes = {
     currentPage: PropTypes.number.isRequired,
     onChangeRowsPerPage: PropTypes.func.isRequired,
     onChangePage: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired
+    labels: PropTypes.shape({
+        labelRowsPerPage: PropTypes.string.isRequired,
+        of: PropTypes.string.isRequired
+    })
 };
 
-export const Pagination = _.flowRight(
-    translate('react-material')
-)(PaginationCmp);
+export const Pagination = withTranslation()(PaginationCmp);

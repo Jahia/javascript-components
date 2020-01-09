@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {CardMedia, withStyles} from '@material-ui/core';
-import {translate} from 'react-i18next';
+import {withTranslation} from 'react-i18next';
 import {compose} from 'react-apollo';
 import classNames from 'classnames';
 
@@ -48,6 +48,6 @@ ImageViewer.propTypes = {
 };
 
 export default compose(
-    translate(),
+    withTranslation(),
     withStyles(styles)
 )(ImageViewer);

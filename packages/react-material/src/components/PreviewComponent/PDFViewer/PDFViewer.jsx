@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Loadable from 'react-loadable';
-import {translate} from 'react-i18next';
+import {withTranslation} from 'react-i18next';
 import {Tooltip, withStyles, CircularProgress} from '@material-ui/core';
 import {Typography, IconButton} from '@jahia/design-system-kit';
 import {
@@ -214,6 +214,6 @@ PDFViewer.propTypes = {
 };
 
 export default compose(
-    translate(),
+    withTranslation(),
     withStyles(styles)
 )(PDFViewer);

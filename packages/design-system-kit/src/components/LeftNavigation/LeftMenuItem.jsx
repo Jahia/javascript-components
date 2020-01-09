@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {Badge, Button, Typography, withStyles} from '@material-ui/core';
 import {compose} from 'recompose';
-import {translate} from 'react-i18next';
 import {toIconComponent} from '@jahia/react-material';
 
 const styles = theme => ({
@@ -46,7 +45,7 @@ const styles = theme => ({
     }
 });
 
-export const LeftMenuItem = ({classes, t, drawer, context}) => {
+export const LeftMenuItem = ({classes, drawer, context}) => {
     const {onClick, buttonLabel, buttonIcon, badge} = context;
 
     let icon = toIconComponent(buttonIcon, drawer ? {classes: {root: classes.colorOpen}} : {classes: {root: classes.colorClosed}});
@@ -57,7 +56,7 @@ export const LeftMenuItem = ({classes, t, drawer, context}) => {
             <Typography className={drawer ? classes.typographyIcon : classes.typographyIconLight}
                         data-sel-role="left-menu-item-text"
             >
-                {t(buttonLabel)}
+                {buttonLabel}
             </Typography>
         </React.Fragment>
     );
@@ -81,11 +80,9 @@ LeftMenuItem.propTypes = {
     context: PropTypes.object.isRequired,
     // eslint-disable-next-line react/boolean-prop-naming
     drawer: PropTypes.bool.isRequired,
-    classes: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired
+    classes: PropTypes.object.isRequired
 };
 
 export default compose(
-    translate(),
     withStyles(styles, {withTheme: true})
 )(LeftMenuItem);

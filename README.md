@@ -33,7 +33,6 @@ This project is composed of (click on the link for there documentation):
 
 - [apollo-dx - 🚀 - Provides an apollo-client configured to connect on DX graphql API](./packages/apollo-dx)
 - [react-apollo - 🚀 - Provides helpers methods to manipulate DX nodes, based on graphQL API](./packages/react-apollo)
-- [i18next - 🌐 - Provides an i18next configuration](./packages/i18next)
 - [react-router - ✨ - A router with multiple outlets](./packages/react-router)
 - [redux - 💩 - DEPRECATED no one use it](./packages/redux)
 
@@ -95,8 +94,8 @@ Modules can also be built independently by going to packages subfolder, and use 
 
 ### Publish
 
-When you make changes to javascript-components, a new version is built and published automatically. Releases and 
-publish are done thanks to [auto](https://intuit.github.io/auto/). Version are incremented according to 
+When you make changes to javascript-components, a new version is built and published automatically. Releases and
+publish are done thanks to [auto](https://intuit.github.io/auto/). Version are incremented according to
 [PR labels](https://intuit.github.io/auto/pages/autorc.html#labels).
 
 

@@ -6,7 +6,7 @@ import {composeActions} from './composeActions';
 import {ProgressOverlay} from '../layout/ProgressOverlay';
 import {withNotifications} from '../notification/NotificationProvider';
 import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@material-ui/core';
-import {translate} from 'react-i18next';
+import {withTranslation} from 'react-i18next';
 
 class GenericDialogMutationCmp extends React.Component {
     onCompleted() {
@@ -89,7 +89,7 @@ GenericDialogMutationCmp.propTypes = {
 
 export const GenericDialogMutation = compose(
     withNotifications(),
-    translate()
+    withTranslation()
 )(GenericDialogMutationCmp);
 
 let genericDialogMutationAction = composeActions(componentRendererAction, {
