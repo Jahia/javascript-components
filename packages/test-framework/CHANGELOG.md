@@ -1,3 +1,15 @@
+# (Mon Jan 13 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12055: supress react-i18next mock from test-framwork [#68](https://github.com/Jahia/javascript-components/pull/68) ([@FBerthelot](https://github.com/FBerthelot))
+
+#### Authors: 1
+
+- Florent Berthelot ([@FBerthelot](https://github.com/FBerthelot))
+
+---
+
 # (Fri Dec 20 2019)
 
 #### 🚀  Enhancement
