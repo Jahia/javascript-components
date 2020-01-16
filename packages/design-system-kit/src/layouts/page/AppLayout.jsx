@@ -10,7 +10,8 @@ const styles = theme => ({
         position: 'relative',
         display: 'flex',
         flexDirection: 'row',
-        height: '100vh'
+        height: '100vh',
+        width: '100%'
     },
     main: {
         flex: '1 1 0%',
