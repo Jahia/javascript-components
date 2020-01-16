@@ -1,3 +1,15 @@
+# (Thu Jan 16 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12097 : Moved out navigation [#69](https://github.com/Jahia/javascript-components/pull/69) ([@AKarmanov](https://github.com/AKarmanov))
+
+#### Authors: 1
+
+- Alex Karmanov ([@AKarmanov](https://github.com/AKarmanov))
+
+---
+
 # (Thu Jan 09 2020)
 
 #### 🐛  Bug Fix
