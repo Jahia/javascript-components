@@ -56,7 +56,7 @@ const styles = theme => ({
     }
 });
 
-export const LeftNavigation = ({context, classes, actionsTarget, secondaryActionsTarget, drawer, burgerIconTitle}) => {
+export const LeftNavigation = ({context, classes, actionsTarget, secondaryActionsTarget, drawer}) => {
     let actionContext = {
         ...context,
         drawer
@@ -94,7 +94,6 @@ LeftNavigation.propTypes = {
     secondaryActionsTarget: PropTypes.string.isRequired,
     context: PropTypes.object.isRequired,
     drawer: PropTypes.object.isRequired,
-    burgerIconTitle: PropTypes.string.isRequired,
     classes: PropTypes.object.isRequired
 };
 
