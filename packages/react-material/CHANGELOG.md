@@ -1,3 +1,17 @@
+# (Fri Jan 24 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12197 : fix linter error [#71](https://github.com/Jahia/javascript-components/pull/71) ([@dgriffon](https://github.com/dgriffon))
+- BACKLOG-12197: fix ordering of actions on firefox and opera [#70](https://github.com/Jahia/javascript-components/pull/70) ([@jkevan](https://github.com/jkevan))
+
+#### Authors: 2
+
+- David Griffon ([@dgriffon](https://github.com/dgriffon))
+- kevan Jahanshahi ([@jkevan](https://github.com/jkevan))
+
+---
+
 # (Thu Jan 09 2020)
 
 #### 🐛  Bug Fix
