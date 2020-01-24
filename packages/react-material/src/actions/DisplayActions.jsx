@@ -26,7 +26,7 @@ class DisplayActions extends React.Component {
                 }
             }
 
-            // should be placed at the end if no priority defined, returning 'undefined' is making the ordering bug on FF and Opera
+            // Should be placed at the end if no priority defined, returning 'undefined' is making the ordering bug on FF and Opera
             return 99999;
         }]);
 
