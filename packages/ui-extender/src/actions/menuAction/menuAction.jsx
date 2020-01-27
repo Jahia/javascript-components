@@ -25,6 +25,7 @@ const Menu = ({context, menuContext, anchor, isOpen, onExited}) => {
                 target={menuTarget}
                 filter={menuFilter}
                 context={{
+                    ...originalContext,
                     originalContext,
                     parentMenuContext: context.menuContext,
                     rootMenuContext: rootMenuContext
