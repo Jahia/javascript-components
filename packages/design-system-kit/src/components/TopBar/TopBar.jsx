@@ -17,7 +17,8 @@ const styles = theme => ({
         whiteSpace: 'nowrap',
         textOverflow: 'ellipsis',
         overflow: 'hidden',
-        minWidth: 0
+        minWidth: 0,
+        maxWidth: '50vw'
     },
     head: {
         display: 'inline-block',
