@@ -5,7 +5,6 @@ import {DisplayAction} from '../core';
 export class ContextualMenu extends React.Component {
     open(e) {
         this.ctx.onClick(this.ctx, e);
-        e.stopPropagation();
         e.preventDefault();
     }
 
