@@ -1,3 +1,15 @@
+# (Tue Jan 28 2020)
+
+#### 🚀  Enhancement
+
+- BACKLOG-11820: Added contextual menu component in ui-extender [#74](https://github.com/Jahia/javascript-components/pull/74) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Mon Jan 27 2020)
 
 #### 🐛  Bug Fix
