@@ -1,3 +1,15 @@
+# (Tue Jan 28 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12208 improve display title [#75](https://github.com/Jahia/javascript-components/pull/75) ([@Taybou](https://github.com/Taybou))
+
+#### Authors: 1
+
+- MT BENTERKI ([@Taybou](https://github.com/Taybou))
+
+---
+
 # (Thu Jan 16 2020)
 
 #### 🐛  Bug Fix
