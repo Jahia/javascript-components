@@ -1,3 +1,15 @@
+# (Mon Feb 10 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12240 add react-i18next mock to the test-framework [#77](https://github.com/Jahia/javascript-components/pull/77) ([@DameniMilo](https://github.com/DameniMilo))
+
+#### Authors: 1
+
+- dgaillard ([@DameniMilo](https://github.com/DameniMilo))
+
+---
+
 # (Mon Jan 13 2020)
 
 #### 🐛  Bug Fix
