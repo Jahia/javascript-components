@@ -7,6 +7,54 @@ const Menu = ({context, menuContext, anchor, isOpen, onExited}) => {
     const {menuTarget, menuFilter, menuRenderer: MenuRenderer, menuItemRenderer: MenuItemRenderer, originalContext, parentMenuContext} = context;
     const {onClose, rootMenuContext} = menuContext;
 
+    const Loading = ({context}) => {
+        menuContext.loadingItems = menuContext.loadingItems || [];
+        menuContext.loadingItems.push(context.key);
+        return false;
+    };
+
+    const Render = ({context}) => {
+        useEffect(() => {
+            if (menuContext.delayedOpen && menuContext.loadingItems && menuContext.loadingItems.length === 0) {
+                menuContext.delayedOpen();
+            }
+        });
+
+        if (menuContext.loadingItems && menuContext.loadingItems.indexOf(context.key) !== -1) {
+            menuContext.loadingItems = menuContext.loadingItems.filter(f => f !== context.key);
+        }
+
+        return (
+            <MenuItemRenderer context={context}
+                              onClick={event => {
+                                  // Call the action and close the menu
+                                  context.onClick(context, event);
+                                  context.parentMenuContext.onCloseAll();
+                              }}
+                              onMouseEnter={event => {
+                                  // Moved into a menu item, close current submenu if present
+                                  if (context.parentMenuContext.subMenu) {
+                                      context.parentMenuContext.closeSubMenu();
+                                  }
+
+                                  // Open submenu (only if current is still open and not being closed)
+                                  if (context.parentMenuContext.open && context.menuContext) {
+                                      const b = event.currentTarget.getBoundingClientRect();
+                                      context.menuContext.display({left: b.left + b.width, top: b.top});
+                                  }
+                              }}
+                              onMouseLeave={() => {
+                                  // Check if the mouse moved out of the item, without going into the sub menu.
+                                  setTimeout(() => {
+                                      if (context.menuContext && !context.menuContext.inMenu) {
+                                          context.menuContext.onClose();
+                                      }
+                                  }, 100);
+                              }}
+            />
+        );
+    };
+
     return (
         <MenuRenderer context={context}
                       isSubMenu={Boolean(parentMenuContext)}
@@ -30,35 +78,8 @@ const Menu = ({context, menuContext, anchor, isOpen, onExited}) => {
                     parentMenuContext: context.menuContext,
                     rootMenuContext: rootMenuContext
                 }}
-                render={({context}) => (
-                    <MenuItemRenderer context={context}
-                                      onClick={event => {
-                                          // Call the action and close the menu
-                                          context.onClick(context, event);
-                                          context.parentMenuContext.onCloseAll();
-                                      }}
-                                      onMouseEnter={event => {
-                                          // Moved into a menu item, close current submenu if present
-                                          if (context.parentMenuContext.subMenu) {
-                                              context.parentMenuContext.closeSubMenu();
-                                          }
-
-                                          // Open submenu (only if current is still open and not being closed)
-                                          if (context.parentMenuContext.open && context.menuContext) {
-                                              const b = event.currentTarget.getBoundingClientRect();
-                                              context.menuContext.display({left: b.left + b.width, top: b.top});
-                                          }
-                                      }}
-                                      onMouseLeave={() => {
-                                          // Check if the mouse moved out of the item, without going into the sub menu.
-                                          setTimeout(() => {
-                                              if (context.menuContext && !context.menuContext.inMenu) {
-                                                  context.menuContext.onClose();
-                                              }
-                                          }, 100);
-                                      }}
-                    />
-                )}
+                loading={Loading}
+                render={Render}
             />
         </MenuRenderer>
     );
@@ -101,7 +122,16 @@ const MenuActionComponent = ({context, render: Render}) => {
             }
 
             // Delay open to get animation
-            setTimeout(() => componentRenderer.setProperties(id, {isOpen: true}), 0);
+            setTimeout(() => {
+                if (!menuContext.loadingItems || menuContext.loadingItems.length === 0) {
+                    componentRenderer.setProperties(id, {isOpen: true});
+                } else {
+                    menuContext.delayedOpen = () => {
+                        componentRenderer.setProperties(id, {isOpen: true});
+                        delete menuContext.delayedOpen;
+                    };
+                }
+            }, 0);
         };
 
         // Method to close the current submenu

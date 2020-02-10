@@ -14,6 +14,10 @@ export interface DisplayActionProps {
      */
     render: (...args: any[])=>any;
     /**
+     * The render component
+     */
+    loading: (...args: any[])=>any;
+    /**
      * ..
      */
     observerRef?: (...args: any[])=>any;
