@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {ComponentRendererContext} from '../../ComponentRenderer';
 import {DisplayActions} from '../core/DisplayActions';
@@ -10,13 +10,15 @@ const Menu = ({context, menuContext, anchor, isOpen, onExited}) => {
     const Loading = ({context}) => {
         menuContext.loadingItems = menuContext.loadingItems || [];
         menuContext.loadingItems.push(context.key);
-        return false;
+        return (
+            <MenuItemRenderer context={context}/>
+        );
     };
 
     const Render = ({context}) => {
         useEffect(() => {
-            if (menuContext.delayedOpen && menuContext.loadingItems && menuContext.loadingItems.length === 0) {
-                menuContext.delayedOpen();
+            if (menuContext.setLoaded && menuContext.loadingItems && menuContext.loadingItems.length === 0) {
+                menuContext.setLoaded();
             }
         });
 
@@ -93,12 +95,15 @@ Menu.propTypes = {
     onExited: PropTypes.func.isRequired
 };
 
-const MenuActionComponent = ({context, render: Render}) => {
+const MenuActionComponent = ({context, render: Render, loading: Loading}) => {
     const componentRenderer = useContext(ComponentRendererContext);
     const id = 'actionComponent-' + context.id;
 
     context.menuContext = {};
     const {parentMenuContext, menuContext} = context;
+
+    // Set loading flag if menu is going to preload, otherwise display the menu action directly
+    const [isLoading, setLoading] = useState(context.menuPreload);
 
     useEffect(() => {
         menuContext.rootMenuContext = context.rootMenuContext || menuContext;
@@ -123,12 +128,16 @@ const MenuActionComponent = ({context, render: Render}) => {
 
             // Delay open to get animation
             setTimeout(() => {
+                // All items have been loaded
                 if (!menuContext.loadingItems || menuContext.loadingItems.length === 0) {
                     componentRenderer.setProperties(id, {isOpen: true});
+                    setLoading(false);
                 } else {
-                    menuContext.delayedOpen = () => {
+                    // Items require some time to be loaded, set loading state
+                    setLoading(true);
+                    menuContext.setLoaded = () => {
                         componentRenderer.setProperties(id, {isOpen: true});
-                        delete menuContext.delayedOpen;
+                        setLoading(false);
                     };
                 }
             }, 0);
@@ -153,7 +162,37 @@ const MenuActionComponent = ({context, render: Render}) => {
         menuContext.onCloseAll = () => {
             menuContext.rootMenuContext.onClose();
         };
+
+        // Execute the preload if required - call the rendering without showing the menu
+        if (context.menuPreload) {
+            componentRenderer.render(id, Menu, {
+                context: context,
+                menuContext: menuContext,
+                anchor: {top: 0, left: 0},
+                isOpen: false,
+                onExited: () => componentRenderer.destroy(id)
+            });
+
+            // Check if all items are loaded
+            setTimeout(() => {
+                if (!menuContext.loadingItems || menuContext.loadingItems.length === 0) {
+                    // Everything is loaded, can destroy the preload component
+                    componentRenderer.destroy(id);
+                    setLoading(false);
+                } else {
+                    // Items require some time to be loaded, wait before resetting loading state
+                    menuContext.setLoaded = () => {
+                        componentRenderer.destroy(id);
+                        setLoading(false);
+                    };
+                }
+            }, 0);
+        }
     });
+
+    if (isLoading && Loading) {
+        return <Loading context={context}/>;
+    }
 
     return (
         <Render context={{
@@ -170,7 +209,8 @@ const MenuActionComponent = ({context, render: Render}) => {
 
 MenuActionComponent.propTypes = {
     context: PropTypes.object.isRequired,
-    render: PropTypes.func.isRequired
+    render: PropTypes.func.isRequired,
+    loading: PropTypes.func
 };
 
 /**

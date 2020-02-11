@@ -5,6 +5,10 @@ import React from 'react';
 import {toIconComponent} from './toIconComponent';
 
 let iconButtonRenderer = (buttonProps, iconProps, propagateEvent) => ({context}) => {
+    if (context.enabled === false) {
+        return false;
+    }
+
     let button = (
         <IconButton data-sel-role={context.key}
                     icon={toIconComponent(context.buttonIcon, iconProps)}
