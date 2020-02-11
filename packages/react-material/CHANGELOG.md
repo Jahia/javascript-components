@@ -1,3 +1,15 @@
+# (Tue Feb 11 2020)
+
+#### 💥  Breaking Change
+
+- BACKLOG-12359: Delete react-apollo in react-material project [#78](https://github.com/Jahia/javascript-components/pull/78) ([@FBerthelot](https://github.com/FBerthelot))
+
+#### Authors: 1
+
+- Florent Berthelot ([@FBerthelot](https://github.com/FBerthelot))
+
+---
+
 # (Fri Jan 24 2020)
 
 #### 🐛  Bug Fix
