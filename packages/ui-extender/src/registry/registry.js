@@ -52,7 +52,14 @@ class Registry {
                 let found = _.find(o.targets, function (t) {
                     return t.id === filters.target;
                 });
-                return found && found.priority && found.priority !== 0 ? found.priority : 'undefined';
+                if (found && found.priority) {
+                    const priority = Number(found.priority);
+                    if (!isNaN(priority) && priority !== 0) {
+                        return priority;
+                    }
+                }
+
+                return 99999;
             }]);
         }
 
