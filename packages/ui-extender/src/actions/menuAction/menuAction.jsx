@@ -103,7 +103,7 @@ const MenuActionComponent = ({context, render: Render, loading: Loading}) => {
     const {parentMenuContext, menuContext} = context;
 
     // Set loading flag if menu is going to preload, otherwise display the menu action directly
-    const [isLoading, setLoading] = useState(context.menuPreload);
+    const [isLoading, setLoading] = useState(Boolean(context.menuPreload));
 
     useEffect(() => {
         menuContext.rootMenuContext = context.rootMenuContext || menuContext;
@@ -137,6 +137,7 @@ const MenuActionComponent = ({context, render: Render, loading: Loading}) => {
                     setLoading(true);
                     menuContext.setLoaded = () => {
                         componentRenderer.setProperties(id, {isOpen: true});
+                        delete menuContext.setLoaded;
                         setLoading(false);
                     };
                 }
