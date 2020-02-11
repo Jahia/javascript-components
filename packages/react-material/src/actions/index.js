@@ -9,5 +9,4 @@ export {ComponentRendererConsumer, ComponentRendererProvider} from './ComponentR
 export {componentRendererAction} from './componentRendererAction';
 export {menuAction} from './menuAction';
 export {withStylesAction} from './withStylesAction';
-export {genericDialogMutationAction} from './genericDialogMutationAction';
 export {toIconComponent} from './toIconComponent';

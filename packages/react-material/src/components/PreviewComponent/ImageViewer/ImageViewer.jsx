@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {CardMedia, withStyles} from '@material-ui/core';
 import {withTranslation} from 'react-i18next';
-import {compose} from 'react-apollo';
+import {compose} from 'recompose';
 import classNames from 'classnames';
 
 const styles = theme => ({

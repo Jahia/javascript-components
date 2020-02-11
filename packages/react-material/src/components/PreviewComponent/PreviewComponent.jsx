@@ -8,7 +8,7 @@ import PDFViewer from './PDFViewer';
 import ImageViewer from './ImageViewer';
 import {DxContext} from '../DxContext';
 import {withTranslation} from 'react-i18next';
-import {compose} from 'react-apollo';
+import {compose} from 'recompose';
 
 const styles = theme => ({
     previewContainer: {
