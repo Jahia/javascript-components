@@ -1,3 +1,16 @@
+# (Tue Feb 11 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-11936: fix ordering of items using numbers instead of strings… [#72](https://github.com/Jahia/javascript-components/pull/72) ([@tdraier](https://github.com/tdraier) [@FBerthelot](https://github.com/FBerthelot))
+
+#### Authors: 2
+
+- Florent Berthelot ([@FBerthelot](https://github.com/FBerthelot))
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Tue Jan 28 2020)
 
 #### 🚀  Enhancement
