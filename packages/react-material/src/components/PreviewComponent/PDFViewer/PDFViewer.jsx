@@ -12,7 +12,7 @@ import {
     StepBackward,
     StepForward
 } from 'mdi-material-ui';
-import {compose} from 'react-apollo';
+import {compose} from 'recompose';
 import classNames from 'classnames';
 
 const styles = theme => ({

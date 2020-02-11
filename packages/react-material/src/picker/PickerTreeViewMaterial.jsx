@@ -12,7 +12,7 @@ import {
 import {IconButton, Typography} from '@jahia/design-system-kit';
 import {KeyboardArrowRight} from '@material-ui/icons';
 import defaultIconRenderer from './iconRenderer';
-import {compose} from 'react-apollo';
+import {compose} from 'recompose';
 import classNames from 'classnames';
 
 let styles = theme => ({
