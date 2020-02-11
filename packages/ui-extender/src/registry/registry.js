@@ -53,7 +53,7 @@ class Registry {
                     return t.id === filters.target;
                 });
                 if (found && found.priority) {
-                    let priority = Number(found.priority);
+                    const priority = Number(found.priority);
                     if (!isNaN(priority) && priority !== 0) {
                         return priority;
                     }
