@@ -1,0 +1,20 @@
+{
+    "name": "@jahia/data-helper",
+    "version": "1.0.0",
+    "scripts": {
+        "babel:js": "jahia-babel-js",
+        "babel:module": "jahia-babel-module",
+        "react2dts": "jahia-react2dts",
+        "publish-script": "jahia-publish",
+        "prepare-build": "jahia-prepare-build",
+        "build": "jahia-build",
+        "build-umd": "jahia-build-umd"
+    },
+    "main": "js/index.js",
+    "module": "esm/index.js",
+    "typings": "esm/index.d.ts",
+    "browser": "lib/react-apollo.umd.min.js",
+    "sideEffects": false,
+    "license": "SEE LICENSE IN ../../LICENSE.txt FILE",
+    "dependencies": {}
+}

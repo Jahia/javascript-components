@@ -19,17 +19,17 @@
 
 This project is composed of (click on the link for there documentation):
 
-- [design-system-kit - 💩 - DEPRECATED use moonstone instead](./packages/design-system-kit)
-- [react-material - 💩 - DEPRECATED use moonstone/ui-extender instead](./packages/react-material)
-- [icons - 💩 - DEPRECATED use moonstone instead](./packages/icons)
-
 - [ui-extender - ⚗ - Allow Jahia module to extend Jahia UI](./packages/ui-extender)
+- [data-helper - 💡- Provide helpers (react hooks, utily function, ...) to manipulate jahia datas](./packages/data-helper)
 
 - [eslint-config - 🔧 - Jahia eslint configuration](./packages/eslint-config)
 - [stylelint-config - 🔧 - Jahia stylelint configuration](./packages/stylelint-config)
 - [test-framework - 🔧 - Jest + Enzyme configuration for Jahia needs](./packages/test-framework)
 - [scripts - 🔧 - Jahia internal build script](./packages/scripts)
 
+- [design-system-kit - 💩 - DEPRECATED use moonstone instead](./packages/design-system-kit)
+- [react-material - 💩 - DEPRECATED use moonstone/ui-extender instead](./packages/react-material)
+- [icons - 💩 - DEPRECATED use moonstone instead](./packages/icons)
 
 - [apollo-dx - 🚀 - Provides an apollo-client configured to connect on DX graphql API](./packages/apollo-dx)
 - [react-apollo - 🚀 - Provides helpers methods to manipulate DX nodes, based on graphQL API](./packages/react-apollo)
