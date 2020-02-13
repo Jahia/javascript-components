@@ -1,42 +1,11 @@
+// TODO BACKLOG-12393 - refactor Legacy Picker into hook without lodash
 import React from 'react';
 import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
 import * as _ from 'lodash';
-import {PredefinedFragments, replaceFragmentsInDocument} from '@jahia/apollo-dx';
 import PropTypes from 'prop-types';
-
-const PickerItemsFragment = {
-    mixinTypes: {
-        applyFor: 'node',
-        variables: {
-            lang: 'String!'
-        },
-        gql: gql`fragment MixinTypes on JCRNode {
-            mixinTypes {
-                name
-            }
-        }`
-    },
-    isPublished: {
-        applyFor: 'node',
-        variables: {
-            lang: 'String!'
-        },
-        gql: gql`fragment PublicationStatus on JCRNode {
-            publicationStatus: aggregatedPublicationInfo(language: $lang) {
-                publicationStatus
-            }
-        }`
-    },
-    primaryNodeType: {
-        applyFor: 'node',
-        gql: gql`fragment PrimaryNodeTypeName on JCRNode {
-            primaryNodeType {
-                name
-            }
-        }`
-    }
-};
+import {replaceFragmentsInDocument} from './Picker.utils';
+import {PickerItemsFragment, PredefinedFragments} from '../fragments';
 
 class Picker extends React.Component {
     constructor(props) {

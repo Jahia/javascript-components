@@ -32,7 +32,6 @@ This project is composed of (click on the link for there documentation):
 - [icons - 💩 - DEPRECATED use moonstone instead](./packages/icons)
 
 - [apollo-dx - 🚀 - Provides an apollo-client configured to connect on DX graphql API](./packages/apollo-dx)
-- [react-apollo - 🚀 - Provides helpers methods to manipulate DX nodes, based on graphQL API](./packages/react-apollo)
 - [react-router - ✨ - A router with multiple outlets](./packages/react-router)
 - [redux - 💩 - DEPRECATED no one use it](./packages/redux)
 
