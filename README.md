@@ -31,7 +31,6 @@ This project is composed of (click on the link for there documentation):
 - [react-material - 💩 - DEPRECATED use moonstone/ui-extender instead](./packages/react-material)
 - [icons - 💩 - DEPRECATED use moonstone instead](./packages/icons)
 
-- [apollo-dx - 🚀 - Provides an apollo-client configured to connect on DX graphql API](./packages/apollo-dx)
 - [react-router - ✨ - A router with multiple outlets](./packages/react-router)
 - [redux - 💩 - DEPRECATED no one use it](./packages/redux)
 
