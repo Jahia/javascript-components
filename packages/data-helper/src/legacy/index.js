@@ -1,2 +1,2 @@
-export * from './picker';
+export * from './Picker';
 export * from './Picker.utils';
