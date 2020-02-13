@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import {replaceFragmentsInDocument} from './Picker.utils';
 import {PickerItemsFragment, PredefinedFragments} from '../fragments';
 
-class Picker extends React.Component {
+export class Picker extends React.Component {
     constructor(props) {
         super(props);
 
@@ -396,5 +396,3 @@ Picker.propTypes = {
     onSelectItem: PropTypes.func,
     onLoading: PropTypes.func
 };
-
-export {Picker};
