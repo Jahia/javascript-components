@@ -1,3 +1,15 @@
+# (Thu Feb 13 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12339 add mock resolution to jest config for css and scss file [#84](https://github.com/Jahia/javascript-components/pull/84) ([@DameniMilo](https://github.com/DameniMilo))
+
+#### Authors: 1
+
+- dgaillard ([@DameniMilo](https://github.com/DameniMilo))
+
+---
+
 # (Mon Feb 10 2020)
 
 #### 🐛  Bug Fix
