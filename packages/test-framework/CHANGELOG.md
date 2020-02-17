@@ -1,3 +1,15 @@
+# (Mon Feb 17 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12299 update jest config [#87](https://github.com/Jahia/javascript-components/pull/87) ([@DameniMilo](https://github.com/DameniMilo))
+
+#### Authors: 1
+
+- dgaillard ([@DameniMilo](https://github.com/DameniMilo))
+
+---
+
 # (Thu Feb 13 2020)
 
 #### 🐛  Bug Fix
