@@ -1,13 +1,11 @@
+import {File, Folder, SiteWeb} from '@jahia/moonstone/dist/icons';
 import NavMenuTextIcon from './NavMenuTextIcon';
-import PageIcon from './PageIcon';
-import VirtualsiteIcon from './VirtualsiteIcon';
 import ContentIcon from './ContentIcon';
-import {Folder} from '@material-ui/icons';
 
 const ICON_BY_NODE_TYPE = {
     'jnt:navMenuText': NavMenuTextIcon,
-    'jnt:page': PageIcon,
-    'jnt:virtualsite': VirtualsiteIcon,
+    'jnt:page': File,
+    'jnt:virtualsite': SiteWeb,
     'jnt:folder': Folder,
     'jnt:contentFolder': Folder,
     'jnt:content': ContentIcon
