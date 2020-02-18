@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {storiesOf} from '@storybook/react';
 import {DisplayAction} from '../core/DisplayAction';
 import {registry} from '../../registry';
-import {withKnobs} from '@storybook/addon-knobs';
+import {boolean, number, withKnobs} from '@storybook/addon-knobs';
 import PropTypes from 'prop-types';
 import {ComponentRendererProvider} from '../../ComponentRenderer';
 import {menuAction, MenuActionComponent} from './menuAction';
@@ -21,8 +21,9 @@ const MenuRenderer = ({isSubMenu, anchor, isOpen, onClose, onExited, onMouseEnte
                     height: '100vh',
                     top: 0,
                     left: 0,
-                    opacity: isOpen ? 0.1 : 0,
-                    transition: 'opacity 0.2s',
+                    pointerEvents: isOpen ? 'auto' : 'none',
+                    opacity: isOpen ? 0.4 : 0,
+                    transition: 'opacity 1s',
                     backgroundColor: 'black'
                 }}
                      onClick={onClose}
@@ -38,7 +39,7 @@ const MenuRenderer = ({isSubMenu, anchor, isOpen, onClose, onExited, onMouseEnte
                 alignItems: 'center',
                 justifyContent: 'center',
                 opacity: isOpen ? 1 : 0,
-                transition: 'opacity 0.2s',
+                transition: 'opacity 1s',
                 zIndex: 100
             }}
                  onMouseEnter={onMouseEnter}
@@ -75,9 +76,75 @@ const MenuItemRenderer = ({context, onClick, onMouseEnter, onMouseLeave}) => {
 MenuItemRenderer.propTypes = {
     context: PropTypes.object.isRequired,
     onClick: PropTypes.func.isRequired,
-    onMouseEnter: PropTypes.func.isRequired,
-    onMouseLeave: PropTypes.func.isRequired
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func
 };
+
+const readyList = [];
+
+const AsyncComponent = ({context, render: Render, loading: Loading}) => {
+    const [ready, setReady] = useState(false);
+    useEffect(() => {
+        const t = setTimeout(() => {
+            readyList.push(context.key);
+            setReady(true);
+        }, context.minTime);
+        return () => {
+            clearTimeout(t);
+        };
+    });
+    if (!ready && readyList.indexOf(context.key) === -1) {
+        if (context.useLoading && Loading) {
+            return <Loading context={context}/>;
+        }
+
+        return false;
+    }
+
+    return (
+        <Render context={{
+            ...context,
+            label: context.label,
+            onClick: () => window.alert('Async action') // eslint-disable-line no-alert
+        }}/>
+    );
+};
+
+AsyncComponent.propTypes = {
+    context: PropTypes.object.isRequired,
+    render: PropTypes.func.isRequired,
+    loading: PropTypes.func
+};
+
+function addMenu(key, targets, menuPreload) {
+    registry.addOrReplace('action', key, menuAction, {
+        label: key,
+        targets: targets,
+        menuPreload: menuPreload,
+        menuTarget: key,
+        menuRenderer: MenuRenderer,
+        menuItemRenderer: MenuItemRenderer
+    });
+}
+
+function addItem(key, targets, fn) {
+    registry.addOrReplace('action', key, {
+        targets: targets,
+        label: key,
+        onClick: fn
+    });
+}
+
+function addAsyncItem(key, targets, minTime, useLoading, isVisible) {
+    registry.addOrReplace('action', key, {
+        targets,
+        label: key,
+        minTime,
+        useLoading,
+        isVisible,
+        component: AsyncComponent
+    });
+}
 
 storiesOf('actions|menuAction', module)
     .addParameters({
@@ -88,135 +155,122 @@ storiesOf('actions|menuAction', module)
     .addDecorator(storyFn => <ComponentRendererProvider>{storyFn()}</ComponentRendererProvider>)
     .addDecorator(withKnobs)
     .add('default', () => {
-        registry.addOrReplace('action', 'default-menu', menuAction, {
-            label: 'menu',
-            menuTarget: 'default-menu',
-            menuRenderer: MenuRenderer,
-            menuItemRenderer: MenuItemRenderer
-        });
-        registry.addOrReplace('action', 'default-menuitem1', {
-            targets: ['default-menu'],
-            label: 'item1',
-            onClick: action('menu item 1')
-        });
-        registry.addOrReplace('action', 'default-menuitem2', {
-            targets: ['default-menu'],
-            label: 'item2',
-            onClick: action('menu item 2')
-        });
-        registry.addOrReplace('action', 'default-menuitem3', {
-            targets: ['default-menu'],
-            label: 'item3',
-            onClick: action('menu item 3')
-        });
+        registry.clear();
+
+        addMenu('menu');
+        addItem('item1', ['menu:1'], action('menu item 1'));
+        addItem('item2', ['menu:2'], action('menu item 2'));
+        addItem('item3', ['menu:3'], action('menu item 3'));
 
         return (
             <>
                 <div className="description">
                     Display all items that have the specified target
                 </div>
-                <DisplayAction actionKey="default-menu" context={{path: '/test'}} render={ButtonRenderer}/>
+                <DisplayAction actionKey="menu" context={{path: '/test'}} render={ButtonRenderer}/>
             </>
         );
     })
     .add('Sub menu', () => {
-        registry.addOrReplace('action', 'submenu-menu', menuAction, {
-            label: 'menu',
-            menuTarget: 'submenu-menu',
-            menuRenderer: MenuRenderer,
-            menuItemRenderer: MenuItemRenderer
-        });
-        registry.addOrReplace('action', 'submenu-menu2', menuAction, {
-            targets: ['submenu-menu:4'],
-            label: 'submenu 2',
-            menuTarget: 'submenu-menu2',
-            menuRenderer: MenuRenderer,
-            menuItemRenderer: MenuItemRenderer
-        });
-        registry.addOrReplace('action', 'submenu-menu3', menuAction, {
-            targets: ['submenu-menu:5', 'submenu-menu2:2'],
-            label: 'submenu 3',
-            menuTarget: 'submenu-menu3',
-            menuRenderer: MenuRenderer,
-            menuItemRenderer: MenuItemRenderer
-        });
-        registry.addOrReplace('action', 'submenu-menuitem1', {
-            targets: ['submenu-menu:1', 'submenu-menu2:1', 'submenu-menu3:1'],
-            label: 'item1',
-            onClick: action('menu item 1')
-        });
-        registry.addOrReplace('action', 'submenu-menuitem2', {
-            targets: ['submenu-menu:2'],
-            label: 'item2',
-            onClick: action('menu item 2')
-        });
-        registry.addOrReplace('action', 'submenu-menuitem3', {
-            targets: ['submenu-menu:3'],
-            label: 'item3',
-            onClick: action('menu item 3')
-        });
+        registry.clear();
+
+        addMenu('menu');
+        addMenu('submenu1', ['menu:4']);
+        addMenu('submenu2', ['menu:5', 'submenu1:2']);
+        addItem('item1', ['menu:1', 'submenu1:1', 'submenu2:1'], action('menu item 1'));
+        addItem('item2', ['menu:2'], action('menu item 2'));
+        addItem('item3', ['menu:3'], action('menu item 3'));
 
         return (
             <>
                 <div className="description">
                     Displays a menu with items registered with a specific target
                 </div>
-                <DisplayAction actionKey="submenu-menu" context={{path: '/test'}} render={ButtonRenderer}/>
+                <DisplayAction actionKey="menu" context={{path: '/test'}} render={ButtonRenderer}/>
             </>
         );
     })
     .add('Async actions', () => {
-        registry.addOrReplace('action', 'async-menu', menuAction, {
-            label: 'menu',
-            menuTarget: 'async-menu',
-            menuRenderer: MenuRenderer,
-            menuItemRenderer: MenuItemRenderer
-        });
+        registry.clear();
+        readyList.length = 0;
 
-        const AsyncComponent = ({context, render: Render}) => {
-            const [ready, setReady] = useState(false);
-            useEffect(() => {
-                const t = setTimeout(() => setReady(true), context.minTime);
-                return () => {
-                    clearTimeout(t);
-                };
-            });
-            return ready && (
-                <Render context={{
-                    ...context,
-                    label: context.label,
-                    onClick: () => window.alert('Async action') // eslint-disable-line no-alert
-                }}/>
-            );
-        };
-
-        registry.addOrReplace('action', 'async-item0', {
-            targets: ['async-menu:1'],
-            label: 'async',
-            minTime: 0,
-            component: AsyncComponent
-        });
-
-        registry.addOrReplace('action', 'async-item1', {
-            targets: ['async-menu:2'],
-            label: 'async later',
-            minTime: 100,
-            component: AsyncComponent
-        });
-
-        registry.addOrReplace('action', 'async-item2', {
-            targets: ['async-menu:3'],
-            label: 'async more later',
-            minTime: 500,
-            component: AsyncComponent
-        });
+        addMenu('menu');
+        addAsyncItem('item1', ['menu'], number('time item1', 0));
+        addAsyncItem('item2', ['menu'], number('time item2', 100));
+        addAsyncItem('item3', ['menu'], number('time item3', 500));
 
         return (
             <>
                 <div className="description">
                     Example with asynchronous menu items
                 </div>
-                <DisplayAction actionKey="async-menu" context={{path: '/test'}} render={ButtonRenderer}/>
+                <DisplayAction actionKey="menu" context={{path: '/test'}} render={ButtonRenderer}/>
+            </>
+        );
+    })
+    .add('Async with loading', () => {
+        registry.clear();
+        readyList.length = 0;
+
+        addMenu('menu');
+        addAsyncItem('item1', ['menu'], number('time item1', 0), true);
+        addAsyncItem('item2', ['menu'], number('time item2', 100), true);
+        addAsyncItem('item3', ['menu'], number('time item3', 500), true);
+
+        return (
+            <>
+                <div className="description">
+                    Example with asynchronous menu items - delayed menu open until loaded
+                </div>
+                <DisplayAction actionKey="menu"
+                               context={{path: '/test'}}
+                               render={ButtonRenderer}
+                               loading={({context}) => <ButtonRenderer context={{...context, label: 'loading...'}}/>}/>
+            </>
+        );
+    })
+    .add('Async loading / preload', () => {
+        registry.clear();
+        readyList.length = 0;
+
+        addMenu('menu', [], true);
+        addAsyncItem('item1', ['menu'], number('time item1', 0), true);
+        addAsyncItem('item2', ['menu'], number('time item2', 100), true);
+        addAsyncItem('item3', ['menu'], number('time item3', 500), true);
+
+        return (
+            <>
+                <div className="description">
+                    Example with asynchronous menu items - preload
+                </div>
+                <DisplayAction actionKey="menu"
+                               context={{path: '/test'}}
+                               render={ButtonRenderer}
+                               loading={({context}) => <ButtonRenderer context={{...context, label: 'loading...'}}/>}/>
+            </>
+        );
+    })
+    .add('Empty async submenu', () => {
+        registry.clear();
+        readyList.length = 0;
+
+        addMenu('menu');
+        addMenu('submenu1', ['menu:4'], true);
+        addMenu('submenu2', ['menu:5', 'submenu1:2'], true);
+        addAsyncItem('item1', ['menu:1', 'submenu1:1', 'submenu2:1'], number('time item1', 0), true, boolean('item1 visible', true));
+        addAsyncItem('item2', ['menu:2', 'submenu1:2'], number('time item2', 100), true, boolean('item2 visible', true));
+        addAsyncItem('item3', ['menu:3'], number('time item3', 500), true, boolean('item3 visible', true));
+
+        return (
+            <>
+                <div className="description">
+                    Example with asynchronous menu items - preload
+                </div>
+                <DisplayAction actionKey="menu"
+                               context={{path: '/test'}}
+                               render={ButtonRenderer}
+                               loading={({context}) => <ButtonRenderer context={{...context, label: 'loading...'}}/>}/>
             </>
         );
     });
+
