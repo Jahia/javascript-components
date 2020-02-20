@@ -16,28 +16,36 @@ class StateActionComponent extends React.Component {
     render() {
         let enhancedContext = {...this.props.context, ...this.state};
 
-        if (enhancedContext.displayDisabled || (enhancedContext.enabled !== false && enhancedContext.enabled !== null)) {
-            let Render = this.props.render;
-            if (enhancedContext.actions) {
-                return enhancedContext.actions.map(action => (
-                    <Render key={action.key}
-                            context={{
-                                ...enhancedContext,
-                                ...action
-                            }}/>
-                ));
+        if (enhancedContext.loading === null || enhancedContext.loading === true) {
+            let Loading = this.props.loading;
+            if (Loading) {
+                return (
+                    <Loading context={enhancedContext}/>
+                );
             }
 
-            return <Render context={enhancedContext}/>;
+            return false;
         }
 
-        return false;
+        let Render = this.props.render;
+        if (enhancedContext.actions) {
+            return enhancedContext.actions.map(action => (
+                <Render key={action.key}
+                        context={{
+                            ...enhancedContext,
+                            ...action
+                        }}/>
+            ));
+        }
+
+        return <Render context={enhancedContext}/>;
     }
 }
 
 StateActionComponent.propTypes = {
     context: PropTypes.object.isRequired,
-    render: PropTypes.func.isRequired
+    render: PropTypes.func.isRequired,
+    loading: PropTypes.func
 };
 
 class DisplayActionComponent extends React.Component {
@@ -48,7 +56,7 @@ class DisplayActionComponent extends React.Component {
     }
 
     render() {
-        let {context, render} = this.props;
+        let {context, render, loading} = this.props;
 
         let subscription = this.subscription;
         if (subscription) {
@@ -94,7 +102,7 @@ class DisplayActionComponent extends React.Component {
             this.props.observerRef(of(null));
         }
 
-        return <StateActionComponent ref={this.innerRef} context={enhancedContext} render={render}/>;
+        return <StateActionComponent ref={this.innerRef} context={enhancedContext} render={render} loading={loading}/>;
     }
 
     componentWillUnmount() {
@@ -116,6 +124,7 @@ DisplayActionComponent.defaultProps = {
 DisplayActionComponent.propTypes = {
     context: PropTypes.object.isRequired,
     render: PropTypes.func.isRequired,
+    loading: PropTypes.func,
     observerRef: PropTypes.func
 };
 
@@ -158,7 +167,7 @@ class DisplayAction extends React.Component {
     }
 
     render() {
-        let {context, actionKey, render, observerRef} = this.props;
+        let {context, actionKey, render, loading, observerRef} = this.props;
         let action = registry.get('action', actionKey);
         let Component = this.Component;
 
@@ -167,6 +176,7 @@ class DisplayAction extends React.Component {
             <Component key={this.id}
                        context={enhancedContext}
                        render={render}
+                       loading={loading}
                        actionKey={actionKey}
                        observerRef={observerRef}
             />
@@ -193,6 +203,11 @@ DisplayAction.propTypes = {
      * The render component
      */
     render: PropTypes.func.isRequired,
+
+    /**
+     * The loading component
+     */
+    loading: PropTypes.func,
 
     /**
      * ..

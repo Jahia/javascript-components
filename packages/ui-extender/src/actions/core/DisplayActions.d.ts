@@ -14,6 +14,10 @@ export interface DisplayActionsProps {
      */
     render: (...args: any[])=>any;
     /**
+     * The render component
+     */
+    loading: (...args: any[])=>any;
+    /**
      * Additional filter function
      */
     filter?: (...args: any[])=>any;
