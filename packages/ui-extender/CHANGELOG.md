@@ -1,3 +1,15 @@
+# (Thu Feb 20 2020)
+
+#### 🚀  Enhancement
+
+- BACKLOG-11675 : Menu improvements [#89](https://github.com/Jahia/javascript-components/pull/89) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Tue Feb 11 2020)
 
 #### 🐛  Bug Fix
