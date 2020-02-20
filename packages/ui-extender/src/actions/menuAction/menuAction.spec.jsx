@@ -10,7 +10,7 @@ import {act} from 'react-dom/test-utils';
 
 jest.useFakeTimers();
 
-const MenuRenderer = ({isSubMenu, isOpen, onClose, onExited, onMouseEnter, onMouseLeave, children}) => {
+const MenuRenderer = ({isSubMenu, isOpen, isLoading, onClose, onExited, onMouseEnter, onMouseLeave, children}) => {
     // Simulate close animation, calls onExited after isOpen is set to false
     const [previousOpen, setPreviousOpen] = useState(false);
     if (previousOpen !== isOpen) {
@@ -28,7 +28,7 @@ const MenuRenderer = ({isSubMenu, isOpen, onClose, onExited, onMouseEnter, onMou
     return (
         <>
             {!isSubMenu && <div className="backdrop" onClick={onClose}/>}
-            <div className={isOpen ? 'menu' : 'xxxx'}
+            <div className={isOpen && !isLoading ? 'menu' : 'xxxx'}
                  onMouseEnter={onMouseEnter}
                  onMouseLeave={onMouseLeave}
             >
@@ -43,6 +43,7 @@ const MenuRenderer = ({isSubMenu, isOpen, onClose, onExited, onMouseEnter, onMou
 MenuRenderer.propTypes = {
     isSubMenu: PropTypes.bool.isRequired,
     isOpen: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool.isRequired,
     onExited: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
