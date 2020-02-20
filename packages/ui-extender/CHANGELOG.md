@@ -1,5 +1,17 @@
 # (Thu Feb 20 2020)
 
+#### 🐛  Bug Fix
+
+- BACKLOG-11675 : Added isLoading parameter to menuRenderer [#90](https://github.com/Jahia/javascript-components/pull/90) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
+# (Thu Feb 20 2020)
+
 #### 🚀  Enhancement
 
 - BACKLOG-11675 : Menu improvements [#89](https://github.com/Jahia/javascript-components/pull/89) ([@tdraier](https://github.com/tdraier))
