@@ -10,7 +10,7 @@ import {action} from '@storybook/addon-actions';
 import markdownNotes from './README.md';
 import {ButtonRenderer} from '../samples/ButtonRenderer';
 
-const MenuRenderer = ({isSubMenu, anchor, isOpen, onClose, onExited, onMouseEnter, onMouseLeave, children}) => {
+const MenuRenderer = ({isSubMenu, anchor, isOpen, isLoading, onClose, onExited, onMouseEnter, onMouseLeave, children}) => {
     return (
         <>
             {
@@ -38,7 +38,7 @@ const MenuRenderer = ({isSubMenu, anchor, isOpen, onClose, onExited, onMouseEnte
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                opacity: isOpen ? 1 : 0,
+                opacity: (isOpen && !isLoading) ? 1 : 0,
                 transition: 'opacity 1s',
                 zIndex: 100
             }}
@@ -57,6 +57,7 @@ const MenuRenderer = ({isSubMenu, anchor, isOpen, onClose, onExited, onMouseEnte
 MenuRenderer.propTypes = {
     isSubMenu: PropTypes.bool.isRequired,
     isOpen: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool.isRequired,
     anchor: PropTypes.object.isRequired,
     onExited: PropTypes.func.isRequired,
     onMouseEnter: PropTypes.func.isRequired,

@@ -70,7 +70,8 @@ const Menu = ({context, menuContext, menuState, rootMenuContext}) => {
         <MenuRenderer context={context}
                       isSubMenu={menuState.isSubMenu}
                       anchor={menuState.anchor}
-                      isOpen={menuState.isOpen && menuState.loadingItems.length === 0}
+                      isLoading={menuState.loadingItems.length > 0}
+                      isOpen={menuState.isOpen}
                       onMouseEnter={() => {
                           menuContext.dispatch({type: 'enterMenu'});
                       }}
