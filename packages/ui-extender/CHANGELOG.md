@@ -1,3 +1,15 @@
+# (Fri Feb 21 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12488 : avoid multiple menu for same actionkey at the same time [#91](https://github.com/Jahia/javascript-components/pull/91) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Thu Feb 20 2020)
 
 #### 🐛  Bug Fix
