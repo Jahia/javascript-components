@@ -217,6 +217,13 @@ const MenuActionComponent = ({context, render: Render, loading: Loading}) => {
         }
     }, [id, context, menuState, menuContext, componentRenderer]);
 
+    // Cleanup effect on final unmount
+    useEffect(() => {
+        return () => {
+            menuContext.destroy();
+        };
+    }, [menuContext]);
+
     if (menuState.isOpen && menuState.loadingItems.length > 0 && Loading) {
         return <Loading context={context}/>;
     }
