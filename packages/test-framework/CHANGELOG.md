@@ -1,3 +1,15 @@
+# (Wed Feb 26 2020)
+
+#### 🐛  Bug Fix
+
+- Fix dependencies of test-framework [#92](https://github.com/Jahia/javascript-components/pull/92) ([@FBerthelot](https://github.com/FBerthelot))
+
+#### Authors: 1
+
+- Florent Berthelot ([@FBerthelot](https://github.com/FBerthelot))
+
+---
+
 # (Mon Feb 17 2020)
 
 #### 🐛  Bug Fix
