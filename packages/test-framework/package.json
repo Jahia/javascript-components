@@ -14,10 +14,11 @@
   ],
   "dependencies": {
     "enzyme": "^3.9.0",
-    "enzyme-adapter-react-16": "^1.12.1"
+    "enzyme-adapter-react-16": "^1.12.1",
+    "identity-obj-proxy": "^3.0.0"
   },
   "peerDependencies": {
-    "jest": "^24.9.0",
-    "babel-jest": "^24.9.0"
+    "babel-jest": "^24.9.0",
+    "jest": "^24.9.0"
   }
 }
