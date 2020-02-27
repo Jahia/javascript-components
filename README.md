@@ -31,10 +31,6 @@ This project is composed of (click on the link for there documentation):
 - [react-material - 💩 - DEPRECATED use moonstone/ui-extender instead](./packages/react-material)
 - [icons - 💩 - DEPRECATED use moonstone instead](./packages/icons)
 
-- [react-router - ✨ - A router with multiple outlets](./packages/react-router)
-- [redux - 💩 - DEPRECATED no one use it](./packages/redux)
-
-
 ## Installation
 
 Jahia use his own npm server, so you have to tell to yarn and npm CLI where to find dependency. In order to achieve that, create a `.npmrc` file and copy past the code below in it.
