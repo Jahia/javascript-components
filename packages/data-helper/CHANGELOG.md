@@ -1,3 +1,15 @@
+# (Thu Feb 27 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12561 : reorganized hooks, added useNodeInfo and useNodeCheck… [#96](https://github.com/Jahia/javascript-components/pull/96) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Thu Feb 13 2020)
 
 #### 🐛  Bug Fix
