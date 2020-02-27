@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {registry} from '../../registry';
-import * as _ from 'lodash';
 import {DisplayAction} from './DisplayAction';
 
 class DisplayActions extends React.Component {
@@ -16,7 +15,7 @@ class DisplayActions extends React.Component {
         let actionsToDisplay = registry.find({type: 'action', target: target});
 
         if (filter) {
-            actionsToDisplay = _.filter(actionsToDisplay, filter);
+            actionsToDisplay = actionsToDisplay && actionsToDisplay.filter(filter);
         }
 
         return actionsToDisplay.map(action => <DisplayAction key={action.key} context={context} actionKey={action.key} render={render} loading={loading} observerRef={obs => this.observerRefs.push(obs)}/>);

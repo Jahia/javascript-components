@@ -1,6 +1,5 @@
 import React, {Component, createContext} from 'react';
 import PropTypes from 'prop-types';
-import * as _ from 'lodash';
 
 const ComponentRendererContext = createContext();
 
@@ -42,7 +41,11 @@ class ComponentRendererProvider extends Component {
     }
 
     render() {
-        let components = _.values(_.map(this.state.components, (component, key) => React.createElement(component, {key, ...this.state.componentsProps[key]})));
+        let components = Object.keys(this.state.components)
+            .map(key => {
+                const component = this.state.components[key];
+                return React.createElement(component, {key, ...this.state.componentsProps[key]});
+            });
         return (
             <ComponentRendererContext.Provider value={this.value}>
                 {components}

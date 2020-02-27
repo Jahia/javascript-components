@@ -1,4 +1,3 @@
-import * as _ from 'lodash';
 import {composeServices} from './composeServices';
 
 class Registry {
@@ -47,23 +46,41 @@ class Registry {
         let result = Object.values(this.registry);
         const {target, ...otherFilters} = filters;
         if (target) {
-            result = result.filter(item => _.includes(item.targets && item.targets.map(t => t.id), filters.target));
-            result = _.sortBy(result, [function (o) {
-                let found = _.find(o.targets, function (t) {
-                    return t.id === filters.target;
-                });
-                if (found && found.priority) {
-                    const priority = Number(found.priority);
-                    if (!isNaN(priority) && priority !== 0) {
-                        return priority;
-                    }
-                }
+            result = result
+                .filter(item => {
+                    return item.targets && item.targets
+                        .map(t => t.id)
+                        .includes(filters.target);
+                })
+                .sort((a, b) => {
+                    const foundA = a.targets && a.targets.find(t => t.id === filters.target);
+                    const foundB = b.targets && b.targets.find(t => t.id === filters.target);
+                    const priorityA = foundA && Number(foundA.priority);
+                    const priorityB = foundB && Number(foundB.priority);
 
-                return 99999;
-            }]);
+                    if (isNaN(priorityA) && isNaN(priorityB)) {
+                        return 0;
+                    }
+
+                    if (isNaN(priorityA)) {
+                        return -1;
+                    }
+
+                    if (isNaN(priorityB)) {
+                        return 1;
+                    }
+
+                    return priorityA - priorityB;
+                });
         }
 
-        return _.filter(result, otherFilters);
+        return result.filter(item => {
+            // Try to find one key that doesn't match
+            return !Object.keys(otherFilters)
+                .find(key => {
+                    return item[key] !== otherFilters[key];
+                });
+        });
     }
 
     clear() {
