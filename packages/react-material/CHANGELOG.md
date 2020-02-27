@@ -1,3 +1,15 @@
+# (Thu Feb 27 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12548 improve ProgressOverlay style [#95](https://github.com/Jahia/javascript-components/pull/95) ([@Taybou](https://github.com/Taybou))
+
+#### Authors: 1
+
+- MT BENTERKI ([@Taybou](https://github.com/Taybou))
+
+---
+
 # (Thu Feb 20 2020)
 
 #### 🚀  Enhancement
