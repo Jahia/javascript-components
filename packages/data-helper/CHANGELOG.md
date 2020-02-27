@@ -2,6 +2,18 @@
 
 #### 🐛  Bug Fix
 
+- BACKLOG-12393 : create a new hook useTreeEntries that replaces the controlled part of the Picker [#99](https://github.com/Jahia/javascript-components/pull/99) ([@Yousria](https://github.com/Yousria))
+
+#### Authors: 1
+
+- Yousria ([@Yousria](https://github.com/Yousria))
+
+---
+
+# (Thu Feb 27 2020)
+
+#### 🐛  Bug Fix
+
 - BACKLOG-12561 : reorganized hooks, added useNodeInfo and useNodeCheck… [#96](https://github.com/Jahia/javascript-components/pull/96) ([@tdraier](https://github.com/tdraier))
 
 #### Authors: 1
