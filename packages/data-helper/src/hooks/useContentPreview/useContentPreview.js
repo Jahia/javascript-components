@@ -1,5 +1,5 @@
 import {useQuery} from 'react-apollo';
-import {CONTENT_PREVIEW_QUERY} from './contentPreview.query';
+import {CONTENT_PREVIEW_QUERY} from './useContentPreview.gql-queries';
 
 export const useContentPreview = ({
     path,

@@ -1,2 +1,2 @@
 export * from './Picker';
-export * from './Picker.utils';
+export * from './Picker.gql-fragments';

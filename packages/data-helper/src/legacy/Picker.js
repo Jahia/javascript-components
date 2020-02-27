@@ -4,8 +4,8 @@ import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
 import * as _ from 'lodash';
 import PropTypes from 'prop-types';
-import {replaceFragmentsInDocument} from './Picker.utils';
-import {PickerItemsFragment, PredefinedFragments} from '../fragments';
+import {PredefinedFragments, replaceFragmentsInDocument} from '../fragments';
+import {PickerItemsFragment} from './Picker.gql-fragments';
 
 export class Picker extends React.Component {
     constructor(props) {

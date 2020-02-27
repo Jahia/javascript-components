@@ -1,5 +1,5 @@
 import {useQuery} from 'react-apollo';
-import {SITE_INFO_QUERY} from './siteInfo.query';
+import {SITE_INFO_QUERY} from './useSiteInfo.gql-queries';
 
 const adaptSiteInfo = data => {
     let parsedSiteLanguages = [];
