@@ -2,7 +2,7 @@
 import gql from 'graphql-tag';
 import {PredefinedFragments} from '../../fragments/PredefinedFragments';
 
-export const PICKER_QUERY = gql`
+export const TREE_QUERY = gql`
     query PickerQuery($rootPaths:[String!]!, $selectable:[String]!, $openable:[String]!, $openPaths:[String!]!, $types:[String]!) {
         jcr {
             rootNodes:nodesByPath(paths: $rootPaths) {
