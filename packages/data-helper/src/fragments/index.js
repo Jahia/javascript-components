@@ -1,2 +1,2 @@
 export * from './PredefinedFragments';
-export * from './pickerItemsFragments';
+export * from './fragments.utils';

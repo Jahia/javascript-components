@@ -26,8 +26,7 @@ function findParametersInSelectionSet(selectionSet) {
         return _.flatMap(selectionSet.selections, sel =>
             _.without(_.concat(
                 _.flatMap(_.filter(sel.arguments, arg => (arg.value.kind === 'Variable')), arg => arg.value.name.value),
-                findParametersInSelectionSet(sel.selectionSet)),
-            undefined)
+                findParametersInSelectionSet(sel.selectionSet)), undefined)
         );
     }
 

@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import {PredefinedFragments} from '../fragments/PredefinedFragments';
+import {PredefinedFragments} from '../../fragments/PredefinedFragments';
 
 export const SITE_INFO_QUERY = gql`
     query siteInfo($path: String!, $displayLanguage:String!) {
