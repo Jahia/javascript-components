@@ -1,3 +1,15 @@
+# (Thu Feb 27 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12493 : Destroy menu when action is removed [#98](https://github.com/Jahia/javascript-components/pull/98) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Fri Feb 21 2020)
 
 #### 🐛  Bug Fix
