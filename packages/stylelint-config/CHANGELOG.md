@@ -1,3 +1,15 @@
+# (Thu Feb 27 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12559: FE Guild - Update stylelint-config dependencies [#94](https://github.com/Jahia/javascript-components/pull/94) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # (Fri Dec 20 2019)
 
 #### 💥  Breaking Change
