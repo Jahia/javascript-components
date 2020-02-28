@@ -40,8 +40,7 @@ const ItemRender = ({context}) => {
                               if (menuContext) {
                                   // Open submenu (only if it's not opened already)
                                   if (!menuState.isOpen) {
-                                      const b = event.currentTarget.getBoundingClientRect();
-                                      menuContext.display(context, menuState, {left: b.left + b.width, top: b.top});
+                                      menuContext.display(context, menuState, {anchorEl: event.currentTarget, anchorElOrigin: {vertical: 'top', horizontal: 'right'}});
                                   }
                               } else {
                                   // Moved into another menu item (not sub menu), close current submenu if present
@@ -166,8 +165,10 @@ const MenuActionComponent = ({context, render: Render, loading: Loading}) => {
         loadedItems: [],
         subMenuContext: null,
         anchor: {
-            top: -1000,
-            left: -1000
+            anchorPosition: {
+                top: -1000,
+                left: -1000
+            }
         }
     });
 
@@ -237,7 +238,7 @@ const MenuActionComponent = ({context, render: Render, loading: Loading}) => {
             onClick: (context, event) => {
                 // Handle click to open menu only if not in a submenu (already handled on mouse over)
                 if (!parentMenuContext) {
-                    menuContext.display(context, menuState, {left: event.clientX, top: event.clientY});
+                    menuContext.display(context, menuState, {anchorPosition: {left: event.clientX, top: event.clientY}});
                 }
             }
         }}/>
