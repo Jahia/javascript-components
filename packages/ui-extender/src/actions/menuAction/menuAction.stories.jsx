@@ -11,6 +11,8 @@ import markdownNotes from './README.md';
 import {ButtonRenderer} from '../samples/ButtonRenderer';
 
 const MenuRenderer = ({isSubMenu, anchor, isOpen, isLoading, onClose, onExited, onMouseEnter, onMouseLeave, children}) => {
+    const top = anchor.anchorPosition ? anchor.anchorPosition.top : anchor.anchorEl.getBoundingClientRect().top;
+    const left = anchor.anchorPosition ? anchor.anchorPosition.left : anchor.anchorEl.getBoundingClientRect().right;
     return (
         <>
             {
@@ -31,8 +33,8 @@ const MenuRenderer = ({isSubMenu, anchor, isOpen, isLoading, onClose, onExited, 
             }
             <div style={{
                 position: 'fixed',
-                top: anchor.top,
-                left: anchor.left,
+                top: top,
+                left: left,
                 border: '1px solid',
                 backgroundColor: 'white',
                 display: 'flex',
