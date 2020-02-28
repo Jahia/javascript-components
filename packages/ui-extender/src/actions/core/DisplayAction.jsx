@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {registry} from '../../registry';
-import * as _ from 'lodash';
 import {combineLatest, Observable, of} from 'rxjs';
 import {first} from 'rxjs/operators';
 
@@ -65,11 +64,16 @@ class DisplayActionComponent extends React.Component {
 
         let enhancedContext = {...context};
         if (enhancedContext.init) {
-            enhancedContext.init(enhancedContext, _.omit(this.props, ['context']));
+            const {context, ...props} = this.props;
+            enhancedContext.init(enhancedContext, props);
         }
 
         // Check observers
-        let observersObj = _.pickBy(enhancedContext, value => value instanceof Observable);
+        let observersObj = Object.keys(enhancedContext)
+            .filter(key => enhancedContext[key] instanceof Observable)
+            .reduce((acc, key) => {
+                return {...acc, [key]: enhancedContext[key]};
+            }, {});
         let keys = Object.keys(observersObj);
 
         if (keys.length > 0) {
@@ -78,14 +82,16 @@ class DisplayActionComponent extends React.Component {
                 if (this.innerRef.current) {
                     this.innerRef.current.setState(v);
                 } else {
-                    enhancedContext = _.assign(enhancedContext, v);
+                    enhancedContext = Object.assign(enhancedContext, v);
                 }
             };
 
             // Concat with a sync observer to always get an initial value
             let observers = Object.values(observersObj);
 
-            keys.forEach(k => _.set(enhancedContext, k, null));
+            keys.forEach(k => {
+                enhancedContext[k] = null;
+            });
 
             // Related to https://jira.jahia.org/browse/QA-11271
             // this empty subscription is auto cancelled with the first operator
@@ -93,7 +99,7 @@ class DisplayActionComponent extends React.Component {
             observers.forEach(observer => observer.pipe(first()).subscribe());
 
             // Combine all observers into one
-            let combinedObserver = combineLatest(...observers, (...vals) => _.zipObject(keys, vals));
+            let combinedObserver = combineLatest(...observers, (...vals) => keys.reduce((acc, key, i) => ({...acc, [key]: vals[i]}), {}));
             this.subscription = combinedObserver.subscribe(v => update(v));
             if (this.props.observerRef) {
                 this.props.observerRef(combinedObserver);

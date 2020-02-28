@@ -18,7 +18,6 @@
   "sideEffects": false,
   "license": "MIT",
   "dependencies": {
-    "lodash": "^4.17.13",
     "prop-types": "^15.6.1",
     "react": "^16.12.0",
     "rxjs": "^6.5.3"

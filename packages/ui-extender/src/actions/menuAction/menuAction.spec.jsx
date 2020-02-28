@@ -145,7 +145,7 @@ function getWrapper() {
     );
 }
 
-describe('DisplayActions', () => {
+describe('Menu', () => {
     beforeEach(() => {
         registry.clear();
         readyList.length = 0;
@@ -220,7 +220,7 @@ describe('DisplayActions', () => {
 
         addMenu('menu', []);
         addMenu('submenu1', ['menu:4']);
-        addMenu('submenu2', ['menu:5', 'submenu1']);
+        addMenu('submenu2', ['menu:5', 'submenu1:2']);
         addItem('item1', ['menu:1', 'submenu1:1', 'submenu2:1'], fn);
         addItem('item2', ['menu:2'], fn);
         addItem('item3', ['menu:3'], fn);

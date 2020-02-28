@@ -41,32 +41,21 @@ describe('registry', () => {
     });
 
     it('should find things based on target filter', () => {
-        registry.add('comp', 'test1', {targets: ['bar']});
-        registry.add('comp', 'test2', {targets: ['bar']});
-        registry.add('comp', 'test3', {targets: ['bar']});
+        const test1 = registry.add('comp', 'test1', {targets: ['bar']});
+        const test2 = registry.add('comp', 'test2', {targets: ['bar']});
+        const test3 = registry.add('comp', 'test3', {targets: ['bar']});
         registry.add('comp', 'test4', {targets: ['not-bar']});
-        expect(registry.find({type: 'comp', target: 'bar'}).length).toBe(3);
+
+        expect(registry.find({type: 'comp', target: 'bar'})).toEqual([test1, test2, test3]);
     });
 
     it('should find things based on target filter, sorted', () => {
         const test1 = registry.add('comp', 'test1', {targets: ['bar:1']});
         const test2 = registry.add('comp', 'test2', {targets: [{id: 'bar', priority: 3}]});
         const test3 = registry.add('comp', 'test3', {targets: ['bar:2']});
-        const res = registry.find({type: 'comp', target: 'bar'});
-        expect(res.length).toBe(3);
-        expect(res[0]).toBe(test1);
-        expect(res[1]).toBe(test3);
-        expect(res[2]).toBe(test2);
-    });
 
-    it('should find things based on target filter, sorted', () => {
-        const test1 = registry.add('comp', 'test1', {targets: ['bar:1']});
-        const test2 = registry.add('comp', 'test2', {targets: [{id: 'bar', priority: 3}]});
-        const test3 = registry.add('comp', 'test3', {targets: ['bar:2']});
         const res = registry.find({type: 'comp', target: 'bar'});
-        expect(res.length).toBe(3);
-        expect(res[0]).toBe(test1);
-        expect(res[1]).toBe(test3);
-        expect(res[2]).toBe(test2);
+
+        expect(res).toEqual([test1, test3, test2]);
     });
 });
