@@ -2,24 +2,13 @@ import {useQuery} from 'react-apollo';
 import {SITE_INFO_QUERY} from './useSiteInfo.gql-queries';
 
 const adaptSiteInfo = data => {
-    let parsedSiteLanguages = [];
-    let siteDisplayableName = null;
-
     if (data && (data.jcr || data.wsDefault)) {
         let siteData = data.jcr ? data.jcr.result.site : data.wsDefault.result.site;
-        siteDisplayableName = siteData.displayName;
-        let siteLanguages = siteData.languages;
-        // eslint-disable-next-line no-unused-vars
-        for (let i in siteLanguages) {
-            if (siteLanguages[i].activeInEdit) {
-                parsedSiteLanguages.push(siteLanguages[i]);
-            }
-        }
+        return {...siteData};
     }
 
     return {
-        displayName: siteDisplayableName,
-        languages: parsedSiteLanguages
+        languages: []
     };
 };
 
