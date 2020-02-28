@@ -247,7 +247,7 @@ storiesOf('actions|menuAction', module)
                     Example with asynchronous menu items - preload
                 </div>
                 <DisplayAction actionKey="menu"
-                               context={{path: '/test'}}
+                               context={{path: '/test', isVisible: true}}
                                render={ButtonRenderer}
                                loading={({context}) => <ButtonRenderer context={{...context, label: 'loading...'}}/>}/>
             </>

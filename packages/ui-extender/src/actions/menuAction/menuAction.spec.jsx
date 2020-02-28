@@ -140,7 +140,7 @@ function advanceTime(wrapper) {
 function getWrapper() {
     return mount(
         <ComponentRendererProvider>
-            <DisplayAction actionKey="menu" context={{path: '/test'}} render={ButtonRenderer}/>
+            <DisplayAction actionKey="menu" context={{path: '/test', isVisible: true}} render={ButtonRenderer}/>
         </ComponentRendererProvider>
     );
 }
