@@ -1,3 +1,15 @@
+# (Fri Feb 28 2020)
+
+#### 🐛  Bug Fix
+
+- Remove lodash from ui extender [#100](https://github.com/Jahia/javascript-components/pull/100) ([@FBerthelot](https://github.com/FBerthelot))
+
+#### Authors: 1
+
+- Florent Berthelot ([@FBerthelot](https://github.com/FBerthelot))
+
+---
+
 # (Thu Feb 27 2020)
 
 #### 🐛  Bug Fix
