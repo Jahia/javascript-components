@@ -140,7 +140,7 @@ function advanceTime(wrapper) {
 function getWrapper() {
     return mount(
         <ComponentRendererProvider>
-            <DisplayAction actionKey="menu" context={{path: '/test', isVisible: true}} render={ButtonRenderer}/>
+            <DisplayAction actionKey="menu" context={{path: '/test'}} render={ButtonRenderer}/>
         </ComponentRendererProvider>
     );
 }
@@ -307,9 +307,9 @@ describe('Menu', () => {
 
     it('should preload menu', () => {
         addMenu('menu', [], true);
-        addAsyncItem('async-item0', ['menu:1'], 0, true);
-        addAsyncItem('async-item1', ['menu:1'], 200, true);
-        addAsyncItem('async-item2', ['menu:1'], 300, true);
+        addAsyncItem('async-item0', ['menu:1'], 0, true, true);
+        addAsyncItem('async-item1', ['menu:1'], 200, true, true);
+        addAsyncItem('async-item2', ['menu:1'], 300, true, true);
 
         const wrapper = getWrapper();
 
