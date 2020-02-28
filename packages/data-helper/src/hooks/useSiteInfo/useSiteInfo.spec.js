@@ -27,6 +27,7 @@ describe('useSiteInfo', () => {
             jcr: {
                 result: {
                     site: {
+                        serverName: 'localhost',
                         displayName: 'digit-all',
                         languages: [
                             {name: 'art', activeInEdit: true},
@@ -48,8 +49,9 @@ describe('useSiteInfo', () => {
             error: null,
             data,
             siteInfo: {
+                serverName: 'localhost',
                 displayName: 'digit-all',
-                languages: [{name: 'art', activeInEdit: true}]
+                languages: [{name: 'art', activeInEdit: true}, {name: 'de rue', activeInEdit: false}]
             }
         });
     });
