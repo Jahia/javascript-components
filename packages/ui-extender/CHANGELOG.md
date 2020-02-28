@@ -2,6 +2,18 @@
 
 #### 🐛  Bug Fix
 
+- BACKLOG-12496 : pass anchorEl to renderer [#102](https://github.com/Jahia/javascript-components/pull/102) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
+# (Fri Feb 28 2020)
+
+#### 🐛  Bug Fix
+
 - Remove lodash from ui extender [#100](https://github.com/Jahia/javascript-components/pull/100) ([@FBerthelot](https://github.com/FBerthelot))
 
 #### Authors: 1
