@@ -144,7 +144,7 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 loadingItems: state.loadingItems.filter(f => f !== action.item),
-                loadedItems: action.isVisible !== false && state.loadedItems.indexOf(action.item) === -1 ? [...state.loadedItems, action.item] : state.loadedItems
+                loadedItems: action.isVisible && state.loadedItems.indexOf(action.item) === -1 ? [...state.loadedItems, action.item] : state.loadedItems
             };
         default:
             return state;
