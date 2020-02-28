@@ -1,3 +1,15 @@
+# (Fri Feb 28 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12161: Added more site info [#101](https://github.com/Jahia/javascript-components/pull/101) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Thu Feb 27 2020)
 
 #### 🐛  Bug Fix
