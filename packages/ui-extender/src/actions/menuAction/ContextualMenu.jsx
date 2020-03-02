@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import {DisplayAction} from '../core';
 
 export class ContextualMenu extends React.Component {
-    open(e) {
-        this.ctx.onClick(this.ctx, e);
+    open(e, context) {
+        this.ctx.onClick({...this.ctx, ...context, originalContext: {...this.props.context, ...context}}, e);
         e.preventDefault();
     }
 
