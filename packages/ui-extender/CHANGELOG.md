@@ -1,3 +1,16 @@
+# (Mon Mar 02 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12602 : add context to contextual menu open function [#104](https://github.com/Jahia/javascript-components/pull/104) ([@tdraier](https://github.com/tdraier) [@Yousria](https://github.com/Yousria))
+
+#### Authors: 2
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+- Yousria ([@Yousria](https://github.com/Yousria))
+
+---
+
 # (Fri Feb 28 2020)
 
 #### 🐛  Bug Fix
