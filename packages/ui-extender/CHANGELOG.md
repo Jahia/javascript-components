@@ -1,5 +1,17 @@
 # (Tue Mar 03 2020)
 
+#### 🚀  Enhancement
+
+- BACKLOG-12615 create IframeRenderer component to allow external module to easily display their UI in the app shell [#107](https://github.com/Jahia/javascript-components/pull/107) ([@DameniMilo](https://github.com/DameniMilo))
+
+#### Authors: 1
+
+- dgaillard ([@DameniMilo](https://github.com/DameniMilo))
+
+---
+
+# (Tue Mar 03 2020)
+
 #### 🐛  Bug Fix
 
 - BACKLOG-12327 : Allow to pass props into DisplayAction [#105](https://github.com/Jahia/javascript-components/pull/105) ([@tdraier](https://github.com/tdraier))
