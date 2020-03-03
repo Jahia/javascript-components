@@ -16,13 +16,28 @@ jest.mock('react-apollo', () => {
     };
 });
 
-jest.mock('react', () => ({
-    useRef: v => ({
-        current: v
-    })
-}));
+jest.mock('react', () => {
+    let current;
+
+    return ({
+        useRef: v => {
+            if (!current) {
+                current = v;
+            }
+
+            return ({
+                current
+            });
+        },
+        useMemo: v => v()
+    });
+});
 
 describe('useNodeChecks', () => {
+    beforeEach(() => {
+        jest.restoreAllMocks();
+    });
+
     it('should request permissions', () => {
         useNodeChecks({path: '/test', language: 'en'}, {requiredPermission: ['canRead', 'canWrite']});
 
