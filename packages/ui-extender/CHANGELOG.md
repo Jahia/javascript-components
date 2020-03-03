@@ -1,3 +1,15 @@
+# (Tue Mar 03 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12327 : Allow to pass props into DisplayAction [#105](https://github.com/Jahia/javascript-components/pull/105) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Mon Mar 02 2020)
 
 #### 🐛  Bug Fix
