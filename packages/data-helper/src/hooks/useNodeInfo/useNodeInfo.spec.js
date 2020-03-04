@@ -17,13 +17,28 @@ jest.mock('react-apollo', () => {
     };
 });
 
-jest.mock('react', () => ({
-    useRef: v => ({
-        current: v
-    })
-}));
+jest.mock('react', () => {
+    let current;
+
+    return ({
+        useRef: v => {
+            if (!current) {
+                current = v;
+            }
+
+            return ({
+                current
+            });
+        },
+        useMemo: v => v()
+    });
+});
 
 describe('useNodeInfo', () => {
+    beforeEach(() => {
+        jest.restoreAllMocks();
+    });
+
     it('should trigger a graphql request with path', () => {
         useNodeInfo({path: '/test', language: 'en'});
 
