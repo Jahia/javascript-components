@@ -1,3 +1,15 @@
+# (Wed Mar 04 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12327 : Fixes on useNodeInfo, menuAction, added useDeepCompareMemoize [#106](https://github.com/Jahia/javascript-components/pull/106) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Tue Mar 03 2020)
 
 #### 🚀  Enhancement
