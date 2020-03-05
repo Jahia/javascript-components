@@ -1,3 +1,15 @@
+# (Thu Mar 05 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12668 : handle case when action is unknown due to stopped module and render nothing in this case [#108](https://github.com/Jahia/javascript-components/pull/108) ([@Yousria](https://github.com/Yousria))
+
+#### Authors: 1
+
+- Yousria ([@Yousria](https://github.com/Yousria))
+
+---
+
 # (Wed Mar 04 2020)
 
 #### 🐛  Bug Fix
