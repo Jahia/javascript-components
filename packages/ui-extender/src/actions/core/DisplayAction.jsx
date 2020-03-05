@@ -146,22 +146,20 @@ class DisplayAction extends React.Component {
         let {actionKey} = this.props;
         let action = registry.get('action', actionKey);
 
-        if (!action) {
-            throw new Error('Cannot find action ' + actionKey);
-        }
-
         let Component;
-        if (typeof action.component === 'function') {
-            Component = action.component;
-        } else {
-            Component = DisplayActionComponent;
+        if (action) {
+            if (typeof action.component === 'function') {
+                Component = action.component;
+            } else {
+                Component = DisplayActionComponent;
 
-            if (action.wrappers) {
-                Component = action.wrappers.reduce(this.wrap.bind(this), DisplayActionComponent);
+                if (action.wrappers) {
+                    Component = action.wrappers.reduce(this.wrap.bind(this), DisplayActionComponent);
+                }
             }
-        }
 
-        this.Component = Component;
+            this.Component = Component;
+        }
     }
 
     shouldComponentUpdate(nextProps) {
@@ -175,6 +173,11 @@ class DisplayAction extends React.Component {
     render() {
         let {context, actionKey, render, loading, observerRef, ...otherProps} = this.props;
         let action = registry.get('action', actionKey);
+
+        if (!action) {
+            return null;
+        }
+
         let Component = this.Component;
 
         let enhancedContext = {...action, ...context, originalContext: context, id: this.id, actionKey, displayActionProps: otherProps};
