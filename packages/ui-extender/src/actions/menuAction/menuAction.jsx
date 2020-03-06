@@ -238,7 +238,7 @@ const MenuActionComponent = ({context, render: Render, loading: Loading}) => {
             onClick: (context, event) => {
                 // Handle click to open menu only if not in a submenu (already handled on mouse over)
                 if (!parentMenuContext) {
-                    if (context.menuUseElementAnchor) {
+                    if (event.currentTarget && !context.menuUseEventPosition) {
                         menuContext.display(context, menuState, {
                             anchorEl: event.currentTarget,
                             anchorElOrigin: {
