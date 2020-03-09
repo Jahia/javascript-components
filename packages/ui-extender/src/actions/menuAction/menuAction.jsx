@@ -6,7 +6,9 @@ import {DisplayActions} from '../core/DisplayActions';
 const ItemLoading = ({context}) => {
     const {parentMenuContext, menuItemRenderer: MenuItemRenderer} = context;
 
-    parentMenuContext.dispatch({type: 'loading', item: context.key});
+    useEffect(() => {
+        parentMenuContext.dispatch({type: 'loading', item: context.key});
+    });
 
     return (
         <MenuItemRenderer context={context}
@@ -21,7 +23,9 @@ ItemLoading.propTypes = {
 
 const ItemRender = ({context}) => {
     const {menuContext, menuState, rootMenuContext, parentMenuContext, menuItemRenderer: MenuItemRenderer, isVisible} = context;
-    parentMenuContext.dispatch({type: 'loaded', item: context.key, isVisible});
+    useEffect(() => {
+        parentMenuContext.dispatch({type: 'loaded', item: context.key, isVisible});
+    });
 
     // Values for menuContext / menuState are set only if this item is a submenu item.
 
