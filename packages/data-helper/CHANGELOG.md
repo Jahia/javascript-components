@@ -2,6 +2,18 @@
 
 #### 🐛  Bug Fix
 
+- BACKLOG-12327 : Fixed query with multiple nodes [#111](https://github.com/Jahia/javascript-components/pull/111) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
+# (Mon Mar 09 2020)
+
+#### 🐛  Bug Fix
+
 - BACKLOG-12327 : added options to get node/nodes by path or ids [#110](https://github.com/Jahia/javascript-components/pull/110) ([@tdraier](https://github.com/tdraier))
 
 #### Authors: 1
