@@ -9,9 +9,9 @@ export const useNodeInfo = (variables, options) => {
     const memoizedOptions = useDeepCompareMemoize(options);
     const {query, generatedVariables, fragments} = useMemo(() => getQuery(memoizedVariables, memoizedOptions), [memoizedVariables, memoizedOptions]);
 
-    const {data, ...others} = useQuery(query, {variables: generatedVariables, skip: fragments.length === 0});
+    const {data, ...others} = useQuery(query, {variables: generatedVariables, skip: fragments.length === 0 || !query});
 
-    const node = (data && data.jcr && data.jcr.nodeByPath) || null;
-
-    return {node, ...others};
+    const node = (data && data.jcr && (data.jcr.nodeByPath || data.jcr.nodeById)) || null;
+    const nodes = (data && data.jcr && (data.jcr.nodesByPath || data.jcr.nodesById)) || null;
+    return {node, nodes, ...others};
 };
