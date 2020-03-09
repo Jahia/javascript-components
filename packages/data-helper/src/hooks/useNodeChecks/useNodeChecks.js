@@ -33,18 +33,25 @@ export const useNodeChecks = (variables, options) => {
         useNodeInfoOptions.getSiteInstalledModules = true;
     }
 
-    const {node, loading, ...othersResults} = useNodeInfo(variables, useNodeInfoOptions);
+    const {node, nodes, loading, ...othersResults} = useNodeInfo(variables, useNodeInfoOptions);
 
     if (loading) {
         return {loading, ...othersResults};
     }
 
-    const result = (!requiredPermission || requiredPermission.map(t => t.replace(':', '_')).reduce((acc, val) => acc || node[val], false)) &&
+    if (!node && !nodes) {
+        return {checksResult: false, loading};
+    }
+
+    const doNodeCheck = node =>
+        (!requiredPermission || requiredPermission.map(t => t.replace(':', '_')).reduce((acc, val) => acc || node[val], false)) &&
         (!showOnNodeTypes || showOnNodeTypes.map(t => t.replace(':', '_')).reduce((acc, val) => acc || node[val], false)) &&
         (!hideOnNodeTypes || !hideOnNodeTypes.map(t => t.replace(':', '_')).reduce((acc, val) => acc || node[val], false)) &&
         (!requireModuleInstalledOnSite || requireModuleInstalledOnSite.reduce((acc, val) => acc && node.site.installedModulesWithAllDependencies.includes(val), true)) &&
         (!hideForPaths || evaluateVisibilityPaths(false, hideForPaths, node.path || variables.path)) &&
         (!showForPaths || evaluateVisibilityPaths(true, showForPaths, node.path || variables.path));
 
-    return {node, checksResult: result, loading, ...othersResults};
+    const result = node ? doNodeCheck(node) : nodes.reduce((acc, val) => acc && doNodeCheck(val), true);
+
+    return {node, nodes, checksResult: result, loading, ...othersResults};
 };

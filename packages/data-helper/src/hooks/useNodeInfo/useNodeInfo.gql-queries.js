@@ -81,14 +81,16 @@ const getBaseQueryAndVariables = variables => {
             }
         };
     }
-
-    throw new Error('You must pass path, paths, uuid or uuids');
 };
 
 export const getQuery = (variables, options = {}) => {
     const fragments = [];
 
     const {baseQuery, generatedVariables} = getBaseQueryAndVariables(variables);
+
+    if (!baseQuery) {
+        return;
+    }
 
     if (options.getDisplayName) {
         fragments.push({
