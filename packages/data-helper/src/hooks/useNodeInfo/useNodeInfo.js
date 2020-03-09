@@ -7,9 +7,9 @@ export const useNodeInfo = (variables, options) => {
     // Use ref to avoid infinite loop, as query object will be regenerated every time
     const memoizedVariables = useDeepCompareMemoize(variables);
     const memoizedOptions = useDeepCompareMemoize(options);
-    const {query, generatedVariables, fragments} = useMemo(() => getQuery(memoizedVariables, memoizedOptions), [memoizedVariables, memoizedOptions]);
+    const {query, generatedVariables, skip} = useMemo(() => getQuery(memoizedVariables, memoizedOptions), [memoizedVariables, memoizedOptions]);
 
-    const {data, ...others} = useQuery(query, {variables: generatedVariables, skip: fragments.length === 0 || !query});
+    const {data, ...others} = useQuery(query, {variables: generatedVariables, skip});
 
     const node = (data && data.jcr && (data.jcr.nodeByPath || data.jcr.nodeById)) || null;
     const nodes = (data && data.jcr && (data.jcr.nodesByPath || data.jcr.nodesById)) || null;

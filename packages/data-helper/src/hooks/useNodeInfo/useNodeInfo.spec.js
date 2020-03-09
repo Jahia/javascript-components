@@ -46,6 +46,8 @@ describe('useNodeInfo', () => {
 
         const mock = useQuery.mock;
         const call = mock.calls[mock.calls.length - 1];
+        expect(call[1].skip).toBeFalsy();
+
         const gql = print(call[0]);
 
         expect(gql).toContain('nodeByPath');
@@ -64,6 +66,8 @@ describe('useNodeInfo', () => {
 
         const mock = useQuery.mock;
         const call = mock.calls[mock.calls.length - 1];
+        expect(call[1].skip).toBeFalsy();
+
         const gql = print(call[0]);
 
         expect(gql).toContain('nodesByPath');
@@ -74,8 +78,12 @@ describe('useNodeInfo', () => {
         expect(variables.paths).toBe(paths);
     });
 
-    it('should send an error with invalid parameters', () => {
-        expect(() => useNodeInfo({invalidProp: 'xx', language: 'en'})).toThrow();
+    it('should not do a query with invalid parameters', () => {
+        useNodeInfo({invalidProp: 'xx', language: 'en'});
+
+        const mock = useQuery.mock;
+        const call = mock.calls[mock.calls.length - 1];
+        expect(call[1].skip).toBeTruthy();
     });
 
     it('should request a primaryNodeType', () => {
@@ -90,6 +98,10 @@ describe('useNodeInfo', () => {
         call[0].definitions[0].variableDefinitions.map(v => v.variable.name.value).forEach(v => expect(Object.keys(variables)).toContain(v));
 
         expect(call[0].definitions.map(d => d.name.value)).toContain('NodeInfoPrimaryNodeType');
+    });
+
+    it('should throw an error if a variable is missing', () => {
+        expect(() => useNodeInfo({path: '/test'}, {getPrimaryNodeType: true})).toThrow();
     });
 
     it('should request permissions', () => {
