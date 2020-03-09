@@ -1,3 +1,15 @@
+# (Mon Mar 09 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12327 : Use anchorEl for menuAction by default [#109](https://github.com/Jahia/javascript-components/pull/109) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Thu Mar 05 2020)
 
 #### 🐛  Bug Fix
