@@ -2,6 +2,18 @@
 
 #### 🐛  Bug Fix
 
+- BACKLOG-12327 : Fixed warning for react 16.13 [#112](https://github.com/Jahia/javascript-components/pull/112) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
+# (Mon Mar 09 2020)
+
+#### 🐛  Bug Fix
+
 - BACKLOG-12327 : Use anchorEl for menuAction by default [#109](https://github.com/Jahia/javascript-components/pull/109) ([@tdraier](https://github.com/tdraier))
 
 #### Authors: 1
