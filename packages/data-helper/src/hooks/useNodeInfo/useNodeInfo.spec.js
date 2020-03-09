@@ -56,6 +56,28 @@ describe('useNodeInfo', () => {
         expect(variables.path).toBe('/test');
     });
 
+    it('should trigger a graphql request with multiple paths', () => {
+        const paths = ['/test', '/test2'];
+        useNodeInfo({paths: paths, language: 'en'});
+
+        expect(useQuery).toHaveBeenCalled();
+
+        const mock = useQuery.mock;
+        const call = mock.calls[mock.calls.length - 1];
+        const gql = print(call[0]);
+
+        expect(gql).toContain('nodesByPath');
+
+        const variables = call[1].variables;
+        call[0].definitions[0].variableDefinitions.map(v => v.variable.name.value).forEach(v => expect(Object.keys(variables)).toContain(v));
+
+        expect(variables.paths).toBe(paths);
+    });
+
+    it('should send an error with invalid parameters', () => {
+        expect(() => useNodeInfo({invalidProp: 'xx', language: 'en'})).toThrow();
+    });
+
     it('should request a primaryNodeType', () => {
         useNodeInfo({path: '/test', language: 'en', displayLanguage: 'en'}, {getPrimaryNodeType: true});
 

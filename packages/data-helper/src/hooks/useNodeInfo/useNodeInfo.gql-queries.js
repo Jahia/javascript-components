@@ -1,25 +1,94 @@
 import gql from 'graphql-tag';
 import {PredefinedFragments, replaceFragmentsInDocument} from '../../fragments';
 
-const NodeInfoQuery = gql`
-    query NodeInfoQuery($path:String!) {
-        jcr {
-            nodeByPath(path:$path) {
-                name
-                ...node
-                ...NodeCacheRequiredFields
+const getBaseQueryAndVariables = variables => {
+    if (variables.path) {
+        return {
+            baseQuery: gql`
+                query NodeByPathInfoQuery($path:String!) {
+                    jcr {
+                        nodeByPath(path:$path) {
+                            name
+                            ...node
+                            ...NodeCacheRequiredFields
+                        }
+                    }
+                }
+                ${PredefinedFragments.nodeCacheRequiredFields.gql}
+            `,
+            generatedVariables: {
+                path: variables.path
             }
-        }
+        };
     }
-    ${PredefinedFragments.nodeCacheRequiredFields.gql}
-`;
+
+    if (variables.paths) {
+        return {
+            baseQuery: gql`
+                query NodesByPathInfoQuery($paths:[String!]!) {
+                    jcr {
+                        nodesByPath(paths:$paths) {
+                            name
+                            ...node
+                            ...NodeCacheRequiredFields
+                        }
+                    }
+                }
+                ${PredefinedFragments.nodeCacheRequiredFields.gql}
+            `,
+            generatedVariables: {
+                paths: variables.paths
+            }
+        };
+    }
+
+    if (variables.uuid) {
+        return {
+            baseQuery: gql`
+                query NodeByUuidInfoQuery($uuid:String!) {
+                    jcr {
+                        nodeById(uuid:$uuid) {
+                            name
+                            ...node
+                            ...NodeCacheRequiredFields
+                        }
+                    }
+                }
+                ${PredefinedFragments.nodeCacheRequiredFields.gql}
+            `,
+            generatedVariables: {
+                uuid: variables.uuid
+            }
+        };
+    }
+
+    if (variables.uuids) {
+        return {
+            baseQuery: gql`
+                query NodesByUuidInfoQuery($uuids:[String!]!) {
+                    jcr {
+                        nodesById(uuids:$uuids) {
+                            name
+                            ...node
+                            ...NodeCacheRequiredFields
+                        }
+                    }
+                }
+                ${PredefinedFragments.nodeCacheRequiredFields.gql}
+            `,
+            generatedVariables: {
+                uuids: variables.uuids
+            }
+        };
+    }
+
+    throw new Error('You must pass path, paths, uuid or uuids');
+};
 
 export const getQuery = (variables, options = {}) => {
     const fragments = [];
 
-    const generatedVariables = {
-        path: variables.path
-    };
+    const {baseQuery, generatedVariables} = getBaseQueryAndVariables(variables);
 
     if (options.getDisplayName) {
         fragments.push({
@@ -235,7 +304,7 @@ export const getQuery = (variables, options = {}) => {
     }
 
     return {
-        query: replaceFragmentsInDocument(NodeInfoQuery, fragments),
+        query: replaceFragmentsInDocument(baseQuery, fragments),
         generatedVariables,
         fragments
     };
