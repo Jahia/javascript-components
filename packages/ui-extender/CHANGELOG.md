@@ -1,3 +1,15 @@
+# (Tue Mar 10 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12327 : Fixed menuPreload, better error handling, execute query when needed [#113](https://github.com/Jahia/javascript-components/pull/113) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Mon Mar 09 2020)
 
 #### 🐛  Bug Fix
