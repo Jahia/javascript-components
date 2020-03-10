@@ -157,7 +157,7 @@ const reducer = (state, action) => {
 
 const MenuActionComponent = ({context, render: Render, loading: Loading}) => {
     const componentRenderer = useContext(ComponentRendererContext);
-    const id = 'actionComponent-' + context.actionKey;
+    const id = 'actionComponent-' + context.id;
     const {rootMenuContext, parentMenuContext} = context;
 
     const [menuState, dispatch] = useReducer(reducer, {
