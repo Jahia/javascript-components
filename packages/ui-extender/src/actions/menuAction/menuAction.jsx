@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useMemo, useReducer} from 'react';
 import PropTypes from 'prop-types';
 import {ComponentRendererContext} from '../../ComponentRenderer';
 import {DisplayActions} from '../core/DisplayActions';
+import {useDeepCompare} from '../../utils/useDeepCompare';
 
 const ItemLoading = ({context}) => {
     const {parentMenuContext, menuItemRenderer: MenuItemRenderer} = context;
@@ -44,7 +45,10 @@ const ItemRender = ({context}) => {
                               if (menuContext) {
                                   // Open submenu (only if it's not opened already)
                                   if (!menuState.isOpen) {
-                                      menuContext.display(context, menuState, {anchorEl: event.currentTarget, anchorElOrigin: {vertical: 'top', horizontal: 'right'}});
+                                      menuContext.display(context, menuState, {
+                                          anchorEl: event.currentTarget,
+                                          anchorElOrigin: {vertical: 'top', horizontal: 'right'}
+                                      });
                                   }
                               } else {
                                   // Moved into another menu item (not sub menu), close current submenu if present
@@ -150,6 +154,12 @@ const reducer = (state, action) => {
                 loadingItems: state.loadingItems.filter(f => f !== action.item),
                 loadedItems: action.isVisible !== false && state.loadedItems.indexOf(action.item) === -1 ? [...state.loadedItems, action.item] : state.loadedItems
             };
+        case 'resetState':
+            return {
+                ...state,
+                loadingItems: [],
+                loadedItems: []
+            };
         default:
             return state;
     }
@@ -159,6 +169,16 @@ const MenuActionComponent = ({context, render: Render, loading: Loading}) => {
     const componentRenderer = useContext(ComponentRendererContext);
     const id = 'actionComponent-' + context.id;
     const {rootMenuContext, parentMenuContext} = context;
+
+    // Move out callbacks to be able to compare values
+    const filteredOriginalContext = Object.keys(context.originalContext).reduce(
+        (acc, key) => typeof context.originalContext[key] !== 'function' ? {
+            ...acc,
+            [key]: context.originalContext[key]
+        } : acc,
+        {}
+    );
+    const {isNew, isChanged, value: stableOriginalContext} = useDeepCompare(filteredOriginalContext);
 
     const [menuState, dispatch] = useReducer(reducer, {
         id,
@@ -208,6 +228,13 @@ const MenuActionComponent = ({context, render: Render, loading: Loading}) => {
             componentRenderer.destroy(id);
         }
     }), [id, parentMenuContext, rootMenuContext, componentRenderer]);
+
+    useEffect(() => {
+        if (!isNew && isChanged) {
+            // Reset loading state if context has changed
+            dispatch({type: 'resetState'});
+        }
+    }, [isNew, isChanged, stableOriginalContext]);
 
     useEffect(() => {
         componentRenderer.setProperties(id, {menuState: menuState});
