@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {ComponentRendererContext} from '../../ComponentRenderer';
 import {DisplayActions} from '../core/DisplayActions';
 import {useDeepCompare} from '../../utils/useDeepCompare';
+import {filterObj} from '../../utils/filterObj';
 
 const ItemLoading = ({context}) => {
     const {parentMenuContext, menuItemRenderer: MenuItemRenderer} = context;
@@ -171,13 +172,7 @@ const MenuActionComponent = ({context, render: Render, loading: Loading}) => {
     const {rootMenuContext, parentMenuContext} = context;
 
     // Move out callbacks to be able to compare values
-    const filteredOriginalContext = Object.keys(context.originalContext).reduce(
-        (acc, key) => typeof context.originalContext[key] !== 'function' ? {
-            ...acc,
-            [key]: context.originalContext[key]
-        } : acc,
-        {}
-    );
+    const filteredOriginalContext = filterObj(context.originalContext, obj => typeof obj !== 'function');
     const {isNew, isChanged, value: stableOriginalContext} = useDeepCompare(filteredOriginalContext);
 
     const [menuState, dispatch] = useReducer(reducer, {
