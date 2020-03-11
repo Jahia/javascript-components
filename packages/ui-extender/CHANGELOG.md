@@ -1,3 +1,15 @@
+# (Wed Mar 11 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12327 : Reset loading state when context is updated [#114](https://github.com/Jahia/javascript-components/pull/114) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Tue Mar 10 2020)
 
 #### 🐛  Bug Fix
