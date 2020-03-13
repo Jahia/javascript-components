@@ -2,6 +2,18 @@
 
 #### 🐛  Bug Fix
 
+- BACKLOG-12789 : Fixed loading state [#118](https://github.com/Jahia/javascript-components/pull/118) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
+# (Fri Mar 13 2020)
+
+#### 🐛  Bug Fix
+
 - BACKLOG-12761 : Remove item from loaded list when it becomes invisible. Keep hidden menu if preload is used [#116](https://github.com/Jahia/javascript-components/pull/116) ([@tdraier](https://github.com/tdraier))
 
 #### Authors: 1
