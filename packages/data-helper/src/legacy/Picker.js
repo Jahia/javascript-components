@@ -4,7 +4,7 @@ import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
 import * as _ from 'lodash';
 import PropTypes from 'prop-types';
-import {PredefinedFragments, replaceFragmentsInDocument} from '../fragments';
+import {displayName, nodeCacheRequiredFields, replaceFragmentsInDocument} from '../fragments';
 import {PickerItemsFragment} from './Picker.gql-fragments';
 
 export class Picker extends React.Component {
@@ -57,7 +57,7 @@ export class Picker extends React.Component {
                     }
                 }
             }
-        ${PredefinedFragments.nodeCacheRequiredFields.gql}`;
+        ${nodeCacheRequiredFields.gql}`;
         this.query = replaceFragmentsInDocument(this.query, fragments);
 
         let state = {};
@@ -317,7 +317,7 @@ Picker.defaultProps = {
     selectedPaths: null,
     setRefetch: null,
     queryVariables: null,
-    fragments: [PickerItemsFragment.mixinTypes, PickerItemsFragment.primaryNodeType, PickerItemsFragment.isPublished, PredefinedFragments.displayName],
+    fragments: [PickerItemsFragment.mixinTypes, PickerItemsFragment.primaryNodeType, PickerItemsFragment.isPublished, displayName],
     onSelectionChange: null,
     onOpenItem: null,
     onSelectItem: null,

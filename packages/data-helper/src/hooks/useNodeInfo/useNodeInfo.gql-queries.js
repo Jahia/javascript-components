@@ -1,5 +1,23 @@
 import gql from 'graphql-tag';
-import {PredefinedFragments, replaceFragmentsInDocument} from '../../fragments';
+import {
+    aggregatedPublicationInfo,
+    contentRestrictions,
+    displayableNode,
+    displayName,
+    getProperties,
+    installedModules,
+    lockInfo,
+    mimeTypes,
+    nodeCacheRequiredFields,
+    operationSupport,
+    parentNode,
+    primaryNodeType,
+    replaceFragmentsInDocument,
+    siteLanguages,
+    subNodesCount
+} from '../../fragments';
+import {getPermissionFragment} from '../../fragments/getPermissionFragment';
+import {getNodeTypeFragment} from '../../fragments/getIsNodeTypeFragment';
 
 const getBaseQueryAndVariables = variables => {
     if (variables.paths) {
@@ -14,7 +32,7 @@ const getBaseQueryAndVariables = variables => {
                         }
                     }
                 }
-                ${PredefinedFragments.nodeCacheRequiredFields.gql}
+                ${nodeCacheRequiredFields.gql}
             `,
             generatedVariables: {
                 paths: variables.paths
@@ -35,7 +53,7 @@ const getBaseQueryAndVariables = variables => {
                         }
                     }
                 }
-                ${PredefinedFragments.nodeCacheRequiredFields.gql}
+                ${nodeCacheRequiredFields.gql}
             `,
             generatedVariables: {
                 uuid: variables.uuid
@@ -56,7 +74,7 @@ const getBaseQueryAndVariables = variables => {
                         }
                     }
                 }
-                ${PredefinedFragments.nodeCacheRequiredFields.gql}
+                ${nodeCacheRequiredFields.gql}
             `,
             generatedVariables: {
                 uuids: variables.uuids
@@ -76,7 +94,7 @@ const getBaseQueryAndVariables = variables => {
                     }
                 }
             }
-            ${PredefinedFragments.nodeCacheRequiredFields.gql}
+            ${nodeCacheRequiredFields.gql}
         `,
         generatedVariables: {
             path: variables.path
@@ -92,15 +110,7 @@ export const getQuery = (variables, options = {}) => {
 
     if (!skip) {
         if (options.getDisplayName) {
-            fragments.push({
-                variables: {
-                    language: 'String!'
-                },
-                applyFor: 'node',
-                gql: gql`fragment NodeInfoDisplayName on JCRNode {
-                    displayName(language: $language)
-                }`
-            });
+            fragments.push(displayName);
             if (!variables.language) {
                 throw Error('language is required');
             }
@@ -109,19 +119,7 @@ export const getQuery = (variables, options = {}) => {
         }
 
         if (options.getPrimaryNodeType) {
-            fragments.push({
-                variables: {
-                    displayLanguage: 'String!'
-                },
-                applyFor: 'node',
-                gql: gql`fragment NodeInfoPrimaryNodeType on JCRNode {
-                    primaryNodeType {
-                        name
-                        displayName(language: $displayLanguage)
-                        icon
-                    }
-                }`
-            });
+            fragments.push(primaryNodeType);
             if (!variables.displayLanguage) {
                 throw Error('displayLanguage is required');
             }
@@ -130,29 +128,11 @@ export const getQuery = (variables, options = {}) => {
         }
 
         if (options.getParent) {
-            fragments.push({
-                applyFor: 'node',
-                gql: gql`fragment NodeInfoParentNodeInfo on JCRNode {
-                    parent {
-                        path
-                        name
-                    }
-                }`
-            });
+            fragments.push(parentNode);
         }
 
         if (options.getAggregatedPublicationInfo) {
-            fragments.push({
-                variables: {
-                    language: 'String!'
-                },
-                applyFor: 'node',
-                gql: gql`fragment NodeInfoAggregatedPublicationInfo on JCRNode {
-                    aggregatedPublicationInfo(language: $language) {
-                        publicationStatus
-                    }
-                }`
-            });
+            fragments.push(aggregatedPublicationInfo);
             if (!variables.language) {
                 throw Error('language is required');
             }
@@ -161,159 +141,57 @@ export const getQuery = (variables, options = {}) => {
         }
 
         if (options.getOperationSupport) {
-            fragments.push({
-                applyFor: 'node',
-                gql: gql`fragment NodeInfoOperationSupport on JCRNode {
-                    operationsSupport {
-                        lock
-                        markForDeletion
-                        publication
-                    }
-                }`
-            });
+            fragments.push(operationSupport);
         }
 
         if (options.getPermissions) {
-            let permissionNames = options.getPermissions;
-            fragments.push({
-                variables: permissionNames.map((name, idx) => idx).reduce((acc, idx) => Object.assign(acc, {['permission' + idx]: 'String!'}), {}),
-                applyFor: 'node',
-                gql: gql`fragment NodeInfoNodePermission on JCRNode {
-                    ${permissionNames.map((name, idx) => idx).reduce((acc, idx) => acc + ' ' + permissionNames[idx].replace(':', '_') + ':hasPermission(permissionName: $permission' + idx + ') ', '')}
-                }`
+            options.getPermissions.forEach(name => {
+                const {fragment, variables} = getPermissionFragment(name);
+                fragments.push(fragment);
+                Object.assign(generatedVariables, variables);
             });
-            Object.assign(generatedVariables, permissionNames.map((name, idx) => idx).reduce((acc, idx) => Object.assign(acc, {['permission' + idx]: permissionNames[idx]}), {}));
         }
 
         if (options.getIsNodeTypes) {
-            let nodeTypes = options.getIsNodeTypes;
-            fragments.push({
-                variables: nodeTypes.map((name, idx) => idx).reduce((acc, idx) => Object.assign(acc, {['nodeType' + idx]: 'InputNodeTypesInput!'}), {}),
-                applyFor: 'node',
-                gql: gql`fragment NodeInfoNodeIsNodeType on JCRNode {
-                    ${nodeTypes.map((name, idx) => idx).reduce((acc, idx) => acc + ' ' + nodeTypes[idx].replace(':', '_') + ':isNodeType(type: $nodeType' + idx + ') ', '')}
-                }`
+            options.getIsNodeTypes.forEach(name => {
+                const {fragment, variables} = getNodeTypeFragment(name);
+                fragments.push(fragment);
+                Object.assign(generatedVariables, variables);
             });
-            Object.assign(generatedVariables, nodeTypes.map((name, idx) => idx).reduce((acc, idx) => Object.assign(acc, {['nodeType' + idx]: {types: [nodeTypes[idx]]}}), {}));
         }
 
         if (options.getProperties) {
-            fragments.push({
-                variables: {
-                    getPropertiesNames: '[String!]!'
-                },
-                applyFor: 'node',
-                gql: gql`fragment NodeInfoNodeProperties on JCRNode {
-                    properties(names: $getPropertiesNames, language: $language) {
-                        name
-                        value
-                        values
-                    }
-                }`
-            });
+            fragments.push(getProperties);
             generatedVariables.getPropertiesNames = options.getProperties;
         }
 
         if (options.getSiteInstalledModules) {
-            fragments.push({
-                applyFor: 'node',
-                gql: gql`fragment NodeInfoSiteInstalledModules on JCRNode {
-                    site {
-                        installedModulesWithAllDependencies
-                        ...NodeCacheRequiredFields
-                    }
-                }`
-            });
+            fragments.push(installedModules);
         }
 
         if (options.getSiteLanguages) {
-            fragments.push({
-                applyFor: 'node',
-                gql: gql`fragment NodeInfoSiteLanguages on JCRNode {
-                    site {
-                        defaultLanguage
-                        ...NodeCacheRequiredFields
-                        languages {
-                            displayName
-                            language
-                            activeInEdit
-                        }
-                    }
-                }`
-            });
+            fragments.push(siteLanguages);
         }
 
         if (options.getDisplayableNodePath) {
-            fragments.push({
-                applyFor: 'node',
-                gql: gql`fragment NodeInfoDisplayableNodePath on JCRNode {
-                    displayableNode {
-                        path
-                    }
-                }`
-            });
+            fragments.push(displayableNode);
         }
 
         if (options.getLockInfo) {
-            fragments.push({
-                applyFor: 'node',
-                gql: gql`fragment NodeInfoLockInfo on JCRNode {
-                    lockOwner: property(name: "jcr:lockOwner") {
-                        value
-                    }
-                    lockTypes: property(name: "j:lockTypes") {
-                        values
-                    }
-                }`
-            });
+            fragments.push(lockInfo);
         }
 
         if (options.getContributeTypesRestrictions) {
-            fragments.push({
-                applyFor: 'node',
-                gql: gql`fragment NodeInfoContentRestriction on JCRNode {
-                    contributeTypes: property(name: "j:contributeTypes") {
-                        values
-                    }
-                    ancestors(fieldFilter: {filters: {evaluation: NOT_EMPTY, fieldName: "contributeTypes"}}) {
-                        contributeTypes : property(name: "j:contributeTypes", language: $language) {
-                            values
-                        }
-                    }
-                }`
-            });
+            fragments.push(contentRestrictions);
         }
 
         if (options.getSubNodesCount) {
-            fragments.push({
-                variables: {
-                    subNodesCountTypes: '[String!]!'
-                },
-                applyFor: 'node',
-                gql: gql`fragment NodeInfoSubNodesCount on JCRNode {
-                    subNodes: children(typesFilter: {types: $subNodesCountTypes, multi: ANY}) {
-                        pageInfo {
-                            totalCount
-                        }
-                    }
-                }`
-            });
+            fragments.push(subNodesCount);
             generatedVariables.subNodesCountTypes = options.getSubNodesCount.types ? options.getSubNodesCount.types : ['nt:base'];
         }
 
         if (options.getMimeType) {
-            fragments.push({
-                applyFor: 'node',
-                gql: gql`fragment NodeInfoResourceNode on JCRNode {
-                    children(typesFilter: {types: ["jnt:resource"]}) {
-                        nodes {
-                            mimeType: property(name: "jcr:mimeType") {
-                                value
-                            }
-                        }
-                    }
-                }`
-            });
+            fragments.push(mimeTypes);
         }
     }
 
