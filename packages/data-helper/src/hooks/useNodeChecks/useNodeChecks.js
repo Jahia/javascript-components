@@ -44,9 +44,9 @@ export const useNodeChecks = (variables, options) => {
     }
 
     const doNodeCheck = node =>
-        (!requiredPermission || requiredPermission.map(t => t.replace(':', '_')).reduce((acc, val) => acc || node[val], false)) &&
-        (!showOnNodeTypes || showOnNodeTypes.map(t => t.replace(':', '_')).reduce((acc, val) => acc || node[val], false)) &&
-        (!hideOnNodeTypes || !hideOnNodeTypes.map(t => t.replace(':', '_')).reduce((acc, val) => acc || node[val], false)) &&
+        (!requiredPermission || requiredPermission.reduce((acc, val) => acc || node[val], false)) &&
+        (!showOnNodeTypes || showOnNodeTypes.reduce((acc, val) => acc || node[val], false)) &&
+        (!hideOnNodeTypes || !hideOnNodeTypes.reduce((acc, val) => acc || node[val], false)) &&
         (!requireModuleInstalledOnSite || requireModuleInstalledOnSite.reduce((acc, val) => acc && node.site.installedModulesWithAllDependencies.includes(val), true)) &&
         (!hideForPaths || evaluateVisibilityPaths(false, hideForPaths, node.path || variables.path)) &&
         (!showForPaths || evaluateVisibilityPaths(true, showForPaths, node.path || variables.path));

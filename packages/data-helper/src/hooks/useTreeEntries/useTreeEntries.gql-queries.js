@@ -1,6 +1,6 @@
 // TODO BACKLOG-12393 - refactor Legacy Picker into hook without lodash
 import gql from 'graphql-tag';
-import {PredefinedFragments} from '../../fragments/PredefinedFragments';
+import {nodeCacheRequiredFields} from '../../fragments/PredefinedFragments';
 
 export const TREE_QUERY = gql`
     query PickerQuery($rootPaths:[String!]!, $selectable:[String]!, $openable:[String]!, $openPaths:[String!]!, $types:[String]!) {
@@ -36,4 +36,4 @@ export const TREE_QUERY = gql`
             }
         }
     }
-${PredefinedFragments.nodeCacheRequiredFields.gql}`;
+${nodeCacheRequiredFields.gql}`;

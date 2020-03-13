@@ -3,9 +3,6 @@ import gql from 'graphql-tag';
 export const PickerItemsFragment = {
     mixinTypes: {
         applyFor: 'node',
-        variables: {
-            lang: 'String!'
-        },
         gql: gql`fragment MixinTypes on JCRNode {
             mixinTypes {
                 name
@@ -15,10 +12,10 @@ export const PickerItemsFragment = {
     isPublished: {
         applyFor: 'node',
         variables: {
-            lang: 'String!'
+            language: 'String!'
         },
         gql: gql`fragment PublicationStatus on JCRNode {
-            publicationStatus: aggregatedPublicationInfo(language: $lang) {
+            publicationStatus: aggregatedPublicationInfo(language: $language) {
                 publicationStatus
             }
         }`
