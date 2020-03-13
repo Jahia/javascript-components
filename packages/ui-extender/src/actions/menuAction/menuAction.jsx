@@ -119,6 +119,14 @@ Menu.propTypes = {
     rootMenuContext: PropTypes.object.isRequired
 };
 
+function add(items, item) {
+    return items.indexOf(item) === -1 ? [...items, item] : items;
+}
+
+function remove(items, item) {
+    return items.filter(f => f !== item);
+}
+
 const reducer = (state, action) => {
     switch (action.type) {
         case 'open':
@@ -150,13 +158,13 @@ const reducer = (state, action) => {
         case 'loading':
             return {
                 ...state,
-                loadingItems: state.loadingItems.indexOf(action.item) === -1 ? [...state.loadingItems, action.item] : state.loadingItems
+                loadingItems: add(state.loadingItems, action.item)
             };
         case 'loaded':
             return {
                 ...state,
-                loadingItems: state.loadingItems.filter(f => f !== action.item),
-                loadedItems: action.isVisible !== false && state.loadedItems.indexOf(action.item) === -1 ? [...state.loadedItems, action.item] : state.loadedItems.filter(f => f !== action.item)
+                loadingItems: remove(state.loadingItems, action.item),
+                loadedItems: action.isVisible !== false ? add(state.loadedItems, action.item) : remove(state.loadedItems, action.item)
             };
         case 'resetState':
             return {
