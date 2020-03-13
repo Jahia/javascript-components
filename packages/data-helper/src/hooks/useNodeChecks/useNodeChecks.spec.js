@@ -49,8 +49,8 @@ describe('useNodeChecks', () => {
         const variables = call[1].variables;
         call[0].definitions[0].variableDefinitions.map(v => v.variable.name.value).forEach(v => expect(Object.keys(variables)).toContain(v));
 
-        expect(call[0].definitions.map(d => d.name.value)).toContain('NodeInfoNodePermission');
-        expect(call[0].definitions.find(d => d.name.value === 'NodeInfoNodePermission').selectionSet.selections.map(m => m.alias.value)).toContain('canRead');
-        expect(call[0].definitions.find(d => d.name.value === 'NodeInfoNodePermission').selectionSet.selections.map(m => m.alias.value)).toContain('canWrite');
+        expect(call[0].definitions.map(d => d.name.value)).toContain('NodePermission_permission_encoded_Y2FuUmVhZA');
+        expect(call[0].definitions.find(d => d.name.value === 'NodePermission_permission_encoded_Y2FuUmVhZA').selectionSet.selections.map(m => m.alias.value)).toContain('permission_encoded_Y2FuUmVhZA');
+        expect(call[0].definitions.find(d => d.name.value === 'NodePermission_permission_encoded_Y2FuV3JpdGU').selectionSet.selections.map(m => m.alias.value)).toContain('permission_encoded_Y2FuV3JpdGU');
     });
 });

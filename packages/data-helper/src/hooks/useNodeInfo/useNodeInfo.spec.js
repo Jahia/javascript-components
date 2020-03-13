@@ -115,9 +115,9 @@ describe('useNodeInfo', () => {
         const variables = call[1].variables;
         call[0].definitions[0].variableDefinitions.map(v => v.variable.name.value).forEach(v => expect(Object.keys(variables)).toContain(v));
 
-        expect(call[0].definitions.map(d => d.name.value)).toContain('NodeInfoNodePermission');
-        expect(call[0].definitions.find(d => d.name.value === 'NodeInfoNodePermission').selectionSet.selections.map(m => m.alias.value)).toContain('canRead');
-        expect(call[0].definitions.find(d => d.name.value === 'NodeInfoNodePermission').selectionSet.selections.map(m => m.alias.value)).toContain('canWrite');
+        expect(call[0].definitions.map(d => d.name.value)).toContain('NodePermission_permission_encoded_Y2FuUmVhZA');
+        expect(call[0].definitions.find(d => d.name.value === 'NodePermission_permission_encoded_Y2FuUmVhZA').selectionSet.selections.map(m => m.alias.value)).toContain('permission_encoded_Y2FuUmVhZA');
+        expect(call[0].definitions.find(d => d.name.value === 'NodePermission_permission_encoded_Y2FuV3JpdGU').selectionSet.selections.map(m => m.alias.value)).toContain('permission_encoded_Y2FuV3JpdGU');
     });
 
     it('should request isNodeTypes', () => {
@@ -131,9 +131,9 @@ describe('useNodeInfo', () => {
         const variables = call[1].variables;
         call[0].definitions[0].variableDefinitions.map(v => v.variable.name.value).forEach(v => expect(Object.keys(variables)).toContain(v));
 
-        expect(call[0].definitions.map(d => d.name.value)).toContain('NodeInfoNodeIsNodeType');
-        expect(call[0].definitions.find(d => d.name.value === 'NodeInfoNodeIsNodeType').selectionSet.selections.map(m => m.alias.value)).toContain('jnt_typeA');
-        expect(call[0].definitions.find(d => d.name.value === 'NodeInfoNodeIsNodeType').selectionSet.selections.map(m => m.alias.value)).toContain('jnt_typeB');
+        expect(call[0].definitions.map(d => d.name.value)).toContain('NodeType_nodeType_encoded_am50OnR5cGVB');
+        expect(call[0].definitions.find(d => d.name.value === 'NodeType_nodeType_encoded_am50OnR5cGVB').selectionSet.selections.map(m => m.alias.value)).toContain('nodeType_encoded_am50OnR5cGVB');
+        expect(call[0].definitions.find(d => d.name.value === 'NodeType_nodeType_encoded_am50OnR5cGVC').selectionSet.selections.map(m => m.alias.value)).toContain('nodeType_encoded_am50OnR5cGVC');
     });
 
     it('should request properties', () => {
@@ -147,8 +147,8 @@ describe('useNodeInfo', () => {
         const variables = call[1].variables;
         call[0].definitions[0].variableDefinitions.map(v => v.variable.name.value).forEach(v => expect(Object.keys(variables)).toContain(v));
 
-        expect(call[0].definitions.map(d => d.name.value)).toContain('NodeInfoNodeProperties');
-        expect(call[0].definitions.find(d => d.name.value === 'NodeInfoNodeProperties').selectionSet.selections.map(m => m.name.value)).toContain('properties');
+        expect(call[0].definitions.map(d => d.name.value)).toContain('NodeProperties');
+        expect(call[0].definitions.find(d => d.name.value === 'NodeProperties').selectionSet.selections.map(m => m.name.value)).toContain('properties');
     });
 
     it('should request all data', () => {
