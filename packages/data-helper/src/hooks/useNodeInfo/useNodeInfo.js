@@ -35,7 +35,8 @@ export const useNodeInfo = (variables, options) => {
     };
 };
 
-const decodeResult = (node, options) => {
+const decodeResult = (nodeOrig, options) => {
+    let node = {...nodeOrig};
     if (node && options) {
         if (options.getPermissions) {
             options.getPermissions.forEach(name => {
