@@ -88,7 +88,11 @@ const Menu = ({context, menuContext, menuState, rootMenuContext}) => {
                       onClose={() => {
                           menuContext.dispatch({type: 'close'});
                       }}
-                      onExited={menuContext.destroy}
+                      onExited={() => {
+                          if (!context.menuPreload) {
+                              menuContext.destroy();
+                          }
+                      }}
         >
             <DisplayActions
                 target={menuTarget}
@@ -152,7 +156,7 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 loadingItems: state.loadingItems.filter(f => f !== action.item),
-                loadedItems: action.isVisible !== false && state.loadedItems.indexOf(action.item) === -1 ? [...state.loadedItems, action.item] : state.loadedItems
+                loadedItems: action.isVisible !== false && state.loadedItems.indexOf(action.item) === -1 ? [...state.loadedItems, action.item] : state.loadedItems.filter(f => f !== action.item)
             };
         case 'resetState':
             return {
