@@ -1,3 +1,15 @@
+# (Fri Mar 13 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12764: Removed duplicate fragments. Improve useNodeInfo for permissions, nodetypes [#115](https://github.com/Jahia/javascript-components/pull/115) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Tue Mar 10 2020)
 
 #### 🐛  Bug Fix
