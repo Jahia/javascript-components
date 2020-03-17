@@ -18,7 +18,7 @@ export class Tree {
         return new Tree(mapTree(this.data, mapFunction));
     }
 
-    data() {
+    getData() {
         return this.data;
     }
 }
