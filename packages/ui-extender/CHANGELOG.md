@@ -1,3 +1,15 @@
+# (Tue Mar 17 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12820 : Create tree structure based on adminRoutes [#120](https://github.com/Jahia/javascript-components/pull/120) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Fri Mar 13 2020)
 
 #### 🐛  Bug Fix
