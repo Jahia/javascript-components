@@ -10,7 +10,7 @@ class DisplayActions extends React.Component {
     }
 
     render() {
-        const {target, context, render, loading, filter} = this.props;
+        const {target, filter, ...props} = this.props;
 
         let actionsToDisplay = registry.find({type: 'action', target: target});
 
@@ -18,7 +18,14 @@ class DisplayActions extends React.Component {
             actionsToDisplay = actionsToDisplay && actionsToDisplay.filter(filter);
         }
 
-        return actionsToDisplay.map(action => <DisplayAction key={action.key} context={context} actionKey={action.key} render={render} loading={loading} observerRef={obs => this.observerRefs.push(obs)}/>);
+        return actionsToDisplay.map(action => (
+            <DisplayAction
+                key={action.key}
+                {...props}
+                actionKey={action.key}
+                observerRef={obs => this.observerRefs.push(obs)}
+                />
+        ));
     }
 }
 
