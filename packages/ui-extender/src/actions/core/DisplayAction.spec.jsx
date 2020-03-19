@@ -29,6 +29,24 @@ describe('DisplayAction', () => {
         expect(action.onClick.mock.calls.length).toBe(1);
     });
 
+    it('should pass props to render button when action is a react component', () => {
+        registry.add('action', 'test-action-1', {
+            // eslint-disable-next-line react/prop-types
+            component: ({context, render: Render, ...props}) => <Render {...props}/>
+        });
+
+        const onClick = jest.fn();
+        const wrapper = mount(<DisplayAction actionKey="test-action-1"
+                                             render={props => <button type="button" {...props}/>}
+                                             className="customClass"
+                                             onClick={onClick}/>);
+
+        const button = wrapper.find('button');
+        expect(button.props().className).toContain('customClass');
+        button.simulate('click');
+        expect(onClick).toHaveBeenCalled();
+    });
+
     it('should call method with different values', () => {
         const fn1 = jest.fn();
 
