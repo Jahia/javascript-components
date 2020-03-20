@@ -43,11 +43,11 @@ jobs:
     steps:
       - attach_workspace:
           at: ./
+      - add_ssh_keys:
+                fingerprints:
+                  - "97:b9:c5:2d:c6:80:4b:fd:e4:2c:73:55:49:cf:a9:34"
       - run: git config --global user.email "jahia-ci@jahia.com"
       - run: git config --global user.name "JahiaCI"
-      - run:
-          name: Avoid hosts unknown for github
-          command: mkdir ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
       - run: yarn run publish
 
 workflows:
