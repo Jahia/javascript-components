@@ -22,8 +22,8 @@ jobs:
           name: Build project
           command: yarn build
       - persist_to_workspace:
-        root: ./
-        paths:
+          root: ./
+          paths:
           - ./*
 
   check:
