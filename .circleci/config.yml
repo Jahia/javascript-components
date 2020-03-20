@@ -49,21 +49,13 @@ workflows:
   version: 2
   build:
     jobs:
-      - buildPackages:
-          filters:
-            tags:
-              only: /.*/
+      - buildPackages
       - check:
           requires:
             - buildPackages
-          filters:
-            tags:
-              only: /.*/
       - publish:
           requires:
             - check
           filters:
             branches:
               only: master
-            tags:
-              only: /.*/
