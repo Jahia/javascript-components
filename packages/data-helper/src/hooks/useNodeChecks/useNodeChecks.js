@@ -14,9 +14,11 @@ export const useNodeChecks = (variables, options) => {
     const {requiredPermission, showOnNodeTypes, hideOnNodeTypes, requireModuleInstalledOnSite, showForPaths, hideForPaths, ...othersOptions} = options;
     const useNodeInfoOptions = {...othersOptions};
 
-    if (requiredPermission) {
+    const requiredPermissions = (typeof requiredPermission === 'string') ? [requiredPermission] : requiredPermission;
+
+    if (requiredPermissions) {
         useNodeInfoOptions.getPermissions = useNodeInfoOptions.getPermissions || [];
-        useNodeInfoOptions.getPermissions.push(...requiredPermission);
+        useNodeInfoOptions.getPermissions.push(...requiredPermissions);
     }
 
     if (showOnNodeTypes) {
@@ -44,7 +46,7 @@ export const useNodeChecks = (variables, options) => {
     }
 
     const doNodeCheck = node =>
-        (!requiredPermission || requiredPermission.reduce((acc, val) => acc || node[val], false)) &&
+        (!requiredPermissions || requiredPermissions.reduce((acc, val) => acc || node[val], false)) &&
         (!showOnNodeTypes || showOnNodeTypes.reduce((acc, val) => acc || node[val], false)) &&
         (!hideOnNodeTypes || !hideOnNodeTypes.reduce((acc, val) => acc || node[val], false)) &&
         (!requireModuleInstalledOnSite || requireModuleInstalledOnSite.reduce((acc, val) => acc && node.site.installedModulesWithAllDependencies.includes(val), true)) &&
