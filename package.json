@@ -4,8 +4,7 @@
     "version": "1.0.0",
     "scripts": {
         "clean": "rm -rf packages/**/build/",
-        "lerna-bootstrap": "yarn install && lerna bootstrap --ci",
-        "build": "yarn lint && yarn test && lerna run build",
+        "build": "lerna run build",
         "publish": "lerna --concurrency 1 run publish-script",
         "lint": "eslint --ext js,jsx .",
         "lint:fix": "yarn lint --fix .",
