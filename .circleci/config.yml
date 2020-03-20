@@ -43,6 +43,8 @@ jobs:
     steps:
       - attach_workspace:
           at: ./
+      - run: git config --global user.email "jahia-ci@jahia.com"
+      - run: git config --global user.name "JahiaCI"
       - run: yarn run publish
 
 workflows:
