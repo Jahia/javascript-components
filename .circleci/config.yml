@@ -45,6 +45,9 @@ jobs:
           at: ./
       - run: git config --global user.email "jahia-ci@jahia.com"
       - run: git config --global user.name "JahiaCI"
+      - run:
+          name: Avoid hosts unknown for github
+          command: mkdir ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
       - run: yarn run publish
 
 workflows:
