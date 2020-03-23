@@ -1,3 +1,15 @@
+# (Mon Mar 23 2020)
+
+#### ⚠️  Pushed to master
+
+- BACKLOG-12877 : Allow single permission to be passed  ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Fri Mar 13 2020)
 
 #### 🐛  Bug Fix
