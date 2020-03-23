@@ -1,3 +1,15 @@
+# (Mon Mar 23 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12854: Propagate the props of action to their children when usign display action [#121](https://github.com/Jahia/javascript-components/pull/121) ([@FBerthelot](https://github.com/FBerthelot))
+
+#### Authors: 1
+
+- Florent Berthelot ([@FBerthelot](https://github.com/FBerthelot))
+
+---
+
 # (Tue Mar 17 2020)
 
 #### 🐛  Bug Fix
