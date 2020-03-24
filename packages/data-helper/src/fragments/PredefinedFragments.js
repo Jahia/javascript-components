@@ -73,6 +73,7 @@ export const allProperties = {
 
 export const getProperties = {
     variables: {
+        language: 'String!',
         getPropertiesNames: '[String!]!'
     },
     applyFor: 'node',
@@ -210,7 +211,7 @@ export const nodeTypeSubTypes = {
 export const mimeTypes = {
     applyFor: 'node',
     gql: gql`fragment NodeInfoResourceNode on JCRNode {
-        children(typesFilter: {types: ["jnt:resource"]}) {
+        resourceChildren: children(names: ["jcr:content"]) {
             nodes {
                 mimeType: property(name: "jcr:mimeType") {
                     value

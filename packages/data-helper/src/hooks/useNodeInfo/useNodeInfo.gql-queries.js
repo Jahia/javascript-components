@@ -163,6 +163,12 @@ export const getQuery = (variables, options = {}) => {
         if (options.getProperties) {
             fragments.push(getProperties);
             generatedVariables.getPropertiesNames = options.getProperties;
+
+            if (!variables.language) {
+                throw Error('language is required');
+            }
+
+            generatedVariables.language = variables.language;
         }
 
         if (options.getSiteInstalledModules) {
