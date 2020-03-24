@@ -1,3 +1,15 @@
+# (Tue Mar 24 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12561 : Different fixes in nodeInfo/nodeChecks [#128](https://github.com/Jahia/javascript-components/pull/128) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Mon Mar 23 2020)
 
 #### ⚠️  Pushed to master
