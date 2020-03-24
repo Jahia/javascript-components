@@ -19,14 +19,18 @@ export const useNodeInfo = (variables, options) => {
     if (node) {
         return {
             node: decodeResult(node, memoizedOptions),
-            ...others
+            ...others,
+            query,
+            variables: generatedVariables
         };
     }
 
     if (nodes) {
         return {
             nodes: nodes.map(n => decodeResult(n, memoizedOptions)),
-            ...others
+            ...others,
+            query,
+            variables: generatedVariables
         };
     }
 
@@ -52,6 +56,12 @@ const decodeResult = (nodeOrig, options) => {
                 delete node[getEncodedNodeTypeName(name)];
                 node[name] = res;
             });
+        }
+
+        if (options.getMimeType) {
+            const nodes = node.resourceChildren.nodes;
+            node.mimeType = (nodes.length !== 0 && nodes[0].mimeType.value) || null;
+            delete node.resourceChildren;
         }
     }
 

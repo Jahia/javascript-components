@@ -8,6 +8,9 @@ jest.mock('react-apollo', () => {
             data: {
                 jcr: {
                     nodeByPath: {
+                        resourceChildren: {
+                            nodes: []
+                        }
                     }
                 }
             },
