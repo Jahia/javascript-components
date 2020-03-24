@@ -149,7 +149,9 @@ const reducer = (state, action) => {
             }
 
             if (state.subMenuContext && state.subMenuContext !== action.value) {
-                state.subMenuContext.dispatch({type: 'close'});
+                setTimeout(() => {
+                    state.subMenuContext.dispatch({type: 'close'});
+                }, 0);
             }
 
             return {...state, subMenuContext: action.value};
@@ -256,6 +258,7 @@ const MenuActionComponent = ({context, render: Render, loading: Loading}) => {
     // Cleanup effect on final unmount
     useEffect(() => {
         return () => {
+            menuContext.dispatch = () => {};
             menuContext.destroy();
         };
     }, [menuContext]);
