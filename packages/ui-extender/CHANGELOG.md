@@ -1,3 +1,17 @@
+# (Tue Mar 24 2020)
+
+#### 🐛  Bug Fix
+
+- Revert "BACKLOG-12854: Propagate the props of action to their childre… [#129](https://github.com/Jahia/javascript-components/pull/129) ([@FBerthelot](https://github.com/FBerthelot))
+- QA-12679 : Fixed state update across components [#130](https://github.com/Jahia/javascript-components/pull/130) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 2
+
+- Florent Berthelot ([@FBerthelot](https://github.com/FBerthelot))
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Mon Mar 23 2020)
 
 #### 🐛  Bug Fix
