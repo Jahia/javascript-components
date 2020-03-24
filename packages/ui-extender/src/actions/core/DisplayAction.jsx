@@ -171,28 +171,30 @@ class DisplayAction extends React.Component {
     }
 
     render() {
-        let {context, actionKey, ...props} = this.props;
+        let {context, actionKey, render, loading, observerRef, ...otherProps} = this.props;
         let action = registry.get('action', actionKey);
 
         if (!action) {
             return null;
         }
 
-        let enhancedContext = {...action, ...context, originalContext: context, id: this.id, actionKey};
+        let Component = this.Component;
+
+        let enhancedContext = {...action, ...context, originalContext: context, id: this.id, actionKey, displayActionProps: otherProps};
         return (
-            <this.Component
-                key={this.id}
-                {...props}
-                actionKey={actionKey}
-                context={enhancedContext}
+            <Component key={this.id}
+                       context={enhancedContext}
+                       render={render}
+                       loading={loading}
+                       actionKey={actionKey}
+                       observerRef={observerRef}
             />
         );
     }
 }
 
 DisplayAction.defaultProps = {
-    observerRef: null,
-    context: {}
+    observerRef: null
 };
 
 DisplayAction.propTypes = {
@@ -204,7 +206,7 @@ DisplayAction.propTypes = {
     /**
      * The action context
      */
-    context: PropTypes.object,
+    context: PropTypes.object.isRequired,
 
     /**
      * The render component
