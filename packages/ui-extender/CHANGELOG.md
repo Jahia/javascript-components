@@ -1,3 +1,15 @@
+# (Wed Mar 25 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12512: pass showIcons to renderer, fixed menu display position [#131](https://github.com/Jahia/javascript-components/pull/131) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Tue Mar 24 2020)
 
 #### 🐛  Bug Fix
