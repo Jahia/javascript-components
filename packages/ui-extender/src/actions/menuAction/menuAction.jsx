@@ -103,7 +103,8 @@ const Menu = ({context, menuContext, menuState, rootMenuContext}) => {
                     menuRenderer: MenuRenderer,
                     menuItemRenderer,
                     parentMenuContext: menuContext,
-                    rootMenuContext: rootMenuContext
+                    rootMenuContext: rootMenuContext,
+                    showIcons: context.showIcons
                 }}
                 loading={ItemLoading}
                 render={ItemRender}
@@ -277,8 +278,14 @@ const MenuActionComponent = ({context, render: Render, loading: Loading}) => {
                 // Handle click to open menu only if not in a submenu (already handled on mouse over)
                 if (!parentMenuContext) {
                     if (event.currentTarget && !context.menuUseEventPosition) {
+                        // Copy position of target element as it may be removed after load
+                        const boundingClientRect = event.currentTarget.getBoundingClientRect();
+                        const targetMock = {
+                            ...event.currentTarget,
+                            getBoundingClientRect: () => boundingClientRect
+                        };
                         menuContext.display(context, menuState, {
-                            anchorEl: event.currentTarget,
+                            anchorEl: targetMock,
                             anchorElOrigin: {
                                 vertical: 'bottom',
                                 horizontal: 'left'
