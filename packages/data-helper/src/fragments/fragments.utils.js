@@ -14,7 +14,16 @@ function findParametersInDocument(doc) {
 const queryCache = {};
 
 function replaceFragmentsInDocument(doc, fragments) {
-    const key = doc.definitions[0].name.value + '__' + fragments.map(f => f.gql.definitions[0].name.value).sort().join('_');
+    if (!fragments) {
+        fragments = [];
+    }
+
+    const key = doc.definitions[0].name.value + '__' + fragments
+        .map(f => (typeof f === 'string') ? PredefinedFragments[f] : f)
+        .map(f => f.gql.definitions[0].name.value)
+        .sort()
+        .join('_');
+
     if (queryCache[key]) {
         return queryCache[key];
     }
@@ -93,11 +102,6 @@ function replaceFragmentsInSelectionSet(selectionSet, fragments, def, document) 
                             let existing = _.find(def.variableDefinitions, def => def.variable.name.value === name);
                             if (!existing) {
                                 let type = parseType(value, {noLocation: true});
-                                // delete type.loc;
-                                // delete type.type.loc;
-                                // if (type.type.name) {
-                                //     delete type.type.name.loc;
-                                // }
                                 def.variableDefinitions.push({
                                     kind: 'VariableDefinition',
                                     variable: {
@@ -108,9 +112,6 @@ function replaceFragmentsInSelectionSet(selectionSet, fragments, def, document) 
                                         }
                                     },
                                     type: type
-                                    // ,
-                                    // defaultValue: undefined,
-                                    // directives: []
                                 });
                             }
                         });
