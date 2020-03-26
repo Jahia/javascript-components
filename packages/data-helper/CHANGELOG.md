@@ -1,3 +1,15 @@
+# (Thu Mar 26 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12833 : Avoid recreating queries for same fragments, set unique name on query [#134](https://github.com/Jahia/javascript-components/pull/134) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Tue Mar 24 2020)
 
 #### 🐛  Bug Fix
