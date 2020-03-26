@@ -1,4 +1,4 @@
-// TODO BACKLOG-12393 - refactor Legacy Picker into hook without lodash
+// TODO BACKLOG-12393 - remove lodash
 import * as _ from 'lodash';
 import {parseType} from 'graphql';
 import {PredefinedFragments} from '../fragments';
@@ -11,12 +11,31 @@ function findParametersInDocument(doc) {
     return [];
 }
 
+const queryCache = {};
+
 function replaceFragmentsInDocument(doc, fragments) {
+    if (!fragments) {
+        fragments = [];
+    }
+
+    const key = doc.definitions[0].name.value + '__' + fragments
+        .map(f => (typeof f === 'string') ? PredefinedFragments[f] : f)
+        .map(f => f.gql.definitions[0].name.value)
+        .sort()
+        .join('_');
+
+    if (queryCache[key]) {
+        return queryCache[key];
+    }
+
     let clonedQuery = null;
     if (doc && doc.definitions) {
         clonedQuery = _.cloneDeep(doc);
         _.each(clonedQuery.definitions, def => replaceFragmentsInSelectionSet(def.selectionSet, fragments, def, clonedQuery));
+        clonedQuery.definitions[0].name.value = key;
     }
+
+    queryCache[key] = clonedQuery;
 
     return clonedQuery;
 }
