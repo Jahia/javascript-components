@@ -104,7 +104,7 @@ describe('useNodeInfo', () => {
     });
 
     it('should throw an error if a variable is missing', () => {
-        expect(() => useNodeInfo({path: '/test'}, {getPrimaryNodeType: true})).toThrow();
+        expect(() => useNodeInfo({path: '/test'}, {getDisplayName: true})).toThrow();
     });
 
     it('should request permissions', () => {
