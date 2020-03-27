@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 import {
     aggregatedPublicationInfo,
+    childNodeTypes,
     contentRestrictions,
     displayableNode,
     displayName,
@@ -121,10 +122,12 @@ export const getQuery = (variables, options = {}) => {
         if (options.getPrimaryNodeType) {
             fragments.push(primaryNodeType);
             if (!variables.displayLanguage) {
-                throw Error('displayLanguage is required');
+                generatedVariables.displayLanguageSet = false;
+                generatedVariables.displayLanguage = '';
+            } else {
+                generatedVariables.displayLanguageSet = true;
+                generatedVariables.displayLanguage = variables.displayLanguage;
             }
-
-            generatedVariables.displayLanguage = variables.displayLanguage;
         }
 
         if (options.getParent) {
@@ -185,6 +188,10 @@ export const getQuery = (variables, options = {}) => {
 
         if (options.getLockInfo) {
             fragments.push(lockInfo);
+        }
+
+        if (options.getChildNodeTypes) {
+            fragments.push(childNodeTypes);
         }
 
         if (options.getContributeTypesRestrictions) {
