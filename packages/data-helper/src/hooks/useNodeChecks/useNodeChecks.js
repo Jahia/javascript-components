@@ -10,7 +10,7 @@ const evaluateVisibilityPaths = (visible, visibilityPaths, nodePath) => {
     return !visible;
 };
 
-export const useNodeChecks = (variables, options) => {
+export const useNodeChecks = (variables, options, queryOptions) => {
     const {requiredPermission, showOnNodeTypes, hideOnNodeTypes, requireModuleInstalledOnSite, showForPaths, hideForPaths, ...othersOptions} = options;
     const useNodeInfoOptions = {...othersOptions};
 
@@ -35,7 +35,7 @@ export const useNodeChecks = (variables, options) => {
         useNodeInfoOptions.getSiteInstalledModules = true;
     }
 
-    const {node, nodes, loading, ...othersResults} = useNodeInfo(variables, useNodeInfoOptions);
+    const {node, nodes, loading, ...othersResults} = useNodeInfo(variables, useNodeInfoOptions, queryOptions);
 
     if (loading) {
         return {loading, ...othersResults};

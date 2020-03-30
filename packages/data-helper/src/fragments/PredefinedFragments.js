@@ -12,13 +12,14 @@ export const displayName = {
 
 export const primaryNodeType = {
     variables: {
-        displayLanguage: 'String!'
+        displayLanguage: 'String!',
+        displayLanguageSet: 'Boolean!'
     },
     applyFor: 'node',
     gql: gql`fragment NodeInfoPrimaryNodeType on JCRNode {
         primaryNodeType {
             name
-            displayName(language: $displayLanguage)
+            displayName(language: $displayLanguage) @include(if: $displayLanguageSet)
             icon
         }
     }`
@@ -146,6 +147,15 @@ export const subNodesCount = {
     }`
 };
 
+export const childNodeTypes = {
+    applyFor: 'node',
+    gql: gql`fragment AllowedChildNodeType on JCRNode {
+        allowedChildNodeTypes(includeSubTypes: false) {
+            name
+        }
+    }`
+};
+
 export const contentRestrictions = {
     applyFor: 'node',
     gql: gql`fragment ContentRestriction on JCRNode {
@@ -153,7 +163,7 @@ export const contentRestrictions = {
             values
         }
         ancestors(fieldFilter: {filters: {evaluation: NOT_EMPTY, fieldName: "contributeTypes"}}) {
-            contributeTypes : property(name: "j:contributeTypes", language: $language) {
+            contributeTypes : property(name: "j:contributeTypes") {
                 values
             }
         }

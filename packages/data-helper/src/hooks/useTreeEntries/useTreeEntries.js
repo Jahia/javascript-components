@@ -13,7 +13,7 @@ export const useTreeEntries = ({
     selectableTypes,
     queryVariables,
     hideRoot
-}) => {
+}, queryOptions) => {
     let query = useRef(replaceFragmentsInDocument(TREE_QUERY, fragments));
 
     const getTreeEntries = (data, selectedPaths, openPaths) => {
@@ -93,6 +93,6 @@ export const useTreeEntries = ({
         _.assign(vars, queryVariables);
     }
 
-    const {data, ...others} = useQuery(query.current, {variables: vars});
+    const {data, ...others} = useQuery(query.current, {...queryOptions, variables: vars});
     return {treeEntries: getTreeEntries(data, selectedPaths, openPaths), ...others};
 };
