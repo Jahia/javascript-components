@@ -1,3 +1,15 @@
+# (Mon Mar 30 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12561 : hooks improvement and fixes [#135](https://github.com/Jahia/javascript-components/pull/135) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Thu Mar 26 2020)
 
 #### 🐛  Bug Fix
