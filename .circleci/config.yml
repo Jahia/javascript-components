@@ -44,6 +44,9 @@ jobs:
       - attach_workspace:
           at: ./
       - run:
+          name: Authenticate with NPM registry
+          command: echo '//npm.jahia.com/:_authToken=$NPM_TOKEN' >>  `npm config get userconfig`
+      - run:
           name: Avoid hosts unknown for github
           command: mkdir ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
       - add_ssh_keys:
