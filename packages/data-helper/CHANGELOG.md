@@ -1,3 +1,15 @@
+# (Tue Mar 31 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-13021: Add options in aggregatedPublicationInfo [#136](https://github.com/Jahia/javascript-components/pull/136) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Mon Mar 30 2020)
 
 #### 🐛  Bug Fix
