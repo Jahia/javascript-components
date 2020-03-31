@@ -141,6 +141,8 @@ export const getQuery = (variables, options = {}) => {
             }
 
             generatedVariables.language = variables.language;
+            generatedVariables.aggregatedPublicationInfoSubNodes = Boolean(options.getAggregatedPublicationInfo.subNodes);
+            generatedVariables.aggregatedPublicationInfoIncludeReference = Boolean(options.getAggregatedPublicationInfo.reference);
         }
 
         if (options.getOperationSupport) {

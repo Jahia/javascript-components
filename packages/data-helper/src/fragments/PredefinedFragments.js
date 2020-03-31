@@ -37,11 +37,13 @@ export const parentNode = {
 
 export const aggregatedPublicationInfo = {
     variables: {
-        language: 'String!'
+        language: 'String!',
+        aggregatedPublicationInfoSubNodes: 'Boolean',
+        aggregatedPublicationInfoIncludeReference: 'Boolean'
     },
     applyFor: 'node',
     gql: gql`fragment AggregatedPublicationInfo on JCRNode {
-        aggregatedPublicationInfo(language: $language) {
+        aggregatedPublicationInfo(language: $language, subNodes: $aggregatedPublicationInfoSubNodes, references:$aggregatedPublicationInfoIncludeReference) {
             publicationStatus
         }
     }`
