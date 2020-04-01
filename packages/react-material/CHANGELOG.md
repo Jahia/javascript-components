@@ -1,3 +1,15 @@
+# (Wed Apr 01 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-12159: Do not use dxcontext provider [#138](https://github.com/Jahia/javascript-components/pull/138) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Thu Feb 27 2020)
 
 #### 🐛  Bug Fix
