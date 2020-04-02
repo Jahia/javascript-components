@@ -15,9 +15,7 @@ class DisplayAction extends React.Component {
     }
 
     shouldComponentUpdate(nextProps) {
-        const b = !shallowEquals(nextProps.context, this.props.context);
-        console.log('scu', b);
-        return b;
+        return !shallowEquals(nextProps.context, this.props.context);
     }
 
     render() {
