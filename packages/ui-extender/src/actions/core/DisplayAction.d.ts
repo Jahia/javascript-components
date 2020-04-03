@@ -17,10 +17,6 @@ export interface DisplayActionProps {
      * The render component
      */
     loading: (...args: any[])=>any;
-    /**
-     * ..
-     */
-    observerRef?: (...args: any[])=>any;
 }
 
 export class DisplayAction extends React.Component<DisplayActionProps, any> {
