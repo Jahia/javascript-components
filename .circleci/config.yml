@@ -44,17 +44,22 @@ jobs:
       - attach_workspace:
           at: ./
       - run:
+          name: Set registry URL
+          command: npm set registry https://npm.jahia.com/
+      - run:
           name: Authenticate with NPM registry
-          command: echo '//npm.jahia.com/:_authToken=$NPM_TOKEN' >>  `npm config get userconfig`
+          command: echo '//npm.jahia.com/:_authToken=$NPM_TOKEN' >> .npmrc
       - run:
           name: Avoid hosts unknown for github
           command: mkdir ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
       - add_ssh_keys:
-                fingerprints:
-                  - "97:b9:c5:2d:c6:80:4b:fd:e4:2c:73:55:49:cf:a9:34"
+          fingerprints:
+            - "97:b9:c5:2d:c6:80:4b:fd:e4:2c:73:55:49:cf:a9:34"
       - run: git config --global user.email "jahia-ci@jahia.com"
       - run: git config --global user.name "JahiaCI"
-      - run: yarn run publish
+      - run: 
+          name: Publish
+          command: yarn run publish
 
 workflows:
   version: 2
