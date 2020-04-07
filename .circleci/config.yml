@@ -46,10 +46,8 @@ jobs:
       - run:
           name: Authenticate with NPM registry
           command: |
-            echo '//npm.jahia.com/:_authToken=$NPM_TOKEN' >> .npmrc
+            echo "//npm.jahia.com/:_authToken=$NPM_TOKEN" >> .npmrc
             cat .npmrc
-            echo gh=$GH_TOKEN
-            echo npm=$NPM_TOKEN
       - run:
           name: Avoid hosts unknown for github
           command: mkdir ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
