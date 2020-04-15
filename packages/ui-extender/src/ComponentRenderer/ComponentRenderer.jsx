@@ -1,72 +1,47 @@
-import React, {Component, createContext} from 'react';
-import PropTypes from 'prop-types';
+import React, {useContext, useEffect, useState} from 'react';
+import {ComponentRendererContext} from './ComponentRendererContext';
 
-const ComponentRendererContext = createContext();
+export const ComponentRenderer = () => {
+    const [state, setState] = useState({components: {}, componentsProps: {}});
 
-class ComponentRendererProvider extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            components: {},
-            componentsProps: {}
-        };
+    let value = useContext(ComponentRendererContext);
 
-        this.value = {
-            render: (key, component, props) => this.setState(previous => {
-                let newState = {
-                    components: {...previous.components},
-                    componentsProps: {...previous.componentsProps}
-                };
-                newState.components[key] = component;
-                newState.componentsProps[key] = {...props};
-                return newState;
-            }),
-            setProperties: (key, props) => this.setState(previous => {
-                let newState = {
-                    componentsProps: {...previous.componentsProps}
-                };
-                newState.componentsProps[key] = {...previous.componentsProps[key], ...props};
-                return newState;
-            }),
-            destroy: key => this.setState(previous => {
-                let newState = {
-                    components: {...previous.components},
-                    componentsProps: {...previous.componentsProps}
-                };
-                delete newState.components[key];
-                delete newState.componentsProps[key];
-                return newState;
-            })
-        };
-    }
+    useEffect(() => {
+        value.render = (key, component, props) => setState(previous => {
+            let newState = {
+                components: {...previous.components},
+                componentsProps: {...previous.componentsProps}
+            };
+            newState.components[key] = component;
+            newState.componentsProps[key] = {...props};
+            return newState;
+        });
 
-    render() {
-        let components = Object.keys(this.state.components)
-            .map(key => {
-                const component = this.state.components[key];
-                return React.createElement(component, {key, ...this.state.componentsProps[key]});
-            });
-        return (
-            <ComponentRendererContext.Provider value={this.value}>
-                {components}
-                {this.props.children}
-            </ComponentRendererContext.Provider>
-        );
-    }
-}
+        value.setProperties = (key, props) => setState(previous => {
+            let newState = {
+                components: {...previous.components},
+                componentsProps: {...previous.componentsProps}
+            };
+            newState.componentsProps[key] = {...previous.componentsProps[key], ...props};
+            return newState;
+        });
 
-ComponentRendererProvider.defaultProps = {
-    children: null
+        value.destroy = key => setState(previous => {
+            let newState = {
+                components: {...previous.components},
+                componentsProps: {...previous.componentsProps}
+            };
+            delete newState.components[key];
+            delete newState.componentsProps[key];
+            return newState;
+        });
+    }, [value]);
+
+    let components = Object.keys(state.components)
+        .map(key => {
+            const component = state.components[key];
+            return React.createElement(component, {key, ...state.componentsProps[key]});
+        });
+
+    return components;
 };
-
-ComponentRendererProvider.propTypes = {
-    children: PropTypes.element
-};
-
-class ComponentRendererConsumer extends Component {
-    render() {
-        return <ComponentRendererContext.Consumer {...this.props}/>;
-    }
-}
-
-export {ComponentRendererContext, ComponentRendererProvider, ComponentRendererConsumer};

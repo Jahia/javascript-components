@@ -1,7 +1,8 @@
 import React, {useContext} from 'react';
 import {mount} from 'enzyme';
-import {ComponentRendererContext, ComponentRendererProvider} from './ComponentRenderer';
+import {ComponentRendererProvider} from './ComponentRendererProvider';
 import PropTypes from 'prop-types';
+import {ComponentRendererContext} from './ComponentRendererContext';
 
 const RenderedComponent = ({label}) => <div className="component">{label}</div>;
 
