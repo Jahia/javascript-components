@@ -12,4 +12,3 @@ export {anthraciteDarkTheme, anthraciteLightTheme, plainTheme, legacyTheme} from
 export {PreviewComponent} from './components/PreviewComponent';
 export {NodeTrees} from './components/NodeTrees';
 export {DxContext} from './components/DxContext';
-export {isBrowserImage, isPDF, getFileType} from './utils';
