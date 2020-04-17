@@ -1,3 +1,15 @@
+# (Fri Apr 17 2020)
+
+#### 🐛  Bug Fix
+
+- Optimize component renderer by splitting in different components [#143](https://github.com/Jahia/javascript-components/pull/143) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Fri Apr 03 2020)
 
 #### 🐛  Bug Fix
