@@ -1,3 +1,15 @@
+# (Mon Apr 20 2020)
+
+#### 💥  Breaking Change
+
+- BACKLOG-13232: remove useless preview component from react-material [#144](https://github.com/Jahia/javascript-components/pull/144) ([@FBerthelot](https://github.com/FBerthelot))
+
+#### Authors: 1
+
+- Florent Berthelot ([@FBerthelot](https://github.com/FBerthelot))
+
+---
+
 # (Wed Apr 01 2020)
 
 #### 🐛  Bug Fix
