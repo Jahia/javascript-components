@@ -18,17 +18,17 @@ export const useNodeChecks = (variables, options, queryOptions) => {
 
     if (requiredPermissions) {
         useNodeInfoOptions.getPermissions = useNodeInfoOptions.getPermissions || [];
-        useNodeInfoOptions.getPermissions.push(...requiredPermissions);
+        useNodeInfoOptions.getPermissions = useNodeInfoOptions.getPermissions.concat(requiredPermissions.filter(item => useNodeInfoOptions.getPermissions.indexOf(item) < 0));
     }
 
     if (showOnNodeTypes) {
-        useNodeInfoOptions.getIsNodeTypes = useNodeInfoOptions.getIsNodeType || [];
-        useNodeInfoOptions.getIsNodeTypes.push(...showOnNodeTypes);
+        useNodeInfoOptions.getIsNodeTypes = useNodeInfoOptions.getIsNodeTypes || [];
+        useNodeInfoOptions.getIsNodeTypes = useNodeInfoOptions.getIsNodeTypes.concat(showOnNodeTypes.filter(item => useNodeInfoOptions.getIsNodeTypes.indexOf(item) < 0));
     }
 
     if (hideOnNodeTypes) {
-        useNodeInfoOptions.getIsNodeTypes = useNodeInfoOptions.getIsNodeType || [];
-        useNodeInfoOptions.getIsNodeTypes.push(...hideOnNodeTypes);
+        useNodeInfoOptions.getIsNodeTypes = useNodeInfoOptions.getIsNodeTypes || [];
+        useNodeInfoOptions.getIsNodeTypes = useNodeInfoOptions.getIsNodeTypes.concat(hideOnNodeTypes.filter(item => useNodeInfoOptions.getIsNodeTypes.indexOf(item) < 0));
     }
 
     if (requireModuleInstalledOnSite) {
