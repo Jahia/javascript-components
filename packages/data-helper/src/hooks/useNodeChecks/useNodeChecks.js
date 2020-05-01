@@ -20,7 +20,7 @@ export const useNodeChecks = (variables, options, queryOptions) => {
         useNodeInfoOptions.getPermissions = useNodeInfoOptions.getPermissions || [];
         useNodeInfoOptions.getPermissions = useNodeInfoOptions.getPermissions.concat(requiredPermissions.filter(item => useNodeInfoOptions.getPermissions.indexOf(item) < 0));
     }
-    
+
     if (showOnNodeTypes) {
         useNodeInfoOptions.getIsNodeTypes = useNodeInfoOptions.getIsNodeTypes || [];
         useNodeInfoOptions.getIsNodeTypes = useNodeInfoOptions.getIsNodeTypes.concat(showOnNodeTypes.filter(item => useNodeInfoOptions.getIsNodeTypes.indexOf(item) < 0));
