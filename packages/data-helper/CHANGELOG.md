@@ -1,3 +1,15 @@
+# (Fri May 01 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-13212: correcly set node info options in useNodeChecks hook [#145](https://github.com/Jahia/javascript-components/pull/145) ([@jkevan](https://github.com/jkevan))
+
+#### Authors: 1
+
+- kevan Jahanshahi ([@jkevan](https://github.com/jkevan))
+
+---
+
 # (Tue Mar 31 2020)
 
 #### 🐛  Bug Fix
