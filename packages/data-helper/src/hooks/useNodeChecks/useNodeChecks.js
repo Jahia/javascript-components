@@ -16,29 +16,18 @@ export const useNodeChecks = (variables, options, queryOptions) => {
 
     const requiredPermissions = (typeof requiredPermission === 'string') ? [requiredPermission] : requiredPermission;
 
-    function arrayUnique(array) {
-        let a = array.concat();
-        for (let i = 0; i < a.length; ++i) {
-            for (let j = i + 1; j < a.length; ++j) {
-                if (a[i] === a[j]) {
-                    a.splice(j--, 1);
-                }
-            }
-        }
-
-        return a;
-    }
-
     if (requiredPermissions) {
-        useNodeInfoOptions.getPermissions = arrayUnique((useNodeInfoOptions.getPermissions || []).concat(requiredPermissions));
+        useNodeInfoOptions.getPermissions = useNodeInfoOptions.getPermissions || [];
+        useNodeInfoOptions.getPermissions = useNodeInfoOptions.getPermissions.concat(requiredPermissions.filter((item) => useNodeInfoOptions.getPermissions.indexOf(item) < 0));
     }
 
+    useNodeInfoOptions.getIsNodeTypes = useNodeInfoOptions.getIsNodeTypes || [];
     if (showOnNodeTypes) {
-        useNodeInfoOptions.getIsNodeTypes = arrayUnique((useNodeInfoOptions.getIsNodeTypes || []).concat(showOnNodeTypes));
+        useNodeInfoOptions.getIsNodeTypes = useNodeInfoOptions.getIsNodeTypes.concat(showOnNodeTypes.filter((item) => useNodeInfoOptions.getIsNodeTypes.indexOf(item) < 0));
     }
 
     if (hideOnNodeTypes) {
-        useNodeInfoOptions.getIsNodeTypes = arrayUnique((useNodeInfoOptions.getIsNodeTypes || []).concat(hideOnNodeTypes));
+        useNodeInfoOptions.getIsNodeTypes = useNodeInfoOptions.getIsNodeTypes.concat(hideOnNodeTypes.filter((item) => useNodeInfoOptions.getIsNodeTypes.indexOf(item) < 0));
     }
 
     if (requireModuleInstalledOnSite) {
