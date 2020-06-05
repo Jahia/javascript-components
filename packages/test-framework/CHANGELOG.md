@@ -1,3 +1,15 @@
+# (Fri Jun 05 2020)
+
+#### 🚀  Enhancement
+
+- MOON-53: Added moonstone mapping [#147](https://github.com/Jahia/javascript-components/pull/147) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Wed Feb 26 2020)
 
 #### 🐛  Bug Fix
