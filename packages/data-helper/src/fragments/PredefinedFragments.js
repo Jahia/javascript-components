@@ -45,6 +45,7 @@ export const aggregatedPublicationInfo = {
     gql: gql`fragment AggregatedPublicationInfo on JCRNode {
         aggregatedPublicationInfo(language: $language, subNodes: $aggregatedPublicationInfoSubNodes, references:$aggregatedPublicationInfoIncludeReference) {
             publicationStatus
+            existsInLive
         }
     }`
 };
