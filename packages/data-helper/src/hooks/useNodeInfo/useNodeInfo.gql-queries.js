@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 import {
     aggregatedPublicationInfo,
+    aggregatedPublicationInfoWithExistInLive,
     childNodeTypes,
     contentRestrictions,
     displayableNode,
@@ -135,7 +136,12 @@ export const getQuery = (variables, options = {}) => {
         }
 
         if (options.getAggregatedPublicationInfo) {
-            fragments.push(aggregatedPublicationInfo);
+            if (options.supportsExistsInLive) {
+                fragments.push(aggregatedPublicationInfoWithExistInLive);
+            } else {
+                fragments.push(aggregatedPublicationInfo);
+            }
+
             if (!variables.language) {
                 throw Error('language is required');
             }
