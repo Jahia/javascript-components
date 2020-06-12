@@ -12,7 +12,7 @@ export const useNodeInfo = (variables, options, queryOptions) => {
     const memoizedVariables = useDeepCompareMemoize(variables);
     const memoizedOptions = useDeepCompareMemoize(options);
 
-    const {query, generatedVariables, skip, loading} = useMemo(() => getQuery(memoizedVariables, schemaResult, memoizedOptions), [memoizedVariables, memoizedOptions]);
+    const {query, generatedVariables, skip, loading} = useMemo(() => getQuery(memoizedVariables, schemaResult, memoizedOptions), [memoizedVariables, schemaResult, memoizedOptions]);
 
     const {data, ...others} = useQuery(query, {...queryOptions, variables: generatedVariables, skip});
 
