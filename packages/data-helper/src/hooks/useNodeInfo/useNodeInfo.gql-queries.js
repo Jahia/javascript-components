@@ -39,8 +39,7 @@ const getBaseQueryAndVariables = variables => {
             generatedVariables: {
                 paths: variables.paths
             },
-            skip: false,
-            supportsExistsInLive: variables.supportsExistsInLive
+            skip: false
         };
     }
 
@@ -61,8 +60,7 @@ const getBaseQueryAndVariables = variables => {
             generatedVariables: {
                 uuid: variables.uuid
             },
-            skip: false,
-            supportsExistsInLive: variables.supportsExistsInLive
+            skip: false
         };
     }
 
@@ -83,8 +81,7 @@ const getBaseQueryAndVariables = variables => {
             generatedVariables: {
                 uuids: variables.uuids
             },
-            skip: false,
-            supportsExistsInLive: variables.supportsExistsInLive
+            skip: false
         };
     }
 
@@ -104,15 +101,15 @@ const getBaseQueryAndVariables = variables => {
         generatedVariables: {
             path: variables.path
         },
-        skip: !variables.path || variables.path.length === 0,
-        supportsExistsInLive: variables.supportsExistsInLive
+        skip: !variables.path || variables.path.length === 0
     };
 };
 
-export const getQuery = (variables, options = {}) => {
+export const getQuery = (variables, schemaResult, options = {}) => {
     const fragments = [];
 
-    const {baseQuery, generatedVariables, skip, supportsExistsInLive} = getBaseQueryAndVariables(variables);
+    const {baseQuery, generatedVariables, skip} = getBaseQueryAndVariables(variables);
+    const {error, loading, data} = schemaResult;
 
     if (!skip) {
         if (options.getDisplayName) {
@@ -140,10 +137,14 @@ export const getQuery = (variables, options = {}) => {
         }
 
         if (options.getAggregatedPublicationInfo) {
-            if (supportsExistsInLive) {
-                fragments.push(aggregatedPublicationInfoWithExistInLive);
-            } else {
-                fragments.push(aggregatedPublicationInfo);
+            if (!error && !loading && data) {
+                let gqlPublicationInfo = data.__schema.types && data.__schema.types.find(type => type.name === 'GqlPublicationInfo');
+                let supportsExistsInLive = gqlPublicationInfo && gqlPublicationInfo.fields.find(field => field.name === 'existsInLive') !== undefined;
+                if (supportsExistsInLive) {
+                    fragments.push(aggregatedPublicationInfoWithExistInLive);
+                } else {
+                    fragments.push(aggregatedPublicationInfo);
+                }
             }
 
             if (!variables.language) {
@@ -223,6 +224,7 @@ export const getQuery = (variables, options = {}) => {
     return {
         query: replaceFragmentsInDocument(baseQuery, fragments),
         generatedVariables,
-        skip
+        skip,
+        loading
     };
 };
