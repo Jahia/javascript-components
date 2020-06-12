@@ -1,3 +1,15 @@
+# (Fri Jun 12 2020)
+
+#### 🐛  Bug Fix
+
+- QA-12920 : retrieve property existsInLive in aggregatedPublicationInf… [#148](https://github.com/Jahia/javascript-components/pull/148) ([@Yousria](https://github.com/Yousria))
+
+#### Authors: 1
+
+- Yousria ([@Yousria](https://github.com/Yousria))
+
+---
+
 # (Fri May 01 2020)
 
 #### 🐛  Bug Fix
