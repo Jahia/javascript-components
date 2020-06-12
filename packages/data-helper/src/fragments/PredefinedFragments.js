@@ -49,6 +49,21 @@ export const aggregatedPublicationInfo = {
     }`
 };
 
+export const aggregatedPublicationInfoWithExistInLive = {
+    variables: {
+        language: 'String!',
+        aggregatedPublicationInfoSubNodes: 'Boolean',
+        aggregatedPublicationInfoIncludeReference: 'Boolean'
+    },
+    applyFor: 'node',
+    gql: gql`fragment AggregatedPublicationInfoWithExistsInLive on JCRNode {
+        aggregatedPublicationInfo(language: $language, subNodes: $aggregatedPublicationInfoSubNodes, references:$aggregatedPublicationInfoIncludeReference) {
+            publicationStatus
+            existsInLive
+        }
+    }`
+};
+
 export const operationSupport = {
     applyFor: 'node',
     gql: gql`fragment OperationSupport on JCRNode {
