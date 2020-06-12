@@ -19,7 +19,7 @@ export const useNodeInfo = (variables, options, queryOptions) => {
     const node = (data && data.jcr && (data.jcr.nodeByPath || data.jcr.nodeById)) || null;
     const nodes = (data && data.jcr && (data.jcr.nodesByPath || data.jcr.nodesById)) || null;
 
-    if (loading) {
+    if (loading || skip) {
         return {loading};
     }
 
