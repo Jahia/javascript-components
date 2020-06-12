@@ -138,7 +138,7 @@ export const getQuery = (variables, schemaResult, options = {}) => {
 
         if (options.getAggregatedPublicationInfo) {
             if (!error && !loading && data) {
-                let gqlPublicationInfo = data.__schema.types && data.__schema.types.find(type => type.name === 'GqlPublicationInfo');
+                let gqlPublicationInfo = data.__schema && data.__schema.types && data.__schema.types.find(type => type.name === 'GqlPublicationInfo');
                 let supportsExistsInLive = gqlPublicationInfo && gqlPublicationInfo.fields.find(field => field.name === 'existsInLive') !== undefined;
                 if (supportsExistsInLive) {
                     fragments.push(aggregatedPublicationInfoWithExistInLive);
