@@ -4,11 +4,15 @@ import {getQuery} from './useNodeInfo.gql-queries';
 import {useDeepCompareMemoize} from '../useDeepCompareMemo';
 import {getEncodedPermissionName} from '../../fragments/getPermissionFragment';
 import {getEncodedNodeTypeName} from '../../fragments/getIsNodeTypeFragment';
+import {useSchemaFields} from '../useSchemaFields';
 
 export const useNodeInfo = (variables, options, queryOptions) => {
+    let publicationInfoSchemaType = useSchemaFields({type: 'GqlPublicationInfo'});
+    variables.supportsExistsInLive = publicationInfoSchemaType && publicationInfoSchemaType.fields.find(field => field.name === 'existsInLive') !== undefined;
     // Use ref to avoid infinite loop, as query object will be regenerated every time
     const memoizedVariables = useDeepCompareMemoize(variables);
     const memoizedOptions = useDeepCompareMemoize(options);
+
     const {query, generatedVariables, skip} = useMemo(() => getQuery(memoizedVariables, memoizedOptions), [memoizedVariables, memoizedOptions]);
 
     const {data, ...others} = useQuery(query, {...queryOptions, variables: generatedVariables, skip});

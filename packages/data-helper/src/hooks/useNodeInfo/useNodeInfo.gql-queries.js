@@ -39,7 +39,8 @@ const getBaseQueryAndVariables = variables => {
             generatedVariables: {
                 paths: variables.paths
             },
-            skip: false
+            skip: false,
+            supportsExistsInLive: variables.supportsExistsInLive
         };
     }
 
@@ -60,7 +61,8 @@ const getBaseQueryAndVariables = variables => {
             generatedVariables: {
                 uuid: variables.uuid
             },
-            skip: false
+            skip: false,
+            supportsExistsInLive: variables.supportsExistsInLive
         };
     }
 
@@ -81,7 +83,8 @@ const getBaseQueryAndVariables = variables => {
             generatedVariables: {
                 uuids: variables.uuids
             },
-            skip: false
+            skip: false,
+            supportsExistsInLive: variables.supportsExistsInLive
         };
     }
 
@@ -101,14 +104,15 @@ const getBaseQueryAndVariables = variables => {
         generatedVariables: {
             path: variables.path
         },
-        skip: !variables.path || variables.path.length === 0
+        skip: !variables.path || variables.path.length === 0,
+        supportsExistsInLive: variables.supportsExistsInLive
     };
 };
 
 export const getQuery = (variables, options = {}) => {
     const fragments = [];
 
-    const {baseQuery, generatedVariables, skip} = getBaseQueryAndVariables(variables);
+    const {baseQuery, generatedVariables, skip, supportsExistsInLive} = getBaseQueryAndVariables(variables);
 
     if (!skip) {
         if (options.getDisplayName) {
@@ -136,7 +140,7 @@ export const getQuery = (variables, options = {}) => {
         }
 
         if (options.getAggregatedPublicationInfo) {
-            if (options.supportsExistsInLive) {
+            if (supportsExistsInLive) {
                 fragments.push(aggregatedPublicationInfoWithExistInLive);
             } else {
                 fragments.push(aggregatedPublicationInfo);
