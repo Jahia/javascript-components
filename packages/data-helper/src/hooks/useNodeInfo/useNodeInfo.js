@@ -6,16 +6,21 @@ import {getEncodedPermissionName} from '../../fragments/getPermissionFragment';
 import {getEncodedNodeTypeName} from '../../fragments/getIsNodeTypeFragment';
 
 export const useNodeInfo = (variables, options, queryOptions) => {
+    let schemaResult = useSchemaFields({type: 'GqlPublicationInfo'});
     // Use ref to avoid infinite loop, as query object will be regenerated every time
     const memoizedVariables = useDeepCompareMemoize(variables);
     const memoizedOptions = useDeepCompareMemoize(options);
 
-    const {query, generatedVariables, skip} = useMemo(() => getQuery(memoizedVariables, memoizedOptions), [memoizedVariables, memoizedOptions]);
+    const {query, generatedVariables, skip, loading} = useMemo(() => getQuery(memoizedVariables, schemaResult, memoizedOptions), [memoizedVariables, schemaResult, memoizedOptions]);
 
-    const {data, ...others} = useQuery(query, {...queryOptions, variables: generatedVariables, skip: skip});
+    const {data, ...others} = useQuery(query, {...queryOptions, variables: generatedVariables, skip: (skip || loading)});
 
     const node = (data && data.jcr && (data.jcr.nodeByPath || data.jcr.nodeById)) || null;
     const nodes = (data && data.jcr && (data.jcr.nodesByPath || data.jcr.nodesById)) || null;
+
+    if (loading) {
+        return {loading};
+    }
 
     if (node) {
         return {
