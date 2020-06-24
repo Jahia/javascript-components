@@ -32,10 +32,28 @@ You can also add the following scripts in your `package.json`:
 }
 ```
 
+### Editor Configuration for Auto-Formatting
+
+#### IntelliJ (JetBrains IDEs version 2020.1+)
+1. Install the Prettier plugin: https://plugins.jetbrains.com/plugin/10456-prettier
+2. Go to Preferences > Languages & Frameworks > JavaScript > Prettier and turn on `Run on save for files`
+3. Add css and scss to the default pattern: `{**/*,*}.{js,ts,jsx,tsx,css,scss}`
+4. Optionally, you may configure Prettier to run automatically on save in new projects: Go to File > New Projects Settings > Settings for New Projects. Then go to Languages & Frameworks > JavaScript > Prettier, select `Run on save files`, and update the pattern as above. 
+
+#### VS Code
+1. Install the Prettier extension: https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+2. In the settings, choose `esbenp.prettier-vscode` as the `Editor: Default Formatter` and turn on `Editor: Format On Save`.
+
 ## Usage
 
+If you added the scripts above to your `package.json` file, you can check whether your files need to be formatted with:
 ```sh
 yarn prettier
+```
+
+Or, you can run the prettier formatting with:
+```sh
+yarn prettier:fix
 ```
 
 ## Author
