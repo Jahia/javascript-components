@@ -10,7 +10,7 @@ module.exports = {
         es6: true,
         jest: true
     },
-    extends: ['xo', 'xo-react'],
+    extends: ['xo', 'xo-react', 'prettier'],
     settings: {
         react: {
             version: '16.8'
@@ -46,6 +46,22 @@ module.exports = {
         }],
         'react/require-default-props': 0,
         'react/static-property-placement': 0,
-        'react/state-in-constructor': 0
+        'react/state-in-constructor': 0,
+        "react/jsx-tag-spacing": [
+            "warn",
+            {
+                "closingSlash": "never",
+                "beforeSelfClosing": "always",
+                "afterOpening": "never",
+                "beforeClosing": "never"
+            }
+        ],
+        "react/jsx-curly-newline": [
+            "off",
+            {
+                "multiline": "consistent",
+                "singleline": "forbid"
+            }
+        ]
     }
 };
