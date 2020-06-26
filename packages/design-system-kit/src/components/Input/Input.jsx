@@ -42,6 +42,10 @@ const styles = theme => {
         inputAdornedStartError: {
             color: theme.palette.support.alpha
         },
+        inputAdornedEnd: {
+            marginRight: '8px',
+            cursor: 'pointer'
+        },
         inputAdornedEndReadonly: {
             pointerEvents: 'none !important'
         }
@@ -77,6 +81,7 @@ const InputCmp = React.forwardRef(({
         inputAdornedStart,
         inputAdornedStartFocus,
         inputAdornedStartError,
+        inputAdornedEnd,
         inputAdornedEndReadonly,
         ...containerClasses
     } = classes;
@@ -106,7 +111,7 @@ const InputCmp = React.forwardRef(({
             endAdornment={
                 interactive && (
                     <InputAdornment
-                        className={`${readOnly ? inputAdornedEndReadonly : ''}`}
+                        className={`${inputAdornedEnd} ${readOnly ? inputAdornedEndReadonly : ''}`}
                         position="end"
                     >
                         {interactive}
@@ -154,7 +159,7 @@ const WrappedInputCmp = React.forwardRef(({decimalSeparator, decimalScale, type,
         );
     }
 
-    return <InputCmp ref={ref} {...others}/>;
+    return <InputCmp ref={ref} type={type} {...others}/>;
 });
 
 InputCmp.defaultProps = {
