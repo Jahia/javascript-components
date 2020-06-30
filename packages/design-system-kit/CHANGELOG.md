@@ -1,3 +1,15 @@
+# (Tue Jun 30 2020)
+
+#### 🐛  Bug Fix
+
+- QA-13003 improve input style and add native html type [#149](https://github.com/Jahia/javascript-components/pull/149) ([@Taybou](https://github.com/Taybou))
+
+#### Authors: 1
+
+- MT BENTERKI ([@Taybou](https://github.com/Taybou))
+
+---
+
 # (Tue Jan 28 2020)
 
 #### 🐛  Bug Fix
