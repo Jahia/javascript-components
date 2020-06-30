@@ -1,6 +1,6 @@
 {
     "name": "@jahia/design-system-kit",
-    "version": "1.1.4",
+    "version": "1.1.5",
     "scripts": {
         "babel:js": "jahia-babel-js",
         "babel:module": "jahia-babel-module",
