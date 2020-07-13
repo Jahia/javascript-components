@@ -1,5 +1,27 @@
 import {colors} from '@material-ui/core';
 
+// Moonstone Colors
+const color = {
+    light: '253, 253, 253',
+    grayLight: '218, 218, 218',
+    gray: '122, 127, 136',
+    grayDark: '41, 49, 54',
+    dark: '19, 28, 33',
+    white: '255, 255, 255',
+    black: '0, 0, 0',
+    blue: '0, 160, 227',
+    blueContrast: '0, 71, 129',
+    blueDark: '0, 114, 177',
+    blueLight: '99, 209, 255',
+    green: '67, 160, 71',
+    red: '224, 24, 45',
+    redDark: '194, 23, 41',
+    yellow: '232, 182, 6',
+    purple: '112, 24, 224'
+};
+
+const rgba = (color, alpha = 1) => `rgba(${color}, ${alpha})`;
+
 const dsGenericPalette = {
     // Legacy Palette
     type: 'light',
@@ -144,6 +166,32 @@ const dsGenericPalette = {
         iota: '#DBEFEA',
         zeta: '#FFF6D5',
         omega: '#FFE3C0'
+    },
+
+    // Moonstone Palette
+    moonstone: {
+        accent: {
+            main: rgba(color.blue),
+            dark: rgba(color.blueDark),
+            darkContrast: rgba(color.blueContrast),
+            light: rgba(color.blueLight),
+            light40: rgba(color.blueLight, 0.4)
+        },
+        neutral: {
+            gray: rgba(color.gray),
+            grayDark: rgba(color.grayDark),
+            grayLight: rgba(color.grayLight),
+            grayLight40: rgba(color.grayLight, 0.4)
+        },
+        support: {
+            success: rgba(color.green),
+            success40: rgba(color.green, 0.4),
+            warning: rgba(color.yellow),
+            warning40: rgba(color.yellow, 0.4),
+            danger: rgba(color.red),
+            danger40: rgba(color.red, 0.4),
+            dangerDark: rgba(color.redDark)
+        }
     }
 };
 

@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 
 const styles = theme => ({
     root: {
-        backgroundColor: theme.palette.ui.omega,
-        color: theme.palette.font.beta,
+        backgroundColor: theme.palette.moonstone.neutral.grayLight40,
+        color: theme.palette.moonstone.accent.dark,
         margin: '0 ' + theme.spacing.unit + 'px',
         '& svg': {
             width: 14,
@@ -40,24 +40,24 @@ const styles = theme => ({
     },
     positionRelative: {},
     colorSuccess: {
-        backgroundColor: theme.palette.support.iota,
-        color: theme.palette.support.beta
+        backgroundColor: theme.palette.moonstone.support.success40,
+        color: theme.palette.moonstone.neutral.grayDark
     },
     colorInfo: {
-        backgroundColor: theme.palette.brand.gamma,
-        color: theme.palette.brand.alpha
+        backgroundColor: theme.palette.moonstone.accent.light40,
+        color: theme.palette.moonstone.accent.darkContrast
     },
     colorGhost: {
         backgroundColor: theme.palette.ui.alpha,
         color: theme.palette.font.beta
     },
     colorWarning: {
-        backgroundColor: theme.palette.support.zeta,
-        color: theme.palette.support.delta
+        backgroundColor: theme.palette.moonstone.support.warning40,
+        color: theme.palette.moonstone.neutral.grayDark
     },
     colorDanger: {
-        backgroundColor: theme.palette.support.omega,
-        color: theme.palette.support.delta
+        backgroundColor: theme.palette.moonstone.support.danger40,
+        color: theme.palette.moonstone.neutral.grayDark
     },
     colorError: {
         backgroundColor: theme.palette.support.epsilon,
