@@ -1,3 +1,15 @@
+# (Mon Jul 13 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-14062: Adds Moonstone colours to palette and updates Badget with Moonstone colours [#150](https://github.com/Jahia/javascript-components/pull/150) ([@vindhya](https://github.com/vindhya))
+
+#### Authors: 1
+
+- Vindhya ([@vindhya](https://github.com/vindhya))
+
+---
+
 # (Tue Jun 30 2020)
 
 #### 🐛  Bug Fix
