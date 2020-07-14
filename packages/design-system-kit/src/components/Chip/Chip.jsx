@@ -9,7 +9,7 @@ let styles = theme => ({
         borderRadius: '4px'
     },
     primary: {
-        background: theme.palette.brand.alpha,
+        background: theme.palette.moonstone.accent.dark,
         color: theme.palette.invert.beta
     },
     iconPrimary: {
