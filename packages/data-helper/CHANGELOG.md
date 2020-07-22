@@ -1,3 +1,15 @@
+# (Wed Jul 22 2020)
+
+#### 🐛  Bug Fix
+
+- QA-13044 [#155](https://github.com/Jahia/javascript-components/pull/155) ([@Yousria](https://github.com/Yousria))
+
+#### Authors: 1
+
+- Yousria ([@Yousria](https://github.com/Yousria))
+
+---
+
 # (Tue Jul 21 2020)
 
 #### 🐛  Bug Fix
