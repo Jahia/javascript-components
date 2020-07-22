@@ -126,31 +126,32 @@ const dsGenericPalette = {
     },
 
     // Palette v0.2.0
+    // Modified with Moonstone colours
     brand: {
-        alpha: '#007CB0',
-        beta: '#00A0E3',
-        gamma: '#D3E9F3'
+        alpha: rgba(color.blueDark),
+        beta: rgba(color.blue),
+        gamma: rgba(color.blue, 0.4)
     },
     ui: {
-        alpha: '#F6FAFC',
-        beta: '#3B3D40',
+        alpha: rgba(color.light),
+        beta: rgba(color.grayDark),
         gamma: '#303234',
-        delta: '#6D737E',
+        delta: rgba(color.gray),
         epsilon: '#FFFFFF',
-        omega: '#E0E6EA',
-        zeta: '#C1C8D5'
+        omega: rgba(color.grayLight, 0.4),
+        zeta: rgba(color.gray, 0.4)
     },
     field: {
-        alpha: '#F9FBFC'
+        alpha: rgba(color.light, 0.6)
     },
     invert: {
-        alpha: '#131C21',
+        alpha: rgba(color.dark),
         beta: '#FFFFFF'
     },
     font: {
-        alpha: '#373C42',
-        beta: '#525C65',
-        gamma: '#828892'
+        alpha: rgba(color.dark),
+        beta: rgba(color.dark, 0.6),
+        gamma: rgba(color.dark, 0.4)
     },
     hover: {
         alpha: '#086992',

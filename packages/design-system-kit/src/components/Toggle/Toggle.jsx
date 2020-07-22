@@ -19,7 +19,7 @@ const styles = theme => {
             color: theme.palette.hover.beta
         },
         '&$checked:hover $iconChecked': {
-            color: theme.palette.hover.alpha
+            color: theme.palette.brand.alpha
         },
         '&$checked:hover + $bar': {
             opacity: 1
@@ -37,7 +37,7 @@ const styles = theme => {
             boxSizing: 'border-box'
         },
         iconChecked: {
-            color: theme.palette.brand.alpha,
+            color: theme.palette.brand.beta,
             border: 'none'
         },
         switchBase: {
@@ -59,7 +59,7 @@ const styles = theme => {
                 boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.3)'
             },
             '&$checked::before': {
-                background: theme.palette.brand.alpha
+                background: theme.palette.brand.beta
             },
             '& $icon': {
                 boxShadow: 'none'
