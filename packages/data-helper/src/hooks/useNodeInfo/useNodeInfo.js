@@ -4,6 +4,7 @@ import {getQuery} from './useNodeInfo.gql-queries';
 import {useDeepCompareMemoize} from '../useDeepCompareMemo';
 import {getEncodedPermissionName} from '../../fragments/getPermissionFragment';
 import {getEncodedNodeTypeName} from '../../fragments/getIsNodeTypeFragment';
+import {useSchemaFields} from '../useSchemaFields';
 
 export const useNodeInfo = (variables, options, queryOptions) => {
     let schemaResult = useSchemaFields({type: 'GqlPublicationInfo'});
