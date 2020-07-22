@@ -1,14 +1,11 @@
 import gql from 'graphql-tag';
 
-export const SCHEMA_FIELDS_QUERY = gql`query schemaFields {
-    __schema {
-        types {
+export const SCHEMA_FIELDS_QUERY = gql`query schemaFields($type: String!) {
+    __type(name: $type) {
+        fields {
             name
-            fields {
+            args {
                 name
-                args {
-                    name
-                }
                 type {
                     name
                 }

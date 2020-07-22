@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 import {
     aggregatedPublicationInfoWithExistInLive,
+    aggregatedPublicationInfo,
     childNodeTypes,
     contentRestrictions,
     displayableNode,
@@ -104,10 +105,11 @@ const getBaseQueryAndVariables = variables => {
     };
 };
 
-export const getQuery = (variables, options = {}) => {
+export const getQuery = (variables, schemaResult, options = {}) => {
     const fragments = [];
 
     const {baseQuery, generatedVariables, skip} = getBaseQueryAndVariables(variables);
+    const {error, loading, data} = schemaResult;
 
     if (!skip) {
         if (options.getDisplayName) {
@@ -135,7 +137,14 @@ export const getQuery = (variables, options = {}) => {
         }
 
         if (options.getAggregatedPublicationInfo) {
-            fragments.push(aggregatedPublicationInfoWithExistInLive);
+            if (!error && !loading && data) {
+                let supportsExistsInLive = data.__type && data.__type.fields && data.__type.fields.find(field => field.name === 'existsInLive') !== undefined;
+                if (supportsExistsInLive) {
+                    fragments.push(aggregatedPublicationInfoWithExistInLive);
+                } else {
+                    fragments.push(aggregatedPublicationInfo);
+                }
+            }
 
             if (!variables.language) {
                 throw Error('language is required');
@@ -214,6 +223,7 @@ export const getQuery = (variables, options = {}) => {
     return {
         query: replaceFragmentsInDocument(baseQuery, fragments),
         generatedVariables,
-        skip
+        skip,
+        loading
     };
 };
