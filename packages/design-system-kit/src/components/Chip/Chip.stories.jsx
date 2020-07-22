@@ -22,18 +22,4 @@ storiesOf('Chip', module)
             </DSProvider>
         ),
         {notes: {markdown: doc}}
-    )
-    .add(
-        'Simple Chip Secondary',
-        () => (
-            <DSProvider>
-                <Chip
-                    variant="secondary"
-                    label={text('label', 'Chip au lata')}
-                    deleteIcon={<Close/>}
-                    onDelete={action('onDelete')}
-                />
-            </DSProvider>
-        ),
-        {notes: {markdown: doc}}
     );
