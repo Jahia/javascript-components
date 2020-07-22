@@ -18,7 +18,7 @@ const styles = theme => {
             padding: '3px 0px 3px 12px'
         },
         focused: {
-            border: `1px solid ${theme.palette.brand.alpha}`
+            border: `1px solid ${theme.palette.brand.beta}`
         },
         readOnly: {
             background: theme.palette.ui.alpha,
@@ -37,7 +37,7 @@ const styles = theme => {
             transitionDuration: '.3s'
         },
         inputAdornedStartFocus: {
-            color: theme.palette.brand.alpha
+            color: theme.palette.brand.beta
         },
         inputAdornedStartError: {
             color: theme.palette.support.alpha
