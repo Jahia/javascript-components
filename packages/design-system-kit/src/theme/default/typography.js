@@ -64,7 +64,7 @@ let dsTypography = theme => (
             color: theme.palette.text.disabled
         },
         h6: {
-            color: theme.palette.text.disabled
+            color: theme.palette.font.alpha
         },
         body1: {
             color: theme.palette.text.disabled
