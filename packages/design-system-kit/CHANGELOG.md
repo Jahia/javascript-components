@@ -1,3 +1,17 @@
+# (Fri Jul 24 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-14223: Changes h6 font colour to Moonstone dark font colour [#156](https://github.com/Jahia/javascript-components/pull/156) ([@vindhya](https://github.com/vindhya))
+- BACKLOG-14062: Replaces Colour Palette with Moonstone Colours [#154](https://github.com/Jahia/javascript-components/pull/154) ([@vindhya](https://github.com/vindhya))
+- BACKLOG-14062: Adds Moonstone colours to palette and updates Badget with Moonstone colours [#150](https://github.com/Jahia/javascript-components/pull/150) ([@vindhya](https://github.com/vindhya))
+
+#### Authors: 1
+
+- Vindhya ([@vindhya](https://github.com/vindhya))
+
+---
+
 # (Tue Jun 30 2020)
 
 #### 🐛  Bug Fix
