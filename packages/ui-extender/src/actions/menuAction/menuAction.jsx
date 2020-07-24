@@ -21,7 +21,7 @@ ItemLoading.propTypes = {
     context: PropTypes.object.isRequired
 };
 
-const ItemRender = ({context}) => {
+const ItemRender = ({context, ...otherProps}) => {
     const {menuContext, menuState, rootMenuContext, parentMenuContext, menuItemRenderer: MenuItemRenderer, isVisible} = context;
     useEffect(() => {
         parentMenuContext.dispatch({type: 'loaded', item: context.key, isVisible});
@@ -35,6 +35,7 @@ const ItemRender = ({context}) => {
 
     return (
         <MenuItemRenderer context={context}
+                          {...otherProps}
                           onClick={event => {
                               // Call the action and close the menu
                               context.onClick(context, event);
@@ -71,7 +72,7 @@ ItemRender.propTypes = {
     context: PropTypes.object.isRequired
 };
 
-const Menu = ({context, menuContext, menuState, rootMenuContext}) => {
+const Menu = ({context, menuContext, menuState, rootMenuContext, ...otherProps}) => {
     const {menuTarget, menuFilter, menuRenderer: MenuRenderer, menuItemRenderer, originalContext} = context;
     return (
         <MenuRenderer context={context}
@@ -106,6 +107,7 @@ const Menu = ({context, menuContext, menuState, rootMenuContext}) => {
                     rootMenuContext: rootMenuContext,
                     showIcons: context.showIcons
                 }}
+                {...otherProps}
                 loading={ItemLoading}
                 render={ItemRender}
             />

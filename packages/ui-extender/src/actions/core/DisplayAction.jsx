@@ -28,7 +28,7 @@ class DisplayAction extends React.Component {
 
         const Component = (typeof action.component === 'function') ? action.component : render;
 
-        let componentProps = {...action, ...context, originalContext: context, id: this.id, actionKey, displayActionProps: otherProps};
+        let componentProps = {...action, ...context, originalContext: context, id: this.id, actionKey, ...otherProps};
 
         if (componentProps.init) {
             componentProps.init(componentProps, this.props);

@@ -2,7 +2,7 @@ import React, {useContext, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {ComponentRendererContext} from '../../ComponentRenderer';
 
-const ComponentRendererActionComponent = ({context, render: Render}) => {
+const ComponentRendererActionComponent = ({context, render: Render, ...otherProps}) => {
     const componentRenderer = useContext(ComponentRendererContext);
 
     context.componentRendererContext = context.componentRendererContext || {};
@@ -30,11 +30,12 @@ const ComponentRendererActionComponent = ({context, render: Render}) => {
                     ...context,
                     onClick: () => context.componentRendererContext.render(context.componentToRender)
                 }}
+                {...otherProps}
             />
         );
     }
 
-    return <Render context={context}/>;
+    return <Render context={context} {...otherProps}/>;
 };
 
 ComponentRendererActionComponent.propTypes = {
