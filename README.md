@@ -100,6 +100,19 @@ NPM_TOKEN=xxx
 ```
 They can be set in your environment or in a `.env` file.
 
+Ensure that the Jahia npm registry is configured:
+```
+npm set registry https://npm.jahia.com
+npm adduser --registry https://npm.jahia.com
+```
+You'll find the npm user credentials at it.jahia.com (make sure you're on VPN and sign in with your LDAP credentials).
+
+Ensure that your `node_modules` are up to date for the javascript-components repo as a whole and for the specific package you want to publish.
+
+Run `yarn build`.
+
+Run `yarn publish-script` in the package that you want to publish. Be sure to stop the CircleCI build to avoid the creation of unnecessary branches, etc.
+
 ## Author
 
 👤 **Jahia Group**
