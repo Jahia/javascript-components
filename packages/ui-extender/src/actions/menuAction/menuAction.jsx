@@ -5,17 +5,13 @@ import {DisplayActions} from '../core/DisplayActions';
 import {useDeepCompare} from '../../utils/useDeepCompare';
 
 const ItemLoading = ({context}) => {
-    const {parentMenuContext, menuItemRenderer: MenuItemRenderer} = context;
+    const {parentMenuContext} = context;
 
     useEffect(() => {
         parentMenuContext.dispatch({type: 'loading', item: context.key});
     });
 
-    return (
-        <MenuItemRenderer context={context}
-                          onClick={() => {
-                          }}/>
-    );
+    return false;
 };
 
 ItemLoading.propTypes = {
