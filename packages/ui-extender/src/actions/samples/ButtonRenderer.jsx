@@ -13,6 +13,7 @@ const ButtonRenderer = ({context}) => (
                 fontSize: '9pt',
                 outline: 'none'
             }}
+            disabled={context.enabled === false}
             type="button"
             onClick={ev => context.onClick(context, ev)}
         >{context.label}

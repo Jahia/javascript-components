@@ -18,12 +18,17 @@ export const ComponentRenderer = () => {
         });
 
         value.setProperties = (key, props) => setState(previous => {
-            let newState = {
-                components: {...previous.components},
-                componentsProps: {...previous.componentsProps}
-            };
-            newState.componentsProps[key] = {...previous.componentsProps[key], ...props};
-            return newState;
+            if (previous.components[key]) {
+                let newState = {
+                    components: {...previous.components},
+                    componentsProps: {...previous.componentsProps}
+                };
+
+                newState.componentsProps[key] = {...previous.componentsProps[key], ...props};
+                return newState;
+            }
+
+            return previous;
         });
 
         value.destroy = key => setState(previous => {
