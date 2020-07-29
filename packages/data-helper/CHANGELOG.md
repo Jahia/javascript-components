@@ -1,3 +1,16 @@
+# (Wed Jul 29 2020)
+
+#### 🐛  Bug Fix
+
+- QA-13044 [#155](https://github.com/Jahia/javascript-components/pull/155) ([@Yousria](https://github.com/Yousria))
+- QA-13044 : remove usage of useSchemaFields to increase performances [#152](https://github.com/Jahia/javascript-components/pull/152) ([@Yousria](https://github.com/Yousria))
+
+#### Authors: 1
+
+- Yousria ([@Yousria](https://github.com/Yousria))
+
+---
+
 # (Wed Jul 22 2020)
 
 #### 🐛  Bug Fix
