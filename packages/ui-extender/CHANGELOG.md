@@ -1,3 +1,17 @@
+# (Wed Jul 29 2020)
+
+#### 🐛  Bug Fix
+
+- QA-13044: Do not use component renderer for menu, move menu to portals [#160](https://github.com/Jahia/javascript-components/pull/160) ([@tdraier](https://github.com/tdraier))
+- QA-13044 : render nothing if item is in loading status, before actions checks [#159](https://github.com/Jahia/javascript-components/pull/159) ([@Yousria](https://github.com/Yousria))
+
+#### Authors: 2
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+- Yousria ([@Yousria](https://github.com/Yousria))
+
+---
+
 # (Fri Apr 17 2020)
 
 #### 🐛  Bug Fix
