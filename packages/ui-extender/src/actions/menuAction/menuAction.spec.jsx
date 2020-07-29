@@ -10,7 +10,7 @@ import {act} from 'react-dom/test-utils';
 
 jest.useFakeTimers();
 
-const MenuRenderer = ({isSubMenu, isOpen, isLoading, onClose, onExited, onMouseEnter, onMouseLeave, children}) => {
+const MenuRenderer = ({context, isSubMenu, isOpen, isLoading, onClose, onExited, onMouseEnter, onMouseLeave, children}) => {
     // Simulate close animation, calls onExited after isOpen is set to false
     const [previousOpen, setPreviousOpen] = useState(false);
     if (previousOpen !== isOpen) {
@@ -32,7 +32,7 @@ const MenuRenderer = ({isSubMenu, isOpen, isLoading, onClose, onExited, onMouseE
                  onMouseEnter={onMouseEnter}
                  onMouseLeave={onMouseLeave}
             >
-                <div className="menuItems">
+                <div className="menuItems" id={'menu-' + context.key}>
                     {children}
                 </div>
             </div>
@@ -41,6 +41,7 @@ const MenuRenderer = ({isSubMenu, isOpen, isLoading, onClose, onExited, onMouseE
 };
 
 MenuRenderer.propTypes = {
+    context: PropTypes.object.isRequired,
     isSubMenu: PropTypes.bool.isRequired,
     isOpen: PropTypes.bool.isRequired,
     isLoading: PropTypes.bool.isRequired,
@@ -52,7 +53,7 @@ MenuRenderer.propTypes = {
 };
 
 const MenuItemRenderer = ({context, onClick, onMouseEnter, onMouseLeave}) => (
-    <div className="menuItem" onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+    <div className="menuItem" id={'item-' + context.key} onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
         {context.label}
     </div>
 );
@@ -257,7 +258,7 @@ describe('Menu', () => {
         expect(wrapper.find('.menu .menuItem').length).toBe(8);
 
         // Click item in sub-sub-menu
-        wrapper.find('.menu .menuItem').last().simulate('click');
+        wrapper.find('#menu-submenu2 #item-item1').last().simulate('click');
         advanceTime(wrapper);
 
         expect(wrapper.find('.menu').length).toBe(0);
