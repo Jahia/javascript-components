@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ButtonRenderer = ({context}) => (
+const ButtonRenderer = ({context, onClick}) => (
     (context.isVisible !== false) && (
         <button
             style={{
@@ -15,7 +15,7 @@ const ButtonRenderer = ({context}) => (
             }}
             disabled={context.enabled === false}
             type="button"
-            onClick={ev => context.onClick(context, ev)}
+            onClick={ev => onClick(ev)}
         >{context.label}
         </button>
     )
