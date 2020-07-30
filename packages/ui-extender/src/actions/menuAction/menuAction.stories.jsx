@@ -228,7 +228,7 @@ storiesOf('actions|menuAction', module)
                 <DisplayAction actionKey="menu"
                                context={{path: '/test'}}
                                render={ButtonRenderer}
-                               loading={({context}) => <ButtonRenderer context={{...context, label: 'loading...'}}/>}/>
+                               loading={() => <ButtonRenderer label="loading..."/>}/>
             </>
         );
     })
@@ -249,7 +249,7 @@ storiesOf('actions|menuAction', module)
                 <DisplayAction actionKey="menu"
                                context={{path: '/test'}}
                                render={ButtonRenderer}
-                               loading={({context}) => <ButtonRenderer context={{...context, label: 'loading...'}}/>}/>
+                               loading={() => <ButtonRenderer label="loading..."/>}/>
             </>
         );
     })
@@ -272,7 +272,7 @@ storiesOf('actions|menuAction', module)
                 <DisplayAction actionKey="menu"
                                context={{path: '/test'}}
                                render={ButtonRenderer}
-                               loading={({context}) => <ButtonRenderer context={{...context, label: 'loading...'}}/>}/>
+                               loading={() => <ButtonRenderer label="loading..."/>}/>
             </>
         );
     });

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ButtonRenderer = ({context, onClick}) => (
-    (context.isVisible !== false) && (
+const ButtonRenderer = ({onClick, isVisible, enabled, label, ...props}) => (
+    (isVisible !== false) && (
         <button
             style={{
                 color: '#444444',
@@ -13,16 +13,16 @@ const ButtonRenderer = ({context, onClick}) => (
                 fontSize: '9pt',
                 outline: 'none'
             }}
-            disabled={context.enabled === false}
+            disabled={enabled === false}
             type="button"
-            onClick={ev => onClick(context, ev)}
-        >{context.label}
+            onClick={ev => onClick(props, ev)}
+        >{label}
         </button>
     )
 );
 
 ButtonRenderer.propTypes = {
-    context: PropTypes.object.isRequired
+    onClick: PropTypes.func
 };
 
 export {ButtonRenderer};

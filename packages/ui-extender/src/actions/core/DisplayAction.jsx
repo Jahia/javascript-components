@@ -26,7 +26,8 @@ class DisplayAction extends React.Component {
             return null;
         }
 
-        const Component = (typeof action.component === 'function') ? action.component : render;
+        const renderWrapper = ({context, ...otherProps}) => render({...otherProps, ...context, context});
+        const Component = (typeof action.component === 'function') ? action.component : renderWrapper;
 
         let componentProps = {...action, ...context, originalContext: context, id: this.id, actionKey, ...otherProps};
 
@@ -39,7 +40,7 @@ class DisplayAction extends React.Component {
                        {...componentProps}
                        {...otherProps}
                        context={componentProps}
-                       render={render}
+                       render={renderWrapper}
                        loading={loading}
                        actionKey={actionKey}
             />
