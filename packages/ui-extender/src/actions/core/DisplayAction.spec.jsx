@@ -146,9 +146,9 @@ describe('DisplayAction', () => {
         const fn1 = jest.fn();
         const TestComponent1 = ({context, render: Render}) => (
             <Render context={{
-                ...context,
-                onClick: fn1
-            }}/>
+                ...context
+            }}
+                    onClick={fn1}/>
         );
 
         TestComponent1.propTypes = {
@@ -176,9 +176,9 @@ describe('DisplayAction', () => {
 
         const TestComponent1 = ({context, render: Render}) => (
             <Render context={{
-                ...context,
-                onClick: fn1
-            }}/>
+                ...context
+            }}
+                    onClick={fn1}/>
         );
 
         TestComponent1.propTypes = {
@@ -240,9 +240,9 @@ describe('DisplayAction', () => {
                 <Render context={{
                     ...context,
                     value,
-                    label: context.label + value,
-                    onClick: fn1
-                }}/>
+                    label: context.label + value
+                }}
+                        onClick={fn1}/>
             ) : (
                 <span>loading..</span>
             );
@@ -282,9 +282,9 @@ describe('DisplayAction', () => {
                         context={{
                             ...context,
                             name,
-                            label: context.label + ' ' + name,
-                            onClick: fn1
-                        }}/>
+                            label: context.label + ' ' + name
+                        }}
+                        onClick={fn1}/>
             ));
         };
 

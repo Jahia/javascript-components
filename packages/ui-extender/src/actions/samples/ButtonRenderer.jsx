@@ -15,7 +15,7 @@ const ButtonRenderer = ({context, onClick}) => (
             }}
             disabled={context.enabled === false}
             type="button"
-            onClick={ev => onClick(ev)}
+            onClick={ev => onClick(context, ev)}
         >{context.label}
         </button>
     )
