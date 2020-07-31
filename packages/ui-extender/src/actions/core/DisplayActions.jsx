@@ -24,11 +24,6 @@ DisplayActions.propTypes = {
     target: PropTypes.string.isRequired,
 
     /**
-     * The action context
-     */
-    context: PropTypes.object.isRequired,
-
-    /**
      * The render component
      */
     render: PropTypes.func.isRequired,
