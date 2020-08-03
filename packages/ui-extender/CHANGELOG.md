@@ -1,3 +1,15 @@
+# (Mon Aug 03 2020)
+
+#### 🐛  Bug Fix
+
+- QA-13044: Use context passed to onClick when present [#161](https://github.com/Jahia/javascript-components/pull/161) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Wed Jul 29 2020)
 
 #### 🐛  Bug Fix
