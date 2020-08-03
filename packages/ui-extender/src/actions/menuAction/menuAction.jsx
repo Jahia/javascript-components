@@ -133,6 +133,7 @@ const reducer = (state, action) => {
         case 'render':
             return {
                 ...state,
+                currentCtx: action.currentCtx ? action.currentCtx : {},
                 isRendered: true
             };
         case 'destroy':
@@ -212,6 +213,7 @@ const MenuActionComponent = ({context, render: Render, loading: Loading}) => {
         loadingItems: [],
         loadedItems: [],
         subMenuContext: null,
+        currentCtx: {},
         anchor: {
             anchorPosition: {
                 top: -1000,
@@ -223,8 +225,8 @@ const MenuActionComponent = ({context, render: Render, loading: Loading}) => {
     const menuContext = useMemo(() => ({
         id,
         dispatch,
-        display: anchor => {
-            dispatch({type: 'render'});
+        display: (currentCtx, anchor) => {
+            dispatch({type: 'render', currentCtx});
             // If there's a parent, set the current context as submenu. Previous value should be null
             if (parentMenuContext) {
                 parentMenuContext.dispatch({type: 'setSubMenuContext', value: menuContext});
@@ -271,7 +273,7 @@ const MenuActionComponent = ({context, render: Render, loading: Loading}) => {
                                     ...event.currentTarget,
                                     getBoundingClientRect: () => boundingClientRect
                                 };
-                                menuContext.display({
+                                menuContext.display(currentCtx, {
                                     anchorEl: targetMock,
                                     anchorElOrigin: {
                                         vertical: 'bottom',
@@ -279,7 +281,7 @@ const MenuActionComponent = ({context, render: Render, loading: Loading}) => {
                                     }
                                 });
                             } else {
-                                menuContext.display({
+                                menuContext.display(currentCtx, {
                                     anchorPosition: {
                                         left: event.clientX,
                                         top: event.clientY
@@ -291,7 +293,7 @@ const MenuActionComponent = ({context, render: Render, loading: Loading}) => {
                 }}/>)}
             {(menuState.isRendered || context.menuPreload) && ReactDOM.createPortal(
                 <Menu
-                    context={context}
+                    context={{...context, ...menuState.currentCtx}}
                     menuContext={menuContext}
                     menuState={menuState}
                     rootMenuContext={rootMenuContext ? rootMenuContext : menuContext}
