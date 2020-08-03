@@ -2,6 +2,18 @@
 
 #### 🐛  Bug Fix
 
+- QA-13044: fixed submenu [#162](https://github.com/Jahia/javascript-components/pull/162) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
+# (Mon Aug 03 2020)
+
+#### 🐛  Bug Fix
+
 - QA-13044: Use context passed to onClick when present [#161](https://github.com/Jahia/javascript-components/pull/161) ([@tdraier](https://github.com/tdraier))
 
 #### Authors: 1
