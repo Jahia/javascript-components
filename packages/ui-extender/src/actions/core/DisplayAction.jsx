@@ -4,9 +4,14 @@ import {registry} from '../../registry';
 
 let count = 0;
 
+const arrayEquals = (array1, array2) =>
+    Array.isArray(array1) && Array.isArray(array2) && array1.length === array2.length && array1.every((value, index) => shallowEquals(value, array2[index]));
+
 const shallowEquals = (obj1, obj2) =>
     Object.keys(obj1).length === Object.keys(obj2).length &&
-    Object.keys(obj1).every(key => obj1[key] === obj2[key]);
+    Object.keys(obj1)
+        .filter(key => (typeof obj1[key] !== 'function') && (typeof obj1[key] !== 'object' || Array.isArray(obj1[key])))
+        .every(key => Array.isArray(obj1[key]) ? arrayEquals(obj1[key], obj2[key]) : obj1[key] === obj2[key]);
 
 const wrapRender = render => ({context, ...otherProps}) => {
     const mergedProps = {...context, ...otherProps};
