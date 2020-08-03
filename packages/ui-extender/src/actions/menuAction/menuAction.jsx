@@ -45,7 +45,7 @@ const ItemRender = ({context}) => {
                               if (menuContext) {
                                   // Open submenu (only if it's not opened already)
                                   if (!menuState.isOpen) {
-                                      menuContext.display({
+                                      menuContext.display(null, {
                                           anchorEl: event.currentTarget,
                                           anchorElOrigin: {vertical: 'top', horizontal: 'right'}
                                       });
