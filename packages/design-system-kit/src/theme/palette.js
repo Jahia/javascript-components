@@ -187,10 +187,13 @@ const dsGenericPalette = {
         support: {
             success: rgba(color.green),
             success40: rgba(color.green, 0.4),
+            success60: rgba(color.green, 0.6),
             warning: rgba(color.yellow),
             warning40: rgba(color.yellow, 0.4),
+            warning60: rgba(color.yellow, 0.6),
             danger: rgba(color.red),
             danger40: rgba(color.red, 0.4),
+            danger60: rgba(color.red, 0.6),
             dangerDark: rgba(color.redDark)
         }
     }
