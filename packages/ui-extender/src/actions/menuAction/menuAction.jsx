@@ -101,6 +101,7 @@ const Menu = ({context, menuContext, menuState, rootMenuContext, ...otherProps})
                 context={{
                     ...originalContext,
                     originalContext,
+                    buttonProps: {},
                     menuRenderer: MenuRenderer,
                     menuItemRenderer,
                     parentMenuContext: menuContext,
