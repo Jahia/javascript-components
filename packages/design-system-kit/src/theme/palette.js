@@ -186,12 +186,15 @@ const dsGenericPalette = {
         },
         support: {
             success: rgba(color.green),
+            success60: rgba(color.green, 0.6),
             success40: rgba(color.green, 0.4),
             warning: rgba(color.yellow),
+            warning60: rgba(color.yellow, 0.6),
             warning40: rgba(color.yellow, 0.4),
+            dangerDark: rgba(color.redDark),
             danger: rgba(color.red),
-            danger40: rgba(color.red, 0.4),
-            dangerDark: rgba(color.redDark)
+            danger60: rgba(color.red, 0.6),
+            danger40: rgba(color.red, 0.4)
         }
     }
 };
