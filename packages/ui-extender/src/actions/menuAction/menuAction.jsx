@@ -171,7 +171,8 @@ const reducer = (state, action) => {
         case 'loading':
             return {
                 ...state,
-                loadingItems: add(state.loadingItems, action.item)
+                loadingItems: add(state.loadingItems, action.item),
+                loadedItems: remove(state.loadedItems, action.item)
             };
         case 'loaded':
             return {
