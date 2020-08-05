@@ -1,3 +1,15 @@
+# (Wed Aug 05 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-14290: Adds 60% Moonstone Support Colours [#163](https://github.com/Jahia/javascript-components/pull/163) ([@vindhya](https://github.com/vindhya))
+
+#### Authors: 1
+
+- Vindhya ([@vindhya](https://github.com/vindhya))
+
+---
+
 # (Fri Jul 24 2020)
 
 #### 🐛  Bug Fix
