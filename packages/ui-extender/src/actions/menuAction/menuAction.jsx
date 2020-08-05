@@ -2,7 +2,6 @@ import React, {useEffect, useMemo, useReducer, useRef} from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import {DisplayActions} from '../core/DisplayActions';
-import {useDeepCompare} from '../../utils/useDeepCompare';
 
 const ItemLoading = ({context}) => {
     const {parentMenuContext, menuItemRenderer: MenuItemRenderer} = context;
@@ -180,12 +179,6 @@ const reducer = (state, action) => {
                 loadingItems: remove(state.loadingItems, action.item),
                 loadedItems: action.isVisible !== false ? add(state.loadedItems, action.item) : remove(state.loadedItems, action.item)
             };
-        case 'resetState':
-            return {
-                ...state,
-                loadingItems: [],
-                loadedItems: []
-            };
         default:
             return state;
     }
@@ -194,8 +187,6 @@ const reducer = (state, action) => {
 const MenuActionComponent = ({context, render: Render, loading: Loading}) => {
     const id = 'actionComponent-' + context.id;
     const {rootMenuContext, parentMenuContext} = context;
-
-    const {isNew, isChanged, value: stableOriginalContext} = useDeepCompare(context.originalContext);
 
     const elRef = useRef(document.getElementById('menuHolder'));
     if (!elRef.current) {
@@ -238,13 +229,6 @@ const MenuActionComponent = ({context, render: Render, loading: Loading}) => {
             }, 0);
         }
     }), [id, parentMenuContext]);
-
-    useEffect(() => {
-        if (!isNew && isChanged) {
-            // Reset loading state if context has changed
-            dispatch({type: 'resetState'});
-        }
-    }, [isNew, isChanged, stableOriginalContext]);
 
     useEffect(() => {
         if (!menuState.isOpen && menuState.subMenuContext) {
