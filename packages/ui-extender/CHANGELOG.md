@@ -1,3 +1,15 @@
+# (Fri Aug 07 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-14306: Removed reset-state [#164](https://github.com/Jahia/javascript-components/pull/164) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Mon Aug 03 2020)
 
 #### 🐛  Bug Fix
