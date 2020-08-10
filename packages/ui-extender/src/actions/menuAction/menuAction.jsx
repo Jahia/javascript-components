@@ -38,6 +38,7 @@ const ItemRender = ({context}) => {
                           onClick={event => {
                               // Call the action and close the menu
                               context.onClick(context, event);
+                              event.stopPropagation();
                               rootMenuContext.dispatch({type: 'close'});
                           }}
                           onMouseEnter={event => {
