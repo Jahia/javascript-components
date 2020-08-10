@@ -1,3 +1,15 @@
+# (Mon Aug 10 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-14368: Stop propagation after menu item click [#165](https://github.com/Jahia/javascript-components/pull/165) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Fri Aug 07 2020)
 
 #### 🐛  Bug Fix
