@@ -2,44 +2,42 @@ import React, {useContext, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {ComponentRendererContext} from '../../ComponentRenderer';
 
-const ComponentRendererActionComponent = ({context, render: Render}) => {
+const ComponentRendererActionComponent = ({render: Render, componentToRender, ...otherProps}) => {
     const componentRenderer = useContext(ComponentRendererContext);
 
-    context.componentRendererContext = context.componentRendererContext || {};
-    const componentRendererContext = context.componentRendererContext;
+    const componentContext = {};
 
     useEffect(() => {
-        componentRendererContext.id = 'actionComponent-' + context.id;
-        componentRendererContext.render = (component, properties) => {
-            componentRenderer.render(componentRendererContext.id, component, {context: context, onExited: componentRendererContext.handleDestroy, ...properties});
+        componentContext.id = 'actionComponent-' + otherProps.id;
+        componentContext.render = (component, properties) => {
+            componentRenderer.render(componentContext.id, component, {...otherProps, onExited: componentContext.handleDestroy, ...properties});
         };
 
-        componentRendererContext.handleDestroy = () => {
-            componentRenderer.destroy(componentRendererContext.id);
+        componentContext.handleDestroy = () => {
+            componentRenderer.destroy(componentContext.id);
         };
 
-        componentRendererContext.setProperties = properties => {
-            componentRenderer.setProperties(componentRendererContext.id, properties);
+        componentContext.setProperties = properties => {
+            componentRenderer.setProperties(componentContext.id, properties);
         };
     });
 
-    if (!context.onClick) {
+    if (!otherProps.onClick) {
         return (
             <Render
-                context={{
-                    ...context,
-                    onClick: () => context.componentRendererContext.render(context.componentToRender)
-                }}
+                onClick={() => componentContext.render(componentToRender)}
+                {...otherProps}
             />
         );
     }
 
-    return <Render context={context}/>;
+    return <Render {...otherProps}/>;
 };
 
 ComponentRendererActionComponent.propTypes = {
     context: PropTypes.object.isRequired,
-    render: PropTypes.func.isRequired
+    render: PropTypes.func.isRequired,
+    componentToRender: PropTypes.node
 };
 
 /**
