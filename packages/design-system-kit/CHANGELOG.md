@@ -1,3 +1,17 @@
+# (Mon Sep 07 2020)
+
+#### 🐛  Bug Fix
+
+- Backlog 12933 [#167](https://github.com/Jahia/javascript-components/pull/167) ([@jahia-ci](https://github.com/jahia-ci) [@Yousria](https://github.com/Yousria) [@tdraier](https://github.com/tdraier))
+
+#### Authors: 3
+
+- Jahia Continuous Integration account ([@jahia-ci](https://github.com/jahia-ci))
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+- Yousria ([@Yousria](https://github.com/Yousria))
+
+---
+
 # (Wed Aug 05 2020)
 
 #### 🐛  Bug Fix
