@@ -42,7 +42,7 @@ export const useNodeChecks = (variables, options, queryOptions) => {
     }
 
     if (!node && !nodes) {
-        return {checksResult: false, loading};
+        return {checksResult: false, loading, ...othersResults};
     }
 
     const doNodeCheck = node =>

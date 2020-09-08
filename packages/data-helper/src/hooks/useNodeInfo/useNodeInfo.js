@@ -14,7 +14,7 @@ export const useNodeInfo = (variables, options, queryOptions) => {
 
     const {query, generatedVariables, skip, loading} = useMemo(() => getQuery(memoizedVariables, schemaResult, memoizedOptions), [memoizedVariables, schemaResult, memoizedOptions]);
 
-    const {data, ...others} = useQuery(query, {...queryOptions, variables: generatedVariables, skip: (skip || loading)});
+    const {data, ...others} = useQuery(query, {errorPolicy: 'ignore', ...queryOptions, variables: generatedVariables, skip: (skip || loading)});
 
     const node = (data && data.jcr && (data.jcr.nodeByPath || data.jcr.nodeById)) || null;
     const nodes = (data && data.jcr && (data.jcr.nodesByPath || data.jcr.nodesById)) || null;
