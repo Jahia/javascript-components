@@ -18,7 +18,7 @@ export const useSiteInfo = ({siteKey, displayLanguage}) => {
         displayLanguage: displayLanguage
     };
 
-    const res = useQuery(SITE_INFO_QUERY, {variables});
+    const res = useQuery(SITE_INFO_QUERY, {variables, errorPolicy: 'ignore'});
 
     return {
         ...res,
