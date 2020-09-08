@@ -1,3 +1,16 @@
+# (Tue Sep 08 2020)
+
+#### 🐛  Bug Fix
+
+- QA-13071: Ignore data fetching errors when getting site info [#169](https://github.com/Jahia/javascript-components/pull/169) ([@tdraier](https://github.com/tdraier))
+- QA-13117: Ignore data fetching errors and just return no data [#166](https://github.com/Jahia/javascript-components/pull/166) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Wed Jul 29 2020)
 
 #### 🐛  Bug Fix
