@@ -77,7 +77,7 @@ const AsyncComponent = ({context, render: Render, loading: Loading}) => {
         return () => {
             clearTimeout(t);
         };
-    });
+    }, []);
     if (!ready && readyList.indexOf(context.key) === -1) {
         if (context.useLoading && Loading) {
             return <Loading context={context}/>;
