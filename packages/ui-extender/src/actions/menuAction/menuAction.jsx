@@ -46,8 +46,11 @@ const ItemRender = ({context, ...otherProps}) => {
                               if (menuContext) {
                                   // Open submenu (only if it's not opened already)
                                   if (!menuState.isOpen) {
+                                      const c = event.currentTarget.getBoundingClientRect();
                                       menuContext.display(null, {
-                                          anchorEl: event.currentTarget,
+                                          anchorEl: {
+                                              getBoundingClientRect: () => c
+                                          },
                                           anchorElOrigin: {vertical: 'top', horizontal: 'right'}
                                       });
                                   }
@@ -173,13 +176,13 @@ const reducer = (state, action) => {
         }
 
         case 'loading':
-            return {
+            return (state.loadingItems.includes(action.item) && !state.loadedItems.includes(action.item)) ? state : {
                 ...state,
                 loadingItems: add(state.loadingItems, action.item),
                 loadedItems: remove(state.loadedItems, action.item)
             };
         case 'loaded':
-            return {
+            return (!state.loadingItems.includes(action.item) && (action.isVisible !== false) === state.loadedItems.includes(action.item)) ? state : {
                 ...state,
                 loadingItems: remove(state.loadingItems, action.item),
                 loadedItems: action.isVisible !== false ? add(state.loadedItems, action.item) : remove(state.loadedItems, action.item)
