@@ -1,3 +1,15 @@
+# (Fri Sep 11 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-14270 : Menu action fixes [#170](https://github.com/Jahia/javascript-components/pull/170) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Mon Sep 07 2020)
 
 #### 🐛  Bug Fix
