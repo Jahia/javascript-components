@@ -68,16 +68,16 @@ MenuRenderer.propTypes = {
     children: PropTypes.node.isRequired
 };
 
-const MenuItemRenderer = ({context, onClick, onMouseEnter, onMouseLeave}) => {
+const MenuItemRenderer = ({label, onClick, onMouseEnter, onMouseLeave}) => {
     return (
         <div style={{margin: 5}} onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-            {context.label}
+            {label}
         </div>
     );
 };
 
 MenuItemRenderer.propTypes = {
-    context: PropTypes.object.isRequired,
+    label: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func
@@ -85,45 +85,45 @@ MenuItemRenderer.propTypes = {
 
 const readyList = [];
 
-const AsyncComponent = ({context, render: Render, loading: Loading}) => {
+const AsyncComponent = ({render: Render, loading: Loading, ...props}) => {
     const [ready, setReady] = useState(false);
     useEffect(() => {
         const t = setTimeout(() => {
-            readyList.push(context.key);
+            readyList.push(props.id);
             setReady(true);
-        }, context.minTime);
+        }, props.minTime);
         return () => {
             clearTimeout(t);
         };
     });
-    if (!ready && readyList.indexOf(context.key) === -1) {
-        if (context.useLoading && Loading) {
-            return <Loading context={context}/>;
+    if (!ready && readyList.indexOf(props.id) === -1) {
+        if (props.isUseLoading && Loading) {
+            return <Loading {...props}/>;
         }
 
         return false;
     }
 
     return (
-        <Render context={{
-            ...context,
-            label: context.label,
-            onClick: () => window.alert('Async action') // eslint-disable-line no-alert
-        }}/>
+        <Render {...props}
+                onClick={() => window.alert('Async action')} // eslint-disable-line no-alert
+        />
     );
 };
 
 AsyncComponent.propTypes = {
-    context: PropTypes.object.isRequired,
+    id: PropTypes.string.isRequired,
+    minTime: PropTypes.number,
+    isUseLoading: PropTypes.bool,
     render: PropTypes.func.isRequired,
-    loading: PropTypes.func
+    loading: PropTypes.func.isRequired
 };
 
-function addMenu(key, targets, menuPreload) {
+function addMenu(key, targets, isMenuPreload) {
     registry.addOrReplace('action', key, menuAction, {
         label: key,
         targets: targets,
-        menuPreload: menuPreload,
+        isMenuPreload: isMenuPreload,
         menuTarget: key,
         menuRenderer: MenuRenderer,
         menuItemRenderer: MenuItemRenderer
@@ -138,12 +138,12 @@ function addItem(key, targets, fn) {
     });
 }
 
-function addAsyncItem(key, targets, minTime, useLoading, isVisible) {
+function addAsyncItem(key, targets, minTime, isUseLoading, isVisible) {
     registry.addOrReplace('action', key, {
         targets,
         label: key,
         minTime,
-        useLoading,
+        isUseLoading,
         isVisible,
         component: AsyncComponent
     });
@@ -170,7 +170,7 @@ storiesOf('actions|menuAction', module)
                 <div className="description">
                     Display all items that have the specified target
                 </div>
-                <DisplayAction actionKey="menu" context={{path: '/test'}} render={ButtonRenderer}/>
+                <DisplayAction actionKey="menu" path="/test" render={ButtonRenderer}/>
             </>
         );
     })
@@ -189,7 +189,7 @@ storiesOf('actions|menuAction', module)
                 <div className="description">
                     Displays a menu with items registered with a specific target
                 </div>
-                <DisplayAction actionKey="menu" context={{path: '/test'}} render={ButtonRenderer}/>
+                <DisplayAction actionKey="menu" path="/test" render={ButtonRenderer}/>
             </>
         );
     })
@@ -207,7 +207,7 @@ storiesOf('actions|menuAction', module)
                 <div className="description">
                     Example with asynchronous menu items
                 </div>
-                <DisplayAction actionKey="menu" context={{path: '/test'}} render={ButtonRenderer}/>
+                <DisplayAction actionKey="menu" path="/test" render={ButtonRenderer}/>
             </>
         );
     })
@@ -226,7 +226,7 @@ storiesOf('actions|menuAction', module)
                     Example with asynchronous menu items - delayed menu open until loaded
                 </div>
                 <DisplayAction actionKey="menu"
-                               context={{path: '/test'}}
+                               path="/test"
                                render={ButtonRenderer}
                                loading={() => <ButtonRenderer label="loading..."/>}/>
             </>
@@ -247,7 +247,7 @@ storiesOf('actions|menuAction', module)
                     Example with asynchronous menu items - preload
                 </div>
                 <DisplayAction actionKey="menu"
-                               context={{path: '/test'}}
+                               path="/test"
                                render={ButtonRenderer}
                                loading={() => <ButtonRenderer label="loading..."/>}/>
             </>
@@ -270,7 +270,7 @@ storiesOf('actions|menuAction', module)
                     Example with asynchronous menu items - preload
                 </div>
                 <DisplayAction actionKey="menu"
-                               context={{path: '/test'}}
+                               path="/test"
                                render={ButtonRenderer}
                                loading={() => <ButtonRenderer label="loading..."/>}/>
             </>

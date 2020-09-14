@@ -3,28 +3,31 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import {DisplayActions} from '../core/DisplayActions';
 
-const ItemLoading = ({context}) => {
-    const {parentMenuContext, menuItemRenderer: MenuItemRenderer} = context;
+const ItemLoading = props => {
+    const {id, parentMenuContext, menuItemRenderer: MenuItemRenderer} = {...props.context, ...props};
 
     useEffect(() => {
-        parentMenuContext.dispatch({type: 'loading', item: context.key});
+        parentMenuContext.dispatch({type: 'loading', item: id});
     });
 
     return (
-        <MenuItemRenderer context={context}
+        <MenuItemRenderer {...props}
                           onClick={() => {
                           }}/>
     );
 };
 
 ItemLoading.propTypes = {
-    context: PropTypes.object.isRequired
+    context: PropTypes.object,
+    id: PropTypes.string.isRequired,
+    menuItemRenderer: PropTypes.func,
+    parentMenuContext: PropTypes.object
 };
 
-const ItemRender = ({context, ...otherProps}) => {
-    const {menuContext, menuState, rootMenuContext, parentMenuContext, menuItemRenderer: MenuItemRenderer, isVisible} = context;
+const ItemRender = props => {
+    const {id, onClick, menuContext, menuState, rootMenuContext, parentMenuContext, menuItemRenderer: MenuItemRenderer, isVisible} = {...props.context, ...props};
     useEffect(() => {
-        parentMenuContext.dispatch({type: 'loaded', item: context.key, isVisible});
+        parentMenuContext.dispatch({type: 'loaded', item: id, isVisible});
     });
 
     // Values for menuContext / menuState are set only if this item is a submenu item.
@@ -34,11 +37,10 @@ const ItemRender = ({context, ...otherProps}) => {
     }
 
     return (
-        <MenuItemRenderer context={context}
-                          {...otherProps}
+        <MenuItemRenderer {...props}
                           onClick={event => {
                               // Call the action and close the menu
-                              context.onClick(context, event);
+                              onClick(props, event);
                               event.stopPropagation();
                               rootMenuContext.dispatch({type: 'close'});
                           }}
@@ -72,13 +74,23 @@ const ItemRender = ({context, ...otherProps}) => {
 };
 
 ItemRender.propTypes = {
-    context: PropTypes.object.isRequired
+    context: PropTypes.object,
+    id: PropTypes.string.isRequired,
+    menuItemRenderer: PropTypes.func,
+    rootMenuContext: PropTypes.object,
+    parentMenuContext: PropTypes.object,
+    menuContext: PropTypes.object,
+    menuState: PropTypes.object.isRequired,
+    onClick: PropTypes.func.isRequired,
+    isVisible: PropTypes.bool
 };
 
-const Menu = ({context, menuContext, menuState, rootMenuContext, ...otherProps}) => {
-    const {menuTarget, menuFilter, menuRenderer: MenuRenderer, menuItemRenderer, originalContext} = context;
+const Menu = props => {
+    const {menuTarget, menuFilter, isMenuPreload, menuRenderer: MenuRenderer, menuItemRenderer, rootMenuContext, originalContext, id, actionKey, menuContext, menuState, menuItemProps} = props;
+
     return (
-        <MenuRenderer context={context}
+        <MenuRenderer id={id}
+                      menuKey={actionKey}
                       isSubMenu={menuState.isSubMenu}
                       anchor={menuState.anchor}
                       isLoading={menuState.loadingItems.length > 0}
@@ -93,37 +105,43 @@ const Menu = ({context, menuContext, menuState, rootMenuContext, ...otherProps})
                           menuContext.dispatch({type: 'close'});
                       }}
                       onExited={() => {
-                          if (!context.menuPreload) {
+                          if (!isMenuPreload) {
                               menuContext.dispatch({type: 'destroy'});
                           }
                       }}
         >
-            <DisplayActions
-                target={menuTarget}
-                filter={menuFilter}
-                context={{
-                    ...originalContext,
-                    originalContext,
-                    buttonProps: {},
-                    menuRenderer: MenuRenderer,
-                    menuItemRenderer,
-                    parentMenuContext: menuContext,
-                    rootMenuContext: rootMenuContext,
-                    showIcons: context.showIcons
-                }}
-                {...otherProps}
-                loading={ItemLoading}
-                render={ItemRender}
+            <DisplayActions {...originalContext}
+                            id={id}
+                            target={menuTarget}
+                            filter={menuFilter}
+                            buttonProps={menuItemProps}
+                            menuRenderer={MenuRenderer}
+                            menuItemRenderer={menuItemRenderer}
+                            parentMenuContext={menuContext}
+                            rootMenuContext={rootMenuContext}
+                            loading={ItemLoading}
+                            render={ItemRender}
             />
         </MenuRenderer>
     );
 };
 
 Menu.propTypes = {
-    context: PropTypes.object.isRequired,
+    id: PropTypes.string.isRequired,
+    actionKey: PropTypes.string.isRequired,
+    menuRenderer: PropTypes.func,
+    menuItemRenderer: PropTypes.func,
+    menuItemProps: PropTypes.object,
+    isMenuPreload: PropTypes.bool,
+    menuTarget: PropTypes.string.isRequired,
+    menuFilter: PropTypes.func,
+    isMenuUseEventPosition: PropTypes.bool,
+    buttonIcon: PropTypes.object,
+    originalContext: PropTypes.object,
+    rootMenuContext: PropTypes.object,
+    parentMenuContext: PropTypes.object,
     menuContext: PropTypes.object.isRequired,
-    menuState: PropTypes.object.isRequired,
-    rootMenuContext: PropTypes.object.isRequired
+    menuState: PropTypes.object.isRequired
 };
 
 function add(items, item) {
@@ -185,16 +203,16 @@ const reducer = (state, action) => {
             return (!state.loadingItems.includes(action.item) && (action.isVisible !== false) === state.loadedItems.includes(action.item)) ? state : {
                 ...state,
                 loadingItems: remove(state.loadingItems, action.item),
-                loadedItems: action.isVisible !== false ? add(state.loadedItems, action.item) : remove(state.loadedItems, action.item)
+                loadedItems: action.isVisible === false ? remove(state.loadedItems, action.item) : add(state.loadedItems, action.item)
             };
         default:
             return state;
     }
 };
 
-const MenuActionComponent = ({context, render: Render, loading: Loading}) => {
-    const id = 'actionComponent-' + context.id;
-    const {rootMenuContext, parentMenuContext} = context;
+const MenuActionComponent = props => {
+    const {rootMenuContext, parentMenuContext, isMenuPreload, render: Render, loading: Loading} = props;
+    const id = 'actionComponent-' + props.id;
 
     const elRef = useRef(document.getElementById('menuHolder'));
     if (!elRef.current) {
@@ -243,52 +261,51 @@ const MenuActionComponent = ({context, render: Render, loading: Loading}) => {
             menuState.subMenuContext.dispatch({type: 'close'});
             dispatch({type: 'setSubMenuContext', value: null});
         }
-    }, [id, context, menuState, menuContext]);
+    }, [id, menuState, menuContext]);
 
     return (
         <>
             {menuState.isOpen && menuState.loadingItems.length > 0 && Loading ? (
-                <Loading context={context}/>
+                <Loading {...props}/>
             ) : (
-                <Render context={{
-                    ...context,
-                    menuContext,
-                    menuState,
-                    isVisible: !context.menuPreload || menuState.loadedItems.length > 0,
-                    onClick: (currentCtx, event) => {
-                        // Handle click to open menu only if not in a submenu (already handled on mouse over)
-                        if (!parentMenuContext) {
-                            if (event.currentTarget && !currentCtx.menuUseEventPosition) {
-                                // Copy position of target element as it may be removed after load
-                                const boundingClientRect = event.currentTarget.getBoundingClientRect();
-                                const targetMock = {
-                                    ...event.currentTarget,
-                                    getBoundingClientRect: () => boundingClientRect
-                                };
-                                menuContext.display(currentCtx, {
-                                    anchorEl: targetMock,
-                                    anchorElOrigin: {
-                                        vertical: 'bottom',
-                                        horizontal: 'left'
-                                    }
-                                });
-                            } else {
-                                menuContext.display(currentCtx, {
-                                    anchorPosition: {
-                                        left: event.clientX,
-                                        top: event.clientY
-                                    }
-                                });
+                <Render {...props}
+                        menuContext={menuContext}
+                        menuState={menuState}
+                        isVisible={!isMenuPreload || menuState.loadedItems.length > 0}
+                        onClick={(eventProps, event) => {
+                            // Handle click to open menu only if not in a submenu (already handled on mouse over)
+                            if (!parentMenuContext) {
+                                if (event.currentTarget && !eventProps.isMenuUseEventPosition) {
+                                    // Copy position of target element as it may be removed after load
+                                    const boundingClientRect = event.currentTarget.getBoundingClientRect();
+                                    const targetMock = {
+                                        ...event.currentTarget,
+                                        getBoundingClientRect: () => boundingClientRect
+                                    };
+                                    menuContext.display(eventProps, {
+                                        anchorEl: targetMock,
+                                        anchorElOrigin: {
+                                            vertical: 'bottom',
+                                            horizontal: 'left'
+                                        }
+                                    });
+                                } else {
+                                    menuContext.display(eventProps, {
+                                        anchorPosition: {
+                                            left: event.clientX,
+                                            top: event.clientY
+                                        }
+                                    });
+                                }
                             }
-                        }
-                    }
-                }}/>)}
-            {(menuState.isRendered || context.menuPreload) && ReactDOM.createPortal(
-                <Menu
-                    context={{...context, ...menuState.currentCtx}}
-                    menuContext={menuContext}
-                    menuState={menuState}
-                    rootMenuContext={rootMenuContext ? rootMenuContext : menuContext}
+                        }}
+                />
+            )}
+            {(menuState.isRendered || isMenuPreload) && ReactDOM.createPortal(
+                <Menu {...props}
+                      menuContext={menuContext}
+                      menuState={menuState}
+                      rootMenuContext={rootMenuContext ? rootMenuContext : menuContext}
                 />, elRef.current
             )}
         </>
@@ -296,8 +313,64 @@ const MenuActionComponent = ({context, render: Render, loading: Loading}) => {
 };
 
 MenuActionComponent.propTypes = {
-    context: PropTypes.object.isRequired,
+    /**
+     * Action unique id
+     */
+    id: PropTypes.string.isRequired,
+
+    /**
+     * Renderer used to render the menu
+     */
+    menuRenderer: PropTypes.func,
+
+    /**
+     * Renderer used to render an item in the menu
+     */
+    menuItemRenderer: PropTypes.func,
+
+    /**
+     * Should the actions of the menu be preloaded
+     */
+    isMenuPreload: PropTypes.bool,
+
+    /**
+     * Target defining which actions to display in the menu
+     */
+    menuTarget: PropTypes.string.isRequired,
+
+    /**
+     * Filter actions to display in the menu
+     */
+    menuFilter: PropTypes.func,
+
+    /**
+     * Should the menu be displayed at the event position, or under the current element
+     */
+    isMenuUseEventPosition: PropTypes.bool,
+
+    /**
+     * Props passed to the main DisplayAction
+     */
+    originalContext: PropTypes.object,
+
+    /**
+     * Root menu context, if sub menu (internal)
+     */
+    rootMenuContext: PropTypes.object,
+
+    /**
+     * Parent menu context, if sub menu (internal)
+     */
+    parentMenuContext: PropTypes.object,
+
+    /**
+     * Render for the action button
+     */
     render: PropTypes.func.isRequired,
+
+    /**
+     * Render for the action button
+     */
     loading: PropTypes.func
 };
 

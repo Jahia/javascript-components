@@ -6,7 +6,7 @@ export const ContextualMenu = ({setOpenRef, ...props}) => {
     const onClickRef = useRef();
 
     const open = (e, newProps) => {
-        onClickRef.current({...props, menuUseEventPosition: true, ...newProps, originalContext: {...props, ...newProps}}, e);
+        onClickRef.current({...props, isMenuUseEventPosition: true, ...newProps, originalContext: {...props, ...newProps}}, e);
         e.preventDefault();
     };
 

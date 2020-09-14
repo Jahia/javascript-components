@@ -10,7 +10,7 @@ import {act} from 'react-dom/test-utils';
 
 jest.useFakeTimers();
 
-const MenuRenderer = ({context, isSubMenu, isOpen, isLoading, onClose, onExited, onMouseEnter, onMouseLeave, children}) => {
+const MenuRenderer = ({menuKey, isSubMenu, isOpen, isLoading, onClose, onExited, onMouseEnter, onMouseLeave, children}) => {
     // Simulate close animation, calls onExited after isOpen is set to false
     const [previousOpen, setPreviousOpen] = useState(false);
     if (previousOpen !== isOpen) {
@@ -32,7 +32,7 @@ const MenuRenderer = ({context, isSubMenu, isOpen, isLoading, onClose, onExited,
                  onMouseEnter={onMouseEnter}
                  onMouseLeave={onMouseLeave}
             >
-                <div className="menuItems" id={'menu-' + context.key}>
+                <div className="menuItems" id={'menu-' + menuKey}>
                     {children}
                 </div>
             </div>
@@ -41,7 +41,7 @@ const MenuRenderer = ({context, isSubMenu, isOpen, isLoading, onClose, onExited,
 };
 
 MenuRenderer.propTypes = {
-    context: PropTypes.object.isRequired,
+    menuKey: PropTypes.string.isRequired,
     isSubMenu: PropTypes.bool.isRequired,
     isOpen: PropTypes.bool.isRequired,
     isLoading: PropTypes.bool.isRequired,
@@ -52,14 +52,17 @@ MenuRenderer.propTypes = {
     children: PropTypes.node.isRequired
 };
 
-const MenuItemRenderer = ({context, onClick, onMouseEnter, onMouseLeave}) => (
-    <div className="menuItem" id={'item-' + context.key} onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-        {context.label}
-    </div>
-);
+const MenuItemRenderer = ({label, actionKey, onClick, onMouseEnter, onMouseLeave}) => {
+    return (
+        <div className="menuItem" id={'item-' + actionKey} onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+            {label}
+        </div>
+    );
+};
 
 MenuItemRenderer.propTypes = {
-    context: PropTypes.object.isRequired,
+    actionKey: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func
@@ -67,45 +70,43 @@ MenuItemRenderer.propTypes = {
 
 const readyList = [];
 
-const AsyncComponent = ({context, render: Render, loading: Loading}) => {
+const AsyncComponent = ({render: Render, loading: Loading, ...props}) => {
     const [ready, setReady] = useState(false);
     useEffect(() => {
         const t = setTimeout(() => {
-            readyList.push(context.key);
+            readyList.push(props.id);
             setReady(true);
-        }, context.minTime);
+        }, props.minTime);
         return () => {
             clearTimeout(t);
         };
-    }, []);
-    if (!ready && readyList.indexOf(context.key) === -1) {
-        if (context.useLoading && Loading) {
-            return <Loading context={context}/>;
+    }, [props.id, props.minTime]);
+    if (!ready && readyList.indexOf(props.id) === -1) {
+        if (props.isUseLoading && Loading) {
+            return <Loading {...props}/>;
         }
 
         return false;
     }
 
     return (
-        <Render context={{
-            ...context,
-            label: context.label,
-            onClick: jest.fn
-        }}/>
+        <Render {...props} onClick={jest.fn}/>
     );
 };
 
 AsyncComponent.propTypes = {
-    context: PropTypes.object.isRequired,
+    id: PropTypes.string.isRequired,
+    minTime: PropTypes.number,
+    isUseLoading: PropTypes.bool,
     render: PropTypes.func.isRequired,
     loading: PropTypes.func.isRequired
 };
 
-function addMenu(key, targets, menuPreload) {
+function addMenu(key, targets, isMenuPreload) {
     registry.addOrReplace('action', key, menuAction, {
         label: key,
         targets: targets,
-        menuPreload: menuPreload,
+        isMenuPreload: isMenuPreload,
         menuTarget: key,
         menuRenderer: MenuRenderer,
         menuItemRenderer: MenuItemRenderer
@@ -120,12 +121,12 @@ function addItem(key, targets, fn) {
     });
 }
 
-function addAsyncItem(key, targets, minTime, useLoading, isVisible) {
+function addAsyncItem(key, targets, minTime, isUseLoading, isVisible) {
     registry.addOrReplace('action', key, {
         targets,
         label: key,
         minTime,
-        useLoading,
+        isUseLoading,
         isVisible,
         component: AsyncComponent
     });
@@ -141,7 +142,7 @@ function advanceTime(wrapper) {
 function getWrapper() {
     return mount(
         <ComponentRendererProvider>
-            <DisplayAction actionKey="menu" context={{path: '/test'}} render={ButtonRenderer}/>
+            <DisplayAction actionKey="menu" path="/test" render={ButtonRenderer}/>
         </ComponentRendererProvider>
     );
 }
