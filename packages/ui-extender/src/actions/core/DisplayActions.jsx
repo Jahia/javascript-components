@@ -10,7 +10,7 @@ export const DisplayActions = ({target, filter, ...others}) => {
         actionsToDisplay = actionsToDisplay && actionsToDisplay.filter(filter);
     }
 
-    return actionsToDisplay.map(action => <DisplayAction key={action.key} actionKey={action.key} {...others}/>);
+    return actionsToDisplay.map(action => <DisplayAction {...others} key={action.key} actionKey={action.key}/>);
 };
 
 DisplayActions.defaultProps = {
