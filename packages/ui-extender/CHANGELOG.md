@@ -1,3 +1,15 @@
+# (Mon Sep 14 2020)
+
+#### 🚀  Enhancement
+
+- BACKLOG-14270: Use props for menu action [#171](https://github.com/Jahia/javascript-components/pull/171) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Fri Sep 11 2020)
 
 #### 🐛  Bug Fix
