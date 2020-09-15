@@ -30,7 +30,7 @@ describe('DisplayActions', () => {
 
         const wrapper = mount(
             <ComponentRendererProvider>
-                <DisplayActions target="target-renderer" context={{path: '/test'}} render={ButtonRenderer}/>
+                <DisplayActions target="target-renderer" path="/test" render={ButtonRenderer}/>
             </ComponentRendererProvider>
         );
 
