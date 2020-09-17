@@ -1,3 +1,15 @@
+# (Thu Sep 17 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-14680: Fixed contextual menu [#173](https://github.com/Jahia/javascript-components/pull/173) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Mon Sep 14 2020)
 
 #### 🚀  Enhancement
