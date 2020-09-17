@@ -303,6 +303,7 @@ const MenuActionComponent = props => {
             )}
             {(menuState.isRendered || isMenuPreload) && ReactDOM.createPortal(
                 <Menu {...props}
+                      {...menuState.currentCtx}
                       menuContext={menuContext}
                       menuState={menuState}
                       rootMenuContext={rootMenuContext ? rootMenuContext : menuContext}
