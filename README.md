@@ -33,13 +33,7 @@ This project is composed of (click on the link for there documentation):
 
 ## Installation
 
-Jahia use his own npm server, so you have to tell to yarn and npm CLI where to find dependency. In order to achieve that, create a `.npmrc` file and copy past the code below in it.
-
-```
-@jahia:registry=https://npm.jahia.com
-```
-
-Each project are deployed on to a private repository and scoped with `@jahia`.
+Each package in the javascript-components repository is published to the public npm registry and scoped with `@jahia`.
 You can install any package with:
 
 ```sh
