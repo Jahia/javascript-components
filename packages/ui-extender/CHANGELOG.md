@@ -1,3 +1,15 @@
+# (Tue Nov 03 2020)
+
+#### 🐛  Bug Fix
+
+- QA-13109: Implement a simple waitInProgress method [#176](https://github.com/Jahia/javascript-components/pull/176) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Thu Sep 17 2020)
 
 #### 🐛  Bug Fix
