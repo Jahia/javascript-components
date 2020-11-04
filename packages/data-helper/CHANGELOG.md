@@ -1,3 +1,15 @@
+# (Wed Nov 04 2020)
+
+#### 🐛  Bug Fix
+
+- QA-13379: Avoid error if site does not exist [#177](https://github.com/Jahia/javascript-components/pull/177) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Tue Sep 08 2020)
 
 #### 🐛  Bug Fix
