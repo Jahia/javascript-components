@@ -3,8 +3,10 @@ import {SITE_INFO_QUERY} from './useSiteInfo.gql-queries';
 
 const adaptSiteInfo = data => {
     if (data && (data.jcr || data.wsDefault)) {
-        let siteData = data.jcr ? data.jcr.result.site : data.wsDefault.result.site;
-        return {...siteData};
+        const res = data.jcr ? data.jcr.result : data.wsDefault.result;
+        if (res) {
+            return {...res.site};
+        }
     }
 
     return {
