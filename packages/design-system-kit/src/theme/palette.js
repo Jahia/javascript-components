@@ -32,9 +32,9 @@ const dsGenericPalette = {
         white: '#FFFFFF'
     },
     primary: {
-        main: '#007cb0',
-        dark: '#005F87',
-        light: '#009bdc'
+        main: rgba(color.blue),
+        dark: rgba(color.blueDark),
+        light: rgba(color.blueLight)
     },
     secondary: {
         main: '#e57834',
@@ -46,9 +46,9 @@ const dsGenericPalette = {
         dark: '#3b3d40'
     },
     text: {
-        primary: '#1f262a',
-        secondary: '#393B3C',
-        hint: '#006f9e',
+        primary: rgba(color.dark),
+        secondary: rgba(color.dark, 0.6),
+        hint: rgba(color.blueDark),
         disabled: '#91A3ae',
         contrastText: '#ffffff'
     },
@@ -59,11 +59,11 @@ const dsGenericPalette = {
         main: '#13bd76'
     },
     error: {
-        main: '#BD1330',
-        light: '#e32646'
+        main: rgba(color.redDark),
+        light: rgba(color.red)
     },
     warning: {
-        main: '#f6d62f'
+        main: rgba(color.yellow)
     },
     background: {
         paper: '#ffffff',
