@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export const Modal = ({context, onExited}) => (
+export const Modal = ({content, onExited}) => (
     <>
         <div className="backdrop"
              style={{
@@ -29,12 +29,12 @@ export const Modal = ({context, onExited}) => (
                  justifyContent: 'center'
              }}
         >
-            <div style={{flex: '0 1 auto'}}>{context.content}</div>
+            <div style={{flex: '0 1 auto'}}>{content}</div>
         </div>
     </>
 );
 
 Modal.propTypes = {
-    context: PropTypes.object.isRequired,
+    content: PropTypes.string.isRequired,
     onExited: PropTypes.func.isRequired
 };

@@ -22,7 +22,8 @@ const ButtonRenderer = ({onClick, isVisible, enabled, label, ...props}) => (
 );
 
 ButtonRenderer.propTypes = {
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    label: PropTypes.string
 };
 
 export {ButtonRenderer};

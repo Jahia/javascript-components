@@ -21,7 +21,7 @@ describe('DisplayAction', () => {
         });
 
         const wrapper = mount(<DisplayAction actionKey="test-action-1"
-                                             context={{path: '/test1'}}
+                                             path="/test1"
                                              render={ButtonRenderer}/>);
 
         expect(action.onClick.mock.calls.length).toBe(0);
@@ -45,10 +45,10 @@ describe('DisplayAction', () => {
         const wrapper = mount(
             <>
                 <DisplayAction actionKey="test-action-1"
-                               context={{path: '/test1'}}
+                               path="/test1"
                                render={ButtonRenderer}/>
                 <DisplayAction actionKey="test-action-2"
-                               context={{path: '/test1'}}
+                               path="/test1"
                                render={ButtonRenderer}/>
             </>
         );
@@ -68,10 +68,10 @@ describe('DisplayAction', () => {
         const wrapper = mount(
             <>
                 <DisplayAction actionKey="test-action-1"
-                               context={{path: '/test1'}}
+                               path="/test1"
                                render={ButtonRenderer}/>
                 <DisplayAction actionKey="test-action-1"
-                               context={{path: '/test2'}}
+                               path="/test2"
                                render={ButtonRenderer}/>
             </>
         );
@@ -90,10 +90,10 @@ describe('DisplayAction', () => {
         const wrapper = mount(
             <>
                 <DisplayAction actionKey="test-action-1"
-                               context={{path: '/test'}}
+                               path="/test"
                                render={ButtonRenderer}/>
                 <DisplayAction actionKey="test-action-1"
-                               context={{path: '/test'}}
+                               path="/test"
                                render={LinkRenderer}/>
             </>
         );
@@ -124,10 +124,10 @@ describe('DisplayAction', () => {
         const wrapper = mount(
             <>
                 <DisplayAction actionKey="compose-1"
-                               context={{path: '/test1'}}
+                               path="/test1"
                                render={ButtonRenderer}/>
                 <DisplayAction actionKey="compose-2"
-                               context={{path: '/test1'}}
+                               path="/test1"
                                render={ButtonRenderer}/>
             </>
         );
@@ -144,15 +144,11 @@ describe('DisplayAction', () => {
 
     it('should render component action', () => {
         const fn1 = jest.fn();
-        const TestComponent1 = ({context, render: Render}) => (
-            <Render context={{
-                ...context
-            }}
-                    onClick={fn1}/>
+        const TestComponent1 = ({render: Render, ...props}) => (
+            <Render {...props} onClick={fn1}/>
         );
 
         TestComponent1.propTypes = {
-            context: PropTypes.object.isRequired,
             render: PropTypes.func.isRequired
         };
 
@@ -162,7 +158,7 @@ describe('DisplayAction', () => {
         });
         const wrapper = mount(
             <>
-                <DisplayAction actionKey="component-1" context={{path: '/test1'}} render={ButtonRenderer}/>
+                <DisplayAction actionKey="component-1" path="/test1" render={ButtonRenderer}/>
             </>
         );
 
@@ -174,24 +170,20 @@ describe('DisplayAction', () => {
     it('handle component composition', () => {
         const fn1 = jest.fn();
 
-        const TestComponent1 = ({context, render: Render}) => (
-            <Render context={{
-                ...context
-            }}
-                    onClick={fn1}/>
+        const TestComponent1 = ({render: Render, ...props}) => (
+            <Render {...props} onClick={fn1}/>
         );
 
         TestComponent1.propTypes = {
-            context: PropTypes.object.isRequired,
             render: PropTypes.func.isRequired
         };
 
-        const TestComponent2 = ({context, render}, refOrContext, Previous) => (
-            <Previous render={render} context={{...context, extended: true, label: context.label + ' overriden'}}/>
+        const TestComponent2 = ({render, label, ...props}, refOrContext, Previous) => (
+            <Previous extended render={render} label={label + ' overriden'} {...props}/>
         );
 
         TestComponent2.propTypes = {
-            context: PropTypes.object.isRequired,
+            label: PropTypes.string.isRequired,
             render: PropTypes.func.isRequired
         };
 
@@ -209,8 +201,8 @@ describe('DisplayAction', () => {
         });
         const wrapper = mount(
             <>
-                <DisplayAction actionKey="component-compose-1" context={{path: '/test1'}} render={ButtonRenderer}/>
-                <DisplayAction actionKey="component-compose-2" context={{path: '/test1'}} render={ButtonRenderer}/>
+                <DisplayAction actionKey="component-compose-1" path="/test1" render={ButtonRenderer}/>
+                <DisplayAction actionKey="component-compose-2" path="/test1" render={ButtonRenderer}/>
             </>
         );
 
@@ -226,7 +218,7 @@ describe('DisplayAction', () => {
     it('should update its rendering when using async components', () => {
         const fn1 = jest.fn();
 
-        const AsyncComponent = ({context, render: Render}) => {
+        const AsyncComponent = ({render: Render, label, ...props}) => {
             const [value, setValue] = useState(1);
             useEffect(() => {
                 const t = setInterval(() => {
@@ -237,19 +229,18 @@ describe('DisplayAction', () => {
                 };
             });
             return (value > 1) ? (
-                <Render context={{
-                    ...context,
-                    value,
-                    label: context.label + value
-                }}
-                        onClick={fn1}/>
+                <Render {...props}
+                        value={value}
+                        label={label + value}
+                        onClick={fn1}
+                />
             ) : (
                 <span>loading..</span>
             );
         };
 
         AsyncComponent.propTypes = {
-            context: PropTypes.object.isRequired,
+            label: PropTypes.string.isRequired,
             render: PropTypes.func.isRequired
         };
 
@@ -260,7 +251,7 @@ describe('DisplayAction', () => {
 
         const wrapper = mount(
             <>
-                <DisplayAction actionKey="async" context={{path: '/test1'}} render={ButtonRenderer}/>
+                <DisplayAction actionKey="async" path="/test1" render={ButtonRenderer}/>
             </>
         );
         expect(setInterval).toHaveBeenCalledTimes(1);
@@ -276,20 +267,19 @@ describe('DisplayAction', () => {
 
     it('should be able to spawn multiple buttons', () => {
         const fn1 = jest.fn();
-        const SpawnActionsComponent = ({context, render: Render}) => {
-            return context.names.map(name => (
+        const SpawnActionsComponent = ({render: Render, label, names, ...props}) => {
+            return names.map(name => (
                 <Render key={name}
-                        context={{
-                            ...context,
-                            name,
-                            label: context.label + ' ' + name
-                        }}
-                        onClick={fn1}/>
+                        {...props}
+                        name={name}
+                        label={label + ' ' + name}
+                        onClick={fn1}
+                />
             ));
         };
 
         SpawnActionsComponent.propTypes = {
-            context: PropTypes.object.isRequired,
+            label: PropTypes.string.isRequired,
             render: PropTypes.func.isRequired
         };
 
@@ -300,7 +290,7 @@ describe('DisplayAction', () => {
         });
 
         const wrapper = mount(
-            <DisplayAction actionKey="spawn" context={{path: '/test1'}} render={ButtonRenderer}/>
+            <DisplayAction actionKey="spawn" path="/test1" render={ButtonRenderer}/>
         );
 
         wrapper.find('button').forEach(b => b.simulate('click'));
