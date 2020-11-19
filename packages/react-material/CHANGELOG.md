@@ -1,3 +1,15 @@
+# (Thu Nov 19 2020)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-14430: Removed context compatibility in actions, dropped old framework from ui-material [#172](https://github.com/Jahia/javascript-components/pull/172) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Fri May 01 2020)
 
 #### 💥  Breaking Change
