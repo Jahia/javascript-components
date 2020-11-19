@@ -2,6 +2,18 @@
 
 #### 🐛  Bug Fix
 
+- BACKLOG-14430: Added missign prop [#178](https://github.com/Jahia/javascript-components/pull/178) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
+# (Thu Nov 19 2020)
+
+#### 🐛  Bug Fix
+
 - BACKLOG-14430: Removed context compatibility in actions, dropped old framework from ui-material [#172](https://github.com/Jahia/javascript-components/pull/172) ([@tdraier](https://github.com/tdraier))
 
 #### Authors: 1
