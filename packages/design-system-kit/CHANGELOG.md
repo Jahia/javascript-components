@@ -1,3 +1,15 @@
+# (Mon Nov 23 2020)
+
+#### 🐛  Bug Fix
+
+- Use moonstone colors in theme [#179](https://github.com/Jahia/javascript-components/pull/179) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Mon Sep 07 2020)
 
 #### 🐛  Bug Fix
