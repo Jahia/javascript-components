@@ -9,6 +9,5 @@ export {PickerViewMaterial} from './picker/PickerViewMaterial';
 export {PickerTreeViewMaterial} from './picker/PickerTreeViewMaterial';
 export {PickerViewMaterialMultiple} from './picker/PickerViewMaterialMultiple';
 export {anthraciteDarkTheme, anthraciteLightTheme, plainTheme, legacyTheme} from './theme';
-export {PreviewComponent} from './components/PreviewComponent';
 export {NodeTrees} from './components/NodeTrees';
 export {DxContext} from './components/DxContext';

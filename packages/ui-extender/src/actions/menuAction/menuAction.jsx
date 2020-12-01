@@ -90,6 +90,7 @@ const Menu = props => {
 
     return (
         <MenuRenderer id={id}
+                      context={{key: props.id, ...props}}
                       menuKey={actionKey}
                       isSubMenu={menuState.isSubMenu}
                       anchor={menuState.anchor}
