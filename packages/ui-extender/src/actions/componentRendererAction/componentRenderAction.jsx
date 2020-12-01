@@ -35,6 +35,7 @@ const ComponentRendererActionComponent = ({render: Render, componentToRender, ..
 };
 
 ComponentRendererActionComponent.propTypes = {
+    context: PropTypes.object.isRequired,
     render: PropTypes.func.isRequired,
     componentToRender: PropTypes.node
 };

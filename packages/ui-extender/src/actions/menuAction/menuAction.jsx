@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {DisplayActions} from '../core/DisplayActions';
 
 const ItemLoading = props => {
-    const {id, parentMenuContext, menuItemRenderer: MenuItemRenderer} = props;
+    const {id, parentMenuContext, menuItemRenderer: MenuItemRenderer} = {...props.context, ...props};
 
     useEffect(() => {
         parentMenuContext.dispatch({type: 'loading', item: id});
@@ -18,13 +18,14 @@ const ItemLoading = props => {
 };
 
 ItemLoading.propTypes = {
+    context: PropTypes.object,
     id: PropTypes.string.isRequired,
     menuItemRenderer: PropTypes.func,
     parentMenuContext: PropTypes.object
 };
 
 const ItemRender = props => {
-    const {id, onClick, menuContext, menuState, rootMenuContext, parentMenuContext, menuItemRenderer: MenuItemRenderer, isVisible} = props;
+    const {id, onClick, menuContext, menuState, rootMenuContext, parentMenuContext, menuItemRenderer: MenuItemRenderer, isVisible} = {...props.context, ...props};
     useEffect(() => {
         parentMenuContext.dispatch({type: 'loaded', item: id, isVisible});
     });
@@ -73,6 +74,7 @@ const ItemRender = props => {
 };
 
 ItemRender.propTypes = {
+    context: PropTypes.object,
     id: PropTypes.string.isRequired,
     menuItemRenderer: PropTypes.func,
     rootMenuContext: PropTypes.object,
