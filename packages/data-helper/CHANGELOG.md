@@ -1,3 +1,15 @@
+# (Mon Dec 14 2020)
+
+#### 💥  Breaking Change
+
+- Bump graphql/graphql-tag for webpack5 compilation [#182](https://github.com/Jahia/javascript-components/pull/182) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Wed Nov 04 2020)
 
 #### 🐛  Bug Fix
