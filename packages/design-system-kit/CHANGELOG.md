@@ -1,3 +1,15 @@
+# (Wed Jan 06 2021)
+
+#### 🐛  Bug Fix
+
+- Removed duplicate font-face, now handled by moonstone [#185](https://github.com/Jahia/javascript-components/pull/185) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Mon Nov 23 2020)
 
 #### 🐛  Bug Fix
