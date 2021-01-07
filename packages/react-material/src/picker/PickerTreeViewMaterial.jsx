@@ -17,8 +17,6 @@ import classNames from 'classnames';
 
 let styles = theme => ({
     root: {
-        position: 'relative',
-        padding: '0 !important',
         width: '100%'
     },
     loading: {
@@ -28,7 +26,7 @@ let styles = theme => ({
     },
     listItemSelected: {
         background: theme.palette.primary.main,
-        color: theme.palette.primary.contrastText + '!important'
+        color: theme.palette.primary.contrastText
     },
     listItem: {
         paddingLeft: theme.spacing.unit,
@@ -63,7 +61,7 @@ let styles = theme => ({
     treeEntry: {
         display: 'flex',
         alignItems: 'center',
-        cursor: 'pointer !important'
+        cursor: 'pointer'
     },
     unpublishedEntryLabel: {
         fontStyle: 'italic'
