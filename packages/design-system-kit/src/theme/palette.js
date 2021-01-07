@@ -47,10 +47,10 @@ const dsGenericPalette = {
     },
     text: {
         primary: rgba(color.dark),
-        secondary: rgba(color.dark, 0.6),
+        secondary: rgba(color.grayDark),
         hint: rgba(color.blueDark),
         disabled: '#91A3ae',
-        contrastText: '#ffffff'
+        contrastText: rgba(color.light)
     },
     border: {
         main: '#D8DEE3'
