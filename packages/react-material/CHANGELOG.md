@@ -1,3 +1,15 @@
+# (Thu Jan 07 2021)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-15157: removed important and useless attributes [#186](https://github.com/Jahia/javascript-components/pull/186) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Thu Nov 19 2020)
 
 #### 🐛  Bug Fix
