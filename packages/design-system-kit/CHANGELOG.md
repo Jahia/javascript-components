@@ -1,3 +1,15 @@
+# (Fri Jan 08 2021)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-15220: Change the color of text.secondary in design-system-kit [#187](https://github.com/Jahia/javascript-components/pull/187) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # (Wed Jan 06 2021)
 
 #### 🐛  Bug Fix
