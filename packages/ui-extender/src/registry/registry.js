@@ -42,6 +42,20 @@ class Registry {
         return this.registry[type + '-' + key];
     }
 
+    remove(type, key) {
+        if (key) {
+            const registryKey = type + '-' + key;
+            if (this.registry[registryKey]) {
+                delete this.registry[type + '-' + key];
+            }
+        } else {
+            const entries = this.find({type: type});
+            if (entries) {
+                entries.forEach(entry => this.remove(type, entry.key));
+            }
+        }
+    }
+
     find(filters) {
         let result = Object.values(this.registry);
         const {target, ...otherFilters} = filters;

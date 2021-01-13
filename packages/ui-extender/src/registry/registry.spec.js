@@ -58,4 +58,26 @@ describe('registry', () => {
 
         expect(res).toEqual([test1, test3, test2]);
     });
+
+    it('should remove the object for the given key / name pair', () => {
+        const item1 = registry.add('item-to-delete', 'item1', {targets: ['bar']});
+        const item2 = registry.add('item-to-delete', 'item2', {targets: ['bar']});
+        expect(registry.find({type: 'item-to-delete'})).toEqual([item1, item2]);
+
+        registry.remove('item-to-delete', 'item1');
+
+        expect(registry.find({type: 'item-to-delete'})).toEqual([item2]);
+    });
+
+    it('should remove the objects for the given key', () => {
+        const item1 = registry.add('item-to-delete', 'item1', {targets: ['bar']});
+        const item2 = registry.add('item-to-delete', 'item2', {targets: ['bar']});
+        const item3 = registry.add('item-to-not-delete', 'item3', {targets: ['bar']});
+        expect(registry.find({type: 'item-to-delete'})).toEqual([item1, item2]);
+
+        registry.remove('item-to-delete');
+
+        expect(registry.find({type: 'item-to-delete'})).toEqual([]);
+        expect(registry.find({type: 'item-to-not-delete'})).toEqual([item3]);
+    });
 });
