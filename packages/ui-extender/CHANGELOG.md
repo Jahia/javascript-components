@@ -1,3 +1,15 @@
+# (Thu Jan 14 2021)
+
+#### 🐛  Bug Fix
+
+- TECH-331 : add remove function to the registry [#188](https://github.com/Jahia/javascript-components/pull/188) ([@dgriffon](https://github.com/dgriffon))
+
+#### Authors: 1
+
+- David Griffon ([@dgriffon](https://github.com/dgriffon))
+
+---
+
 # (Thu Nov 19 2020)
 
 #### 🐛  Bug Fix
