@@ -1,28 +1,33 @@
-import React, {useEffect, useRef} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {DisplayAction} from '../core';
 
-export const ContextualMenu = ({setOpenRef, ...props}) => {
-    const onClickRef = useRef();
+export class ContextualMenu extends React.Component {
+    constructor(props) {
+        super(props);
+        const {setOpenRef} = props;
+        this.onClickRef = React.createRef();
+        if (setOpenRef) {
+            setOpenRef.current = this.open.bind(this);
+        }
+    }
 
-    const open = (e, newProps) => {
-        onClickRef.current({...props, isMenuUseEventPosition: true, ...newProps, originalContext: {...props, ...newProps}}, e);
+    open(e, newProps) {
+        this.onClickRef.current({...this.props, isMenuUseEventPosition: true, ...newProps, originalContext: {...this.props, ...newProps}}, e);
         e.preventDefault();
-    };
+    }
 
-    useEffect(() => {
-        setOpenRef.current = open;
-    });
-
-    return (
-        <DisplayAction {...props}
-                       render={({onClick}) => {
-                           onClickRef.current = onClick;
-                           return false;
-                       }}
-        />
-    );
-};
+    render() {
+        return (
+            <DisplayAction {...this.props}
+                           render={({onClick}) => {
+                               this.onClickRef.current = onClick;
+                               return false;
+                           }}
+            />
+        );
+    }
+}
 
 ContextualMenu.propTypes = {
     setOpenRef: PropTypes.object.isRequired,

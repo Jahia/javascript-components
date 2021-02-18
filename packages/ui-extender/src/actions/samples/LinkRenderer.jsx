@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const LinkRenderer = ({onClick, label, ...props}) => (
-    <span style={{backgroundColor: 'yellow'}} onClick={ev => onClick(props, ev)}>{label}</span>
+const LinkRenderer = ({context}) => (
+    <span style={{backgroundColor: 'yellow'}} onClick={ev => context.onClick(context, ev)}>{context.label}</span>
 );
 
 LinkRenderer.propTypes = {
-    onClick: PropTypes.func,
-    label: PropTypes.string
+    context: PropTypes.object.isRequired
 };
 
 export {LinkRenderer};

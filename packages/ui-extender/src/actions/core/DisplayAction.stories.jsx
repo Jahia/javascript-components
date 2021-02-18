@@ -24,7 +24,7 @@ storiesOf('actions|DisplayAction', module)
             <>
                 <div className="description">Display a single action</div>
                 <div>
-                    <DisplayAction actionKey="test-action-1" path="/test1" render={ButtonRenderer}/>
+                    <DisplayAction actionKey="test-action-1" context={{path: '/test1'}} render={ButtonRenderer}/>
                 </div>
             </>
         );
@@ -44,28 +44,28 @@ storiesOf('actions|DisplayAction', module)
                 <div>
                     <span style={{margin: '10px'}}>path = /test1</span>
                     <DisplayAction actionKey="test-action-1"
-                                   path="/test1"
+                                   context={{path: '/test1'}}
                                    render={ButtonRenderer}/>
                     <DisplayAction actionKey="test-action-2"
-                                   path="/test1"
+                                   context={{path: '/test1'}}
                                    render={ButtonRenderer}/>
                 </div>
                 <div>
                     <span style={{margin: '10px'}}>path = /test2</span>
                     <DisplayAction actionKey="test-action-1"
-                                   path="/test2"
+                                   context={{path: '/test2'}}
                                    render={ButtonRenderer}/>
                     <DisplayAction actionKey="test-action-2"
-                                   path="/test2"
+                                   context={{path: '/test2'}}
                                    render={ButtonRenderer}/>
                 </div>
                 <div>
                     <span style={{margin: '10px'}}>path = /test3</span>
                     <DisplayAction actionKey="test-action-1"
-                                   path="/test3"
+                                   context={{path: '/test3'}}
                                    render={ButtonRenderer}/>
                     <DisplayAction actionKey="test-action-2"
-                                   path="/test3"
+                                   context={{path: '/test3'}}
                                    render={ButtonRenderer}/>
                 </div>
             </>
@@ -85,13 +85,13 @@ storiesOf('actions|DisplayAction', module)
                 <div>
                     <span style={{margin: '10px'}}>Button renderer : </span>
                     <DisplayAction actionKey="test-action-1"
-                                   path="/test"
+                                   context={{path: '/test'}}
                                    render={ButtonRenderer}/>
                 </div>
                 <div>
                     <span style={{margin: '10px'}}>Link renderer : </span>
                     <DisplayAction actionKey="test-action-1"
-                                   path="/test"
+                                   context={{path: '/test'}}
                                    render={LinkRenderer}/>
                 </div>
             </>
@@ -115,35 +115,35 @@ storiesOf('actions|DisplayAction', module)
 
         return (
             <>
-                <div className="description">Create a new action by extending an existing action, by adding or replacing
-                    information
+                <div className="description">Create a new action by extending an existing action, by adding or replacing information
                     in context. Overriding context is merged with the base one following these rules :
                     <ul>
                         <li>Arrays are concatenated</li>
-                        <li>Functions are replaced, but the overriden function is passed as the last argument on call
-                        </li>
+                        <li>Functions are replaced, but the overriden function is passed as the last argument on call</li>
                         <li>Other attributes are replaced</li>
                     </ul>
                 </div>
                 <div>
                     <DisplayAction actionKey="compose-1"
-                                   path="/test1"
+                                   context={{path: '/test1'}}
                                    render={ButtonRenderer}/>
                     <DisplayAction actionKey="compose-2"
-                                   path="/test1"
+                                   context={{path: '/test1'}}
                                    render={ButtonRenderer}/>
                 </div>
             </>
         );
     })
     .add('Component action', () => {
-        const TestComponent1 = ({render: Render, ...props}) => (
-            <Render {...props}
-                    onClick={() => window.alert('Component action')} // eslint-disable-line no-alert
-            />
+        const TestComponent1 = ({context, render: Render}) => (
+            <Render context={{
+                ...context,
+                onClick: () => window.alert('Component action') // eslint-disable-line no-alert
+            }}/>
         );
 
         TestComponent1.propTypes = {
+            context: PropTypes.object.isRequired,
             render: PropTypes.func.isRequired
         };
 
@@ -158,28 +158,30 @@ storiesOf('actions|DisplayAction', module)
                     button
                 </div>
                 <div>
-                    <DisplayAction actionKey="component-1" path="/test1" render={ButtonRenderer}/>
+                    <DisplayAction actionKey="component-1" context={{path: '/test1'}} render={ButtonRenderer}/>
                 </div>
             </>
         );
     })
     .add('Component composition', () => {
-        const TestComponent1 = ({render: Render, ...props}) => (
-            <Render {...props}
-                    onClick={() => window.alert('Component action')} // eslint-disable-line no-alert
-            />
+        const TestComponent1 = ({context, render: Render}) => (
+            <Render context={{
+                ...context,
+                onClick: () => window.alert('Component action') // eslint-disable-line no-alert
+            }}/>
         );
 
         TestComponent1.propTypes = {
+            context: PropTypes.object.isRequired,
             render: PropTypes.func.isRequired
         };
 
-        const TestComponent2 = ({render, label, ...props}, refOrContext, Previous) => (
-            <Previous render={render} label={label + ' overriden'} {...props}/>
+        const TestComponent2 = ({context, render}, refOrContext, Previous) => (
+            <Previous render={render} context={{...context, label: context.label + ' overriden'}}/>
         );
 
         TestComponent2.propTypes = {
-            label: PropTypes.string.isRequired,
+            context: PropTypes.object.isRequired,
             render: PropTypes.func.isRequired
         };
 
@@ -196,18 +198,17 @@ storiesOf('actions|DisplayAction', module)
         return (
             <>
                 <div className="description">
-                    Component actions can also be composed - the overriden component can still be used as its passed to
-                    the render function as last parameter.
+                    Component actions can also be composed - the overriden component can still be used as its passed to the render function as last parameter.
                 </div>
                 <div>
-                    <DisplayAction actionKey="component-compose-1" path="/test1" render={ButtonRenderer}/>
-                    <DisplayAction actionKey="component-compose-2" path="/test1" render={ButtonRenderer}/>
+                    <DisplayAction actionKey="component-compose-1" context={{path: '/test1'}} render={ButtonRenderer}/>
+                    <DisplayAction actionKey="component-compose-2" context={{path: '/test1'}} render={ButtonRenderer}/>
                 </div>
             </>
         );
     })
     .add('Async component action', () => {
-        const AsyncComponent = ({render: Render, label, ...props}) => {
+        const AsyncComponent = ({context, render: Render}) => {
             const [value, setValue] = useState(1);
             useEffect(() => {
                 const t = setInterval(() => setValue(value + 1), 1000);
@@ -216,18 +217,18 @@ storiesOf('actions|DisplayAction', module)
                 };
             });
             return (value > 1) ? (
-                <Render {...props}
-                        value={value}
-                        label={label + value}
-                        onClick={() => window.alert('Async action')} // eslint-disable-line no-alert
-                />
+                <Render context={{
+                    ...context,
+                    label: context.label + value,
+                    onClick: () => window.alert('Async action') // eslint-disable-line no-alert
+                }}/>
             ) : (
                 <span>loading..</span>
             );
         };
 
         AsyncComponent.propTypes = {
-            label: PropTypes.string.isRequired,
+            context: PropTypes.object.isRequired,
             render: PropTypes.func.isRequired
         };
 
@@ -242,24 +243,25 @@ storiesOf('actions|DisplayAction', module)
                     An action can render asynchronously and update its context
                 </div>
                 <div>
-                    <DisplayAction actionKey="async" path="/test1" render={ButtonRenderer}/>
+                    <DisplayAction actionKey="async" context={{path: '/test1'}} render={ButtonRenderer}/>
                 </div>
             </>
         );
     })
     .add('Spawn actions', () => {
-        const SpawnActionsComponent = ({render: Render, label, names, ...props}) => {
-            return names.map(name => (
+        const SpawnActionsComponent = ({context, render: Render}) => {
+            return context.names.map(name => (
                 <Render key={name}
-                        {...props}
-                        label={label + ' ' + name}
-                        onClick={() => window.alert('Spawn action ' + name)} // eslint-disable-line no-alert
-                />
+                        context={{
+                            ...context,
+                            label: context.label + ' ' + name,
+                            onClick: () => window.alert('Spawn action ' + name) // eslint-disable-line no-alert
+                        }}/>
             ));
         };
 
         SpawnActionsComponent.propTypes = {
-            label: PropTypes.string.isRequired,
+            context: PropTypes.object.isRequired,
             render: PropTypes.func.isRequired
         };
 
@@ -275,7 +277,7 @@ storiesOf('actions|DisplayAction', module)
                     A single action can spawn multiple buttons
                 </div>
                 <div>
-                    <DisplayAction actionKey="spawn" path="/test1" render={ButtonRenderer}/>
+                    <DisplayAction actionKey="spawn" context={{path: '/test1'}} render={ButtonRenderer}/>
                 </div>
             </>
         );

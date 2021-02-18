@@ -1,3 +1,4 @@
+export {DisplayActions, DisplayAction, ContextualMenu, composeActions, actionsRegistry, buttonRenderer, iconButtonRenderer, ComponentRendererConsumer, ComponentRendererProvider, componentRendererAction, menuAction, withStylesAction, toIconComponent} from './actions';
 export {FilterSelect} from './input/FilterSelect';
 export {SettingsLayout} from './layout/SettingsLayout';
 export {ProgressOverlay} from './layout/ProgressOverlay';
