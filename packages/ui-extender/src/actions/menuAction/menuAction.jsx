@@ -196,7 +196,7 @@ const reducer = (state, action) => {
         }
 
         case 'loading':
-            return (state.loadingItems.includes(action.item) && !state.loadedItems.includes(action.item)) ? state : {
+            return (state.loadingItems.includes(action.item) || state.loadedItems.includes(action.item)) ? state : {
                 ...state,
                 loadingItems: add(state.loadingItems, action.item),
                 loadedItems: remove(state.loadedItems, action.item)
