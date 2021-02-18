@@ -1,3 +1,15 @@
+# (Thu Feb 18 2021)
+
+#### 🐛  Bug Fix
+
+- TECH-293 : Backward compatibility [#189](https://github.com/Jahia/javascript-components/pull/189) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Thu Jan 14 2021)
 
 #### 🐛  Bug Fix
