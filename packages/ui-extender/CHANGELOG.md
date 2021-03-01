@@ -1,3 +1,15 @@
+# (Mon Mar 01 2021)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-15626: Reset ref on every render [#190](https://github.com/Jahia/javascript-components/pull/190) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Thu Feb 18 2021)
 
 #### 🐛  Bug Fix
