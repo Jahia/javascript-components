@@ -5,11 +5,7 @@ import {DisplayAction} from '../core';
 export class ContextualMenu extends React.Component {
     constructor(props) {
         super(props);
-        const {setOpenRef} = props;
         this.onClickRef = React.createRef();
-        if (setOpenRef) {
-            setOpenRef.current = this.open.bind(this);
-        }
     }
 
     open(e, newProps) {
@@ -18,6 +14,11 @@ export class ContextualMenu extends React.Component {
     }
 
     render() {
+        const {setOpenRef} = this.props;
+        if (setOpenRef) {
+            setOpenRef.current = this.open.bind(this);
+        }
+
         return (
             <DisplayAction {...this.props}
                            render={({onClick}) => {
