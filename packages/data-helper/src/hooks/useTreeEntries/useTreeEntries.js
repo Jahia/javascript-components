@@ -12,7 +12,8 @@ export const useTreeEntries = ({
     openableTypes,
     selectableTypes,
     queryVariables,
-    hideRoot
+    hideRoot,
+    sortBy
 }, queryOptions) => {
     let query = useRef(replaceFragmentsInDocument(TREE_QUERY, fragments));
 
@@ -88,6 +89,10 @@ export const useTreeEntries = ({
         openable: openableTypes,
         openPaths: openPaths
     };
+
+    if (sortBy) { // Add the sortBy if it is not null or undefined
+        vars.sortBy = sortBy;
+    }
 
     if (queryVariables) {
         _.assign(vars, queryVariables);
