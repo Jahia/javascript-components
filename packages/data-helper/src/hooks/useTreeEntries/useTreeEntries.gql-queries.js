@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import {nodeCacheRequiredFields} from '../../fragments/PredefinedFragments';
 
 export const TREE_QUERY = gql`
-    query PickerQuery($rootPaths:[String!]!, $selectable:[String]!, $openable:[String]!, $openPaths:[String!]!, $types:[String]!) {
+    query PickerQuery($rootPaths:[String!]!, $selectable:[String]!, $openable:[String]!, $openPaths:[String!]!, $types:[String]!, $sortBy: InputFieldSorterInput) {
         jcr {
             rootNodes:nodesByPath(paths: $rootPaths) {
                 name
@@ -19,7 +19,7 @@ export const TREE_QUERY = gql`
             },
             openNodes:nodesByPath(paths: $openPaths) {
                 ... NodeCacheRequiredFields
-                children(typesFilter:{types:$types}) {
+                children(typesFilter:{types:$types}, fieldSorter: $sortBy) {
                     nodes {
                         name
                         children(typesFilter:{types:$types}, limit:1) {
