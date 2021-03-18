@@ -1,6 +1,6 @@
 {
     "name": "@jahia/data-helper",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "scripts": {
         "babel:js": "jahia-babel-js",
         "babel:module": "jahia-babel-module",
