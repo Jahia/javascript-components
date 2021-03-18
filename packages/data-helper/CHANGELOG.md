@@ -1,3 +1,15 @@
+# (Thu Mar 18 2021)
+
+#### 🐛  Bug Fix
+
+- QA-13567 Add-in the sortby functionality to use Tree Entries. [#191](https://github.com/Jahia/javascript-components/pull/191) ([@XiangYuHe](https://github.com/XiangYuHe))
+
+#### Authors: 1
+
+- [@XiangYuHe](https://github.com/XiangYuHe)
+
+---
+
 # (Mon Dec 14 2020)
 
 #### 💥  Breaking Change
