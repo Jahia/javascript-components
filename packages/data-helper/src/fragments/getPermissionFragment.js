@@ -27,4 +27,30 @@ export const getPermissionFragment = name => {
     };
 };
 
+export const getSitePermissionFragment = name => {
+    const encodedName = getEncodedPermissionName(name);
+    if (!fragments['site_' + encodedName]) {
+        const fragment = {
+            applyFor: 'node',
+            variables: {
+                [encodedName]: 'String!'
+            },
+            gql: gql`fragment SiteNodePermission_${encodedName} on JCRNode {
+                site {
+                    ${encodedName}:hasPermission(permissionName: $${encodedName})
+                }
+            }`
+        };
+
+        fragments['site_' + encodedName] = fragment;
+    }
+
+    return {
+        fragment: fragments['site_' + encodedName],
+        variables: {
+            [encodedName]: name
+        }
+    };
+};
+
 export const getEncodedPermissionName = name => 'permission_' + encodeName(name);

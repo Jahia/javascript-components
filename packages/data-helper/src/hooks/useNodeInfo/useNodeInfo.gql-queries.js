@@ -18,7 +18,7 @@ import {
     siteLanguages,
     subNodesCount
 } from '../../fragments';
-import {getPermissionFragment} from '../../fragments/getPermissionFragment';
+import {getPermissionFragment, getSitePermissionFragment} from '../../fragments/getPermissionFragment';
 import {getNodeTypeFragment} from '../../fragments/getIsNodeTypeFragment';
 
 const getBaseQueryAndVariables = variables => {
@@ -162,6 +162,14 @@ export const getQuery = (variables, schemaResult, options = {}) => {
         if (options.getPermissions) {
             options.getPermissions.forEach(name => {
                 const {fragment, variables} = getPermissionFragment(name);
+                fragments.push(fragment);
+                Object.assign(generatedVariables, variables);
+            });
+        }
+
+        if (options.getSitePermissions) {
+            options.getSitePermissions.forEach(name => {
+                const {fragment, variables} = getSitePermissionFragment(name);
                 fragments.push(fragment);
                 Object.assign(generatedVariables, variables);
             });

@@ -57,6 +57,14 @@ const decodeResult = (nodeOrig, options) => {
             });
         }
 
+        if (options.getSitePermissions) {
+            options.getSitePermissions.forEach(name => {
+                var res = node.site[getEncodedPermissionName(name)];
+                delete node.site[getEncodedPermissionName(name)];
+                node.site[name] = res;
+            });
+        }
+
         if (options.getIsNodeTypes) {
             options.getIsNodeTypes.forEach(name => {
                 var res = node[getEncodedNodeTypeName(name)];
