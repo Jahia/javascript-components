@@ -140,7 +140,7 @@ describe('useNodeInfo', () => {
         expect(call[0].definitions.find(d => d.name.value === 'SiteNodePermission_permission_encoded_Y2FuUmVhZA').selectionSet.selections[0].name.value).toBe('site');
         expect(call[0].definitions.find(d => d.name.value === 'SiteNodePermission_permission_encoded_Y2FuUmVhZA').selectionSet.selections[0].selectionSet.selections[1].alias.value).toBe('permission_encoded_Y2FuUmVhZA');
         expect(call[0].definitions.find(d => d.name.value === 'SiteNodePermission_permission_encoded_Y2FuV3JpdGU').selectionSet.selections[0].name.value).toBe('site');
-        expect(call[0].definitions.find(d => d.name.value === 'SiteNodePermission_permission_encoded_Y2FuV3JpdGU').selectionSet.selections[0].selectionSet.selections[1].alias.value).toContain('permission_encoded_Y2FuV3JpdGU');
+        expect(call[0].definitions.find(d => d.name.value === 'SiteNodePermission_permission_encoded_Y2FuV3JpdGU').selectionSet.selections[0].selectionSet.selections[1].alias.value).toBe('permission_encoded_Y2FuV3JpdGU');
     });
 
     it('should request isNodeTypes', () => {
