@@ -37,6 +37,7 @@ export const getSitePermissionFragment = name => {
             },
             gql: gql`fragment SiteNodePermission_${encodedName} on JCRNode {
                 site {
+                    ...NodeCacheRequiredFields
                     ${encodedName}:hasPermission(permissionName: $${encodedName})
                 }
             }`
