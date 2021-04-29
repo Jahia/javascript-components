@@ -1,3 +1,15 @@
+# (Thu Apr 29 2021)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-15786 : Fixed site permission check [#195](https://github.com/Jahia/javascript-components/pull/195) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Wed Apr 21 2021)
 
 #### 🐛  Bug Fix
