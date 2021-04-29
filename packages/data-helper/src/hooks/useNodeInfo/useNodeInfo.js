@@ -48,6 +48,10 @@ export const useNodeInfo = (variables, options, queryOptions) => {
 
 const decodeResult = (nodeOrig, options) => {
     let node = {...nodeOrig};
+    if (node.site) {
+        node.site = {...node.site};
+    }
+
     if (node && options) {
         if (options.getPermissions) {
             options.getPermissions.forEach(name => {
