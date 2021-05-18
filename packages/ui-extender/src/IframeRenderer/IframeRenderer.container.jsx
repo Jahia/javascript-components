@@ -41,6 +41,12 @@ export const IframeRendererContainer = props => {
         };
     });
 
+    // Fill known placeholders.
+    const placeholders = {};
+    placeholders['site-key'] = siteKey;
+    placeholders.lang = language;
+    placeholders['ui-lang'] = uiLang;
+
     return (
         <div style={{flex: 1, display: 'flex', position: 'relative'}}>
             {loading && <Progress text={loading}/>}
@@ -52,7 +58,7 @@ export const IframeRendererContainer = props => {
                                 }
                             }}
                             {...props}
-                            url={parseUrl(props.url, siteKey, language, uiLang)}/>
+                            url={parseUrl(props.url, {...placeholders, ...props.placeholders})}/>
         </div>
     );
 };
@@ -61,6 +67,11 @@ export const getIframeRendererContainer = url => {
     return <IframeRendererContainer url={url}/>;
 };
 
+IframeRendererContainer.defaultProps = {
+    placeholders: {}
+};
+
 IframeRendererContainer.propTypes = {
-    url: PropTypes.string.isRequired
+    url: PropTypes.string.isRequired,
+    placeholders: PropTypes.object
 };
