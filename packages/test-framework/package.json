@@ -1,6 +1,6 @@
 {
   "name": "@jahia/test-framework",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "scripts": {
     "build": "jahia-babel-js",
     "publish-script": "jahia-publish"
