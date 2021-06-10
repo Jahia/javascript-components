@@ -1,3 +1,15 @@
+# (Thu Jun 10 2021)
+
+#### 🐛  Bug Fix
+
+- TECH-432: Bump Enzyme version [#201](https://github.com/Jahia/javascript-components/pull/201) ([@vindhya](https://github.com/vindhya))
+
+#### Authors: 1
+
+- Vindhya ([@vindhya](https://github.com/vindhya))
+
+---
+
 # (Fri Jun 05 2020)
 
 #### 🚀  Enhancement
