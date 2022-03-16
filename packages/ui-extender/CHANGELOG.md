@@ -1,3 +1,15 @@
+# (Wed Mar 16 2022)
+
+#### 🐛  Bug Fix
+
+- TECH-529: Improved performances [#207](https://github.com/Jahia/javascript-components/pull/207) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Mon Mar 01 2021)
 
 #### 🐛  Bug Fix
