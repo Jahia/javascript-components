@@ -117,7 +117,6 @@ const Menu = props => {
                             filter={menuFilter}
                             buttonProps={menuItemProps}
                             menuRenderer={MenuRenderer}
-                            menuState={menuState}
                             menuItemRenderer={menuItemRenderer}
                             parentMenuContext={menuContext}
                             rootMenuContext={rootMenuContext}
