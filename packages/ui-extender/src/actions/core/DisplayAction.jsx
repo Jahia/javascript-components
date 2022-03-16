@@ -9,7 +9,7 @@ const wrapRender = render => ({context, ...otherProps}) => {
     return render({...mergedProps, context: mergedProps});
 };
 
-class DisplayAction extends React.Component {
+class DisplayAction extends React.PureComponent {
     constructor(props) {
         super(props);
         this.id = props.actionKey + '-' + (count++);
