@@ -31,6 +31,7 @@ export const parentNode = {
         parent {
             path
             name
+            ...NodeCacheRequiredFields
         }
     }`
 };
@@ -134,6 +135,7 @@ export const displayableNode = {
     gql: gql`fragment DisplayableNodePath on JCRNode {
         displayableNode {
             path
+            ...NodeCacheRequiredFields
         }
     }`
 };
@@ -180,6 +182,7 @@ export const contentRestrictions = {
             values
         }
         ancestors(fieldFilter: {filters: {evaluation: NOT_EMPTY, fieldName: "contributeTypes"}}) {
+            ...NodeCacheRequiredFields
             contributeTypes : property(name: "j:contributeTypes") {
                 values
             }
@@ -193,6 +196,7 @@ export const siteHomePage = {
         children(typesFilter:{types:["jnt:page"]}, propertiesFilter:{filters:[{property:"j:isHomePage", value:"true" }]}) {
             nodes {
                 path
+                ...NodeCacheRequiredFields
             }
         }
     }`
@@ -204,7 +208,6 @@ export const nodeCacheRequiredFields = {
         uuid
         workspace
         path
-
     }`
 };
 
@@ -240,6 +243,7 @@ export const mimeTypes = {
     gql: gql`fragment NodeInfoResourceNode on JCRNode {
         resourceChildren: children(names: ["jcr:content"]) {
             nodes {
+                ...NodeCacheRequiredFields
                 mimeType: property(name: "jcr:mimeType") {
                     value
                 }
