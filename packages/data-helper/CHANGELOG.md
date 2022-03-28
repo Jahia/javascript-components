@@ -1,3 +1,15 @@
+# (Mon Mar 28 2022)
+
+#### 🐛  Bug Fix
+
+- TECH-320: Add missing cache fields [#210](https://github.com/Jahia/javascript-components/pull/210) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Thu Apr 29 2021)
 
 #### 🐛  Bug Fix
