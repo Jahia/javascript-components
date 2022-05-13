@@ -1,3 +1,15 @@
+# (Fri May 13 2022)
+
+#### ⚠️  Pushed to master
+
+- Fixed PDF icon  ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Tue Feb 18 2020)
 
 #### 🐛  Bug Fix
