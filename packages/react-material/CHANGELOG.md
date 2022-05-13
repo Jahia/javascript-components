@@ -1,3 +1,15 @@
+# (Fri May 13 2022)
+
+#### ⚠️  Pushed to master
+
+- Expose hook for notifications  ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Thu Feb 18 2021)
 
 #### 🐛  Bug Fix
