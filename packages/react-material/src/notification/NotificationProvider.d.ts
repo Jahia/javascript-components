@@ -1,12 +1,16 @@
 import * as React from 'react';
 
+export type NotificationContext = {
+    notify: (message:string, predefinedOptions?:(string|object), options?:object) => void;
+    closeNotification: () => void;
+}
+
 export interface NotificationProviderProps {
-    notificationContext: Object;
+    notificationContext: NotificationContext;
 }
 
-export class NotificationProvider extends React.Component<NotificationProviderProps, any> {
-    render(): JSX.Element;
+export const NotificationProvider: React.FunctionComponent<{}>;
 
-}
+export const useNotifications: () => NotificationContext;
 
-export const withNotifications: React.SFC;
+export const withNotifications: () => ((wrappedComponent: React.Component) => React.Component);
