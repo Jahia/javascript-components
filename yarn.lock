@@ -10008,9 +10008,9 @@ mdast-util-to-hast@6.0.2:
     xtend "^4.0.1"
 
 mdi-material-ui@^5.10.0:
-  version "5.13.0"
-  resolved "https://registry.yarnpkg.com/mdi-material-ui/-/mdi-material-ui-5.13.0.tgz#8370b2a1b02d53249d14a462c69668673d4d4ce2"
-  integrity sha512-VXBqMyj4D706kV2/UQPLWoijSvvNf9cEgIBiJeGCm2/kbuzZ6GJxWKFKZeBk54mQHnzDLx9emj6La6h6vb6kSg==
+  version "5.35.0"
+  resolved "https://registry.yarnpkg.com/mdi-material-ui/-/mdi-material-ui-5.35.0.tgz#aa4ceca005e4676894241a508cc0ab6dc3fb0b7d"
+  integrity sha512-Q63+HuGihAUk6o1j3x1T+C7hjyxwXXSVWAQ6u71w1+BK8+mTtNQqOOas1W+DotyMFHYwzBL+Eg7wKnSTHmC/Xw==
 
 mdn-data@2.0.4:
   version "2.0.4"

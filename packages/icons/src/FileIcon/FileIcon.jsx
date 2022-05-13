@@ -6,7 +6,7 @@ import {
     FileExcel,
     FileImage,
     FileMusic,
-    FilePdf,
+    FilePdfBox,
     FilePowerpoint,
     FileVideo,
     FileWord,
@@ -38,7 +38,7 @@ const FileIcon = ({filename, ...props}) => {
             );
         case 'pdf':
             return (
-                <FilePdf {...props}/>
+                <FilePdfBox {...props}/>
             );
         case 'gz':
         case 'tgz':
