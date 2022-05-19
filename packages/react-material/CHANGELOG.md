@@ -1,3 +1,15 @@
+# (Thu May 19 2022)
+
+#### ⚠️  Pushed to master
+
+- Fixed notification hook  ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Fri May 13 2022)
 
 #### ⚠️  Pushed to master
