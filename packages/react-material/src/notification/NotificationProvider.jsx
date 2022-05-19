@@ -6,29 +6,6 @@ import * as _ from 'lodash';
 
 let Context = React.createContext();
 
-const predefined = {
-    closeButton: {
-        action: [
-            <IconButton
-                key="close"
-                aria-label="Close"
-                color="inherit"
-                onClick={() => this.notificationContext.closeNotification()}
-            >
-                <Close/>
-            </IconButton>
-        ]
-    },
-    noAutomaticClose: {
-        onClose: () => {
-            // Skip close
-        }
-    },
-    closeAfter5s: {
-        autoHideDuration: 5000
-    }
-};
-
 export const NotificationProvider = ({children}) => {
     const [notificationState, setNotificationState] = useState({
         message: '',
@@ -60,6 +37,29 @@ export const NotificationProvider = ({children}) => {
             });
         }
     }), [setNotificationState]);
+
+    const predefined = {
+        closeButton: {
+            action: [
+                <IconButton
+                    key="close"
+                    aria-label="Close"
+                    color="inherit"
+                    onClick={() => notificationContext.closeNotification()}
+                >
+                    <Close/>
+                </IconButton>
+            ]
+        },
+        noAutomaticClose: {
+            onClose: () => {
+                // Skip close
+            }
+        },
+        closeAfter5s: {
+            autoHideDuration: 5000
+        }
+    };
 
     let options = notificationState.options || {};
     let predefinedOptions = notificationState.predefinedOptions || [];
