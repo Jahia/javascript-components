@@ -1,3 +1,15 @@
+# (Thu Jun 16 2022)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-17228: Fixed render wrapper, avoid wrapping when not needed [#213](https://github.com/Jahia/javascript-components/pull/213) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Wed Mar 16 2022)
 
 #### 🐛  Bug Fix
