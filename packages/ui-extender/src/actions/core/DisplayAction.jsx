@@ -4,9 +4,15 @@ import {registry} from '../../registry';
 
 let count = 0;
 
-const wrapRender = render => ({context, ...otherProps}) => {
-    const mergedProps = {...context, ...otherProps};
-    return render({...mergedProps, context: mergedProps});
+const RenderWrapper = ({originalRender: Render, context, ...otherProps}) => {
+    return (
+        <Render {...otherProps} {...context}/>
+    );
+};
+
+RenderWrapper.propTypes = {
+    originalRender: PropTypes.func.isRequired,
+    context: PropTypes.object
 };
 
 class DisplayAction extends React.PureComponent {
@@ -16,18 +22,31 @@ class DisplayAction extends React.PureComponent {
     }
 
     render() {
-        let {context, actionKey, render: Render, loading, ...otherProps} = this.props;
+        let {context, actionKey, render, loading, ...otherProps} = this.props;
         let action = registry.get('action', actionKey);
 
         if (!action) {
             return null;
         }
 
-        // Wrap render to merge context and props, and pass the result for both context and props
-        // To remove when context is not supported anymore
-        const renderWrapper = wrapRender(Render);
+        if (context) {
+            console.warn('Warn : context in DisplayAction is deprecated', actionKey, context);
+        }
 
-        const Component = (typeof action.component === 'function') ? action.component : renderWrapper;
+        const renderProps = {
+        };
+
+        const Component = (typeof action.component === 'function') ? action.component : render;
+
+        if (typeof action.component === 'function') {
+            if (render.propTypes && render.propTypes.context) {
+                // Legacy renderer, require context prop - use wrapper
+                renderProps.render = RenderWrapper;
+                renderProps.originalRender = render;
+            } else {
+                renderProps.render = render;
+            }
+        }
 
         // Merge props and context. To remove when context is not supported anymore
         const mergedProps = {...context, ...otherProps};
@@ -43,7 +62,7 @@ class DisplayAction extends React.PureComponent {
             <Component key={this.id}
                        {...componentProps}
                        context={componentProps}
-                       render={renderWrapper}
+                       {...renderProps}
                        loading={loading}
             />
         );
