@@ -4,21 +4,23 @@ import {registry} from '../../registry';
 
 let count = 0;
 
-const RenderWrapper = ({originalRender: Render, context, ...otherProps}) => {
-    return (
+const getRenderWrapper = Render => {
+    const RenderWrapper = ({context, ...otherProps}) => (
         <Render {...otherProps} {...context}/>
     );
-};
 
-RenderWrapper.propTypes = {
-    originalRender: PropTypes.func.isRequired,
-    context: PropTypes.object
+    RenderWrapper.propTypes = {
+        context: PropTypes.object
+    };
+
+    return RenderWrapper;
 };
 
 class DisplayAction extends React.PureComponent {
     constructor(props) {
         super(props);
         this.id = props.actionKey + '-' + (count++);
+        this.RenderWrapper = getRenderWrapper(props.render);
     }
 
     render() {
@@ -33,20 +35,7 @@ class DisplayAction extends React.PureComponent {
             console.warn('Warn : context in DisplayAction is deprecated', actionKey, context);
         }
 
-        const renderProps = {
-        };
-
         const Component = (typeof action.component === 'function') ? action.component : render;
-
-        if (typeof action.component === 'function') {
-            if (render.propTypes && render.propTypes.context) {
-                // Legacy renderer, require context prop - use wrapper
-                renderProps.render = RenderWrapper;
-                renderProps.originalRender = render;
-            } else {
-                renderProps.render = render;
-            }
-        }
 
         // Merge props and context. To remove when context is not supported anymore
         const mergedProps = {...context, ...otherProps};
@@ -62,7 +51,7 @@ class DisplayAction extends React.PureComponent {
             <Component key={this.id}
                        {...componentProps}
                        context={componentProps}
-                       {...renderProps}
+                       render={this.RenderWrapper}
                        loading={loading}
             />
         );
