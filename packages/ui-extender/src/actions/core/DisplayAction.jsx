@@ -4,30 +4,38 @@ import {registry} from '../../registry';
 
 let count = 0;
 
-const wrapRender = render => ({context, ...otherProps}) => {
-    const mergedProps = {...context, ...otherProps};
-    return render({...mergedProps, context: mergedProps});
+const getRenderWrapper = Render => {
+    const RenderWrapper = ({context, ...otherProps}) => (
+        <Render {...otherProps} {...context}/>
+    );
+
+    RenderWrapper.propTypes = {
+        context: PropTypes.object
+    };
+
+    return RenderWrapper;
 };
 
 class DisplayAction extends React.PureComponent {
     constructor(props) {
         super(props);
         this.id = props.actionKey + '-' + (count++);
+        this.RenderWrapper = getRenderWrapper(props.render);
     }
 
     render() {
-        let {context, actionKey, render: Render, loading, ...otherProps} = this.props;
+        let {context, actionKey, render, loading, ...otherProps} = this.props;
         let action = registry.get('action', actionKey);
 
         if (!action) {
             return null;
         }
 
-        // Wrap render to merge context and props, and pass the result for both context and props
-        // To remove when context is not supported anymore
-        const renderWrapper = wrapRender(Render);
+        if (context) {
+            console.warn('Warn : context in DisplayAction is deprecated', actionKey, context);
+        }
 
-        const Component = (typeof action.component === 'function') ? action.component : renderWrapper;
+        const Component = (typeof action.component === 'function') ? action.component : render;
 
         // Merge props and context. To remove when context is not supported anymore
         const mergedProps = {...context, ...otherProps};
@@ -43,7 +51,7 @@ class DisplayAction extends React.PureComponent {
             <Component key={this.id}
                        {...componentProps}
                        context={componentProps}
-                       render={renderWrapper}
+                       render={this.RenderWrapper}
                        loading={loading}
             />
         );
