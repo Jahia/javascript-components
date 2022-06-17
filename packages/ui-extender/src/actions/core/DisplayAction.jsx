@@ -6,7 +6,7 @@ let count = 0;
 
 const getRenderWrapper = Render => {
     const RenderWrapper = ({context, ...otherProps}) => (
-        <Render {...otherProps} {...context}/>
+        <Render {...context} {...otherProps}/>
     );
 
     RenderWrapper.propTypes = {
