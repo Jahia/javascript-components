@@ -1,3 +1,15 @@
+# (Fri Jun 17 2022)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-17254: Reverse override order [#214](https://github.com/Jahia/javascript-components/pull/214) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Thu Jun 16 2022)
 
 #### 🐛  Bug Fix
