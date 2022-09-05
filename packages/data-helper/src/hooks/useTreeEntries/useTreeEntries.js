@@ -2,7 +2,6 @@ import {useRef} from 'react';
 import {useQuery} from 'react-apollo';
 import {replaceFragmentsInDocument} from '../../fragments/fragments.utils';
 import {TREE_QUERY} from './useTreeEntries.gql-queries';
-import * as _ from 'lodash';
 
 export const useTreeEntries = ({
     fragments,
@@ -11,6 +10,7 @@ export const useTreeEntries = ({
     selectedPaths,
     openableTypes,
     selectableTypes,
+    recursionTypesFilter,
     queryVariables,
     hideRoot,
     sortBy
@@ -18,25 +18,25 @@ export const useTreeEntries = ({
     let query = useRef(replaceFragmentsInDocument(TREE_QUERY, fragments));
 
     const getTreeEntries = (data, selectedPaths, openPaths) => {
-        let treeEntries = [];
-        let nodesById = {};
-        let jcr = data ? data.jcr : {};
+        const treeEntries = [];
+        const nodesById = {};
+        const jcr = data ? data.jcr : {};
 
-        let addNode = function (node, depth, index) {
+        const addNode = function (node, depth, index) {
             let selected = false;
             if (node.selectable) {
-                selected = _.indexOf(selectedPaths, node.path) !== -1;
+                selected = selectedPaths.indexOf(node.path) !== -1;
             }
 
             let treeEntry = {
                 name: node.name,
                 path: node.path,
-                open: node.openable && _.indexOf(openPaths, node.path) !== -1,
+                open: node.openable && openPaths.indexOf(node.path) !== -1,
                 selected: selected,
                 openable: node.openable,
                 selectable: node.selectable,
                 depth: depth,
-                prefix: _.repeat('&nbsp;', depth * 3),
+                prefix: '&nbsp;'.repeat(depth * 3),
                 node: node,
                 hidden: false,
                 hasChildren: node.children.pageInfo.nodesCount > 0
@@ -48,18 +48,18 @@ export const useTreeEntries = ({
 
         if (jcr) {
             if (jcr.rootNodes) {
-                _.forEach(jcr.rootNodes, rootNode => {
+                jcr.rootNodes.forEach(rootNode => {
                     let root = addNode(rootNode, 0, 0);
                     root.hidden = hideRoot;
                 });
             }
 
             if (jcr.openNodes) {
-                _.sortBy(jcr.openNodes, ['path']).forEach(node => {
-                    let parent = nodesById[node.uuid];
+                [...jcr.openNodes].sort((a, b) => a.path.localeCompare(b.path)).forEach(node => {
+                    const parent = nodesById[node.uuid];
                     if (parent) {
-                        let parentIndex = _.indexOf(treeEntries, parent);
-                        _.forEachRight(node.children.nodes, child => {
+                        const parentIndex = treeEntries.indexOf(parent);
+                        [...node.children.nodes].reverse().forEach(child => {
                             addNode(child, parent.depth + 1, parentIndex + 1);
                         });
                     }
@@ -68,35 +68,21 @@ export const useTreeEntries = ({
         }
 
         // Nodes loaded, fill selection list
-        let selectedNodes = _.filter(treeEntries, node => {
-            return node.selected;
-        }).map(node => {
-            return node.node;
-        });
+        selectedPaths = treeEntries.filter(node => node.selected).map(node => node.node.path);
 
-        selectedPaths = _.map(selectedNodes, 'path');
-        treeEntries = _.filter(treeEntries, treeNode => {
-            return !treeNode.hidden;
-        });
-
-        return treeEntries;
+        return treeEntries.filter(treeNode => !treeNode.hidden);
     };
 
     let vars = {
         rootPaths: rootPaths,
-        types: _.union(openableTypes, selectableTypes),
+        types: Array.from(new Set([...(openableTypes || []), ...(selectableTypes || [])])),
+        recursionTypesFilter: recursionTypesFilter || {types: 'nt:base', multi: 'NONE'},
         selectable: selectableTypes,
         openable: openableTypes,
-        openPaths: openPaths
+        openPaths: openPaths,
+        sortBy,
+        ...queryVariables
     };
-
-    if (sortBy) { // Add the sortBy if it is not null or undefined
-        vars.sortBy = sortBy;
-    }
-
-    if (queryVariables) {
-        _.assign(vars, queryVariables);
-    }
 
     const {data, ...others} = useQuery(query.current, {...queryOptions, variables: vars});
     return {treeEntries: getTreeEntries(data, selectedPaths, openPaths), ...others};
