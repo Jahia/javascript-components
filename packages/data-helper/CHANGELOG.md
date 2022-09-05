@@ -1,3 +1,15 @@
+# (Mon Sep 05 2022)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-19919: Use descendants and recursion filter for useTreeEntries [#217](https://github.com/Jahia/javascript-components/pull/217) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Mon Mar 28 2022)
 
 #### 🐛  Bug Fix
