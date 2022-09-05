@@ -1,13 +1,12 @@
-// TODO BACKLOG-12393 - refactor Legacy Picker into hook without lodash
 import gql from 'graphql-tag';
 import {nodeCacheRequiredFields} from '../../fragments/PredefinedFragments';
 
 export const TREE_QUERY = gql`
-    query PickerQuery($rootPaths:[String!]!, $selectable:[String]!, $openable:[String]!, $openPaths:[String!]!, $types:[String]!, $sortBy: InputFieldSorterInput) {
+    query PickerQuery($rootPaths:[String!]!, $selectable:[String]!, $openable:[String]!, $openPaths:[String!]!, $types:[String]!, $recursionTypesFilter: InputNodeTypesInput, $sortBy: InputFieldSorterInput, $fieldGrouping: InputFieldGroupingInput) {
         jcr {
             rootNodes:nodesByPath(paths: $rootPaths) {
                 name
-                children(typesFilter:{types:$types}, limit:1) {
+                children: descendants(typesFilter:{types: $types}, recursionTypesFilter: $recursionTypesFilter, limit:1) {
                     pageInfo {
                         nodesCount
                     }
@@ -19,10 +18,10 @@ export const TREE_QUERY = gql`
             },
             openNodes:nodesByPath(paths: $openPaths) {
                 ... NodeCacheRequiredFields
-                children(typesFilter:{types:$types}, fieldSorter: $sortBy) {
+                children:descendants(typesFilter:{types: $types}, recursionTypesFilter: $recursionTypesFilter, fieldSorter: $sortBy, fieldGrouping: $fieldGrouping) {
                     nodes {
                         name
-                        children(typesFilter:{types:$types}, limit:1) {
+                        children: descendants(typesFilter:{types: $types}, recursionTypesFilter: $recursionTypesFilter, limit:1) {
                             pageInfo {
                                 nodesCount
                             }
