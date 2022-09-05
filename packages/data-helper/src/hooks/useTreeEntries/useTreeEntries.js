@@ -75,7 +75,7 @@ export const useTreeEntries = ({
 
     let vars = {
         rootPaths: rootPaths,
-        types: Array.from(new Set([...openableTypes, ...selectableTypes])),
+        types: Array.from(new Set([...(openableTypes || []), ...(selectableTypes || [])])),
         recursionTypesFilter: recursionTypesFilter || {types: 'nt:base', multi: 'NONE'},
         selectable: selectableTypes,
         openable: openableTypes,
