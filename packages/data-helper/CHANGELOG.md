@@ -1,3 +1,15 @@
+# (Tue Sep 06 2022)
+
+#### 🐛  Bug Fix
+
+- BACKLOG-19919: Remove unnecessary ref [#218](https://github.com/Jahia/javascript-components/pull/218) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Mon Sep 05 2022)
 
 #### 🐛  Bug Fix
