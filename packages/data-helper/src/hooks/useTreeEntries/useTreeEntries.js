@@ -1,4 +1,3 @@
-import {useRef} from 'react';
 import {useQuery} from 'react-apollo';
 import {replaceFragmentsInDocument} from '../../fragments/fragments.utils';
 import {TREE_QUERY} from './useTreeEntries.gql-queries';
@@ -15,7 +14,7 @@ export const useTreeEntries = ({
     hideRoot,
     sortBy
 }, queryOptions) => {
-    let query = useRef(replaceFragmentsInDocument(TREE_QUERY, fragments));
+    let query = replaceFragmentsInDocument(TREE_QUERY, fragments);
 
     const getTreeEntries = (data, selectedPaths, openPaths) => {
         const treeEntries = [];
@@ -84,6 +83,6 @@ export const useTreeEntries = ({
         ...queryVariables
     };
 
-    const {data, ...others} = useQuery(query.current, {...queryOptions, variables: vars});
+    const {data, ...others} = useQuery(query, {...queryOptions, variables: vars});
     return {treeEntries: getTreeEntries(data, selectedPaths, openPaths), ...others};
 };
