@@ -105,11 +105,30 @@ const getBaseQueryAndVariables = variables => {
     };
 };
 
+export const validOptions = [
+    'getDisplayName',
+    'getPrimaryNodeType',
+    'getParent',
+    'getAggregatedPublicationInfo',
+    'getOperationSupport',
+    'getPermissions',
+    'getSitePermissions',
+    'getIsNodeTypes',
+    'getProperties',
+    'getSiteInstalledModules',
+    'getSiteLanguages',
+    'getDisplayableNodePath',
+    'getLockInfo',
+    'getChildNodeTypes',
+    'getContributeTypesRestrictions',
+    'getSubNodesCount',
+    'getMimeType'
+];
+
 export const getQuery = (variables, schemaResult, options = {}) => {
     const fragments = [];
 
     const {baseQuery, generatedVariables, skip} = getBaseQueryAndVariables(variables);
-    const {error, loading, data} = schemaResult;
 
     if (!skip) {
         if (options.getDisplayName) {
@@ -137,13 +156,11 @@ export const getQuery = (variables, schemaResult, options = {}) => {
         }
 
         if (options.getAggregatedPublicationInfo) {
-            if (!error && !loading && data) {
-                let supportsExistsInLive = data.__type && data.__type.fields && data.__type.fields.find(field => field.name === 'existsInLive') !== undefined;
-                if (supportsExistsInLive) {
-                    fragments.push(aggregatedPublicationInfoWithExistInLive);
-                } else {
-                    fragments.push(aggregatedPublicationInfo);
-                }
+            let supportsExistsInLive = schemaResult && schemaResult.__type && schemaResult.__type.fields && schemaResult.__type.fields.find(field => field.name === 'existsInLive') !== undefined;
+            if (supportsExistsInLive) {
+                fragments.push(aggregatedPublicationInfoWithExistInLive);
+            } else {
+                fragments.push(aggregatedPublicationInfo);
             }
 
             if (!variables.language) {
@@ -231,7 +248,6 @@ export const getQuery = (variables, schemaResult, options = {}) => {
     return {
         query: replaceFragmentsInDocument(baseQuery, fragments),
         generatedVariables,
-        skip,
-        loading
+        skip
     };
 };
