@@ -1,11 +1,8 @@
-import {addParameters, configure} from '@storybook/react';
-import {DocsContainer, DocsPage} from '@storybook/addon-docs/blocks';
+import { configure } from '@storybook/react';
 
-addParameters({
-    docs: {
-        container: DocsContainer,
-        page: DocsPage,
-    },
-});
+function loadStories() {
+    const req = require.context('../src', true, /\.stories\.jsx$/);
+    req.keys().forEach(filename => req(filename));
+}
 
-configure(require.context('../src', true, /\.stories\.(jsx|mdx)$/), module);
+configure(loadStories, module);
