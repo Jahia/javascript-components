@@ -78,50 +78,60 @@ function getResult(data, others, options, query, generatedVariables) {
 const timeoutHandler = client => {
     const mergedQueue = [];
     queue.forEach(value => {
-        const mergeable = mergedQueue.find(q => JSON.stringify(q.queryOptions) === JSON.stringify(value.queryOptions) && (isSubset(q.variables, value.variables) || isSubset(value.variables, q.variables)));
+        const toInsert = {
+            variables: clean(value.variables),
+            queryOptions: clean(value.queryOptions),
+            options: cleanOptions(value.options),
+            originals: [value]
+        };
+
+        const mergeable = mergedQueue.find(q => JSON.stringify(q.queryOptions) === JSON.stringify(toInsert.queryOptions) && (isSubset(q.variables, toInsert.variables) || isSubset(toInsert.variables, q.variables)));
 
         if (mergeable) {
-            merge(mergeable, value);
+            merge(mergeable, toInsert);
         } else {
-            mergedQueue.push(value);
+            mergedQueue.push(toInsert);
         }
     });
 
     mergedQueue.forEach(value => {
-        const {variables, queryOptions, options, states} = value;
+        const {variables, queryOptions, options, originals} = value;
         const {query, generatedVariables, skip} = getQuery(variables, schemaResult, options);
         if (skip) {
             // No query to execute
-            states.forEach(setResult => {
-                setResult({
+            originals.forEach(value => {
+                value.setResult({
                     loading: false
                 });
             });
         } else {
-            client
-                .watchQuery({query, ...queryOptions, variables: generatedVariables})
-                .subscribe(({data, ...others}) => {
-                    const refetch = () => {
-                        if (client.refetchQueries) {
-                            console.log('refetching whole query');
-                            client.refetchQueries({include: [query]});
-                        } else {
-                            console.log('refetch not implemented', variables, options);
+            client.query({query, errorPolicy: 'ignore', ...queryOptions, variables: generatedVariables}).then(({data, ...others}) => {
+                const result = getResult(data, others, options, query, generatedVariables);
+
+                originals.forEach(value => {
+                    value.setResult({
+                        ...result,
+                        refetch: () => {
+                            queue.push({...value, queryOptions: {...value.queryOptions, fetchPolicy: 'network-only'}});
+                            scheduleQueue(client);
                         }
-                    };
-
-                    const result = getResult(data, {refetch, ...others}, options, query, generatedVariables);
-
-                    states.forEach(setResult => {
-                        setResult(result);
                     });
                 });
+            });
         }
     });
 
     queue = [];
     timeout = null;
 };
+
+function scheduleQueue(client) {
+    if (!timeout && schemaResult) {
+        timeout = setTimeout(() => {
+            timeoutHandler(client);
+        }, 0);
+    }
+}
 
 export const useNodeInfo = (variables, options, queryOptions) => {
     const [result, setResult] = useState({
@@ -133,9 +143,7 @@ export const useNodeInfo = (variables, options, queryOptions) => {
     if (!schemaResult) {
         client.query({query: SCHEMA_FIELDS_QUERY, variables: {type: 'GqlPublicationInfo'}}).then(({data}) => {
             schemaResult = data;
-            timeout = setTimeout(() => {
-                timeoutHandler(client);
-            }, 0);
+            scheduleQueue(client);
         });
     }
 
@@ -152,6 +160,8 @@ export const useNodeInfo = (variables, options, queryOptions) => {
             const cachedData = client.readQuery({query, ...queryOptions, variables: generatedVariables});
             if (cachedData) {
                 const refetch = () => {
+                    queue.push({variables, queryOptions: {...queryOptions, fetchPolicy: 'network-only'}, options, setResult});
+                    scheduleQueue(client);
                     console.log('refetch not implemented (cached data)', variables, options);
                 };
 
@@ -159,20 +169,8 @@ export const useNodeInfo = (variables, options, queryOptions) => {
             }
         }
 
-        const value = {
-            variables: clean(variables),
-            queryOptions: clean(queryOptions),
-            options: cleanOptions(options),
-            states: [setResult]
-        };
-
-        queue.push(value);
-
-        if (!timeout && schemaResult) {
-            timeout = setTimeout(() => {
-                timeoutHandler(client);
-            }, 0);
-        }
+        queue.push({variables, queryOptions, options, setResult});
+        scheduleQueue(client);
 
         setResult({...result, queued: true});
     }
