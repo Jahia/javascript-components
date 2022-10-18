@@ -17,6 +17,7 @@ function scheduleQueue(client) {
     if (!timeout && schemaResult) {
         timeout = setTimeout(() => {
             timeoutHandler(client);
+            clearTimeout(timeout);
             timeout = null;
         }, 0);
     }
@@ -24,8 +25,6 @@ function scheduleQueue(client) {
 
 const timeoutHandler = client => {
     const mergedQueue = [];
-    console.log("Merging " + queue.length + " queries");
-    const start = Date.now();
 
     queue.forEach(request => {
         const toInsert = {
@@ -51,10 +50,6 @@ const timeoutHandler = client => {
 
     observedQueries.forEach(obs => obs.unsubscribe());
     observedQueries = [];
-
-    const millis = Date.now() - start;
-
-    console.log("Merged : " + mergedQueue.length + " in " + millis + "ms", mergedQueue);
 
     mergedQueue.forEach(mergedRequest => {
         const {variables, queryOptions, options, originals} = mergedRequest;
@@ -102,7 +97,7 @@ export const useNodeInfo = (variables, options, queryOptions) => {
     }
 
     // Normalize and memoize request
-    const [currentRequest, changed] = useMemoRequest(variables, queryOptions, options, setResult);
+    const [currentRequest] = useMemoRequest(variables, queryOptions, options, setResult);
     useEffect(() => {
         queue.push(currentRequest);
         scheduleQueue(client);
@@ -111,25 +106,6 @@ export const useNodeInfo = (variables, options, queryOptions) => {
             queue.splice(queue.indexOf(currentRequest), 1);
         };
     }, [currentRequest]);
-
-    // if (changed && schemaResult) {
-    //     // Use cache only if schemaResult is available
-    //     const {query, generatedVariables, skip} = getQuery(currentRequest.variables, schemaResult, currentRequest.options);
-    //     if (skip) {
-    //         console.log('skip ', currentRequest);
-    //         return {
-    //             loading: false
-    //         };
-    //     }
-    //
-    //     const cachedData = client.readQuery({query, ...currentRequest.queryOptions, variables: generatedVariables});
-    //     if (cachedData) {
-    //         console.log('from cache ', currentRequest);
-    //         currentRequest.cachedResult = true;
-    //         const refetch = () => {};
-    //         return getResult(cachedData, {loading: false, refetch}, currentRequest.options, query, generatedVariables);
-    //     }
-    // }
 
     return result;
 };
