@@ -1,24 +1,51 @@
 import {useNodeInfo} from './index.js';
-import {print} from 'graphql/language/printer';
-import {useQuery} from 'react-apollo';
+import {getQuery} from './useNodeInfo.gql-queries';
+import React from 'react';
+
+const wait = (time = 1000) => new Promise(resolve => {
+    setTimeout(resolve, time);
+});
 
 jest.mock('react-apollo', () => {
-    return {
-        useQuery: jest.fn(() => ({
-            data: {
-                jcr: {
-                    nodeByPath: {
-                        resourceChildren: {
-                            nodes: []
-                        },
-                        site: {
-                        }
+    const data = {
+        data: {
+            jcr: {
+                nodeByPath: {
+                    resourceChildren: {
+                        nodes: []
+                    },
+                    site: {
                     }
                 }
-            },
-            loading: false,
-            error: null
-        }))
+            }
+        },
+        loading: false,
+        error: null
+    };
+
+    return {
+        useQuery: jest.fn(() => (data)),
+        useApolloClient: jest.fn(() => {
+            return {
+                query: () => {
+                    return {
+                        then: inputFcn => {
+                            return inputFcn(data);
+                        }
+                    };
+                },
+                watchQuery: () => {
+                    return {
+                        subscribe: inputFcn => {
+                            inputFcn(data);
+                            return {
+                                unsubscribe: () => {}
+                            };
+                        }
+                    };
+                }
+            };
+        })
     };
 });
 
@@ -35,8 +62,18 @@ jest.mock('react', () => {
                 current
             });
         },
-        useMemo: v => v()
+        useMemo: v => v(),
+        useState: v => v,
+        useEffect: v => v()
     });
+});
+
+jest.mock('./useNodeInfo.gql-queries', () => {
+    const original = jest.requireActual('./useNodeInfo.gql-queries');
+    return {
+        getQuery: jest.fn(original.getQuery),
+        validOptions: original.validOptions
+    };
 });
 
 describe('useNodeInfo', () => {
@@ -44,137 +81,122 @@ describe('useNodeInfo', () => {
         jest.restoreAllMocks();
     });
 
-    it('should trigger a graphql request with path', () => {
-        useNodeInfo({path: '/test', language: 'en'});
-
-        expect(useQuery).toHaveBeenCalled();
-
-        const mock = useQuery.mock;
-        const call = mock.calls[mock.calls.length - 1];
-        expect(call[1].skip).toBeFalsy();
-
-        const gql = print(call[0]);
-
-        expect(gql).toContain('nodeByPath');
-
-        const variables = call[1].variables;
-        call[0].definitions[0].variableDefinitions.map(v => v.variable.name.value).forEach(v => expect(Object.keys(variables)).toContain(v));
-
-        expect(variables.path).toBe('/test');
-    });
-
-    it('should trigger a graphql request with multiple paths', () => {
-        const paths = ['/test', '/test2'];
-        useNodeInfo({paths: paths, language: 'en'});
-
-        expect(useQuery).toHaveBeenCalled();
-
-        const mock = useQuery.mock;
-        const call = mock.calls[mock.calls.length - 1];
-        expect(call[1].skip).toBeFalsy();
-
-        const gql = print(call[0]);
-
-        expect(gql).toContain('nodesByPath');
-
-        const variables = call[1].variables;
-        call[0].definitions[0].variableDefinitions.map(v => v.variable.name.value).forEach(v => expect(Object.keys(variables)).toContain(v));
-
-        expect(variables.paths).toBe(paths);
-    });
-
-    it('should not do a query with invalid parameters', () => {
+    it('should not do a query with invalid parameters', async () => {
+        const setStateMock = jest.fn();
+        const useStateMock = useState => [useState, setStateMock];
+        jest.spyOn(React, 'useState').mockImplementation(useStateMock);
         useNodeInfo({invalidProp: 'xx', language: 'en'});
 
-        const mock = useQuery.mock;
-        const call = mock.calls[mock.calls.length - 1];
-        expect(call[1].skip).toBeTruthy();
+        await wait();
+
+        expect(getQuery).toHaveBeenCalled();
+        const mock = getQuery.mock;
+        const result = mock.results[mock.results.length - 1];
+        expect(result.value.skip).toBeTruthy();
     });
 
-    it('should request a primaryNodeType', () => {
+    it('should request a primaryNodeType', async () => {
+        const setStateMock = jest.fn();
+        const useStateMock = useState => [useState, setStateMock];
+        jest.spyOn(React, 'useState').mockImplementation(useStateMock);
         useNodeInfo({path: '/test', language: 'en', displayLanguage: 'en'}, {getPrimaryNodeType: true});
 
-        expect(useQuery).toHaveBeenCalled();
+        await wait();
 
-        const mock = useQuery.mock;
-        const call = mock.calls[mock.calls.length - 1];
+        expect(getQuery).toHaveBeenCalled();
+        const mock = getQuery.mock;
+        const result = mock.results[mock.results.length - 1];
+        const variables = result.value.generatedVariables;
+        result.value.query.definitions[0].variableDefinitions.map(v => v.variable.name.value).forEach(v => expect(Object.keys(variables)).toContain(v));
 
-        const variables = call[1].variables;
-        call[0].definitions[0].variableDefinitions.map(v => v.variable.name.value).forEach(v => expect(Object.keys(variables)).toContain(v));
+        expect(result.value.query.definitions.map(d => d.name.value)).toContain('NodeInfoPrimaryNodeType');
+    });
 
-        expect(call[0].definitions.map(d => d.name.value)).toContain('NodeInfoPrimaryNodeType');
+    it('should request permissions', async () => {
+        const setStateMock = jest.fn();
+        const useStateMock = useState => [useState, setStateMock];
+        jest.spyOn(React, 'useState').mockImplementation(useStateMock);
+        useNodeInfo({path: '/test', language: 'en'}, {getPermissions: ['canRead', 'canWrite']});
+
+        await wait();
+
+        expect(getQuery).toHaveBeenCalled();
+        const mock = getQuery.mock;
+        const result = mock.results[mock.results.length - 1];
+        const variables = result.value.generatedVariables;
+        result.value.query.definitions[0].variableDefinitions.map(v => v.variable.name.value).forEach(v => expect(Object.keys(variables)).toContain(v));
+
+        expect(result.value.query.definitions.map(d => d.name.value)).toContain('NodePermission_permission_encoded_Y2FuUmVhZA');
+        expect(result.value.query.definitions.find(d => d.name.value === 'NodePermission_permission_encoded_Y2FuUmVhZA').selectionSet.selections.map(m => m.alias.value)).toContain('permission_encoded_Y2FuUmVhZA');
+        expect(result.value.query.definitions.find(d => d.name.value === 'NodePermission_permission_encoded_Y2FuV3JpdGU').selectionSet.selections.map(m => m.alias.value)).toContain('permission_encoded_Y2FuV3JpdGU');
     });
 
     it('should throw an error if a variable is missing', () => {
         expect(() => useNodeInfo({path: '/test'}, {getDisplayName: true})).toThrow();
     });
 
-    it('should request permissions', () => {
-        useNodeInfo({path: '/test', language: 'en'}, {getPermissions: ['canRead', 'canWrite']});
-
-        expect(useQuery).toHaveBeenCalled();
-
-        const mock = useQuery.mock;
-        const call = mock.calls[mock.calls.length - 1];
-
-        const variables = call[1].variables;
-        call[0].definitions[0].variableDefinitions.map(v => v.variable.name.value).forEach(v => expect(Object.keys(variables)).toContain(v));
-
-        expect(call[0].definitions.map(d => d.name.value)).toContain('NodePermission_permission_encoded_Y2FuUmVhZA');
-        expect(call[0].definitions.find(d => d.name.value === 'NodePermission_permission_encoded_Y2FuUmVhZA').selectionSet.selections.map(m => m.alias.value)).toContain('permission_encoded_Y2FuUmVhZA');
-        expect(call[0].definitions.find(d => d.name.value === 'NodePermission_permission_encoded_Y2FuV3JpdGU').selectionSet.selections.map(m => m.alias.value)).toContain('permission_encoded_Y2FuV3JpdGU');
-    });
-
-    it('should request site permissions', () => {
+    it('should request site permissions', async () => {
+        const setStateMock = jest.fn();
+        const useStateMock = useState => [useState, setStateMock];
+        jest.spyOn(React, 'useState').mockImplementation(useStateMock);
         useNodeInfo({path: '/test', language: 'en'}, {getSitePermissions: ['canRead', 'canWrite']});
 
-        expect(useQuery).toHaveBeenCalled();
+        await wait();
 
-        const mock = useQuery.mock;
-        const call = mock.calls[mock.calls.length - 1];
+        expect(getQuery).toHaveBeenCalled();
+        const mock = getQuery.mock;
+        const result = mock.results[mock.results.length - 1];
+        const variables = result.value.generatedVariables;
+        result.value.query.definitions[0].variableDefinitions.map(v => v.variable.name.value).forEach(v => expect(Object.keys(variables)).toContain(v));
 
-        const variables = call[1].variables;
-        call[0].definitions[0].variableDefinitions.map(v => v.variable.name.value).forEach(v => expect(Object.keys(variables)).toContain(v));
-
-        expect(call[0].definitions.map(d => d.name.value)).toContain('SiteNodePermission_permission_encoded_Y2FuUmVhZA');
-        expect(call[0].definitions.find(d => d.name.value === 'SiteNodePermission_permission_encoded_Y2FuUmVhZA').selectionSet.selections[0].name.value).toBe('site');
-        expect(call[0].definitions.find(d => d.name.value === 'SiteNodePermission_permission_encoded_Y2FuUmVhZA').selectionSet.selections[0].selectionSet.selections[1].alias.value).toBe('permission_encoded_Y2FuUmVhZA');
-        expect(call[0].definitions.find(d => d.name.value === 'SiteNodePermission_permission_encoded_Y2FuV3JpdGU').selectionSet.selections[0].name.value).toBe('site');
-        expect(call[0].definitions.find(d => d.name.value === 'SiteNodePermission_permission_encoded_Y2FuV3JpdGU').selectionSet.selections[0].selectionSet.selections[1].alias.value).toBe('permission_encoded_Y2FuV3JpdGU');
+        expect(result.value.query.definitions.map(d => d.name.value)).toContain('SiteNodePermission_permission_encoded_Y2FuUmVhZA');
+        expect(result.value.query.definitions.find(d => d.name.value === 'SiteNodePermission_permission_encoded_Y2FuUmVhZA').selectionSet.selections[0].name.value).toBe('site');
+        expect(result.value.query.definitions.find(d => d.name.value === 'SiteNodePermission_permission_encoded_Y2FuUmVhZA').selectionSet.selections[0].selectionSet.selections[1].alias.value).toBe('permission_encoded_Y2FuUmVhZA');
+        expect(result.value.query.definitions.find(d => d.name.value === 'SiteNodePermission_permission_encoded_Y2FuV3JpdGU').selectionSet.selections[0].name.value).toBe('site');
+        expect(result.value.query.definitions.find(d => d.name.value === 'SiteNodePermission_permission_encoded_Y2FuV3JpdGU').selectionSet.selections[0].selectionSet.selections[1].alias.value).toBe('permission_encoded_Y2FuV3JpdGU');
     });
 
-    it('should request isNodeTypes', () => {
+    it('should request isNodeTypes', async () => {
+        const setStateMock = jest.fn();
+        const useStateMock = useState => [useState, setStateMock];
+        jest.spyOn(React, 'useState').mockImplementation(useStateMock);
         useNodeInfo({path: '/test', language: 'en'}, {getIsNodeTypes: ['jnt:typeA', 'jnt:typeB']});
 
-        expect(useQuery).toHaveBeenCalled();
+        await wait();
 
-        const mock = useQuery.mock;
-        const call = mock.calls[mock.calls.length - 1];
+        expect(getQuery).toHaveBeenCalled();
+        const mock = getQuery.mock;
+        const result = mock.results[mock.results.length - 1];
+        const variables = result.value.generatedVariables;
+        result.value.query.definitions[0].variableDefinitions.map(v => v.variable.name.value).forEach(v => expect(Object.keys(variables)).toContain(v));
 
-        const variables = call[1].variables;
-        call[0].definitions[0].variableDefinitions.map(v => v.variable.name.value).forEach(v => expect(Object.keys(variables)).toContain(v));
-
-        expect(call[0].definitions.map(d => d.name.value)).toContain('NodeType_nodeType_encoded_am50OnR5cGVB');
-        expect(call[0].definitions.find(d => d.name.value === 'NodeType_nodeType_encoded_am50OnR5cGVB').selectionSet.selections.map(m => m.alias.value)).toContain('nodeType_encoded_am50OnR5cGVB');
-        expect(call[0].definitions.find(d => d.name.value === 'NodeType_nodeType_encoded_am50OnR5cGVC').selectionSet.selections.map(m => m.alias.value)).toContain('nodeType_encoded_am50OnR5cGVC');
+        expect(result.value.query.definitions.map(d => d.name.value)).toContain('NodeType_nodeType_encoded_am50OnR5cGVB');
+        expect(result.value.query.definitions.find(d => d.name.value === 'NodeType_nodeType_encoded_am50OnR5cGVB').selectionSet.selections.map(m => m.alias.value)).toContain('nodeType_encoded_am50OnR5cGVB');
+        expect(result.value.query.definitions.find(d => d.name.value === 'NodeType_nodeType_encoded_am50OnR5cGVC').selectionSet.selections.map(m => m.alias.value)).toContain('nodeType_encoded_am50OnR5cGVC');
     });
 
-    it('should request properties', () => {
+    it('should request properties', async () => {
+        const setStateMock = jest.fn();
+        const useStateMock = useState => [useState, setStateMock];
+        jest.spyOn(React, 'useState').mockImplementation(useStateMock);
         useNodeInfo({path: '/test', language: 'en'}, {getProperties: ['propA', 'propB']});
 
-        expect(useQuery).toHaveBeenCalled();
+        await wait();
 
-        const mock = useQuery.mock;
-        const call = mock.calls[mock.calls.length - 1];
+        expect(getQuery).toHaveBeenCalled();
+        const mock = getQuery.mock;
+        const result = mock.results[mock.results.length - 1];
+        const variables = result.value.generatedVariables;
+        result.value.query.definitions[0].variableDefinitions.map(v => v.variable.name.value).forEach(v => expect(Object.keys(variables)).toContain(v));
 
-        const variables = call[1].variables;
-        call[0].definitions[0].variableDefinitions.map(v => v.variable.name.value).forEach(v => expect(Object.keys(variables)).toContain(v));
-
-        expect(call[0].definitions.map(d => d.name.value)).toContain('NodeProperties');
-        expect(call[0].definitions.find(d => d.name.value === 'NodeProperties').selectionSet.selections.map(m => m.name.value)).toContain('properties');
+        expect(result.value.query.definitions.map(d => d.name.value)).toContain('NodeProperties');
+        expect(result.value.query.definitions.find(d => d.name.value === 'NodeProperties').selectionSet.selections.map(m => m.name.value)).toContain('properties');
     });
 
-    it('should request all data', () => {
+    it('should request all data', async () => {
+        const setStateMock = jest.fn();
+        const useStateMock = useState => [useState, setStateMock];
+        jest.spyOn(React, 'useState').mockImplementation(useStateMock);
         useNodeInfo({path: '/test', language: 'en', displayLanguage: 'en'}, {
             getDisplayName: true,
             getPrimaryNodeType: true,
@@ -193,12 +215,39 @@ describe('useNodeInfo', () => {
             getMimeType: true
         });
 
-        expect(useQuery).toHaveBeenCalled();
+        await wait();
 
-        const mock = useQuery.mock;
-        const call = mock.calls[mock.calls.length - 1];
+        expect(getQuery).toHaveBeenCalled();
+        const mock = getQuery.mock;
+        const result = mock.results[mock.results.length - 1];
+        const variables = result.value.generatedVariables;
+        result.value.query.definitions[0].variableDefinitions.map(v => v.variable.name.value).forEach(v => expect(Object.keys(variables)).toContain(v));
+    });
 
-        const variables = call[1].variables;
-        call[0].definitions[0].variableDefinitions.map(v => v.variable.name.value).forEach(v => expect(Object.keys(variables)).toContain(v));
+    it('should trigger a graphql request with path', async () => {
+        const setStateMock = jest.fn();
+        const useStateMock = useState => [useState, setStateMock];
+        jest.spyOn(React, 'useState').mockImplementation(useStateMock);
+        useNodeInfo({path: '/test', language: 'en'});
+
+        await wait();
+
+        expect(setStateMock.mock.calls[0][0].node).toBeDefined();
+        expect(setStateMock.mock.calls[0][0].variables).toBeDefined();
+        expect(setStateMock.mock.calls[0][0].variables.path).toBe('/test');
+    });
+
+    it('should trigger a graphql request with multiple paths', async () => {
+        const setStateMock = jest.fn();
+        const useStateMock = useState => [useState, setStateMock];
+        jest.spyOn(React, 'useState').mockImplementation(useStateMock);
+        const paths = ['/test', '/test2'];
+        useNodeInfo({paths: paths, language: 'en'});
+
+        await wait();
+
+        expect(setStateMock.mock.calls[0][0].node).toBeDefined();
+        expect(setStateMock.mock.calls[0][0].variables).toBeDefined();
+        expect(setStateMock.mock.calls[0][0].variables.paths).toBe(paths);
     });
 });

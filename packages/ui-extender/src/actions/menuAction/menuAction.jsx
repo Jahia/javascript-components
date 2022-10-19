@@ -102,7 +102,9 @@ const Menu = props => {
                       onMouseLeave={() => {
                           menuContext.dispatch({type: 'leaveMenu'});
                       }}
-                      onClose={() => {
+                      onClose={e => {
+                          e.preventDefault();
+                          e.stopPropagation();
                           menuContext.dispatch({type: 'close'});
                       }}
                       onExited={() => {

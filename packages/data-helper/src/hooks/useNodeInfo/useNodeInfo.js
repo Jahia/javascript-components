@@ -1,31 +1,123 @@
-import {useMemo} from 'react';
-import {useQuery} from 'react-apollo';
+import {useEffect, useState} from 'react';
+import {useApolloClient} from 'react-apollo';
 import {getQuery} from './useNodeInfo.gql-queries';
-import {useDeepCompareMemoize} from '../useDeepCompareMemo';
 import {getEncodedPermissionName} from '../../fragments/getPermissionFragment';
 import {getEncodedNodeTypeName} from '../../fragments/getIsNodeTypeFragment';
-import {useSchemaFields} from '../useSchemaFields';
+import {SCHEMA_FIELDS_QUERY} from '../useSchemaFields/useSchemaFields.gql-queries';
+import {isSubset, merge} from './useNodeInfo.utils';
+import {useMemoRequest} from './useMemoRequest';
+import deepEquals from 'fast-deep-equal';
+
+let queue = [];
+let schemaResult;
+let timeout;
+let observedQueries = [];
+
+function scheduleQueue(client) {
+    if (!timeout && schemaResult) {
+        timeout = setTimeout(() => {
+            timeoutHandler(client);
+            clearTimeout(timeout);
+            timeout = null;
+        }, 0);
+    }
+}
+
+const timeoutHandler = client => {
+    const mergedQueue = [];
+
+    queue.forEach(request => {
+        const toInsert = {
+            variables: request.variables,
+            queryOptions: request.queryOptions,
+            options: request.options,
+            originals: [request]
+        };
+
+        const mergeable = mergedQueue.find(q => JSON.stringify(q.queryOptions) === JSON.stringify(toInsert.queryOptions) && (isSubset(q.variables, toInsert.variables) || isSubset(toInsert.variables, q.variables)));
+
+        if (mergeable) {
+            merge(mergeable, toInsert);
+        } else {
+            mergedQueue.push({
+                variables: toInsert.variables && {...toInsert.variables},
+                queryOptions: toInsert.queryOptions && {...toInsert.queryOptions},
+                options: toInsert.options && {...toInsert.options},
+                originals: toInsert.originals
+            });
+        }
+    });
+
+    observedQueries.forEach(obs => obs.unsubscribe());
+    observedQueries = [];
+
+    mergedQueue.forEach(mergedRequest => {
+        const {variables, queryOptions, options, originals} = mergedRequest;
+        const {query, generatedVariables, skip} = getQuery(variables, schemaResult, options);
+        if (skip) {
+            // No query to execute
+            originals.forEach(request => {
+                request.setResult({
+                    loading: false
+                });
+            });
+        } else {
+            const watchedQuery = client.watchQuery({query, errorPolicy: 'ignore', ...queryOptions, variables: generatedVariables}).subscribe(({data, ...others}) => {
+                const result = getResult(data, others, options, query, generatedVariables);
+
+                originals.forEach(request => {
+                    if (!deepEquals(request.result, result)) {
+                        request.result = result;
+                        request.setResult({
+                            ...result,
+                            refetch: () => {
+                                client.refetchQueries({include: [query]});
+                            }
+                        });
+                    }
+                });
+            });
+            observedQueries.push(watchedQuery);
+        }
+    });
+};
 
 export const useNodeInfo = (variables, options, queryOptions) => {
-    let schemaResult = useSchemaFields({type: 'GqlPublicationInfo'});
-    // Use ref to avoid infinite loop, as query object will be regenerated every time
-    const memoizedVariables = useDeepCompareMemoize(variables);
-    const memoizedOptions = useDeepCompareMemoize(options);
+    const [result, setResult] = useState({
+        loading: true
+    });
 
-    const {query, generatedVariables, skip, loading} = useMemo(() => getQuery(memoizedVariables, schemaResult, memoizedOptions), [memoizedVariables, schemaResult, memoizedOptions]);
+    const client = useApolloClient();
 
-    const {data, ...others} = useQuery(query, {errorPolicy: 'ignore', ...queryOptions, variables: generatedVariables, skip: (skip || loading)});
-
-    const node = (data && data.jcr && (data.jcr.nodeByPath || data.jcr.nodeById)) || null;
-    const nodes = (data && data.jcr && (data.jcr.nodesByPath || data.jcr.nodesById)) || null;
-
-    if (loading) {
-        return {loading};
+    if (!schemaResult) {
+        client.query({query: SCHEMA_FIELDS_QUERY, variables: {type: 'GqlPublicationInfo'}}).then(({data}) => {
+            schemaResult = data;
+            scheduleQueue(client);
+        });
     }
 
+    // Normalize and memoize request
+    const [currentRequest] = useMemoRequest(variables, queryOptions, options, setResult);
+    useEffect(() => {
+        queue.push(currentRequest);
+        scheduleQueue(client);
+
+        return () => {
+            queue.splice(queue.indexOf(currentRequest), 1);
+        };
+    }, [currentRequest]);
+
+    return result;
+};
+
+const getResult = (data, others, options, query, generatedVariables) => {
+    const node = (data && data.jcr && (data.jcr.nodeByPath || data.jcr.nodeById)) || null;
+    const nodes = (data && data.jcr && (data.jcr.nodesByPath || data.jcr.nodesById)) || null;
+    let result = others;
+
     if (node) {
-        return {
-            node: decodeResult(node, memoizedOptions),
+        result = {
+            node: decodeResult(node, options),
             ...others,
             query,
             variables: generatedVariables
@@ -33,17 +125,15 @@ export const useNodeInfo = (variables, options, queryOptions) => {
     }
 
     if (nodes) {
-        return {
-            nodes: nodes.map(n => decodeResult(n, memoizedOptions)),
+        result = {
+            nodes: nodes.map(n => decodeResult(n, options)),
             ...others,
             query,
             variables: generatedVariables
         };
     }
 
-    return {
-        ...others
-    };
+    return result;
 };
 
 const decodeResult = (nodeOrig, options) => {
