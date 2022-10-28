@@ -1,3 +1,17 @@
+# (Fri Oct 28 2022)
+
+#### 🐛 Bug Fix
+
+- QA 14194 [#221](https://github.com/Jahia/javascript-components/pull/221) ([@tdraier](https://github.com/tdraier))
+- QA-14194 Cherry pick code and update tests [#220](https://github.com/Jahia/javascript-components/pull/220) ([@tdraier](https://github.com/tdraier) [@AKarmanov](https://github.com/AKarmanov))
+
+#### Authors: 2
+
+- Alex Karmanov ([@AKarmanov](https://github.com/AKarmanov))
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Tue Sep 06 2022)
 
 #### 🐛  Bug Fix
