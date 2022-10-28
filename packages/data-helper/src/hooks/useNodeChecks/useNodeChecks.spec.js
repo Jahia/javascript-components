@@ -1,7 +1,7 @@
 import {useNodeChecks} from './index.js';
 import {useQuery} from 'react-apollo';
 import React from 'react';
-import {getQuery} from "../useNodeInfo/useNodeInfo.gql-queries";
+import {getQuery} from '../useNodeInfo/useNodeInfo.gql-queries';
 
 const wait = (time = 1000) => new Promise(resolve => {
     setTimeout(resolve, time);
