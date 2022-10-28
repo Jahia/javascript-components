@@ -1,18 +1,52 @@
 import {useNodeChecks} from './index.js';
 import {useQuery} from 'react-apollo';
+import React from 'react';
+import {getQuery} from "../useNodeInfo/useNodeInfo.gql-queries";
+
+const wait = (time = 1000) => new Promise(resolve => {
+    setTimeout(resolve, time);
+});
 
 jest.mock('react-apollo', () => {
-    return {
-        useQuery: jest.fn(() => ({
-            data: {
-                jcr: {
-                    nodeByPath: {
+    const data = {
+        data: {
+            jcr: {
+                nodeByPath: {
+                    resourceChildren: {
+                        nodes: []
+                    },
+                    site: {
                     }
                 }
-            },
-            loading: false,
-            error: null
-        }))
+            }
+        },
+        loading: false,
+        error: null
+    };
+
+    return {
+        useQuery: jest.fn(() => (data)),
+        useApolloClient: jest.fn(() => {
+            return {
+                query: () => {
+                    return {
+                        then: inputFcn => {
+                            return inputFcn(data);
+                        }
+                    };
+                },
+                watchQuery: () => {
+                    return {
+                        subscribe: inputFcn => {
+                            inputFcn(data);
+                            return {
+                                unsubscribe: () => {}
+                            };
+                        }
+                    };
+                }
+            };
+        })
     };
 });
 
@@ -29,8 +63,18 @@ jest.mock('react', () => {
                 current
             });
         },
-        useMemo: v => v()
+        useMemo: v => v(),
+        useState: v => v,
+        useEffect: v => v()
     });
+});
+
+jest.mock('../useNodeInfo/useNodeInfo.gql-queries', () => {
+    const original = jest.requireActual('../useNodeInfo/useNodeInfo.gql-queries');
+    return {
+        getQuery: jest.fn(original.getQuery),
+        validOptions: original.validOptions
+    };
 });
 
 describe('useNodeChecks', () => {
@@ -38,35 +82,43 @@ describe('useNodeChecks', () => {
         jest.restoreAllMocks();
     });
 
-    it('should request permissions', () => {
+    it('should request permissions', async () => {
+        const setStateMock = jest.fn();
+        const useStateMock = useState => [useState, setStateMock];
+        jest.spyOn(React, 'useState').mockImplementation(useStateMock);
         useNodeChecks({path: '/test', language: 'en'}, {requiredPermission: ['canRead', 'canWrite']});
 
-        expect(useQuery).toHaveBeenCalled();
+        await wait();
 
-        const mock = useQuery.mock;
-        const call = mock.calls[mock.calls.length - 1];
+        expect(getQuery).toHaveBeenCalled();
 
-        const variables = call[1].variables;
-        call[0].definitions[0].variableDefinitions.map(v => v.variable.name.value).forEach(v => expect(Object.keys(variables)).toContain(v));
+        const mock = getQuery.mock;
+        const result = mock.results[mock.results.length - 1];
+        const variables = result.value.generatedVariables;
+        result.value.query.definitions[0].variableDefinitions.map(v => v.variable.name.value).forEach(v => expect(Object.keys(variables)).toContain(v));
 
-        expect(call[0].definitions.map(d => d.name.value)).toContain('NodePermission_permission_encoded_Y2FuUmVhZA');
-        expect(call[0].definitions.find(d => d.name.value === 'NodePermission_permission_encoded_Y2FuUmVhZA').selectionSet.selections.map(m => m.alias.value)).toContain('permission_encoded_Y2FuUmVhZA');
-        expect(call[0].definitions.find(d => d.name.value === 'NodePermission_permission_encoded_Y2FuV3JpdGU').selectionSet.selections.map(m => m.alias.value)).toContain('permission_encoded_Y2FuV3JpdGU');
+        expect(result.value.query.definitions.map(d => d.name.value)).toContain('NodePermission_permission_encoded_Y2FuUmVhZA');
+        expect(result.value.query.definitions.find(d => d.name.value === 'NodePermission_permission_encoded_Y2FuUmVhZA').selectionSet.selections.map(m => m.alias.value)).toContain('permission_encoded_Y2FuUmVhZA');
+        expect(result.value.query.definitions.find(d => d.name.value === 'NodePermission_permission_encoded_Y2FuV3JpdGU').selectionSet.selections.map(m => m.alias.value)).toContain('permission_encoded_Y2FuV3JpdGU');
     });
 
-    it('should request site permissions', () => {
+    it('should request site permissions', async () => {
+        const setStateMock = jest.fn();
+        const useStateMock = useState => [useState, setStateMock];
+        jest.spyOn(React, 'useState').mockImplementation(useStateMock);
         useNodeChecks({path: '/test', language: 'en'}, {requiredPermission: ['canRead', 'canWrite']});
 
-        expect(useQuery).toHaveBeenCalled();
+        await wait();
 
-        const mock = useQuery.mock;
-        const call = mock.calls[mock.calls.length - 1];
+        expect(getQuery).toHaveBeenCalled();
 
-        const variables = call[1].variables;
-        call[0].definitions[0].variableDefinitions.map(v => v.variable.name.value).forEach(v => expect(Object.keys(variables)).toContain(v));
+        const mock = getQuery.mock;
+        const result = mock.results[mock.results.length - 1];
+        const variables = result.value.generatedVariables;
+        result.value.query.definitions[0].variableDefinitions.map(v => v.variable.name.value).forEach(v => expect(Object.keys(variables)).toContain(v));
 
-        expect(call[0].definitions.map(d => d.name.value)).toContain('NodePermission_permission_encoded_Y2FuUmVhZA');
-        expect(call[0].definitions.find(d => d.name.value === 'NodePermission_permission_encoded_Y2FuUmVhZA').selectionSet.selections.map(m => m.alias.value)).toContain('permission_encoded_Y2FuUmVhZA');
-        expect(call[0].definitions.find(d => d.name.value === 'NodePermission_permission_encoded_Y2FuV3JpdGU').selectionSet.selections.map(m => m.alias.value)).toContain('permission_encoded_Y2FuV3JpdGU');
+        expect(result.value.query.definitions.map(d => d.name.value)).toContain('NodePermission_permission_encoded_Y2FuUmVhZA');
+        expect(result.value.query.definitions.find(d => d.name.value === 'NodePermission_permission_encoded_Y2FuUmVhZA').selectionSet.selections.map(m => m.alias.value)).toContain('permission_encoded_Y2FuUmVhZA');
+        expect(result.value.query.definitions.find(d => d.name.value === 'NodePermission_permission_encoded_Y2FuV3JpdGU').selectionSet.selections.map(m => m.alias.value)).toContain('permission_encoded_Y2FuV3JpdGU');
     });
 });
