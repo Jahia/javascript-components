@@ -1,0 +1,13 @@
+{
+  "name": "@jahia/webpack-config",
+  "version": "1.0.0",
+  "scripts": {
+    "publish-script": "jahia-publish"
+  },
+  "description": "Webpack shareable config for Jahia project",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "camelcase": "5"
+  }
+}
