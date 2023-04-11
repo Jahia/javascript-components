@@ -62,7 +62,7 @@ const singletonDeps = [
 ];
 
 const compatRanges = {
-    'react': ['16 - 18'],
+    react: ['16 - 18'],
     'react-dom': ['16 - 18'],
     'react-redux': ['7 - 8'],
     '@jahia/moonstone': ['1 - 2']

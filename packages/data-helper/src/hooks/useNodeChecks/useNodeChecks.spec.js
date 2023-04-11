@@ -1,5 +1,4 @@
 import {useNodeChecks} from './index.js';
-import {useQuery} from 'react-apollo';
 import React from 'react';
 import {getQuery} from '../useNodeInfo/useNodeInfo.gql-queries';
 

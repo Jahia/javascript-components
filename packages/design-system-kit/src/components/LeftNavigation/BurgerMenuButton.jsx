@@ -16,13 +16,13 @@ const styles = () => ({
     }
 });
 
-export const BurgerMenuButton = ({classes, isDrawerOpen, title}) => {
-    function openMenu() {
-        const clickEvent = window.top.document.createEvent('MouseEvents');
-        clickEvent.initEvent('click', true, true);
-        window.top.document.getElementsByClassName('editmode-managers-menu')[0].dispatchEvent(clickEvent);
-    }
+function openMenu() {
+    const clickEvent = window.top.document.createEvent('MouseEvents');
+    clickEvent.initEvent('click', true, true);
+    window.top.document.getElementsByClassName('editmode-managers-menu')[0].dispatchEvent(clickEvent);
+}
 
+export const BurgerMenuButton = ({classes, isDrawerOpen, title}) => {
     if (isDrawerOpen) {
         return (
             <div className={classNames(classes.menuButton, classes.menuButtonBlue)}
