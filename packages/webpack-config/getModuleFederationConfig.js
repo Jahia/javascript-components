@@ -1,4 +1,5 @@
 const camelCase = require('camelcase').default;
+const semver = require('semver');
 
 const sharedDeps = [
     '@babel/polyfill',
@@ -60,12 +61,35 @@ const singletonDeps = [
     'formik'
 ];
 
+const compatRanges = {
+    'react': ['16 - 18'],
+    'react-dom': ['16 - 18'],
+    'react-redux': ['7 - 8'],
+    '@jahia/moonstone': ['1 - 2']
+};
+
+const rangeRegexp = /([<>=.0-9-]+) ([<>=.0-9-]+)/;
+const getExtendedRange = (item, definedRange) => {
+    if (compatRanges[item]) {
+        const compatRange = compatRanges[item].find(r => semver.subset(definedRange, r));
+        if (compatRange) {
+            const definedRangeMatch = (new semver.Range(definedRange)).range.match(rangeRegexp);
+            const compatRangeMatch = (new semver.Range(compatRange)).range.match(rangeRegexp);
+            if (definedRangeMatch && compatRangeMatch) {
+                return definedRangeMatch[1] + ' ' + compatRangeMatch[2];
+            }
+        }
+    }
+
+    return definedRange;
+};
+
 var getModuleFederationConfig = (packageJson, config = {}, importList = []) => {
     const deps = packageJson.dependencies;
     const shared = sharedDeps.filter(item => deps[item]).reduce((acc, item) => ({
         ...acc,
         [item]: {
-            requiredVersion: deps[item],
+            requiredVersion: getExtendedRange(item, deps[item]),
             import: false
         }
     }), config.shared || {});
