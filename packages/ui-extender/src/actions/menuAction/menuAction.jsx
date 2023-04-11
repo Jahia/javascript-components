@@ -40,14 +40,16 @@ const ItemRender = props => {
         <MenuItemRenderer {...props}
                           onClick={event => {
                               // Call the action and close the menu
-                              onClick(props, event);
-                              event.stopPropagation();
-                              rootMenuContext.dispatch({type: 'close'});
+                              if (onClick) {
+                                  onClick(props, event);
+                                  event.stopPropagation();
+                                  rootMenuContext.dispatch({type: 'close'});
+                              }
                           }}
                           onMouseEnter={event => {
                               if (menuContext) {
                                   // Open submenu (only if it's not opened already)
-                                  if (!menuState.isOpen) {
+                                  if (menuState && !menuState.isOpen) {
                                       const c = event.currentTarget.getBoundingClientRect();
                                       menuContext.display(null, {
                                           anchorEl: {
@@ -80,8 +82,8 @@ ItemRender.propTypes = {
     rootMenuContext: PropTypes.object,
     parentMenuContext: PropTypes.object,
     menuContext: PropTypes.object,
-    menuState: PropTypes.object.isRequired,
-    onClick: PropTypes.func.isRequired,
+    menuState: PropTypes.object,
+    onClick: PropTypes.func,
     isVisible: PropTypes.bool
 };
 
