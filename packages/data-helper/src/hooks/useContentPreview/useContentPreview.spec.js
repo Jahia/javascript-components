@@ -31,7 +31,7 @@ describe('useContentPreview', () => {
         expect(useQuery).toHaveBeenCalled();
     });
 
-    it('should return empty object when return emtpy data', () => {
+    it('should return empty object when return empty data', () => {
         expect(useContentPreview(args).data).toEqual({});
     });
 });
