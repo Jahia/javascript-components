@@ -216,7 +216,7 @@ const reducer = (state, action) => {
 };
 
 const MenuActionComponent = props => {
-    const {rootMenuContext, parentMenuContext, isMenuPreload, render: Render, loading: Loading} = props;
+    const {rootMenuContext, parentMenuContext, isMenuPreload, render: Render, loading: Loading, visibilityPredicate} = props;
     const id = 'actionComponent-' + props.id;
 
     const elRef = useRef(document.getElementById('menuHolder'));
@@ -247,6 +247,7 @@ const MenuActionComponent = props => {
     const menuContext = useMemo(() => ({
         id,
         dispatch,
+        menuState,
         display: (currentCtx, anchor) => {
             dispatch({type: 'render', currentCtx});
             // If there's a parent, set the current context as submenu. Previous value should be null
@@ -259,7 +260,7 @@ const MenuActionComponent = props => {
                 dispatch({type: 'open', anchor});
             }, 0);
         }
-    }), [id, parentMenuContext]);
+    }), [id, parentMenuContext, menuState, dispatch]);
 
     useEffect(() => {
         if (!menuState.isOpen && menuState.subMenuContext) {
@@ -267,6 +268,12 @@ const MenuActionComponent = props => {
             dispatch({type: 'setSubMenuContext', value: null});
         }
     }, [id, menuState, menuContext]);
+
+    let isVisible = !isMenuPreload || menuState.loadedItems.length > 0;
+
+    if (visibilityPredicate) {
+        isVisible = visibilityPredicate(menuState);
+    }
 
     return (
         <>
@@ -276,7 +283,7 @@ const MenuActionComponent = props => {
                 <Render {...props}
                         menuContext={menuContext}
                         menuState={menuState}
-                        isVisible={!isMenuPreload || menuState.loadedItems.length > 0}
+                        isVisible={isVisible}
                         onClick={(eventProps, event) => {
                             // Handle click to open menu only if not in a submenu (already handled on mouse over)
                             if (!parentMenuContext) {
@@ -378,7 +385,11 @@ MenuActionComponent.propTypes = {
     /**
      * Render for the action button
      */
-    loading: PropTypes.func
+    loading: PropTypes.func,
+    /**
+     * Helps determine if action is visible
+     */
+    visibilityPredicate: PropTypes.func
 };
 
 /**
