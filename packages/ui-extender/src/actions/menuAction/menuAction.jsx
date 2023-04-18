@@ -247,7 +247,6 @@ const MenuActionComponent = props => {
     const menuContext = useMemo(() => ({
         id,
         dispatch,
-        menuState,
         display: (currentCtx, anchor) => {
             dispatch({type: 'render', currentCtx});
             // If there's a parent, set the current context as submenu. Previous value should be null
@@ -260,7 +259,7 @@ const MenuActionComponent = props => {
                 dispatch({type: 'open', anchor});
             }, 0);
         }
-    }), [id, parentMenuContext, menuState, dispatch]);
+    }), [id, parentMenuContext]);
 
     useEffect(() => {
         if (!menuState.isOpen && menuState.subMenuContext) {
