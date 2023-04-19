@@ -105,7 +105,7 @@ export const useNodeInfo = (variables, options, queryOptions) => {
         return () => {
             queue.splice(queue.indexOf(currentRequest), 1);
         };
-    }, [currentRequest]);
+    }, [client, currentRequest]);
 
     return result;
 };
