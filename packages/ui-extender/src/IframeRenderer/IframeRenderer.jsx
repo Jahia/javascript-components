@@ -1,13 +1,14 @@
 import React from 'react';
-import Iframe from 'react-iframe';
 import PropTypes from 'prop-types';
 
-export const IframeRenderer = props => (
-    <Iframe width="100%"
-            height="100%"
-            {...props}
-            url={props.url}/>
-);
+export const IframeRenderer = props => {
+    if (window?.jahia?.ui?.IframeRenderer) {
+        // eslint-disable-next-line react/jsx-no-undef
+        return <window.jahia.ui.IframeRenderer {...props}/>;
+    }
+
+    return 'Jahia UI not loaded';
+};
 
 export const getIframeRenderer = url => {
     return <IframeRenderer url={url}/>;

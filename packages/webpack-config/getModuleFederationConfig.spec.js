@@ -7,7 +7,8 @@ const packageJson = {
     main: 'index.js',
     license: 'MIT',
     dependencies: {
-        react: '^16',
+        react: '^16.1.5',
+        i18next: '^16',
         dayjs: '1.8.21'
     }
 };
@@ -17,9 +18,9 @@ describe('getModuleFederationConfig', () => {
         const config = getModuleFederationConfig(packageJson);
         expect(config.name).toBe('testName');
         expect(config.library.name).toBe('appShell.remotes.testName');
-        expect(config.shared.react.requiredVersion).toBe(packageJson.dependencies.react);
-        expect(config.shared.react.import).toBe(false);
-        expect(config.shared.react.singleton).toBe(true);
+        expect(config.shared.i18next.requiredVersion).toBe(packageJson.dependencies.i18next);
+        expect(config.shared.i18next.import).toBe(false);
+        expect(config.shared.i18next.singleton).toBe(true);
         expect(config.shared.dayjs.requiredVersion).toBe(packageJson.dependencies.dayjs);
         expect(config.shared.dayjs.import).toBe(false);
         expect(config.shared.dayjs.singleton).toBe(undefined);
@@ -33,10 +34,10 @@ describe('getModuleFederationConfig', () => {
     });
 
     it('should accept import', () => {
-        const config = getModuleFederationConfig(packageJson, {}, ['react', 'dayjs']);
-        expect(config.shared.react.requiredVersion).toBe(packageJson.dependencies.react);
-        expect(config.shared.react.import).toBe(undefined);
-        expect(config.shared.react.singleton).toBe(true);
+        const config = getModuleFederationConfig(packageJson, {}, ['i18next', 'dayjs']);
+        expect(config.shared.i18next.requiredVersion).toBe(packageJson.dependencies.i18next);
+        expect(config.shared.i18next.import).toBe(undefined);
+        expect(config.shared.i18next.singleton).toBe(true);
         expect(config.shared.dayjs.requiredVersion).toBe(packageJson.dependencies.dayjs);
         expect(config.shared.dayjs.import).toBe(undefined);
         expect(config.shared.dayjs.singleton).toBe(undefined);
@@ -65,11 +66,16 @@ describe('getModuleFederationConfig', () => {
                 myLib: '^1.0.0'
             }
         }, []);
-        expect(config.shared.react.requiredVersion).toBe(packageJson.dependencies.react);
-        expect(config.shared.react.import).toBe(false);
-        expect(config.shared.react.singleton).toBe(true);
-        expect(config.shared.react.requiredVersion).toBe(packageJson.dependencies.react);
-        expect(config.shared.react.import).toBe(false);
+        expect(config.shared.i18next.requiredVersion).toBe(packageJson.dependencies.i18next);
+        expect(config.shared.i18next.import).toBe(false);
+        expect(config.shared.i18next.singleton).toBe(true);
+        expect(config.shared.dayjs.requiredVersion).toBe(packageJson.dependencies.dayjs);
+        expect(config.shared.dayjs.import).toBe(false);
         expect(config.shared.myLib).toBe('^1.0.0');
+    });
+
+    it('should create base config', () => {
+        const config = getModuleFederationConfig(packageJson, {}, ['i18next', 'dayjs']);
+        expect(config.shared.react.requiredVersion).toBe('>=16.1.5 <19.0.0-0');
     });
 });

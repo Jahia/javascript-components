@@ -15,14 +15,14 @@ const styles = () => ({
         background: 'url(' + contextJsParameters.contextPath + '/engines/jahia-anthracite/images/dx_logo_solid.png) center/100% no-repeat'
     }
 });
-/* eslint-disable react/jsx-no-bind */
-export const BurgerMenuButton = ({classes, isDrawerOpen, title}) => {
-    function openMenu() {
-        const clickEvent = window.top.document.createEvent('MouseEvents');
-        clickEvent.initEvent('click', true, true);
-        window.top.document.getElementsByClassName('editmode-managers-menu')[0].dispatchEvent(clickEvent);
-    }
 
+function openMenu() {
+    const clickEvent = window.top.document.createEvent('MouseEvents');
+    clickEvent.initEvent('click', true, true);
+    window.top.document.getElementsByClassName('editmode-managers-menu')[0].dispatchEvent(clickEvent);
+}
+
+export const BurgerMenuButton = ({classes, isDrawerOpen, title}) => {
     if (isDrawerOpen) {
         return (
             <div className={classNames(classes.menuButton, classes.menuButtonBlue)}
