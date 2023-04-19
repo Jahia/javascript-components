@@ -22,7 +22,11 @@ const ButtonRenderer = ({onClick, isVisible, enabled, label, ...props}) => (
 );
 
 ButtonRenderer.propTypes = {
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    isVisible: PropTypes.bool,
+    // eslint-disable-next-line react/boolean-prop-naming
+    enabled: PropTypes.bool,
+    label: PropTypes.string
 };
 
 export {ButtonRenderer};

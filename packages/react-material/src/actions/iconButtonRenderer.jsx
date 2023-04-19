@@ -4,6 +4,7 @@ import {Translation} from 'react-i18next';
 import React from 'react';
 import {toIconComponent} from './toIconComponent';
 
+/* eslint-disable react/prop-types */
 let iconButtonRenderer = (buttonProps, iconProps, propagateEvent) => ({context}) => {
     if (context.enabled === false) {
         return false;
