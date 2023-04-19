@@ -15,7 +15,7 @@ const styles = () => ({
         background: 'url(' + contextJsParameters.contextPath + '/engines/jahia-anthracite/images/dx_logo_solid.png) center/100% no-repeat'
     }
 });
-
+/* eslint-disable react/jsx-no-bind */
 export const BurgerMenuButton = ({classes, isDrawerOpen, title}) => {
     function openMenu() {
         const clickEvent = window.top.document.createEvent('MouseEvents');

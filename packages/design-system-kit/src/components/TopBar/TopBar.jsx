@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {div, withStyles} from '@material-ui/core';
+import {withStyles} from '@material-ui/core';
 import {Typography} from '../Typography';
 import {compose} from 'recompose';
 import styleConstants from '../../theme/styleConstants';
