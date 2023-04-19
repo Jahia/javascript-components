@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import {nodeCacheRequiredFields} from '../../fragments/PredefinedFragments';
+import {mimeTypes, nodeCacheRequiredFields} from '../../fragments';
 
 export const CONTENT_PREVIEW_QUERY = gql`query previewQueryByWorkspace($path: String!, $templateType: String!, $view: String!, $contextConfiguration: String!, $language: String!, $workspace: Workspace!, $requestAttributes: [InputRenderRequestAttributeInput]) {
     jcr(workspace: $workspace) {
@@ -16,7 +16,8 @@ export const CONTENT_PREVIEW_QUERY = gql`query previewQueryByWorkspace($path: St
                     key
                 }
             }
+            ...NodeInfoResourceNode
             ...NodeCacheRequiredFields
         }
     }
-}${nodeCacheRequiredFields.gql}`;
+}${nodeCacheRequiredFields.gql}${mimeTypes.gql}`;
