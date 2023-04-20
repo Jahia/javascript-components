@@ -1,3 +1,22 @@
+# (Thu Apr 20 2023)
+
+#### 🐛 Bug Fix
+
+- TECH-1166: Removed dependency to redux, add compatibility ranges [#231](https://github.com/Jahia/javascript-components/pull/231) ([@tdraier](https://github.com/tdraier))
+- Fix linter issues [#234](https://github.com/Jahia/javascript-components/pull/234) ([@cedmail](https://github.com/cedmail))
+- BACKLOG-20903 Add possibility to determine visibility [#232](https://github.com/Jahia/javascript-components/pull/232) ([@AKarmanov](https://github.com/AKarmanov))
+- Fix warning on non-required props [#230](https://github.com/Jahia/javascript-components/pull/230) ([@tdraier](https://github.com/tdraier))
+- QA-14194 Cherry pick code and update tests [#220](https://github.com/Jahia/javascript-components/pull/220) ([@tdraier](https://github.com/tdraier) [@AKarmanov](https://github.com/AKarmanov))
+- TECH-817: Upgrade libs [#219](https://github.com/Jahia/javascript-components/pull/219) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 3
+
+- Alex Karmanov ([@AKarmanov](https://github.com/AKarmanov))
+- Cedric Mailleux ([@cedmail](https://github.com/cedmail))
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Fri Jun 17 2022)
 
 #### 🐛  Bug Fix
