@@ -1,6 +1,6 @@
 {
   "name": "@jahia/ui-extender",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "scripts": {
     "babel:js": "jahia-babel-js",
     "babel:module": "jahia-babel-module",
