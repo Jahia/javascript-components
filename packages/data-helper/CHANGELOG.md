@@ -1,3 +1,16 @@
+# (Thu Apr 20 2023)
+
+#### 🐛 Bug Fix
+
+- Fix linter issues [#234](https://github.com/Jahia/javascript-components/pull/234) ([@cedmail](https://github.com/cedmail))
+- QA-14483: Add mimeTypes into useContentPreview to use when isFile is true [#233](https://github.com/Jahia/javascript-components/pull/233) ([@cedmail](https://github.com/cedmail))
+
+#### Authors: 1
+
+- Cedric Mailleux ([@cedmail](https://github.com/cedmail))
+
+---
+
 # (Fri Oct 28 2022)
 
 #### 🐛 Bug Fix
