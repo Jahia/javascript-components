@@ -1,3 +1,16 @@
+# (Thu Apr 20 2023)
+
+#### 🐛 Bug Fix
+
+- Fix publish script [#235](https://github.com/Jahia/javascript-components/pull/235) ([@tdraier](https://github.com/tdraier))
+- TECH-817: Upgrade libs [#219](https://github.com/Jahia/javascript-components/pull/219) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Fri Dec 20 2019)
 
 #### 🐛  Bug Fix
