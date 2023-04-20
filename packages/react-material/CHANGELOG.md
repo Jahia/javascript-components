@@ -1,3 +1,15 @@
+# (Thu Apr 20 2023)
+
+#### 🐛 Bug Fix
+
+- Fix linter issues [#234](https://github.com/Jahia/javascript-components/pull/234) ([@cedmail](https://github.com/cedmail))
+
+#### Authors: 1
+
+- Cedric Mailleux ([@cedmail](https://github.com/cedmail))
+
+---
+
 # (Thu May 19 2022)
 
 #### ⚠️  Pushed to master
