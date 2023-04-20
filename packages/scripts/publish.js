@@ -57,8 +57,9 @@ spawnSync('yarn', ['auto', 'changelog', '--from', previous]);
 
 // Bump version
 console.log('Auto version change : ' + versionChange);
-const npmVersionProcess = spawnSync('npm', ['version', versionChange]);
-const newVersion = npmVersionProcess.stdout.toString().split(/\r?\n/)[0];
+const npmVersionProcess = spawnSync('yarn', ['version', '--no-git-tag-version', `--${versionChange}`]);
+const res = npmVersionProcess.stdout.toString().split(/\r?\n/)[1];
+const newVersion = 'v' + res.substring(res.indexOf(': ') + 2);
 let tag = projectName + '-' + newVersion;
 console.log('Will release ' + tag);
 
