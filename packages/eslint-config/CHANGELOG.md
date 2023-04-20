@@ -1,3 +1,15 @@
+# (Thu Apr 20 2023)
+
+#### 💥 Breaking Change
+
+- BACKLOG-11991 : Add stylelint config [#61](https://github.com/Jahia/javascript-components/pull/61) ([@ffffffelix](https://github.com/ffffffelix))
+
+#### Authors: 1
+
+- Félix Vallé ([@ffffffelix](https://github.com/ffffffelix))
+
+---
+
 # (Thu Dec 19 2019)
 
 #### 🚀  Enhancement
