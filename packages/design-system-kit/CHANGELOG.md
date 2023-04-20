@@ -1,3 +1,18 @@
+# (Thu Apr 20 2023)
+
+#### 🐛 Bug Fix
+
+- TECH-1166: Removed dependency to redux, add compatibility ranges [#231](https://github.com/Jahia/javascript-components/pull/231) ([@tdraier](https://github.com/tdraier))
+- Fix linter issues [#234](https://github.com/Jahia/javascript-components/pull/234) ([@cedmail](https://github.com/cedmail))
+- TECH-817: Upgrade libs [#219](https://github.com/Jahia/javascript-components/pull/219) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 2
+
+- Cedric Mailleux ([@cedmail](https://github.com/cedmail))
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Fri Jan 08 2021)
 
 #### 🐛  Bug Fix
