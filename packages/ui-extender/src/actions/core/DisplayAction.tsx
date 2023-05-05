@@ -1,31 +1,51 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {registry} from '../../registry';
+import {registry} from '~/registry';
+import {StoredService} from "~/registry/service";
 
 let count = 0;
 
-const getRenderWrapper = Render => {
-    const RenderWrapper = ({context, ...otherProps}) => (
+export type DisplayActionProps = {
+    /**
+     * The key of the action to display
+     */
+    actionKey: string,
+    /**
+     * The action context
+     */
+    context?: Object,
+    /**
+     * The render component
+     */
+    render: React.FunctionComponent<object>,
+    /**
+     * The render component
+     */
+    loading?: React.FunctionComponent<object>
+
+    [key: string]: unknown
+}
+
+const getRenderWrapper = (Render: React.FunctionComponent): React.FunctionComponent => {
+    const RenderWrapper = ({context, ...otherProps}: React.PropsWithChildren<{context: object}>) => (
         <Render {...context} {...otherProps}/>
     );
-
-    RenderWrapper.propTypes = {
-        context: PropTypes.object
-    };
 
     return RenderWrapper;
 };
 
-class DisplayAction extends React.PureComponent {
-    constructor(props) {
+class DisplayAction extends React.PureComponent<DisplayActionProps> {
+    id: string;
+    RenderWrapper: React.FunctionComponent;
+
+    constructor(props: DisplayActionProps) {
         super(props);
         this.id = props.actionKey + '-' + (count++);
         this.RenderWrapper = getRenderWrapper(props.render);
     }
 
     render() {
-        let {context, actionKey, render, loading, ...otherProps} = this.props;
-        let action = registry.get('action', actionKey);
+        const {context, actionKey, render, loading, ...otherProps} = this.props;
+        const action: StoredService & { init?: ((ctx: object, props: object) => void)} = registry.get('action', actionKey);
 
         if (!action) {
             return null;
@@ -57,27 +77,5 @@ class DisplayAction extends React.PureComponent {
         );
     }
 }
-
-DisplayAction.propTypes = {
-    /**
-     * The key of the action to display
-     */
-    actionKey: PropTypes.string.isRequired,
-
-    /**
-     * The action context, deprecated
-     */
-    context: PropTypes.object,
-
-    /**
-     * The render component
-     */
-    render: PropTypes.func.isRequired,
-
-    /**
-     * The loading component
-     */
-    loading: PropTypes.func
-};
 
 export {DisplayAction};

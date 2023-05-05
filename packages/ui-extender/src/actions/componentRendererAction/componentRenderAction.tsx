@@ -1,11 +1,28 @@
 import React, {useContext, useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {ComponentRendererContext} from '../../ComponentRenderer';
+import {ComponentRendererContext} from '~/ComponentRenderer';
 
-const ComponentRendererActionComponent = ({render: Render, componentToRender, ...otherProps}) => {
+type RenderProps = {
+    id: string,
+
+    onClick: () => void
+}
+
+export type ComponentRendererActionComponentProps = {
+    render: React.FunctionComponent<Partial<RenderProps>>,
+
+    componentToRender: React.FunctionComponent,
+} & RenderProps;
+
+export const ComponentRendererActionComponent = ({render: Render, componentToRender, ...otherProps}: ComponentRendererActionComponentProps) => {
     const componentRenderer = useContext(ComponentRendererContext);
 
-    const componentContext = {};
+    const componentContext: {
+        id?: string,
+        render?: (component: React.FunctionComponent, props?: React.PropsWithChildren<unknown>) => void,
+        handleDestroy?: () => void,
+        setProperties?: (props: React.PropsWithChildren<unknown>) => void
+    } = {};
 
     useEffect(() => {
         componentContext.id = 'actionComponent-' + otherProps.id;
@@ -47,8 +64,7 @@ ComponentRendererActionComponent.propTypes = {
  * menuRenderer
  * menuItemRenderer
  */
-const componentRendererAction = {
+export const componentRendererAction = {
     component: ComponentRendererActionComponent
 };
 
-export {componentRendererAction, ComponentRendererActionComponent};

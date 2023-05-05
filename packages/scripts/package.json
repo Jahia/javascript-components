@@ -7,6 +7,7 @@
   "license": "MIT",
   "bin": {
     "jahia-build": "./build.js",
+    "jahia-build-ts": "./build-ts.js",
     "jahia-babel-js": "./babel-js.js",
     "jahia-babel-module": "./babel-module.js",
     "jahia-prepare-build": "./prepare-build.js",

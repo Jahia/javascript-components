@@ -1,48 +1,52 @@
 import {composeServices} from './composeServices';
+import {Service, StoredService, Target} from "~/registry/service";
 
 class Registry {
+    registry: {[key: string]: StoredService};
+
     constructor() {
         this.registry = {};
     }
 
-    addOrReplace(type, key) {
+    addOrReplace(type: string, key: string, ...services: Partial<Service>[]): StoredService {
         const registryKey = type + '-' + key;
 
-        let actions = Array.prototype.slice.call(arguments, 2);
-        const action = composeServices(...actions);
-        action.type = type;
-        action.key = key;
-
-        if (action.targets) {
-            action.targets = action.targets.map(t => {
-                if (typeof t === 'string') {
+        const service = composeServices(...services);
+        const targets = (service.targets)  ?
+            service.targets.map(t => {
+                if (typeof t === "string") {
                     const spl = t.split(':');
-                    return ({id: spl[0], priority: spl[1] ? spl[1] : 0});
+                    return ({id: spl[0], priority: spl[1] ? spl[1] : 0}) as Target;
                 }
 
                 return t;
-            });
-        }
+            }) : []
 
-        this.registry[registryKey] = action;
+        const storedService: StoredService = {
+            ...service,
+            targets,
+            type,
+            key
+        };
+        this.registry[registryKey] = storedService;
 
-        return action;
+        return storedService;
     }
 
-    add(type, key) {
+    add(type: string, key: string, ...services: Partial<Service>[]): StoredService {
         const registryKey = type + '-' + key;
         if (this.registry[registryKey]) {
             throw new Error('Entry already exist for key ' + key);
         }
 
-        return this.addOrReplace.apply(this, arguments);
+        return this.addOrReplace(type, key, ...services);
     }
 
-    get(type, key) {
+    get(type: string, key: string): StoredService {
         return this.registry[type + '-' + key];
     }
 
-    remove(type, key) {
+    remove(type: string, key: string): void {
         if (key) {
             const registryKey = type + '-' + key;
             if (this.registry[registryKey]) {
@@ -56,7 +60,7 @@ class Registry {
         }
     }
 
-    find(filters) {
+    find(filters: {target?:string, [key:string]: unknown}): StoredService[] {
         let result = Object.values(this.registry);
         const {target, ...otherFilters} = filters;
         if (target) {

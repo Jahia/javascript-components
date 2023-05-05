@@ -1,8 +1,13 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {ComponentRendererContext} from './ComponentRendererContext';
 
-export const ComponentRenderer = () => {
-    const [state, setState] = useState({components: {}, componentsProps: {}});
+type StateType = {
+    components: {[key:string]: React.FunctionComponent},
+    componentsProps: {[key:string]: React.PropsWithChildren<unknown>}
+}
+
+export const ComponentRenderer: React.FunctionComponent = () => {
+    const [state, setState] = useState<StateType>({components: {}, componentsProps: {}});
 
     let value = useContext(ComponentRendererContext);
 
@@ -48,5 +53,7 @@ export const ComponentRenderer = () => {
             return React.createElement(component, {key, ...state.componentsProps[key]});
         });
 
-    return components;
+    return (
+        <>{components}</>
+    );
 };

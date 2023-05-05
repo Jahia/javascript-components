@@ -1,5 +1,6 @@
-function composeServices() {
-    let services = Array.prototype.slice.call(arguments);
+import {Service, Target} from "./service";
+
+function composeServices(...services: Partial<Service>[]): Partial<Service> {
     return services.reduce((acc, service) => {
         if (service) {
             Object.entries(service).forEach(([key, value]) => {

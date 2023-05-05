@@ -1,11 +1,12 @@
 import {useMemo} from 'react';
-import {registry} from '../registry';
-import {getIframeRenderer} from '../IframeRenderer';
-import {Tree} from './Tree';
+import {registry} from '~/registry';
+import {getIframeRenderer} from '~/IframeRenderer';
+import {Tree, TreeData} from './Tree';
+import {StoredService} from "~/registry/service";
 
-export const useAdminRouteTreeStructure = function (target, selected) {
+export const useAdminRouteTreeStructure = function (target: string, selected: string) {
     const {tree, routes, allPermissions} = useMemo(() => {
-        const getAllRoutes = (baseTarget, parent = '') => registry.find({
+        const getAllRoutes = (baseTarget: string, parent = ''): StoredService[] => registry.find({
             type: 'adminRoute',
             target: baseTarget + parent
         })
@@ -14,12 +15,12 @@ export const useAdminRouteTreeStructure = function (target, selected) {
             })
             .map(route => ({
                 ...route,
-                render: route.render || (route.iframeUrl && (() => getIframeRenderer(route.iframeUrl)))
+                render: route.render || (typeof route.iframeUrl === 'string' && (() => getIframeRenderer(route.iframeUrl as string)))
             }));
 
         const routes = getAllRoutes(target);
 
-        const createTree = (baseTarget, parent = '') => registry.find({type: 'adminRoute', target: baseTarget + parent})
+        const createTree = (baseTarget: string, parent = ''): TreeData[] => registry.find({type: 'adminRoute', target: baseTarget + parent})
             .filter(route => !route.omitFromTree)
             .map(route => ({
                 ...route,
@@ -38,7 +39,7 @@ export const useAdminRouteTreeStructure = function (target, selected) {
         };
     }, [target]);
 
-    let defaultOpenedItems = [];
+    let defaultOpenedItems: string[] = [];
 
     if (selected) {
         let selectedItem = registry.get('adminRoute', selected);
@@ -49,7 +50,7 @@ export const useAdminRouteTreeStructure = function (target, selected) {
                 defaultOpenedItems.push(parent);
                 selectedItem = registry.get('adminRoute', parent);
             } else {
-                selectedItem = false;
+                selectedItem = null;
             }
         }
     }

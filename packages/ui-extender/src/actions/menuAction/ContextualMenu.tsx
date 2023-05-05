@@ -1,14 +1,22 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {DisplayAction} from '../core';
+import {MenuProps} from "~/actions";
 
-export class ContextualMenu extends React.Component {
-    constructor(props) {
+export type ContextualMenuProps = {
+    setOpenRef: React.MutableRefObject<(e: Event, newProps: MenuProps) => void>,
+    loading?: React.FunctionComponent<object>,
+    actionKey: string
+};
+
+export class ContextualMenu extends React.Component<ContextualMenuProps> {
+    onClickRef: React.MutableRefObject<(p: MenuProps, e: Event) => void>;
+
+    constructor(props: ContextualMenuProps) {
         super(props);
         this.onClickRef = React.createRef();
     }
 
-    open(e, newProps) {
+    open(e: Event, newProps: MenuProps) {
         this.onClickRef.current({...this.props, isMenuUseEventPosition: true, ...newProps, originalContext: {...this.props, ...newProps}}, e);
         e.preventDefault();
     }
@@ -21,17 +29,12 @@ export class ContextualMenu extends React.Component {
 
         return (
             <DisplayAction {...this.props}
-                           render={({onClick}) => {
+                           render={(props: MenuProps) => {
+                               const {onClick} = props;
                                this.onClickRef.current = onClick;
-                               return false;
+                               return null;
                            }}
             />
         );
     }
 }
-
-ContextualMenu.propTypes = {
-    setOpenRef: PropTypes.object.isRequired,
-    loading: PropTypes.func,
-    actionKey: PropTypes.string.isRequired
-};
