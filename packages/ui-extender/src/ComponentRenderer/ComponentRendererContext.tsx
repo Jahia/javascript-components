@@ -1,8 +1,8 @@
 import React, {createContext} from 'react';
 
 export type ContextType = {
-    render?: (key: string, component: React.FunctionComponent, props?: React.PropsWithChildren<object>) => void;
-    setProperties?:(key: string, props: React.PropsWithChildren<object>) => void;
+    render?: <Type, >(key: string, component: React.FunctionComponent<Type>, props?: React.PropsWithChildren<Type>) => void;
+    setProperties?: <Type, >(key: string, props: React.PropsWithChildren<Type>) => void;
     destroy?: (key:string) => void;
 }
 

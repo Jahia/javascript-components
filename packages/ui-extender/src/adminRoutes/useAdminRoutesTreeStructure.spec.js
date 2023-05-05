@@ -5,7 +5,9 @@ jest.mock('react', () => ({
     useMemo: v => v()
 }));
 
-jest.mock('../IframeRenderer', () => {});
+jest.mock('../IframeRenderer', () => {
+    //
+});
 
 describe('useAdminRoutesTreeStructure', () => {
     beforeEach(() => {

@@ -8,20 +8,24 @@ type RenderProps = {
     onClick: () => void
 }
 
-export type ComponentRendererActionComponentProps = {
+type BaseProps = {
+    onExited: () => void
+}
+
+export type ComponentRendererActionComponentProps<Type extends BaseProps> = {
     render: React.FunctionComponent<Partial<RenderProps>>,
 
-    componentToRender: React.FunctionComponent,
+    componentToRender: React.FunctionComponent<Type>,
 } & RenderProps;
 
-export const ComponentRendererActionComponent = ({render: Render, componentToRender, ...otherProps}: ComponentRendererActionComponentProps) => {
+export const ComponentRendererActionComponent = <Type extends BaseProps, >({render: Render, componentToRender, ...otherProps}: ComponentRendererActionComponentProps<Type>) => {
     const componentRenderer = useContext(ComponentRendererContext);
 
     const componentContext: {
         id?: string,
-        render?: (component: React.FunctionComponent, props?: React.PropsWithChildren<unknown>) => void,
+        render?: (component: React.FunctionComponent<Type>, props?: React.PropsWithChildren<Type>) => void,
         handleDestroy?: () => void,
-        setProperties?: (props: React.PropsWithChildren<unknown>) => void
+        setProperties?: (props: React.PropsWithChildren<Type>) => void
     } = {};
 
     useEffect(() => {

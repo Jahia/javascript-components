@@ -1,4 +1,4 @@
-import React, {Reducer, ReducerState, useEffect, useMemo, useReducer, useRef} from 'react';
+import React, {Reducer, useEffect, useMemo, useReducer, useRef} from 'react';
 import ReactDOM from 'react-dom';
 import {DisplayActions} from '../core';
 
