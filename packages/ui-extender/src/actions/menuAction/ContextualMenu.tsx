@@ -1,6 +1,6 @@
 import React from 'react';
 import {DisplayAction} from '../core';
-import {MenuProps} from "~/actions";
+import {MenuProps} from '~/actions';
 
 export type ContextualMenuProps = {
     setOpenRef: React.MutableRefObject<(e: Event, newProps: MenuProps) => void>,
@@ -28,8 +28,9 @@ export class ContextualMenu extends React.Component<ContextualMenuProps> {
         }
 
         return (
-            <DisplayAction {...this.props}
-                           render={(props: MenuProps) => {
+            <DisplayAction
+                {...this.props}
+                render={(props: MenuProps) => {
                                const {onClick} = props;
                                this.onClickRef.current = onClick;
                                return null;

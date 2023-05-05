@@ -9,11 +9,11 @@ type StateType = {
 export const ComponentRenderer: React.FunctionComponent = () => {
     const [state, setState] = useState<StateType>({components: {}, componentsProps: {}});
 
-    let value = useContext(ComponentRendererContext);
+    const value = useContext(ComponentRendererContext);
 
     useEffect(() => {
         value.render = (key, component, props) => setState(previous => {
-            let newState = {
+            const newState = {
                 components: {...previous.components},
                 componentsProps: {...previous.componentsProps}
             };
@@ -24,7 +24,7 @@ export const ComponentRenderer: React.FunctionComponent = () => {
 
         value.setProperties = (key, props) => setState(previous => {
             if (previous.components[key]) {
-                let newState = {
+                const newState = {
                     components: {...previous.components},
                     componentsProps: {...previous.componentsProps}
                 };
@@ -37,7 +37,7 @@ export const ComponentRenderer: React.FunctionComponent = () => {
         });
 
         value.destroy = key => setState(previous => {
-            let newState = {
+            const newState = {
                 components: {...previous.components},
                 componentsProps: {...previous.componentsProps}
             };
@@ -47,7 +47,7 @@ export const ComponentRenderer: React.FunctionComponent = () => {
         });
     }, [value]);
 
-    let components = Object.keys(state.components)
+    const components = Object.keys(state.components)
         .map(key => {
             const component = state.components[key];
             return React.createElement(component, {key, ...state.componentsProps[key]});

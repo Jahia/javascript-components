@@ -17,7 +17,8 @@ const MenuRenderer = ({isSubMenu, anchor, isOpen, isLoading, onClose, onExited, 
         <>
             {
                 !isSubMenu &&
-                <div style={{
+                <div
+                    style={{
                     position: 'fixed',
                     width: '100vw',
                     height: '100vh',
@@ -28,13 +29,14 @@ const MenuRenderer = ({isSubMenu, anchor, isOpen, isLoading, onClose, onExited, 
                     transition: 'opacity 1s',
                     backgroundColor: 'black'
                 }}
-                     onClick={onClose}
+                    onClick={onClose}
                 />
             }
-            <div style={{
+            <div
+                style={{
                 position: 'fixed',
-                top: top,
-                left: left,
+                top,
+                left,
                 border: '1px solid',
                 backgroundColor: 'white',
                 display: 'flex',
@@ -44,9 +46,9 @@ const MenuRenderer = ({isSubMenu, anchor, isOpen, isLoading, onClose, onExited, 
                 transition: 'opacity 1s',
                 zIndex: 100
             }}
-                 onMouseEnter={onMouseEnter}
-                 onMouseLeave={onMouseLeave}
-                 onTransitionEnd={() => !isOpen && onExited()}
+                onMouseEnter={onMouseEnter}
+                onMouseLeave={onMouseLeave}
+                onTransitionEnd={() => !isOpen && onExited()}
             >
                 <div style={{flex: '0 1 auto'}}>
                     {children}
@@ -68,13 +70,11 @@ MenuRenderer.propTypes = {
     children: PropTypes.node.isRequired
 };
 
-const MenuItemRenderer = ({label, onClick, onMouseEnter, onMouseLeave}) => {
-    return (
-        <div style={{margin: 5}} onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-            {label}
-        </div>
-    );
-};
+const MenuItemRenderer = ({label, onClick, onMouseEnter, onMouseLeave}) => (
+    <div style={{margin: 5}} onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+        {label}
+    </div>
+);
 
 MenuItemRenderer.propTypes = {
     label: PropTypes.string.isRequired,
@@ -105,8 +105,9 @@ const AsyncComponent = ({render: Render, loading: Loading, ...props}) => {
     }
 
     return (
-        <Render {...props}
-                onClick={() => window.alert('Async action')} // eslint-disable-line no-alert
+        <Render
+            {...props}
+            onClick={() => window.alert('Async action')} // eslint-disable-line no-alert
         />
     );
 };
@@ -122,8 +123,8 @@ AsyncComponent.propTypes = {
 function addMenu(key, targets, isMenuPreload) {
     registry.addOrReplace('action', key, menuAction, {
         label: key,
-        targets: targets,
-        isMenuPreload: isMenuPreload,
+        targets,
+        isMenuPreload,
         menuTarget: key,
         menuRenderer: MenuRenderer,
         menuItemRenderer: MenuItemRenderer
@@ -132,7 +133,7 @@ function addMenu(key, targets, isMenuPreload) {
 
 function addItem(key, targets, fn) {
     registry.addOrReplace('action', key, {
-        targets: targets,
+        targets,
         label: key,
         onClick: fn
     });
@@ -167,10 +168,10 @@ storiesOf('actions|menuAction', module)
 
         return (
             <>
-                <div className="description">
+                <div className='description'>
                     Display all items that have the specified target
                 </div>
-                <DisplayAction actionKey="menu" path="/test" render={ButtonRenderer}/>
+                <DisplayAction actionKey='menu' path='/test' render={ButtonRenderer}/>
             </>
         );
     })
@@ -186,10 +187,10 @@ storiesOf('actions|menuAction', module)
 
         return (
             <>
-                <div className="description">
+                <div className='description'>
                     Displays a menu with items registered with a specific target
                 </div>
-                <DisplayAction actionKey="menu" path="/test" render={ButtonRenderer}/>
+                <DisplayAction actionKey='menu' path='/test' render={ButtonRenderer}/>
             </>
         );
     })
@@ -204,10 +205,10 @@ storiesOf('actions|menuAction', module)
 
         return (
             <>
-                <div className="description">
+                <div className='description'>
                     Example with asynchronous menu items
                 </div>
-                <DisplayAction actionKey="menu" path="/test" render={ButtonRenderer}/>
+                <DisplayAction actionKey='menu' path='/test' render={ButtonRenderer}/>
             </>
         );
     })
@@ -222,13 +223,14 @@ storiesOf('actions|menuAction', module)
 
         return (
             <>
-                <div className="description">
+                <div className='description'>
                     Example with asynchronous menu items - delayed menu open until loaded
                 </div>
-                <DisplayAction actionKey="menu"
-                               path="/test"
-                               render={ButtonRenderer}
-                               loading={() => <ButtonRenderer label="loading..."/>}/>
+                <DisplayAction
+                    actionKey='menu'
+                    path='/test'
+                    render={ButtonRenderer}
+                    loading={() => <ButtonRenderer label='loading...'/>}/>
             </>
         );
     })
@@ -243,13 +245,14 @@ storiesOf('actions|menuAction', module)
 
         return (
             <>
-                <div className="description">
+                <div className='description'>
                     Example with asynchronous menu items - preload
                 </div>
-                <DisplayAction actionKey="menu"
-                               path="/test"
-                               render={ButtonRenderer}
-                               loading={() => <ButtonRenderer label="loading..."/>}/>
+                <DisplayAction
+                    actionKey='menu'
+                    path='/test'
+                    render={ButtonRenderer}
+                    loading={() => <ButtonRenderer label='loading...'/>}/>
             </>
         );
     })
@@ -266,13 +269,14 @@ storiesOf('actions|menuAction', module)
 
         return (
             <>
-                <div className="description">
+                <div className='description'>
                     Example with asynchronous menu items - preload
                 </div>
-                <DisplayAction actionKey="menu"
-                               path="/test"
-                               render={ButtonRenderer}
-                               loading={() => <ButtonRenderer label="loading..."/>}/>
+                <DisplayAction
+                    actionKey='menu'
+                    path='/test'
+                    render={ButtonRenderer}
+                    loading={() => <ButtonRenderer label='loading...'/>}/>
             </>
         );
     });

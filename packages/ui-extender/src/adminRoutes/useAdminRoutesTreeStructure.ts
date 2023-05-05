@@ -2,17 +2,15 @@ import {useMemo} from 'react';
 import {registry} from '~/registry';
 import {getIframeRenderer} from '~/IframeRenderer';
 import {Tree, TreeData} from './Tree';
-import {StoredService} from "~/registry/service";
+import {StoredService} from '~/registry/service';
 
 export const useAdminRouteTreeStructure = function (target: string, selected: string) {
-    const {tree, routes, allPermissions} = useMemo(() => {
+    const result = useMemo(() => {
         const getAllRoutes = (baseTarget: string, parent = ''): StoredService[] => registry.find({
             type: 'adminRoute',
             target: baseTarget + parent
         })
-            .flatMap(route => {
-                return [route, ...getAllRoutes(baseTarget, '-' + route.key)];
-            })
+            .flatMap(route => [route, ...getAllRoutes(baseTarget, '-' + route.key)])
             .map(route => ({
                 ...route,
                 render: route.render || (typeof route.iframeUrl === 'string' && (() => getIframeRenderer(route.iframeUrl as string)))
@@ -39,7 +37,8 @@ export const useAdminRouteTreeStructure = function (target: string, selected: st
         };
     }, [target]);
 
-    let defaultOpenedItems: string[] = [];
+    const {tree, routes, allPermissions} = result;
+    const defaultOpenedItems: string[] = [];
 
     if (selected) {
         let selectedItem = registry.get('adminRoute', selected);

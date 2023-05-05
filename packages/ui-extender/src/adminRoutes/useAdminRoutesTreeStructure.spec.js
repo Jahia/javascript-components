@@ -1,11 +1,9 @@
 import {registry} from '../registry';
 import {useAdminRouteTreeStructure} from './useAdminRoutesTreeStructure';
 
-jest.mock('react', () => {
-    return ({
-        useMemo: v => v()
-    });
-});
+jest.mock('react', () => ({
+    useMemo: v => v()
+}));
 
 jest.mock('../IframeRenderer', () => {});
 

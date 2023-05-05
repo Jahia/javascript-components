@@ -1,12 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export function Modal({context, onExited}) {
-    return (
-        <>
-            <div
-className='backdrop'
-style={{
+export const Modal = ({context, onExited}) => (
+    <>
+        <div
+            className='backdrop'
+            style={{
                  position: 'absolute',
                  width: '100%',
                  height: '100%',
@@ -15,11 +14,11 @@ style={{
                  opacity: 0.1,
                  backgroundColor: 'black'
              }}
-onClick={onExited}
+            onClick={onExited}
         />
-            <div
-className='modal'
-style={{
+        <div
+            className='modal'
+            style={{
                  position: 'absolute',
                  width: '200px',
                  height: '40px',
@@ -31,12 +30,11 @@ style={{
                  alignItems: 'center',
                  justifyContent: 'center'
              }}
-            >
-                <div style={{flex: '0 1 auto'}}>{context.content}</div>
-            </div>
-        </>
-    );
-}
+        >
+            <div style={{flex: '0 1 auto'}}>{context.content}</div>
+        </div>
+    </>
+);
 
 Modal.propTypes = {
     context: PropTypes.object.isRequired,

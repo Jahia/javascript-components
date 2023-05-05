@@ -3,7 +3,7 @@ import {ComponentRenderer} from './ComponentRenderer';
 import PropTypes from 'prop-types';
 import {ComponentRendererContext} from './ComponentRendererContext';
 
-export const ComponentRendererProvider = ({children}: React.PropsWithChildren<{}>) => {
+export const ComponentRendererProvider = ({children}: React.PropsWithChildren<object>) => {
     const value = useRef({});
 
     return (

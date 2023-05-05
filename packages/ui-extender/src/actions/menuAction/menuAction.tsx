@@ -37,7 +37,7 @@ type ItemLoadingProps = {
 
     parentMenuContext?: MenuContext,
 
-    menuItemRenderer?: React.FunctionComponent<{onClick: () => void}>
+    menuItemRenderer?: React.FunctionComponent<{ onClick: () => void }>
 }
 
 const ItemLoading = (props: ItemLoadingProps) => {
@@ -48,9 +48,12 @@ const ItemLoading = (props: ItemLoadingProps) => {
     });
 
     return (
-        <MenuItemRenderer {...props}
-                          onClick={() => {
-                          }}/>
+        <MenuItemRenderer
+            {...props}
+            onClick={() => {
+                //
+            }}
+        />
     );
 };
 
@@ -73,7 +76,16 @@ type ItemRenderProps = {
 };
 
 const ItemRender = (props: ItemRenderProps) => {
-    const {id, onClick, menuContext, menuState, rootMenuContext, parentMenuContext, menuItemRenderer: MenuItemRenderer, isVisible} = {...props.context, ...props};
+    const {
+        id,
+        onClick,
+        menuContext,
+        menuState,
+        rootMenuContext,
+        parentMenuContext,
+        menuItemRenderer: MenuItemRenderer,
+        isVisible
+    } = {...props.context, ...props};
     useEffect(() => {
         parentMenuContext.dispatch({type: 'loaded', item: id, isVisible});
     });
@@ -85,40 +97,41 @@ const ItemRender = (props: ItemRenderProps) => {
     }
 
     return (
-        <MenuItemRenderer {...props}
-                          onClick={event => {
-                              // Call the action and close the menu
-                              if (onClick) {
-                                  onClick(props, event);
-                                  event.stopPropagation();
-                                  rootMenuContext.dispatch({type: 'close'});
-                              }
-                          }}
-                          onMouseEnter={event => {
-                              if (menuContext) {
-                                  // Open submenu (only if it's not opened already)
-                                  if (menuState && !menuState.isOpen) {
-                                      const c = event.currentTarget.getBoundingClientRect();
-                                      menuContext.display(null, {
-                                          anchorEl: {
-                                              getBoundingClientRect: () => c
-                                          },
-                                          anchorElOrigin: {vertical: 'top', horizontal: 'right'}
-                                      });
-                                  }
-                              } else {
-                                  // Moved into another menu item (not sub menu), close current submenu if present
-                                  parentMenuContext.dispatch({type: 'setSubMenuContext', value: null});
-                              }
-                          }}
-                          onMouseLeave={() => {
-                              // Check if the mouse moved out of the item, without going into the sub menu.
-                              if (menuContext) {
-                                  setTimeout(() => {
-                                      menuContext.dispatch({type: 'leaveItem'});
-                                  }, 100);
-                              }
-                          }}
+        <MenuItemRenderer
+            {...props}
+            onClick={event => {
+                // Call the action and close the menu
+                if (onClick) {
+                    onClick(props, event);
+                    event.stopPropagation();
+                    rootMenuContext.dispatch({type: 'close'});
+                }
+            }}
+            onMouseEnter={event => {
+                if (menuContext) {
+                    // Open submenu (only if it's not opened already)
+                    if (menuState && !menuState.isOpen) {
+                        const c = event.currentTarget.getBoundingClientRect();
+                        menuContext.display(null, {
+                            anchorEl: {
+                                getBoundingClientRect: () => c
+                            },
+                            anchorElOrigin: {vertical: 'top', horizontal: 'right'}
+                        });
+                    }
+                } else {
+                    // Moved into another menu item (not sub menu), close current submenu if present
+                    parentMenuContext.dispatch({type: 'setSubMenuContext', value: null});
+                }
+            }}
+            onMouseLeave={() => {
+                // Check if the mouse moved out of the item, without going into the sub menu.
+                if (menuContext) {
+                    setTimeout(() => {
+                        menuContext.dispatch({type: 'leaveItem'});
+                    }, 100);
+                }
+            }}
         />
     );
 };
@@ -156,43 +169,58 @@ export type MenuRendererProps = {
 }
 
 const Menu = (props: MenuProps) => {
-    const {menuTarget, menuFilter, isMenuPreload, menuRenderer: MenuRenderer, menuItemRenderer, rootMenuContext, originalContext, id, actionKey, menuContext, menuState, menuItemProps} = props;
+    const {
+        menuTarget,
+        menuFilter,
+        isMenuPreload,
+        menuRenderer: MenuRenderer,
+        menuItemRenderer,
+        rootMenuContext,
+        originalContext,
+        id,
+        actionKey,
+        menuContext,
+        menuState,
+        menuItemProps
+    } = props;
     return (
-        <MenuRenderer id={id}
-                      context={{key: props.id, ...props}}
-                      menuKey={actionKey}
-                      isSubMenu={menuState.isSubMenu}
-                      anchor={menuState.anchor}
-                      isLoading={menuState.loadingItems.length > 0}
-                      isOpen={menuState.isOpen}
-                      onMouseEnter={() => {
-                          menuContext.dispatch({type: 'enterMenu'});
-                      }}
-                      onMouseLeave={() => {
-                          menuContext.dispatch({type: 'leaveMenu'});
-                      }}
-                      onClose={e => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          menuContext.dispatch({type: 'close'});
-                      }}
-                      onExited={() => {
-                          if (!isMenuPreload) {
-                              menuContext.dispatch({type: 'destroy'});
-                          }
-                      }}
+        <MenuRenderer
+            id={id}
+            context={{key: props.id, ...props}}
+            menuKey={actionKey}
+            isSubMenu={menuState.isSubMenu}
+            anchor={menuState.anchor}
+            isLoading={menuState.loadingItems.length > 0}
+            isOpen={menuState.isOpen}
+            onMouseEnter={() => {
+                menuContext.dispatch({type: 'enterMenu'});
+            }}
+            onMouseLeave={() => {
+                menuContext.dispatch({type: 'leaveMenu'});
+            }}
+            onClose={e => {
+                e.preventDefault();
+                e.stopPropagation();
+                menuContext.dispatch({type: 'close'});
+            }}
+            onExited={() => {
+                if (!isMenuPreload) {
+                    menuContext.dispatch({type: 'destroy'});
+                }
+            }}
         >
-            <DisplayActions {...originalContext}
-                            id={id}
-                            target={menuTarget}
-                            filter={menuFilter}
-                            buttonProps={menuItemProps}
-                            menuRenderer={MenuRenderer}
-                            menuItemRenderer={menuItemRenderer}
-                            parentMenuContext={menuContext}
-                            rootMenuContext={rootMenuContext}
-                            loading={ItemLoading}
-                            render={ItemRender}
+            <DisplayActions
+                {...originalContext}
+                id={id}
+                target={menuTarget}
+                filter={menuFilter}
+                buttonProps={menuItemProps}
+                menuRenderer={MenuRenderer}
+                menuItemRenderer={menuItemRenderer}
+                parentMenuContext={menuContext}
+                rootMenuContext={rootMenuContext}
+                loading={ItemLoading}
+                render={ItemRender}
             />
         </MenuRenderer>
     );
@@ -208,7 +236,7 @@ function remove(items: string[], item: string) {
 
 type MenuState = {
     id: string,
-    currentCtx: object & { originalContext?: object},
+    currentCtx: object & { originalContext?: object },
     anchor: Anchor,
     isRendered: boolean,
     isOpen: boolean,
@@ -354,7 +382,14 @@ export type MenuActionComponentProps = {
 }
 
 const MenuActionComponent = (props: MenuActionComponentProps) => {
-    const {rootMenuContext, parentMenuContext, isMenuPreload, render: Render, loading: Loading, visibilityPredicate} = props;
+    const {
+        rootMenuContext,
+        parentMenuContext,
+        isMenuPreload,
+        render: Render,
+        loading: Loading,
+        visibilityPredicate
+    } = props;
     const id = 'actionComponent-' + props.id;
 
     const elRef = useRef(document.getElementById('menuHolder'));
@@ -385,7 +420,7 @@ const MenuActionComponent = (props: MenuActionComponentProps) => {
     const menuContext: MenuContext = useMemo(() => ({
         id,
         dispatch,
-        display: (currentCtx: object, anchor: any) => {
+        display(currentCtx: object, anchor: Anchor) {
             dispatch({type: 'render', currentCtx});
             // If there's a parent, set the current context as submenu. Previous value should be null
             if (parentMenuContext) {
@@ -417,46 +452,48 @@ const MenuActionComponent = (props: MenuActionComponentProps) => {
             {menuState.isOpen && menuState.loadingItems.length > 0 && Loading ? (
                 <Loading {...props}/>
             ) : (
-                <Render {...props}
-                        menuContext={menuContext}
-                        menuState={menuState}
-                        isVisible={isVisible}
-                        onClick={(eventProps: MenuProps, event: React.MouseEvent) => {
-                            // Handle click to open menu only if not in a submenu (already handled on mouse over)
-                            if (!parentMenuContext) {
-                                if (event.currentTarget && !eventProps.isMenuUseEventPosition) {
-                                    // Copy position of target element as it may be removed after load
-                                    const boundingClientRect = event.currentTarget.getBoundingClientRect();
-                                    const targetMock = {
-                                        ...event.currentTarget,
-                                        getBoundingClientRect: () => boundingClientRect
-                                    };
-                                    menuContext.display(eventProps, {
-                                        anchorEl: targetMock,
-                                        anchorElOrigin: {
-                                            vertical: 'bottom',
-                                            horizontal: 'left'
-                                        }
-                                    });
-                                } else {
-                                    menuContext.display(eventProps, {
-                                        anchorPosition: {
-                                            left: event.clientX,
-                                            top: event.clientY
-                                        }
-                                    });
-                                }
+                <Render
+                    {...props}
+                    menuContext={menuContext}
+                    menuState={menuState}
+                    isVisible={isVisible}
+                    onClick={(eventProps: MenuProps, event: React.MouseEvent) => {
+                        // Handle click to open menu only if not in a submenu (already handled on mouse over)
+                        if (!parentMenuContext) {
+                            if (event.currentTarget && !eventProps.isMenuUseEventPosition) {
+                                // Copy position of target element as it may be removed after load
+                                const boundingClientRect = event.currentTarget.getBoundingClientRect();
+                                const targetMock = {
+                                    ...event.currentTarget,
+                                    getBoundingClientRect: () => boundingClientRect
+                                };
+                                menuContext.display(eventProps, {
+                                    anchorEl: targetMock,
+                                    anchorElOrigin: {
+                                        vertical: 'bottom',
+                                        horizontal: 'left'
+                                    }
+                                });
+                            } else {
+                                menuContext.display(eventProps, {
+                                    anchorPosition: {
+                                        left: event.clientX,
+                                        top: event.clientY
+                                    }
+                                });
                             }
-                        }}
+                        }
+                    }}
                 />
             )}
             {(menuState.isRendered || isMenuPreload) && ReactDOM.createPortal(
-                <Menu {...props}
-                      {...menuState.currentCtx.originalContext}
-                      originalContext={{...props.originalContext, ...menuState.currentCtx.originalContext}}
-                      menuContext={menuContext}
-                      menuState={menuState}
-                      rootMenuContext={rootMenuContext ? rootMenuContext : menuContext}
+                <Menu
+                    {...props}
+                    {...menuState.currentCtx.originalContext}
+                    originalContext={{...props.originalContext, ...menuState.currentCtx.originalContext}}
+                    menuContext={menuContext}
+                    menuState={menuState}
+                    rootMenuContext={rootMenuContext ? rootMenuContext : menuContext}
                 />, elRef.current
             )}
         </>

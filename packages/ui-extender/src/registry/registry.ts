@@ -1,5 +1,5 @@
 import {composeServices} from './composeServices';
-import {Service, StoredService, Target} from "~/registry/service";
+import {Service, StoredService, Target} from '~/registry/service';
 
 class Registry {
     registry: {[key: string]: StoredService};
@@ -12,15 +12,15 @@ class Registry {
         const registryKey = type + '-' + key;
 
         const service = composeServices(...services);
-        const targets = (service.targets)  ?
+        const targets = (service.targets) ?
             service.targets.map(t => {
-                if (typeof t === "string") {
+                if (typeof t === 'string') {
                     const spl = t.split(':');
                     return ({id: spl[0], priority: spl[1] ? spl[1] : 0}) as Target;
                 }
 
                 return t;
-            }) : []
+            }) : [];
 
         const storedService: StoredService = {
             ...service,
@@ -53,7 +53,7 @@ class Registry {
                 delete this.registry[type + '-' + key];
             }
         } else {
-            const entries = this.find({type: type});
+            const entries = this.find({type});
             if (entries) {
                 entries.forEach(entry => this.remove(type, entry.key));
             }
@@ -65,11 +65,9 @@ class Registry {
         const {target, ...otherFilters} = filters;
         if (target) {
             result = result
-                .filter(item => {
-                    return item.targets && item.targets
-                        .map(t => t.id)
-                        .includes(filters.target);
-                })
+                .filter(item => item.targets && item.targets
+                    .map(t => t.id)
+                    .includes(filters.target))
                 .sort((a, b) => {
                     const foundA = a.targets && a.targets.find(t => t.id === filters.target);
                     const foundB = b.targets && b.targets.find(t => t.id === filters.target);
@@ -92,13 +90,11 @@ class Registry {
                 });
         }
 
-        return result.filter(item => {
+        return result.filter(item =>
             // Try to find one key that doesn't match
-            return !Object.keys(otherFilters)
-                .find(key => {
-                    return item[key] !== otherFilters[key];
-                });
-        });
+            !Object.keys(otherFilters)
+                .find(key => item[key] !== otherFilters[key])
+        );
     }
 
     clear() {
@@ -106,6 +102,6 @@ class Registry {
     }
 }
 
-let registry = new Registry();
+const registry = new Registry();
 
 export {registry};

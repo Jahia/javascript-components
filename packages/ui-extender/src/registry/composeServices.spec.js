@@ -26,7 +26,7 @@ describe('composeServices', () => {
                 context.tata = 45;
             }
         }, {
-            onInit: (context, previous) => {
+            onInit(context, previous) {
                 previous(context);
                 context.toto = 42;
             }

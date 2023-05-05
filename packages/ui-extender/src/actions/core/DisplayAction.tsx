@@ -1,6 +1,6 @@
 import React from 'react';
 import {registry} from '~/registry';
-import {StoredService} from "~/registry/service";
+import {StoredService} from '~/registry/service';
 
 let count = 0;
 
@@ -12,7 +12,7 @@ export type DisplayActionProps = {
     /**
      * The action context
      */
-    context?: Object,
+    context?: object,
     /**
      * The render component
      */
@@ -60,7 +60,7 @@ class DisplayAction extends React.PureComponent<DisplayActionProps> {
         // Merge props and context. To remove when context is not supported anymore
         const mergedProps = {...context, ...otherProps};
 
-        let componentProps = {...action, ...mergedProps, originalContext: mergedProps, id: this.id, actionKey};
+        const componentProps = {...action, ...mergedProps, originalContext: mergedProps, id: this.id, actionKey};
 
         if (componentProps.init) {
             componentProps.init(componentProps, this.props);
@@ -68,11 +68,12 @@ class DisplayAction extends React.PureComponent<DisplayActionProps> {
 
         // Props are passed as as context and props. Context can be removed when not supported anymore
         return (
-            <Component key={this.id}
-                       {...componentProps}
-                       context={componentProps}
-                       render={this.RenderWrapper}
-                       loading={loading}
+            <Component
+                key={this.id}
+                {...componentProps}
+                context={componentProps}
+                render={this.RenderWrapper}
+                loading={loading}
             />
         );
     }

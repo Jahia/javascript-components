@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {registry} from '~/registry';
 import {DisplayAction} from './DisplayAction';
-
+import {StoredService} from '~/registry/service';
 
 export type DisplayActionsProps = {
     /**
@@ -12,7 +12,7 @@ export type DisplayActionsProps = {
     /**
      * The action context
      */
-    context?: Object,
+    context?: object,
     /**
      * The render component
      */
@@ -24,13 +24,13 @@ export type DisplayActionsProps = {
     /**
      * Additional filter function
      */
-    filter?: (...args: any[])=>any,
+    filter?: (value: StoredService) => boolean,
 
     [key: string]: unknown
 }
 
 export const DisplayActions = ({target, filter, ...others}: DisplayActionsProps) => {
-    let actionsToDisplay = registry.find({type: 'action', target: target});
+    let actionsToDisplay = registry.find({type: 'action', target});
 
     if (filter) {
         actionsToDisplay = actionsToDisplay && actionsToDisplay.filter(filter);
