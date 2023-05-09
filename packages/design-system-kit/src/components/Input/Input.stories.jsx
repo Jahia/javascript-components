@@ -39,7 +39,7 @@ storiesOf('Input', module)
         () => (
             <DSProvider>
                 <Input
-                    type="number"
+                    type='number'
                     disabled={disabled()}
                     error={error()}
                     readOnly={readOnly()}
@@ -55,7 +55,7 @@ storiesOf('Input', module)
         () => (
             <DSProvider>
                 <Input
-                    type="number"
+                    type='number'
                     decimalScale={0}
                     disabled={disabled()}
                     error={error()}
@@ -72,8 +72,8 @@ storiesOf('Input', module)
         () => (
             <DSProvider>
                 <Input
-                    type="number"
-                    decimalSeparator="."
+                    type='number'
+                    decimalSeparator='.'
                     decimalScale={5}
                     disabled={disabled()}
                     error={error()}
@@ -89,13 +89,14 @@ storiesOf('Input', module)
     .add('icon',
         () => (
             <DSProvider>
-                <Input variant={{icon: <Search/>}}
-                       disabled={disabled()}
-                       error={error()}
-                       readOnly={readOnly()}
-                       onBlur={onBlur()}
-                       onChange={onChange()}
-                       onFocus={onFocus()}
+                <Input
+variant={{icon: <Search/>}}
+disabled={disabled()}
+error={error()}
+readOnly={readOnly()}
+onBlur={onBlur()}
+onChange={onChange()}
+onFocus={onFocus()}
                 />
             </DSProvider>
         ),
@@ -104,13 +105,14 @@ storiesOf('Input', module)
     .add('interactive',
         () => (
             <DSProvider>
-                <Input variant={{interactive: <Close/>}}
-                       disabled={disabled()}
-                       error={error()}
-                       readOnly={readOnly()}
-                       onBlur={onBlur()}
-                       onChange={onChange()}
-                       onFocus={onFocus()}
+                <Input
+variant={{interactive: <Close/>}}
+disabled={disabled()}
+error={error()}
+readOnly={readOnly()}
+onBlur={onBlur()}
+onChange={onChange()}
+onFocus={onFocus()}
                 />
             </DSProvider>
         ),

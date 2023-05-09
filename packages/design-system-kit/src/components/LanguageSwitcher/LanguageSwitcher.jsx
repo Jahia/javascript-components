@@ -17,63 +17,60 @@ const LanguageSwitcher = ({color, lang, languages, onSelectLanguage}) => {
         setAnchorEl(null);
     };
 
-    const uppercaseFirst = string => {
-        return string.charAt(0).toUpperCase() + string.substr(1);
-    };
+    const uppercaseFirst = string => string.charAt(0).toUpperCase() + string.substr(1);
 
     return (
         <React.Fragment>
             {languages.length > 1 ? (
                 <React.Fragment>
-                    <Button aria-owns={anchorEl ? 'language-switcher' : null}
-                            aria-haspopup="true"
-                            data-cm-role="language-switcher"
-                            size="compact"
-                            color={color}
-                            onClick={handleClick}
+                    <Button
+aria-owns={anchorEl ? 'language-switcher' : null}
+aria-haspopup='true'
+data-cm-role='language-switcher'
+size='compact'
+color={color}
+onClick={handleClick}
                     >
-                        <Typography noWrap variant="zeta" color="inherit">
+                        <Typography noWrap variant='zeta' color='inherit'>
                             {uppercaseFirst(_.find(languages, language => language.language === lang).displayName)}
                             &nbsp;
                         </Typography>
-                        <ChevronDown fontSize="small" color="inherit"/>
+                        <ChevronDown fontSize='small' color='inherit'/>
                     </Button>
-                    <Menu id="language-switcher"
-                          anchorEl={anchorEl}
-                          open={Boolean(anchorEl)}
-                          onClose={handleClose}
+                    <Menu
+id='language-switcher'
+anchorEl={anchorEl}
+open={Boolean(anchorEl)}
+onClose={handleClose}
                     >
-                        {languages.map(language => {
-                            return (
-                                <MenuItem
+                        {languages.map(language => (
+                            <MenuItem
                                     key={language.language}
                                     selected={language.language === lang}
                                     onClick={() => {
                                         onSelectLanguage(language.language);
                                         handleClose();
                                     }}
-                                >
-                                    {uppercaseFirst(language.displayName)}
-                                </MenuItem>
-                            );
-                        })}
+                            >
+                                {uppercaseFirst(language.displayName)}
+                            </MenuItem>
+                            ))}
                     </Menu>
                 </React.Fragment>
             ) : (
-                <React.Fragment>
-                    <Button aria-owns={anchorEl ? 'language-switcher' : null}
-                            aria-haspopup="true"
-                            data-cm-role="language-switcher"
-                            size="compact"
-                            color={color}
-                            onClick={handleClick}
-                    >
-                        <Typography noWrap variant="zeta" color="inherit">
-                            {uppercaseFirst(_.find(languages, language => language.language === lang).displayName)}
+                <Button
+aria-owns={anchorEl ? 'language-switcher' : null}
+aria-haspopup='true'
+data-cm-role='language-switcher'
+size='compact'
+color={color}
+onClick={handleClick}
+                >
+                    <Typography noWrap variant='zeta' color='inherit'>
+                        {uppercaseFirst(_.find(languages, language => language.language === lang).displayName)}
                             &nbsp;
-                        </Typography>
-                    </Button>
-                </React.Fragment>
+                    </Typography>
+                </Button>
             )}
         </React.Fragment>
     );

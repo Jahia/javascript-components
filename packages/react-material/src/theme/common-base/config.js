@@ -4,7 +4,7 @@ import {typography} from './typography';
 
 const commonBaseThemeConfig = {
     palette: commonPalette,
-    typography: typography,
+    typography,
     overrides: {
         MuiTablePagination: commonTablePagination
     },

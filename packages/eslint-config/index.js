@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-    parser: 'babel-eslint',
+    parser: '@babel/eslint-parser',
     parserOptions: {
         allowImportExportEverywhere: true
     },
@@ -13,7 +13,7 @@ module.exports = {
     extends: ['xo', 'xo-react'],
     settings: {
         react: {
-            version: '16.8'
+            version: '16.8',
         }
     },
     globals: {
@@ -35,7 +35,7 @@ module.exports = {
         'no-negated-condition': 'warn',
         'no-useless-escape': 'warn',
         camelcase: 'error',
-
+        'comma-dangle': ['error', 'never'],
         // React specific rules
         'react/jsx-fragments': 'off',
         'react/jsx-indent': ['error', 4],
@@ -46,6 +46,15 @@ module.exports = {
         }],
         'react/require-default-props': 0,
         'react/static-property-placement': 0,
-        'react/state-in-constructor': 0
+        'react/state-in-constructor': 0,
+        'react/boolean-prop-naming': ['error', { 'rule': '^((is|has)[A-Z]([A-Za-z0-9]?)+|disabled|readOnly|autoFocus)'}],
+        'react/function-component-definition': [
+          'error',
+          {
+            'namedComponents': 'arrow-function',
+            'unnamedComponents': 'arrow-function'
+          }
+        ],
+        'react/jsx-no-useless-fragment' : ['error', { 'allowExpressions': true }],
     }
 };

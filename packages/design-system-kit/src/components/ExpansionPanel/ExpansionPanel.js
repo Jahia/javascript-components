@@ -10,7 +10,7 @@ import * as _ from 'lodash';
 * root: the style of the component itself
 * attributeValue: when an attribute is set
 */
-let styles = theme => ({
+const styles = theme => ({
     root: {
         position: 'relative',
         boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.1)',

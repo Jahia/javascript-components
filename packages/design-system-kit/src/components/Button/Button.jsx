@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import PropTypeConstants from '../PropTypesConstants';
 
-let styles = theme => ({
+const styles = theme => ({
     root: {
         borderRadius: 1,
         letterSpacing: 0,

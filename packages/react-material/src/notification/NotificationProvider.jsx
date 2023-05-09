@@ -4,7 +4,7 @@ import {IconButton, Snackbar} from '@material-ui/core';
 import {Close} from '@material-ui/icons';
 import * as _ from 'lodash';
 
-let Context = React.createContext();
+const Context = React.createContext();
 
 export const NotificationProvider = ({children}) => {
     const [notificationState, setNotificationState] = useState({
@@ -15,20 +15,20 @@ export const NotificationProvider = ({children}) => {
     });
 
     const notificationContext = useMemo(() => ({
-        notify: (message, predefinedOptions, options) => {
+        notify(message, predefinedOptions, options) {
             if (typeof predefinedOptions === 'object' && predefinedOptions.constructor !== Array) {
                 options = predefinedOptions;
                 predefinedOptions = [];
             }
 
             setNotificationState({
-                message: message,
+                message,
                 open: true,
                 predefinedOptions: predefinedOptions || [],
                 options: options || {}
             });
         },
-        closeNotification: () => {
+        closeNotification() {
             setNotificationState({
                 message: '',
                 open: false,
@@ -42,9 +42,9 @@ export const NotificationProvider = ({children}) => {
         closeButton: {
             action: [
                 <IconButton
-                    key="close"
-                    aria-label="Close"
-                    color="inherit"
+                    key='close'
+                    aria-label='Close'
+                    color='inherit'
                     onClick={() => notificationContext.closeNotification()}
                 >
                     <Close/>
@@ -52,7 +52,7 @@ export const NotificationProvider = ({children}) => {
             ]
         },
         noAutomaticClose: {
-            onClose: () => {
+            onClose() {
                 // Skip close
             }
         },
@@ -61,8 +61,8 @@ export const NotificationProvider = ({children}) => {
         }
     };
 
-    let options = notificationState.options || {};
-    let predefinedOptions = notificationState.predefinedOptions || [];
+    const options = notificationState.options || {};
+    const predefinedOptions = notificationState.predefinedOptions || [];
 
     predefinedOptions.forEach(key => predefined[key] && _.merge(options, predefined[key]));
 
@@ -80,7 +80,7 @@ export const NotificationProvider = ({children}) => {
                 ContentProps={{
                     'aria-describedby': 'message-id'
                 }}
-                message={<span id="message-id">{notificationState.message}</span>}
+                message={<span id='message-id'>{notificationState.message}</span>}
                 onClose={notificationContext.closeNotification}
                 {...options}
             />
@@ -98,22 +98,18 @@ NotificationProvider.propTypes = {
 
 export const NotificationConsumer = Context.Consumer;
 
-export const withNotifications = () => WrappedComponent => {
-    return class extends React.Component {
-        render() {
-            return (
-                <NotificationConsumer>{
+export const withNotifications = () => WrappedComponent => class extends React.Component {
+    render() {
+        return (
+            <NotificationConsumer>{
                     notificationContext => (
                         <WrappedComponent notificationContext={notificationContext} {...this.props}/>
                     )
                 }
-                </NotificationConsumer>
-            );
-        }
-    };
+            </NotificationConsumer>
+        );
+    }
 };
 
-export const useNotifications = () => {
-    return useContext(Context);
-};
+export const useNotifications = () => useContext(Context);
 

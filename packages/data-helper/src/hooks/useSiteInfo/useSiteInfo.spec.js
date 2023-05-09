@@ -1,14 +1,12 @@
 import {useSiteInfo} from './index.js';
 
-jest.mock('react-apollo', () => {
-    return {
-        useQuery: jest.fn(() => ({
-            data: {},
-            loading: false,
-            error: null
-        }))
-    };
-});
+jest.mock('react-apollo', () => ({
+    useQuery: jest.fn(() => ({
+        data: {},
+        loading: false,
+        error: null
+    }))
+}));
 
 import {useQuery} from 'react-apollo';
 

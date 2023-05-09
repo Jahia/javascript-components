@@ -14,7 +14,7 @@ class ComponentRendererProvider extends Component {
 
         this.value = {
             render: (key, component, props) => this.setState(previous => {
-                let newState = {
+                const newState = {
                     components: {...previous.components},
                     componentsProps: {...previous.componentsProps}
                 };
@@ -23,14 +23,14 @@ class ComponentRendererProvider extends Component {
                 return newState;
             }),
             setProps: (key, props) => this.setState(previous => {
-                let newState = {
+                const newState = {
                     componentsProps: {...previous.componentsProps}
                 };
                 newState.componentsProps[key] = {...previous.componentsProps[key], ...props};
                 return newState;
             }),
             destroy: key => this.setState(previous => {
-                let newState = {
+                const newState = {
                     components: {...previous.components},
                     componentsProps: {...previous.componentsProps}
                 };
@@ -42,7 +42,7 @@ class ComponentRendererProvider extends Component {
     }
 
     render() {
-        let components = _.values(_.map(this.state.components, (component, key) => React.cloneElement(component, {key, ...this.state.componentsProps[key]})));
+        const components = _.values(_.map(this.state.components, (component, key) => React.cloneElement(component, {key, ...this.state.componentsProps[key]})));
         return (
             <ComponentRendererContext.Provider value={this.value}>
                 {components}

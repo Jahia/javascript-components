@@ -57,7 +57,7 @@ const styles = theme => ({
 });
 
 export const LeftNavigation = ({context, classes, actionsTarget, secondaryActionsTarget, drawer}) => {
-    let actionContext = {
+    const actionContext = {
         ...context,
         drawer
     };
@@ -68,20 +68,22 @@ export const LeftNavigation = ({context, classes, actionsTarget, secondaryAction
             [classes.rootClosedDrawer]: !drawer.drawerOpen
         })}
         >
-            <List className={classes.list} component="nav">
-                <DisplayActions target={actionsTarget}
-                                context={actionContext}
-                                render={({context}) => (
-                                    <LeftMenuItem context={context} drawer={drawer.drawerOpen}/>
+            <List className={classes.list} component='nav'>
+                <DisplayActions
+target={actionsTarget}
+context={actionContext}
+render={({context}) => (
+    <LeftMenuItem context={context} drawer={drawer.drawerOpen}/>
                                 )}/>
 
             </List>
             <div className={classes.spacer}/>
-            <List className={classes.listBottom} component="nav">
-                <DisplayActions target={secondaryActionsTarget}
-                                context={actionContext}
-                                render={({context}) => (
-                                    <LeftMenuItem context={context} drawer={drawer.drawerOpen}/>
+            <List className={classes.listBottom} component='nav'>
+                <DisplayActions
+target={secondaryActionsTarget}
+context={actionContext}
+render={({context}) => (
+    <LeftMenuItem context={context} drawer={drawer.drawerOpen}/>
                                 )}
                 />
             </List>

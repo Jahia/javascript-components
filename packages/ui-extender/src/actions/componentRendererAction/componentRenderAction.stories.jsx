@@ -34,8 +34,8 @@ storiesOf('actions|componentRendererAction', module)
 
         return (
             <>
-                <div className="description">Render a modal component on click</div>
-                <DisplayActions target="target-renderer" context={{path: '/test'}} render={ButtonRenderer}/>
+                <div className='description'>Render a modal component on click</div>
+                <DisplayActions target='target-renderer' context={{path: '/test'}} render={ButtonRenderer}/>
             </>
         );
     });

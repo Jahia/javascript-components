@@ -27,9 +27,10 @@ describe('DisplayActions', () => {
             label: 'test action 3 (filter false)'
         });
         const wrapper = mount(
-            <DisplayActions target="target-1"
-                            context={{path: '/test'}}
-                            render={ButtonRenderer}/>
+            <DisplayActions
+                target='target-1'
+                context={{path: '/test'}}
+                render={ButtonRenderer}/>
         );
 
         expect(wrapper.find('button').length).toBe(3);
@@ -53,10 +54,11 @@ describe('DisplayActions', () => {
             label: 'test action 3 (filter false)'
         });
         const wrapper = mount(
-            <DisplayActions target="target-2"
-                            context={{path: '/test'}}
-                            filter={context => context.valueToFilter}
-                            render={ButtonRenderer}/>
+            <DisplayActions
+                target='target-2'
+                context={{path: '/test'}}
+                filter={context => context.valueToFilter}
+                render={ButtonRenderer}/>
         );
 
         expect(wrapper.find('button').length).toBe(1);

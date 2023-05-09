@@ -8,7 +8,7 @@ import {isSubset, merge} from './useNodeInfo.utils';
 import {useMemoRequest} from './useMemoRequest';
 import deepEquals from 'fast-deep-equal';
 
-let queue = [];
+const queue = [];
 let schemaResult;
 let timeout;
 let observedQueries = [];
@@ -70,7 +70,7 @@ const timeoutHandler = client => {
                         request.result = result;
                         request.setResult({
                             ...result,
-                            refetch: () => {
+                            refetch() {
                                 client.refetchQueries({include: [query]});
                             }
                         });
@@ -137,7 +137,7 @@ const getResult = (data, others, options, query, generatedVariables) => {
 };
 
 const decodeResult = (nodeOrig, options) => {
-    let node = {...nodeOrig};
+    const node = {...nodeOrig};
     if (node.site) {
         node.site = {...node.site};
     }
@@ -145,7 +145,7 @@ const decodeResult = (nodeOrig, options) => {
     if (node && options) {
         if (options.getPermissions) {
             options.getPermissions.forEach(name => {
-                var res = node[getEncodedPermissionName(name)];
+                const res = node[getEncodedPermissionName(name)];
                 delete node[getEncodedPermissionName(name)];
                 node[name] = res;
             });
@@ -153,7 +153,7 @@ const decodeResult = (nodeOrig, options) => {
 
         if (options.getSitePermissions) {
             options.getSitePermissions.forEach(name => {
-                var res = node.site[getEncodedPermissionName(name)];
+                const res = node.site[getEncodedPermissionName(name)];
                 delete node.site[getEncodedPermissionName(name)];
                 node.site[name] = res;
             });
@@ -161,14 +161,14 @@ const decodeResult = (nodeOrig, options) => {
 
         if (options.getIsNodeTypes) {
             options.getIsNodeTypes.forEach(name => {
-                var res = node[getEncodedNodeTypeName(name)];
+                const res = node[getEncodedNodeTypeName(name)];
                 delete node[getEncodedNodeTypeName(name)];
                 node[name] = res;
             });
         }
 
         if (options.getMimeType) {
-            const nodes = node.resourceChildren.nodes;
+            const {nodes} = node.resourceChildren;
             node.mimeType = (nodes.length !== 0 && nodes[0].mimeType.value) || null;
             delete node.resourceChildren;
         }

@@ -8,7 +8,7 @@ import {ExpansionPanelActions as MuiExpansionPanelActions, withStyles} from '@ma
 * root: the style of the component itself
 * attributeValue: when an attribute is set
 */
-let styles = theme => ({
+const styles = theme => ({
     /* Styles applied to the root element. */
     root: {
         display: 'flex',

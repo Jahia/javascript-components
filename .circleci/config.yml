@@ -16,7 +16,7 @@ references:
 defaults: &defaults
   working_directory: ~/source
   docker:
-    - image: circleci/node:latest
+    - image: cimg/node:16.20
   resource_class: large
 
 jobs:

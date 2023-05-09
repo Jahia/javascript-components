@@ -8,7 +8,7 @@ import {ExpansionPanelSummary as MuiExpansionPanelSummary, withStyles} from '@ma
 * root: the style of the component itself
 * attributeValue: when an attribute is set
 */
-let styles = theme => ({
+const styles = theme => ({
     root: {
         display: 'flex',
         minHeight: 8 * 6,

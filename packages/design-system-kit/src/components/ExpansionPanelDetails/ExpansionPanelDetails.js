@@ -8,7 +8,7 @@ import {ExpansionPanelDetails as MuiExpansionPanelDetails, withStyles} from '@ma
 * root: the style of the component itself
 * attributeValue: when an attribute is set
 */
-let styles = theme => ({
+const styles = theme => ({
     root: {
         display: 'flex',
         padding: theme.spacing.unit + 'px ' + (theme.spacing.unit * 4) + 'px ' + (theme.spacing.unit * 4) + 'px'

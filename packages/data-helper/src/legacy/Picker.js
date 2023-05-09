@@ -60,7 +60,7 @@ export class Picker extends React.Component {
         ${nodeCacheRequiredFields.gql}`;
         this.query = replaceFragmentsInDocument(this.query, fragments);
 
-        let state = {};
+        const state = {};
 
         this.eventsHandlers = {};
 
@@ -70,9 +70,9 @@ export class Picker extends React.Component {
             state.openPaths = [];
             this.eventsHandlers.onOpenItem = (path, open) => {
                 this.setState(prevState => ({
-                    openPaths: open ?
-                        [...prevState.openPaths, path] :
-                        _.filter(prevState.openPaths, thispath => thispath !== path)
+                    openPaths: open
+                        ? [...prevState.openPaths, path]
+                        : _.filter(prevState.openPaths, thispath => thispath !== path)
                 }));
             };
 
@@ -97,9 +97,9 @@ export class Picker extends React.Component {
 
             this.eventsHandlers.onSelectItem = (path, selected, multiple) => {
                 this.setState(prevState => {
-                    let newSelectedPaths = selected ?
-                        [...(multiple ? prevState.selectedPaths : []), path] :
-                        _.filter(prevState.selectedPaths, thispath => thispath !== path);
+                    const newSelectedPaths = selected
+                        ? [...(multiple ? prevState.selectedPaths : []), path]
+                        : _.filter(prevState.selectedPaths, thispath => thispath !== path);
                     onSelectionChange(newSelectedPaths);
                     return {
                         selectedPaths: newSelectedPaths
@@ -124,7 +124,7 @@ export class Picker extends React.Component {
             console.warn('Cannot change between controlled/uncontrolled modes');
         }
 
-        let newState = {};
+        const newState = {};
 
         if (prevState.isOpenControlled && !_.eq(nextProps.openPaths, prevState.openPaths)) {
             newState.openPaths = nextProps.openPaths;
@@ -142,14 +142,14 @@ export class Picker extends React.Component {
     }
 
     getVariables(selectedPaths, openPaths) {
-        let {rootPaths, openableTypes, selectableTypes, queryVariables} = this.props;
+        const {rootPaths, openableTypes, selectableTypes, queryVariables} = this.props;
 
-        let vars = {
-            rootPaths: rootPaths,
+        const vars = {
+            rootPaths,
             types: _.union(openableTypes, selectableTypes),
             selectable: selectableTypes,
             openable: openableTypes,
-            openPaths: openPaths
+            openPaths
         };
 
         if (queryVariables) {
@@ -161,25 +161,25 @@ export class Picker extends React.Component {
 
     getPickerEntries(data, selectedPaths, openPaths) {
         let pickerEntries = [];
-        let nodesById = {};
-        let jcr = data.jcr;
+        const nodesById = {};
+        const {jcr} = data;
 
-        let addNode = function (node, depth, index) {
+        const addNode = function (node, depth, index) {
             let selected = false;
             if (node.selectable) {
                 selected = _.indexOf(selectedPaths, node.path) !== -1;
             }
 
-            let pickerNode = {
+            const pickerNode = {
                 name: node.name,
                 path: node.path,
                 open: node.openable && _.indexOf(openPaths, node.path) !== -1,
-                selected: selected,
+                selected,
                 openable: node.openable,
                 selectable: node.selectable,
-                depth: depth,
+                depth,
                 prefix: _.repeat('&nbsp;', depth * 3),
-                node: node,
+                node,
                 hidden: false,
                 hasChildren: node.children.pageInfo.nodesCount > 0
             };
@@ -191,16 +191,16 @@ export class Picker extends React.Component {
         if (jcr) {
             if (jcr.rootNodes) {
                 _.forEach(jcr.rootNodes, rootNode => {
-                    let root = addNode(rootNode, 0, 0);
+                    const root = addNode(rootNode, 0, 0);
                     root.hidden = this.props.hideRoot;
                 });
             }
 
             if (jcr.openNodes) {
                 _.sortBy(jcr.openNodes, ['path']).forEach(node => {
-                    let parent = nodesById[node.uuid];
+                    const parent = nodesById[node.uuid];
                     if (parent) {
-                        let parentIndex = _.indexOf(pickerEntries, parent);
+                        const parentIndex = _.indexOf(pickerEntries, parent);
                         _.forEachRight(node.children.nodes, child => {
                             addNode(child, parent.depth + 1, parentIndex + 1);
                         });
@@ -210,16 +210,10 @@ export class Picker extends React.Component {
         }
 
         // Nodes loaded, fill selection list
-        let selectedNodes = _.filter(pickerEntries, node => {
-            return node.selected;
-        }).map(node => {
-            return node.node;
-        });
+        const selectedNodes = _.filter(pickerEntries, node => node.selected).map(node => node.node);
 
         selectedPaths = _.map(selectedNodes, 'path');
-        pickerEntries = _.filter(pickerEntries, pickerNode => {
-            return !pickerNode.hidden;
-        });
+        pickerEntries = _.filter(pickerEntries, pickerNode => !pickerNode.hidden);
 
         return pickerEntries;
     }
@@ -257,32 +251,32 @@ export class Picker extends React.Component {
         }
 
         this.setState(prevState => {
-            let openPaths = this.addPathToOpenPath(paths, this.props.rootPaths, prevState.openPaths);
-            return {openPaths: openPaths};
+            const openPaths = this.addPathToOpenPath(paths, this.props.rootPaths, prevState.openPaths);
+            return {openPaths};
         });
     }
 
     render() {
-        let selectedPaths = this.state.selectedPaths ? this.state.selectedPaths : this.props.selectedPaths;
+        const selectedPaths = this.state.selectedPaths ? this.state.selectedPaths : this.props.selectedPaths;
         let openPaths = this.state.openPaths ? this.state.openPaths : this.props.openPaths;
-        let {setRefetch} = this.props;
+        const {setRefetch} = this.props;
 
         openPaths = _.clone(openPaths);
 
-        let vars = this.getVariables(selectedPaths, openPaths);
+        const vars = this.getVariables(selectedPaths, openPaths);
 
         return (
-            <Query query={this.query} variables={vars} fetchPolicy="cache-first">
+            <Query query={this.query} variables={vars} fetchPolicy='cache-first'>
                 {({error, loading, data, refetch}) => {
                     if (setRefetch) {
                         setRefetch({
                             query: this.query,
                             queryParams: vars,
-                            refetch: refetch
+                            refetch
                         });
                     }
 
-                    let renderProp = this.props.children;
+                    const renderProp = this.props.children;
                     if (this.props.onLoading) {
                         this.props.onLoading(loading);
                     }
@@ -299,7 +293,7 @@ export class Picker extends React.Component {
                         return renderProp({pickerEntries: [], error, loading, ...this.eventsHandlers});
                     }
 
-                    let pickerEntries = this.getPickerEntries(data, selectedPaths, openPaths);
+                    const pickerEntries = this.getPickerEntries(data, selectedPaths, openPaths);
                     this.previousEntries = pickerEntries;
 
                     return renderProp({pickerEntries, loading, ...this.eventsHandlers});

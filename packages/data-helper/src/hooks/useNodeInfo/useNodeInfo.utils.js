@@ -26,18 +26,16 @@ export const merge = (target, source) => {
     return target;
 };
 
-export const isSubset = (superObj, subObj) => {
-    return Object.keys(subObj).every(ele => {
-        const obj1 = subObj[ele];
-        const obj2 = superObj[ele];
-        if (Array.isArray(obj1) && Array.isArray(obj2)) {
-            return obj1.length === obj2.length && obj1.every((value, index) => value === obj2[index]);
-        }
+export const isSubset = (superObj, subObj) => Object.keys(subObj).every(ele => {
+    const obj1 = subObj[ele];
+    const obj2 = superObj[ele];
+    if (Array.isArray(obj1) && Array.isArray(obj2)) {
+        return obj1.length === obj2.length && obj1.every((value, index) => value === obj2[index]);
+    }
 
-        if (typeof obj1 === 'object' && !Array.isArray(obj1)) {
-            return isSubset(obj2, obj1);
-        }
+    if (typeof obj1 === 'object' && !Array.isArray(obj1)) {
+        return isSubset(obj2, obj1);
+    }
 
-        return obj1 === obj2;
-    });
-};
+    return obj1 === obj2;
+});

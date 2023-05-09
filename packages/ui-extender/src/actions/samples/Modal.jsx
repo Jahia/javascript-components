@@ -3,8 +3,9 @@ import React from 'react';
 
 export const Modal = ({context, onExited}) => (
     <>
-        <div className="backdrop"
-             style={{
+        <div
+            className='backdrop'
+            style={{
                  position: 'absolute',
                  width: '100%',
                  height: '100%',
@@ -13,10 +14,11 @@ export const Modal = ({context, onExited}) => (
                  opacity: 0.1,
                  backgroundColor: 'black'
              }}
-             onClick={onExited}
+            onClick={onExited}
         />
-        <div className="modal"
-             style={{
+        <div
+            className='modal'
+            style={{
                  position: 'absolute',
                  width: '200px',
                  height: '40px',

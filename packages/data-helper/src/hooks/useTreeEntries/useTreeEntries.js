@@ -14,7 +14,7 @@ export const useTreeEntries = ({
     hideRoot,
     sortBy
 }, queryOptions) => {
-    let query = replaceFragmentsInDocument(TREE_QUERY, fragments);
+    const query = replaceFragmentsInDocument(TREE_QUERY, fragments);
 
     const getTreeEntries = (data, selectedPaths, openPaths) => {
         const treeEntries = [];
@@ -27,16 +27,16 @@ export const useTreeEntries = ({
                 selected = selectedPaths.indexOf(node.path) !== -1;
             }
 
-            let treeEntry = {
+            const treeEntry = {
                 name: node.name,
                 path: node.path,
                 open: node.openable && openPaths.indexOf(node.path) !== -1,
-                selected: selected,
+                selected,
                 openable: node.openable,
                 selectable: node.selectable,
-                depth: depth,
+                depth,
                 prefix: '&nbsp;'.repeat(depth * 3),
-                node: node,
+                node,
                 hidden: false,
                 hasChildren: node.children.pageInfo.nodesCount > 0
             };
@@ -48,7 +48,7 @@ export const useTreeEntries = ({
         if (jcr) {
             if (jcr.rootNodes) {
                 jcr.rootNodes.forEach(rootNode => {
-                    let root = addNode(rootNode, 0, 0);
+                    const root = addNode(rootNode, 0, 0);
                     root.hidden = hideRoot;
                 });
             }
@@ -72,13 +72,13 @@ export const useTreeEntries = ({
         return treeEntries.filter(treeNode => !treeNode.hidden);
     };
 
-    let vars = {
-        rootPaths: rootPaths,
+    const vars = {
+        rootPaths,
         types: Array.from(new Set([...(openableTypes || []), ...(selectableTypes || [])])),
         recursionTypesFilter: recursionTypesFilter || {types: 'nt:base', multi: 'NONE'},
         selectable: selectableTypes,
         openable: openableTypes,
-        openPaths: openPaths,
+        openPaths,
         sortBy,
         ...queryVariables
     };

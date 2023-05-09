@@ -9,7 +9,7 @@ import * as _ from 'lodash';
 * root: the style of the component itself
 * attributeValue: when an attribute is set
 */
-let styles = theme => ({
+const styles = theme => ({
     root: {},
     normal: {},
     ghost: {

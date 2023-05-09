@@ -8,7 +8,10 @@
     "publish-script": "jahia-publish",
     "prepare-build": "jahia-prepare-build",
     "build": "jahia-build",
-    "build-umd": "jahia-build-umd"
+    "build-umd": "jahia-build-umd",
+    "lint": "eslint --ext js,jsx src",
+    "lint:fix": "yarn lint --fix",
+    "test": "jest --coverage"
   },
   "main": "js/index.js",
   "module": "esm/index.js",

@@ -11,7 +11,7 @@ import {pure} from 'recompose';
 import {toIconComponent} from './toIconComponent';
 import {ListItemIcon} from '@jahia/design-system-kit';
 
-let styles = {
+const styles = {
     modalRoot: {
         pointerEvents: 'none'
     },
@@ -35,7 +35,7 @@ let styles = {
     }
 };
 
-let setActionsRef = (ref, context) => {
+const setActionsRef = (ref, context) => {
     if (ref) {
         if (menuStatus[context.id].menuSubscription) {
             menuStatus[context.id].menuSubscription.unsubscribe();
@@ -50,19 +50,20 @@ let setActionsRef = (ref, context) => {
     }
 };
 
-let menuStatus = {};
+const menuStatus = {};
 
-let preload = context => {
+const preload = context => {
     context.obs = {enabled: new BehaviorSubject(false)};
     context.enabled = context.obs.enabled;
 
-    let currentPreloadMenuHandler = context.renderComponent(<DisplayActions target={context.menu}
-                                                                            context={{
+    const currentPreloadMenuHandler = context.renderComponent(<DisplayActions
+target={context.menu}
+context={{
                                                                              ...context.originalContext,
                                                                              displayDisabled: context.menuDisplayDisabled,
                                                                              parent: context
                                                                          }}
-                                                                            render={
+render={
                                                                              () => {
                                                                                  context.obs.enabled.next(true);
                                                                                  return false;
@@ -75,11 +76,11 @@ let preload = context => {
     };
 };
 
-let PureMenu = pure(Menu);
+const PureMenu = pure(Menu);
 
-let display = (context, anchor) => {
+const display = (context, anchor) => {
     // Disable backdrop for sub menus, click through to main menu backdrop
-    let subMenuProps = (context.parent) ? {
+    const subMenuProps = (context.parent) ? {
         ModalClasses: {root: context.classes.modalRoot},
         classes: {paper: context.classes.paperRoot},
         disableEnforceFocus: true,
@@ -93,16 +94,17 @@ let display = (context, anchor) => {
         };
     }
 
-    const showIcons = context.showIcons;
+    const {showIcons} = context;
     const noIconClass = context.classes.noIcon;
 
     menuStatus[context.id].open = true;
     context.currentMenuHandler = context.renderComponent(
-        <PureMenu open
-                  className={context.classes.loading}
-                  id={'menu-' + context.id}
-                  {...anchor}
-                  action={c => {
+        <PureMenu
+open
+className={context.classes.loading}
+id={'menu-' + context.id}
+{...anchor}
+action={c => {
                       menuStatus[context.id].onMenuLoaded = displayed => {
                           if (menuStatus[context.id].open) {
                               c.updatePosition();
@@ -110,17 +112,17 @@ let display = (context, anchor) => {
                           }
                       };
                   }}
-                  BackdropProps={{
+BackdropProps={{
                       invisible: true,
-                      onContextMenu: e => {
+                      onContextMenu(e) {
                           e.preventDefault();
                           context.currentMenuHandler.setProps({open: false});
                       }
                   }}
-                  onClose={() => {
+onClose={() => {
                       context.currentMenuHandler.setProps({open: false});
                   }}
-                  onExit={() => {
+onExit={() => {
                       menuStatus[context.id].open = false;
                       if (context.onExit) {
                           context.onExit(context);
@@ -136,39 +138,41 @@ let display = (context, anchor) => {
                           context.currentOpenSubmenuContext.currentMenuHandler.setProps({open: false});
                       }
                   }}
-                  onExited={() => {
+onExited={() => {
                       // Free resources after exit
                       context.currentMenuHandler.destroy();
                       delete menuStatus[context.id];
                   }}
-                  onMouseEnter={() => {
+onMouseEnter={() => {
                       menuStatus[context.id].inMenu = true;
                   }}
-                  onMouseLeave={() => {
+onMouseLeave={() => {
                       menuStatus[context.id].inMenu = false;
                   }}
-                  {...subMenuProps}
+{...subMenuProps}
         >
             <Translation>{t => (
                 <React.Fragment>
-                    {context.menuEmptyMessage &&
-                        <MenuItem disabled classes={{root: context.classes.emptyMenuItem}}>{t(context.menuEmptyMessage)}</MenuItem>}
-                    <DisplayActions ref={r => setActionsRef(r, context)}
-                                    context={{
+                    {context.menuEmptyMessage
+                        && <MenuItem disabled classes={{root: context.classes.emptyMenuItem}}>{t(context.menuEmptyMessage)}</MenuItem>}
+                    <DisplayActions
+ref={r => setActionsRef(r, context)}
+context={{
                                         ...context.originalContext,
                                         displayDisabled: context.menuDisplayDisabled,
                                         parent: context
                                     }}
-                                    filter={context.menuFilter}
-                                    render={
+filter={context.menuFilter}
+render={
                                         ({context}) => {
                                             context.parent.menuDisplayed = true;
                                             const disabled = context.enabled !== null && context.enabled === false;
                                             return (
-                                                <MenuItem data-sel-role={context.key}
-                                                          data-sel-disabled={disabled}
-                                                          disabled={disabled}
-                                                          onClick={e => {
+                                                <MenuItem
+data-sel-role={context.key}
+data-sel-disabled={disabled}
+disabled={disabled}
+onClick={e => {
                                                               // First close all menu by closing main menu
                                                               let rootContext = context;
                                                               while (rootContext.parent && rootContext.parent.currentMenuHandler) {
@@ -179,7 +183,7 @@ let display = (context, anchor) => {
                                                               // Send click event
                                                               context.onClick(context, e);
                                                           }}
-                                                          onMouseEnter={e => {
+onMouseEnter={e => {
                                                               // If a submenu was open, close it
                                                               if (context.parent.currentOpenSubmenuContext) {
                                                                   context.parent.currentOpenSubmenuContext.currentMenuHandler.setProps({open: false});
@@ -190,16 +194,17 @@ let display = (context, anchor) => {
                                                                   context.onMouseEnter(context, e);
                                                               }
                                                           }}
-                                                          onMouseLeave={context.onMouseLeave && (e => {
+onMouseLeave={context.onMouseLeave && (e => {
                                                               context.onMouseLeave(context, e);
                                                           })}
                                                 >
-                                                    {showIcons &&
+                                                    {showIcons && (
                                                         <ListItemIcon>
-                                                            {context.buttonIcon ?
-                                                                toIconComponent(context.buttonIcon) :
-                                                                <span className={noIconClass}/>}
-                                                        </ListItemIcon>}
+                                                            {context.buttonIcon
+                                                                ? toIconComponent(context.buttonIcon)
+                                                                : <span className={noIconClass}/>}
+                                                        </ListItemIcon>
+                                                    )}
                                                     {/* eslint-disable-next-line react/no-danger */}
                                                     <span dangerouslySetInnerHTML={{__html: t(context.buttonLabel, context.buttonLabelParams)}}/>
                                                     {context.icon}
@@ -207,7 +212,7 @@ let display = (context, anchor) => {
                                             );
                                         }
                                     }
-                                    target={context.menu}
+target={context.menu}
                     />
                 </React.Fragment>
             )}
@@ -216,9 +221,9 @@ let display = (context, anchor) => {
     );
 };
 
-let menuAction = composeActions(componentRendererAction, withStylesAction(styles), {
+const menuAction = composeActions(componentRendererAction, withStylesAction(styles), {
 
-    init: context => {
+    init(context) {
         if (!context.icon) {
             context.icon = <ArrowRight/>;
         }
@@ -229,22 +234,22 @@ let menuAction = composeActions(componentRendererAction, withStylesAction(styles
         }
     },
 
-    destroy: context => {
+    destroy(context) {
         if (menuStatus[context.id] && menuStatus[context.id].preload) {
             menuStatus[context.id].preload.destroy();
         }
     },
 
-    onMouseEnter: (context, e) => {
+    onMouseEnter(context, e) {
         if (context.parent && menuStatus[context.parent.id].open) {
             // Open submenu on mouseEnter
             context.parent.currentOpenSubmenuContext = context;
-            let b = e.currentTarget.getBoundingClientRect();
+            const b = e.currentTarget.getBoundingClientRect();
             display(context, {anchorPosition: {left: b.left + b.width, top: b.top}, anchorReference: 'anchorPosition'});
         }
     },
 
-    onMouseLeave: context => {
+    onMouseLeave(context) {
         if (context.parent && context.parent.currentOpenSubmenuContext) {
             // Close submenu on mouseLeave - first check if the pointer has not left for the menu itself
             setTimeout(() => {
@@ -256,15 +261,15 @@ let menuAction = composeActions(componentRendererAction, withStylesAction(styles
         }
     },
 
-    onClick: (context, e) => {
+    onClick(context, e) {
         // If not a submenu, open it (can be overridden for submenu, as menu is opened on mouseEnter)
         if (!context.parent) {
-            let b = e.currentTarget.getBoundingClientRect();
+            const b = e.currentTarget.getBoundingClientRect();
             display(context, {anchorPosition: {left: b.left, top: b.top}, anchorReference: 'anchorPosition'});
         }
     },
 
-    onContextMenu: (context, e) => {
+    onContextMenu(context, e) {
         e.preventDefault();
         display(context, {anchorPosition: {left: e.clientX, top: e.clientY}, anchorReference: 'anchorPosition'});
     }

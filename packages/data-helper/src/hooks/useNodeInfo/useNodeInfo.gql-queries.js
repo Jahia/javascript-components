@@ -156,7 +156,7 @@ export const getQuery = (variables, schemaResult, options = {}) => {
         }
 
         if (options.getAggregatedPublicationInfo) {
-            let supportsExistsInLive = schemaResult && schemaResult.__type && schemaResult.__type.fields && schemaResult.__type.fields.find(field => field.name === 'existsInLive') !== undefined;
+            const supportsExistsInLive = schemaResult && schemaResult.__type && schemaResult.__type.fields && schemaResult.__type.fields.find(field => field.name === 'existsInLive') !== undefined;
             if (supportsExistsInLive) {
                 fragments.push(aggregatedPublicationInfoWithExistInLive);
             } else {

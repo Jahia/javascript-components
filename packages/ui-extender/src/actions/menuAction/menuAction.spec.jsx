@@ -27,12 +27,13 @@ const MenuRenderer = ({menuKey, isSubMenu, isOpen, isLoading, onClose, onExited,
 
     return (
         <>
-            {!isSubMenu && <div className="backdrop" onClick={onClose}/>}
-            <div className={isOpen && !isLoading ? 'menu' : 'xxxx'}
-                 onMouseEnter={onMouseEnter}
-                 onMouseLeave={onMouseLeave}
+            {!isSubMenu && <div className='backdrop' onClick={onClose}/>}
+            <div
+                className={isOpen && !isLoading ? 'menu' : 'xxxx'}
+                onMouseEnter={onMouseEnter}
+                onMouseLeave={onMouseLeave}
             >
-                <div className="menuItems" id={'menu-' + menuKey}>
+                <div className='menuItems' id={'menu-' + menuKey}>
                     {children}
                 </div>
             </div>
@@ -52,13 +53,11 @@ MenuRenderer.propTypes = {
     children: PropTypes.node.isRequired
 };
 
-const MenuItemRenderer = ({label, actionKey, onClick, onMouseEnter, onMouseLeave}) => {
-    return (
-        <div className="menuItem" id={'item-' + actionKey} onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-            {label}
-        </div>
-    );
-};
+const MenuItemRenderer = ({label, actionKey, onClick, onMouseEnter, onMouseLeave}) => (
+    <div className='menuItem' id={'item-' + actionKey} onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+        {label}
+    </div>
+);
 
 MenuItemRenderer.propTypes = {
     actionKey: PropTypes.string.isRequired,
@@ -105,8 +104,8 @@ AsyncComponent.propTypes = {
 function addMenu(key, targets, isMenuPreload) {
     registry.addOrReplace('action', key, menuAction, {
         label: key,
-        targets: targets,
-        isMenuPreload: isMenuPreload,
+        targets,
+        isMenuPreload,
         menuTarget: key,
         menuRenderer: MenuRenderer,
         menuItemRenderer: MenuItemRenderer
@@ -115,7 +114,7 @@ function addMenu(key, targets, isMenuPreload) {
 
 function addItem(key, targets, fn) {
     registry.addOrReplace('action', key, {
-        targets: targets,
+        targets,
         label: key,
         onClick: fn
     });
@@ -142,7 +141,7 @@ function advanceTime(wrapper) {
 function getWrapper() {
     return mount(
         <ComponentRendererProvider>
-            <DisplayAction actionKey="menu" path="/test" render={ButtonRenderer}/>
+            <DisplayAction actionKey='menu' path='/test' render={ButtonRenderer}/>
         </ComponentRendererProvider>
     );
 }

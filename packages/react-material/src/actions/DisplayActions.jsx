@@ -15,12 +15,10 @@ class DisplayActions extends React.Component {
 
         let actionsToDisplay = _.filter(actionsRegistry.getAll(), action => _.includes(_.map(action.target, 'id'), target));
         actionsToDisplay = _.sortBy(actionsToDisplay, [function (o) {
-            let found = _.find(o.target, function (t) {
-                return t.id === target;
-            });
+            const found = _.find(o.target, t => t.id === target);
 
             if (found && found.priority) {
-                let priority = Number(found.priority);
+                const priority = Number(found.priority);
                 if (!isNaN(priority) && priority !== 0) {
                     return priority;
                 }

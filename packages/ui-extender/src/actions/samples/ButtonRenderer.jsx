@@ -14,7 +14,7 @@ const ButtonRenderer = ({onClick, isVisible, enabled, label, ...props}) => (
                 outline: 'none'
             }}
             disabled={enabled === false}
-            type="button"
+            type='button'
             onClick={ev => onClick(props, ev)}
         >{label}
         </button>
