@@ -160,11 +160,11 @@ ToggleCmp.defaultProps = {
     checked: false,
     disabled: false,
     readOnly: false,
-    onChange: () => {
+    onChange() {
     },
-    onFocus: () => {
+    onFocus() {
     },
-    onBlur: () => {
+    onBlur() {
     }
 };
 
@@ -172,9 +172,9 @@ ToggleCmp.propTypes = {
     classes: PropTypes.object,
     // eslint-disable-next-line react/boolean-prop-naming
     checked: PropTypes.bool,
-    // eslint-disable-next-line react/boolean-prop-naming
+
     disabled: PropTypes.bool,
-    // eslint-disable-next-line react/boolean-prop-naming
+
     readOnly: PropTypes.bool,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,

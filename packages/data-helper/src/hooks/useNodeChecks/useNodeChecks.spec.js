@@ -25,27 +25,19 @@ jest.mock('react-apollo', () => {
 
     return {
         useQuery: jest.fn(() => (data)),
-        useApolloClient: jest.fn(() => {
-            return {
-                query: () => {
+        useApolloClient: jest.fn(() => ({
+            query: () => ({
+                then: inputFcn => inputFcn(data)
+            }),
+            watchQuery: () => ({
+                subscribe(inputFcn) {
+                    inputFcn(data);
                     return {
-                        then: inputFcn => {
-                            return inputFcn(data);
-                        }
-                    };
-                },
-                watchQuery: () => {
-                    return {
-                        subscribe: inputFcn => {
-                            inputFcn(data);
-                            return {
-                                unsubscribe: () => {}
-                            };
-                        }
+                        unsubscribe() {}
                     };
                 }
-            };
-        })
+            })
+        }))
     };
 });
 
@@ -53,7 +45,7 @@ jest.mock('react', () => {
     let current;
 
     return ({
-        useRef: v => {
+        useRef(v) {
             if (!current) {
                 current = v;
             }
@@ -91,7 +83,7 @@ describe('useNodeChecks', () => {
 
         expect(getQuery).toHaveBeenCalled();
 
-        const mock = getQuery.mock;
+        const {mock} = getQuery;
         const result = mock.results[mock.results.length - 1];
         const variables = result.value.generatedVariables;
         result.value.query.definitions[0].variableDefinitions.map(v => v.variable.name.value).forEach(v => expect(Object.keys(variables)).toContain(v));
@@ -111,7 +103,7 @@ describe('useNodeChecks', () => {
 
         expect(getQuery).toHaveBeenCalled();
 
-        const mock = getQuery.mock;
+        const {mock} = getQuery;
         const result = mock.results[mock.results.length - 1];
         const variables = result.value.generatedVariables;
         result.value.query.definitions[0].variableDefinitions.map(v => v.variable.name.value).forEach(v => expect(Object.keys(variables)).toContain(v));

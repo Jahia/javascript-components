@@ -14,14 +14,15 @@ class StateActionComponent extends React.Component {
     }
 
     render() {
-        let enhancedContext = {...this.props.context, ...this.state};
+        const enhancedContext = {...this.props.context, ...this.state};
 
         if (enhancedContext.displayDisabled || (enhancedContext.enabled !== false && enhancedContext.enabled !== null)) {
-            let Render = this.props.render;
+            const Render = this.props.render;
             if (enhancedContext.actions) {
                 return _.map(enhancedContext.actions, action => (
-                    <Render key={action.key}
-                            context={{
+                    <Render
+key={action.key}
+context={{
                     ...enhancedContext,
                     ...action
                 }}/>
@@ -49,9 +50,9 @@ class DisplayActionComponent extends React.Component {
     }
 
     render() {
-        let {context, render} = this.props;
+        const {context, render} = this.props;
 
-        let subscription = this.subscription;
+        const {subscription} = this;
         if (subscription) {
             subscription.unsubscribe();
         }
@@ -62,12 +63,12 @@ class DisplayActionComponent extends React.Component {
         }
 
         // Check observers
-        let observersObj = _.pickBy(enhancedContext, value => value instanceof Observable);
-        let keys = Object.keys(observersObj);
+        const observersObj = _.pickBy(enhancedContext, value => value instanceof Observable);
+        const keys = Object.keys(observersObj);
 
         if (keys.length > 0) {
             // Prepare an updateContext method for subscription - first set it as synchronous update of the context object
-            let update = v => {
+            const update = v => {
                 if (this.innerRef.current) {
                     this.innerRef.current.setState(v);
                 } else {
@@ -76,7 +77,7 @@ class DisplayActionComponent extends React.Component {
             };
 
             // Concat with a sync observer to always get an initial value
-            let observers = Object.values(observersObj);
+            const observers = Object.values(observersObj);
 
             keys.forEach(k => _.set(enhancedContext, k, null));
 
@@ -86,7 +87,7 @@ class DisplayActionComponent extends React.Component {
             _.each(observers, observer => observer.pipe(first()).subscribe());
 
             // Combine all observers into one
-            let combinedObserver = combineLatest(...observers, (...vals) => _.zipObject(keys, vals));
+            const combinedObserver = combineLatest(...observers, (...vals) => _.zipObject(keys, vals));
             this.subscription = combinedObserver.subscribe(v => update(v));
             if (this.props.observerRef) {
                 this.props.observerRef(combinedObserver);
@@ -103,7 +104,7 @@ class DisplayActionComponent extends React.Component {
             this.subscription.unsubscribe();
         }
 
-        let {context} = this.props;
+        const {context} = this.props;
         if (context.destroy) {
             context.destroy(context);
         }
@@ -121,16 +122,16 @@ DisplayActionComponent.propTypes = {
 };
 
 const shallowEquals = (obj1, obj2) =>
-    Object.keys(obj1).length === Object.keys(obj2).length &&
-    Object.keys(obj1).every(key => obj1[key] === obj2[key]);
+    Object.keys(obj1).length === Object.keys(obj2).length
+    && Object.keys(obj1).every(key => obj1[key] === obj2[key]);
 
 class DisplayAction extends React.Component {
     constructor(props) {
         super(props);
         this.id = props.actionKey + '-' + (count++);
 
-        let {actionKey} = this.props;
-        let action = actionsRegistry.get(actionKey);
+        const {actionKey} = this.props;
+        const action = actionsRegistry.get(actionKey);
 
         let Component = DisplayActionComponent;
 
@@ -150,11 +151,11 @@ class DisplayAction extends React.Component {
     }
 
     render() {
-        let {context, actionKey, render, observerRef} = this.props;
-        let action = actionsRegistry.get(actionKey);
-        let enhancedContext = {...action, ...context, originalContext: context, id: this.id, actionKey};
+        const {context, actionKey, render, observerRef} = this.props;
+        const action = actionsRegistry.get(actionKey);
+        const enhancedContext = {...action, ...context, originalContext: context, id: this.id, actionKey};
 
-        let Component = this.Component;
+        const {Component} = this;
 
         return <Component key={this.id} context={enhancedContext} render={render} actionKey={actionKey} observerRef={observerRef}/>;
     }

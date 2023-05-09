@@ -3,39 +3,38 @@ import {IconButton, List, ListItem, ListItemIcon, ListItemSecondaryAction, ListI
 import {ExpandLess, ExpandMore, CheckBoxOutlineBlank, CheckBox} from '@material-ui/icons';
 import PropTypes from 'prop-types';
 
-let PickerViewMaterialMultiple = function (props) {
-    return (
-        <List>
-            {props.pickerEntries.map(entry => (
-                <ListItem key={entry.path}
-                          button
-                          onClick={() => entry.selectable ? props.onSelectItem(entry.path, !entry.selected, true) : props.onOpenItem(entry.path, !entry.open)}
-                >
-                    <ListItemIcon style={entry.selectable ? {} : {opacity: 0}}>{entry.selected ? <CheckBox/> :
-                    <CheckBoxOutlineBlank/>}
-                    </ListItemIcon>
-                    <ListItemText
+let PickerViewMaterialMultiple = props => (
+    <List>
+        {props.pickerEntries.map(entry => (
+            <ListItem
+key={entry.path}
+button
+onClick={() => entry.selectable ? props.onSelectItem(entry.path, !entry.selected, true) : props.onOpenItem(entry.path, !entry.open)}
+            >
+                <ListItemIcon style={entry.selectable ? {} : {opacity: 0}}>{entry.selected ? <CheckBox/>
+                    : <CheckBoxOutlineBlank/>}
+                </ListItemIcon>
+                <ListItemText
                                   inset
                                   primary={props.textRenderer ? props.textRenderer.call(this, entry) : entry.name}
                                   style={{paddingLeft: entry.depth * props.theme.spacing.unit}}
                                   />
-                    <ListItemSecondaryAction>
-                        {entry.openable && entry.hasChildren ? (
-                            <IconButton onClick={() => props.onOpenItem(entry.path, !entry.open)}>{entry.open ?
-                                <ExpandLess/> : <ExpandMore/>}
-                            </IconButton>) : null}
-                    </ListItemSecondaryAction>
-                </ListItem>
+                <ListItemSecondaryAction>
+                    {entry.openable && entry.hasChildren ? (
+                        <IconButton onClick={() => props.onOpenItem(entry.path, !entry.open)}>{entry.open
+                                ? <ExpandLess/> : <ExpandMore/>}
+                        </IconButton>) : null}
+                </ListItemSecondaryAction>
+            </ListItem>
                 )
             )}
-        </List>
-    );
-};
+    </List>
+);
 
 PickerViewMaterialMultiple.defaultProps = {
-    onSelectItem: () => {},
-    onOpenItem: () => {},
-    textRenderer: () => {}
+    onSelectItem() {},
+    onOpenItem() {},
+    textRenderer() {}
 };
 
 PickerViewMaterialMultiple.propTypes = {

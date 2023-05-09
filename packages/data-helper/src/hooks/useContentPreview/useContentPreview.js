@@ -12,13 +12,13 @@ export const useContentPreview = ({
     fetchPolicy
 }) => {
     const variables = {
-        path: path,
-        templateType: templateType,
-        view: view,
-        contextConfiguration: contextConfiguration,
-        language: language,
+        path,
+        templateType,
+        view,
+        contextConfiguration,
+        language,
         workspace: workspace.toUpperCase(),
-        requestAttributes: requestAttributes
+        requestAttributes
     };
 
     return useQuery(CONTENT_PREVIEW_QUERY, {

@@ -14,7 +14,7 @@ const styles = () => ({
 
 class ProgressOverlayCmp extends React.Component {
     render() {
-        let {classes} = this.props;
+        const {classes} = this.props;
         return <div className={classes.loadingOverlay}><CircularProgress/></div>;
     }
 }

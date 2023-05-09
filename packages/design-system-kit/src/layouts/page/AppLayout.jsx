@@ -44,7 +44,7 @@ export class AppLayout extends React.Component {
         this.setState({
             openDrawerMenu: menu,
             drawerOpen: true,
-            drawerContent: drawerContent
+            drawerContent
         });
     }
 

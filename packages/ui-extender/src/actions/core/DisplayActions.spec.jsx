@@ -28,7 +28,7 @@ describe('DisplayActions', () => {
         });
         const wrapper = mount(
             <DisplayActions
-                target="target-1"
+                target='target-1'
                 context={{path: '/test'}}
                 render={ButtonRenderer}/>
         );
@@ -55,7 +55,7 @@ describe('DisplayActions', () => {
         });
         const wrapper = mount(
             <DisplayActions
-                target="target-2"
+                target='target-2'
                 context={{path: '/test'}}
                 filter={context => context.valueToFilter}
                 render={ButtonRenderer}/>

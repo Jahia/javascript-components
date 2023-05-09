@@ -12,7 +12,7 @@ import NunitoSansLight2 from '../../../../resources/fonts/nunito-sans-v3-latin-3
 import NunitoSansLightTtf from '../../../../resources/fonts/nunito-sans-v3-latin-300.ttf';
 import NunitoSansLightEot from '../../../../resources/fonts/nunito-sans-v3-latin-300.eot';
 
-var anthraciteTypography = () => ({
+const anthraciteTypography = () => ({
     '@font-face': [
         {
             fontFamily: 'Nunito Sans',

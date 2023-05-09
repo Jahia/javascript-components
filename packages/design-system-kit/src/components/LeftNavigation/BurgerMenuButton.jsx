@@ -25,19 +25,22 @@ function openMenu() {
 export const BurgerMenuButton = ({classes, isDrawerOpen, title}) => {
     if (isDrawerOpen) {
         return (
-            <div className={classNames(classes.menuButton, classes.menuButtonBlue)}
-                 data-sel-role="burger-menu"
-                 onClick={openMenu}/>
+            <div
+className={classNames(classes.menuButton, classes.menuButtonBlue)}
+data-sel-role='burger-menu'
+onClick={openMenu}/>
         );
     }
 
     return (
-        <Tooltip title={title}
-                 placement="right"
+        <Tooltip
+title={title}
+placement='right'
         >
-            <div className={classNames(classes.menuButton)}
-                 data-sel-role="burger-menu"
-                 onClick={openMenu}/>
+            <div
+className={classNames(classes.menuButton)}
+data-sel-role='burger-menu'
+onClick={openMenu}/>
         </Tooltip>
     );
 };

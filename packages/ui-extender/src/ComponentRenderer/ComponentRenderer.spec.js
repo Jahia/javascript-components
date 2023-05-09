@@ -4,7 +4,7 @@ import {ComponentRendererProvider} from './ComponentRendererProvider';
 import PropTypes from 'prop-types';
 import {ComponentRendererContext} from './ComponentRendererContext';
 
-const RenderedComponent = ({label}) => <div className="component">{label}</div>;
+const RenderedComponent = ({label}) => <div className='component'>{label}</div>;
 
 RenderedComponent.propTypes = {
     label: PropTypes.string
@@ -16,22 +16,22 @@ const Render = () => {
     return (
         <>
             <button
-                type="button"
-                className="open"
+                type='button'
+                className='open'
                 onClick={() => renderer.render('test', RenderedComponent, {label: 'test'})}
             >
                 Open
             </button>
             <button
-                type="button"
-                className="update"
+                type='button'
+                className='update'
                 onClick={() => renderer.setProperties('test', {label: 'updated'})}
             >
                 Update
             </button>
             <button
-                type="button"
-                className="destroy"
+                type='button'
+                className='destroy'
                 onClick={() => renderer.destroy('test')}
             >
                 Destroy

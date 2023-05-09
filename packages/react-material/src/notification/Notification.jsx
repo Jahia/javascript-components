@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 class NotificationCmp extends React.Component {
     componentDidMount() {
-        let {notificationContext, message, predefinedOptions, options} = this.props;
+        const {notificationContext, message, predefinedOptions, options} = this.props;
         if (message && notificationContext) {
             notificationContext.notify(message, predefinedOptions, options);
         }

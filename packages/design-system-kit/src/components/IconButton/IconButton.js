@@ -11,7 +11,7 @@ import {IconButton as MuiIconButton, withStyles} from '@material-ui/core';
 * root: the style of the component itself
 * attributeValue: when an attribute is set
 */
-let styles = theme => ({
+const styles = theme => ({
     root: {
         textAlign: 'center',
         flex: '0 0 auto',

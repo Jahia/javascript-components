@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 import classnames from 'classnames';
 import PropTypesConstants from '../PropTypesConstants';
 
-let styles = theme => ({
+const styles = theme => ({
     root: {
         borderRadius: '4px'
     },
@@ -61,14 +61,14 @@ const Chip = withStyles(styles, {name: 'DsChip'})(
     )
 );
 
-Chip.propTypes =
-    process.env.NODE_ENV !== 'production' ?
-        {
+Chip.propTypes
+    = process.env.NODE_ENV !== 'production'
+        ? {
             size: PropTypesConstants.ChipSizes,
             color: PropTypesConstants.ChipColors,
             variant: PropTypesConstants.ChipVariants
-        } :
-        {};
+        }
+        : {};
 
 Chip.defaultProps = {
     color: 'default',

@@ -31,11 +31,11 @@ storiesOf('actions|DisplayActions', module)
         });
         return (
             <>
-                <div className="description">
+                <div className='description'>
                     Display all items that have the specified target
                 </div>
                 <DisplayActions
-                    target="target-1"
+                    target='target-1'
                     context={{path: '/test'}}
                     render={ButtonRenderer}/>
             </>
@@ -60,11 +60,11 @@ storiesOf('actions|DisplayActions', module)
         });
         return (
             <>
-                <div className="description">
+                <div className='description'>
                     The target items can be filtered by a filtering function
                 </div>
                 <DisplayActions
-                    target="target-2"
+                    target='target-2'
                     context={{path: '/test'}}
                     filter={context => context.valueToFilter}
                     render={ButtonRenderer}/>

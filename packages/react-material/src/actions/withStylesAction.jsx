@@ -1,8 +1,8 @@
 import React from 'react';
 import {withStyles} from '@material-ui/core';
 
-let withStylesAction = styles => {
-    let Component = withStyles(styles)(props => props.children(props.classes));
+const withStylesAction = styles => {
+    const Component = withStyles(styles)(props => props.children(props.classes));
 
     return {
         init(context, props) {

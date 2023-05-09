@@ -22,9 +22,9 @@ storiesOf('actions|DisplayAction', module)
 
         return (
             <>
-                <div className="description">Display a single action</div>
+                <div className='description'>Display a single action</div>
                 <div>
-                    <DisplayAction actionKey="test-action-1" context={{path: '/test1'}} render={ButtonRenderer}/>
+                    <DisplayAction actionKey='test-action-1' context={{path: '/test1'}} render={ButtonRenderer}/>
                 </div>
             </>
         );
@@ -40,37 +40,37 @@ storiesOf('actions|DisplayAction', module)
         });
         return (
             <>
-                <div className="description">Display multiple actions with different contexts</div>
+                <div className='description'>Display multiple actions with different contexts</div>
                 <div>
                     <span style={{margin: '10px'}}>path = /test1</span>
                     <DisplayAction
-                        actionKey="test-action-1"
+                        actionKey='test-action-1'
                         context={{path: '/test1'}}
                         render={ButtonRenderer}/>
                     <DisplayAction
-                        actionKey="test-action-2"
+                        actionKey='test-action-2'
                         context={{path: '/test1'}}
                         render={ButtonRenderer}/>
                 </div>
                 <div>
                     <span style={{margin: '10px'}}>path = /test2</span>
                     <DisplayAction
-                        actionKey="test-action-1"
+                        actionKey='test-action-1'
                         context={{path: '/test2'}}
                         render={ButtonRenderer}/>
                     <DisplayAction
-                        actionKey="test-action-2"
+                        actionKey='test-action-2'
                         context={{path: '/test2'}}
                         render={ButtonRenderer}/>
                 </div>
                 <div>
                     <span style={{margin: '10px'}}>path = /test3</span>
                     <DisplayAction
-                        actionKey="test-action-1"
+                        actionKey='test-action-1'
                         context={{path: '/test3'}}
                         render={ButtonRenderer}/>
                     <DisplayAction
-                        actionKey="test-action-2"
+                        actionKey='test-action-2'
                         context={{path: '/test3'}}
                         render={ButtonRenderer}/>
                 </div>
@@ -85,20 +85,20 @@ storiesOf('actions|DisplayAction', module)
 
         return (
             <>
-                <div className="description">
+                <div className='description'>
                     The same action can be rendered differently, depending on the render property
                 </div>
                 <div>
                     <span style={{margin: '10px'}}>Button renderer : </span>
                     <DisplayAction
-                        actionKey="test-action-1"
+                        actionKey='test-action-1'
                         context={{path: '/test'}}
                         render={ButtonRenderer}/>
                 </div>
                 <div>
                     <span style={{margin: '10px'}}>Link renderer : </span>
                     <DisplayAction
-                        actionKey="test-action-1"
+                        actionKey='test-action-1'
                         context={{path: '/test'}}
                         render={LinkRenderer}/>
                 </div>
@@ -123,7 +123,7 @@ storiesOf('actions|DisplayAction', module)
 
         return (
             <>
-                <div className="description">Create a new action by extending an existing action, by adding or replacing information
+                <div className='description'>Create a new action by extending an existing action, by adding or replacing information
                     in context. Overriding context is merged with the base one following these rules :
                     <ul>
                         <li>Arrays are concatenated</li>
@@ -133,11 +133,11 @@ storiesOf('actions|DisplayAction', module)
                 </div>
                 <div>
                     <DisplayAction
-                        actionKey="compose-1"
+                        actionKey='compose-1'
                         context={{path: '/test1'}}
                         render={ButtonRenderer}/>
                     <DisplayAction
-                        actionKey="compose-2"
+                        actionKey='compose-2'
                         context={{path: '/test1'}}
                         render={ButtonRenderer}/>
                 </div>
@@ -163,12 +163,12 @@ storiesOf('actions|DisplayAction', module)
         });
         return (
             <>
-                <div className="description">
+                <div className='description'>
                     Action rendering is fully handled by a dedicated component, delegating to render for displaying the
                     button
                 </div>
                 <div>
-                    <DisplayAction actionKey="component-1" context={{path: '/test1'}} render={ButtonRenderer}/>
+                    <DisplayAction actionKey='component-1' context={{path: '/test1'}} render={ButtonRenderer}/>
                 </div>
             </>
         );
@@ -207,12 +207,12 @@ storiesOf('actions|DisplayAction', module)
         });
         return (
             <>
-                <div className="description">
+                <div className='description'>
                     Component actions can also be composed - the overriden component can still be used as its passed to the render function as last parameter.
                 </div>
                 <div>
-                    <DisplayAction actionKey="component-compose-1" context={{path: '/test1'}} render={ButtonRenderer}/>
-                    <DisplayAction actionKey="component-compose-2" context={{path: '/test1'}} render={ButtonRenderer}/>
+                    <DisplayAction actionKey='component-compose-1' context={{path: '/test1'}} render={ButtonRenderer}/>
+                    <DisplayAction actionKey='component-compose-2' context={{path: '/test1'}} render={ButtonRenderer}/>
                 </div>
             </>
         );
@@ -249,11 +249,11 @@ storiesOf('actions|DisplayAction', module)
 
         return (
             <>
-                <div className="description">
+                <div className='description'>
                     An action can render asynchronously and update its context
                 </div>
                 <div>
-                    <DisplayAction actionKey="async" context={{path: '/test1'}} render={ButtonRenderer}/>
+                    <DisplayAction actionKey='async' context={{path: '/test1'}} render={ButtonRenderer}/>
                 </div>
             </>
         );
@@ -282,11 +282,11 @@ storiesOf('actions|DisplayAction', module)
 
         return (
             <>
-                <div className="description">
+                <div className='description'>
                     A single action can spawn multiple buttons
                 </div>
                 <div>
-                    <DisplayAction actionKey="spawn" context={{path: '/test1'}} render={ButtonRenderer}/>
+                    <DisplayAction actionKey='spawn' context={{path: '/test1'}} render={ButtonRenderer}/>
                 </div>
             </>
         );

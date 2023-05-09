@@ -45,30 +45,30 @@ class TablePaginationActionsCmp extends React.Component {
             <div className={classes.root}>
                 <IconButton
                     disabled={page === 0}
-                    aria-label="First Page"
-                    data-jrm-role="table-pagination-button-first-page"
+                    aria-label='First Page'
+                    data-jrm-role='table-pagination-button-first-page'
                     onClick={this.handleFirstPageButtonClick}
                 >
                     <FirstPage/>
                 </IconButton>
                 <IconButton
                     disabled={page === 0}
-                    aria-label="Previous Page"
+                    aria-label='Previous Page'
                     onClick={this.handleBackButtonClick}
                 >
                     <KeyboardArrowLeft/>
                 </IconButton>
                 <IconButton
                     disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-                    aria-label="Next Page"
-                    data-jrm-role="table-pagination-button-next-page"
+                    aria-label='Next Page'
+                    data-jrm-role='table-pagination-button-next-page'
                     onClick={this.handleNextButtonClick}
                 >
                     <KeyboardArrowRight/>
                 </IconButton>
                 <IconButton
                     disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-                    aria-label="Last Page"
+                    aria-label='Last Page'
                     onClick={this.handleLastPageButtonClick}
                 >
                     <LastPage/>
@@ -99,7 +99,7 @@ class PaginationCmp extends React.Component {
     }
 
     render() {
-        let {totalCount, pageSize, currentPage, onChangeRowsPerPage, labels} = this.props;
+        const {totalCount, pageSize, currentPage, onChangeRowsPerPage, labels} = this.props;
         return (
             <Table>
                 <TableFooter>
@@ -111,7 +111,7 @@ class PaginationCmp extends React.Component {
                         ActionsComponent={TablePaginationActions}
                         labelRowsPerPage={labels.labelRowsPerPage}
                         labelDisplayedRows={({from, to, count}) => `${from}-${to} ` + labels.of + ` ${count}`}
-                        data-jrm-role="table-pagination"
+                        data-jrm-role='table-pagination'
                         onChangePage={this.onChangePage}
                         onChangeRowsPerPage={event => onChangeRowsPerPage(event.target.value)}
                     />

@@ -17,7 +17,7 @@ const adaptSiteInfo = data => {
 export const useSiteInfo = ({siteKey, displayLanguage}) => {
     const variables = {
         path: '/sites/' + siteKey,
-        displayLanguage: displayLanguage
+        displayLanguage
     };
 
     const res = useQuery(SITE_INFO_QUERY, {variables, errorPolicy: 'ignore'});

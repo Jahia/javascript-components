@@ -1,14 +1,14 @@
 import React from 'react';
 import {ComponentRendererConsumer} from './ComponentRenderer';
 
-let componentRendererAction = {
+const componentRendererAction = {
 
-    init: (context, props) => {
-        let {componentRenderer} = props;
+    init(context, props) {
+        const {componentRenderer} = props;
         context.renderComponent = comp => {
             if (!context.componentId) {
-                let id = 'actionComponent-' + context.id;
-                let componentHandler = {
+                const id = 'actionComponent-' + context.id;
+                const componentHandler = {
                     id,
                     setProps: props => componentRenderer.setProps(id, props),
                     destroy: () => componentRenderer.destroy(id)

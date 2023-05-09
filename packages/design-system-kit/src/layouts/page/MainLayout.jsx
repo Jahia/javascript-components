@@ -4,7 +4,7 @@ import {Typography, withStyles} from '@material-ui/core';
 import {compose} from 'recompose';
 import TopBar from '../../components/TopBar';
 
-let styles = theme => ({
+const styles = theme => ({
     root: {
         flex: '1 1 0%',
         display: 'flex',
@@ -39,10 +39,11 @@ let styles = theme => ({
 
 export const MainLayout = ({classes, topBarProps, help, children}) => (
     <main className={classes.root}>
-        {help &&
-        <div className={classes.metaNav}>
-            <Typography variant="overline" color="inherit">{help}</Typography>
-        </div>}
+        {help && (
+            <div className={classes.metaNav}>
+                <Typography variant='overline' color='inherit'>{help}</Typography>
+            </div>
+        )}
         <div className={classes.topBar}>
             <TopBar {...topBarProps}/>
         </div>

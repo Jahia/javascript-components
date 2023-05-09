@@ -1,6 +1,6 @@
 // We use require and not import to not include the binary file to the generated *.umd.js
 
-let dsTypography = theme => (
+const dsTypography = theme => (
     {
         // Every texts are disabled if no color specified
         root: {

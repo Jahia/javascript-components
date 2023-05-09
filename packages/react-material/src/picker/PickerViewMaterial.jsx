@@ -12,7 +12,7 @@ import {KeyboardArrowDown, KeyboardArrowRight} from '@material-ui/icons';
 import PropTypes from 'prop-types';
 import defaultIconRenderer from './iconRenderer';
 
-let styles = () => ({
+const styles = () => ({
     root: {
         position: 'relative'
     },
@@ -69,8 +69,8 @@ let styles = () => ({
     }
 });
 
-let PickerViewMaterial = function (props) {
-    let {classes, pickerEntries, onOpenItem, onSelectItem, textRenderer, iconRenderer, loading} = props;
+let PickerViewMaterial = props => {
+    const {classes, pickerEntries, onOpenItem, onSelectItem, textRenderer, iconRenderer, loading} = props;
     return (
         <div className={classes.root}>
             { loading && <div className={classes.loadingContainer}/>}
@@ -81,23 +81,24 @@ let PickerViewMaterial = function (props) {
         key={entry.path}
         button
         divider
-        data-jrm-role="picker-item"
+        data-jrm-role='picker-item'
         className={entry.selected ? (classes.listItem + ' ' + classes.listItemSelected) : classes.listItem}
         onClick={() => entry.selectable ? onSelectItem(entry.path, !entry.selected) : onOpenItem(entry.path, !entry.open)}
     >
         <ListItemIcon className={entry.selected ? (classes.listItemToggle + ' ' + classes.selectedText) : classes.listItemToggle} style={{paddingLeft: (entry.depth + 1) * 20, opacity: (entry.openable && entry.hasChildren ? 1 : 0)}}>
-            <IconButton className={classes.buttonContainer}
-                        disabled={!(entry.openable && entry.hasChildren)}
-                        data-jrm-role="picker-item-toggle"
-                        data-jrm-state={entry.open ? 'open' : 'closed'}
-                        onClick={event => {
+            <IconButton
+className={classes.buttonContainer}
+disabled={!(entry.openable && entry.hasChildren)}
+data-jrm-role='picker-item-toggle'
+data-jrm-state={entry.open ? 'open' : 'closed'}
+onClick={event => {
                             onOpenItem(entry.path, !entry.open);
                             event.stopPropagation();
                         }}
             >
-                {entry.open ?
-                    <KeyboardArrowDown className={entry.selected ? (classes.toggleSelected) : classes.toggleUnSelected}/> :
-                    <KeyboardArrowRight className={entry.selected ? (classes.toggleSelected) : classes.toggleUnSelected}/>}
+                {entry.open
+                    ? <KeyboardArrowDown className={entry.selected ? (classes.toggleSelected) : classes.toggleUnSelected}/>
+                    : <KeyboardArrowRight className={entry.selected ? (classes.toggleSelected) : classes.toggleUnSelected}/>}
             </IconButton>
         </ListItemIcon>
 
@@ -119,9 +120,9 @@ let PickerViewMaterial = function (props) {
 };
 
 PickerViewMaterial.defaultProps = {
-    onSelectItem: () => {},
-    onOpenItem: () => {},
-    textRenderer: () => {},
+    onSelectItem() {},
+    onOpenItem() {},
+    textRenderer() {},
     iconRenderer: null
 };
 

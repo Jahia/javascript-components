@@ -1,4 +1,4 @@
-let typography = {
+const typography = {
     root: {
         fontFamily: 'Nunito Sans, sans-serif',
         light: 300,

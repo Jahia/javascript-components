@@ -1,7 +1,7 @@
 import React from 'react';
 import {ListItemIcon as MuiListItemIcon, withStyles} from '@material-ui/core';
 
-let styles = theme => ({
+const styles = theme => ({
     root: {
         marginRight: theme.spacing.unit,
         color: theme.palette.font.alpha,
@@ -11,7 +11,7 @@ let styles = theme => ({
 });
 
 const getClasses = ({classes: {root}}) => ({
-    root: root
+    root
 });
 
 const ListItemIcon = withStyles(styles, {name: 'DsListItemIcon'})(

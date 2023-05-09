@@ -3,7 +3,7 @@ import {Paper as MuiPaper, withStyles} from '@material-ui/core';
 import * as _ from 'lodash';
 import classnames from 'classnames';
 
-let styles = theme => ({
+const styles = theme => ({
     root: {
         padding: theme.spacing.unit * 4
     },

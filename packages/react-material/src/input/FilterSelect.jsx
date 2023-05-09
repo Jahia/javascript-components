@@ -54,7 +54,7 @@ class Option extends React.Component {
         return (
             <MenuItem
                 selected={isFocused}
-                component="div"
+                component='div'
                 style={{
                     fontWeight: isSelected ? 500 : 400
                 }}
@@ -64,10 +64,11 @@ class Option extends React.Component {
                     this.props.selectOption(this.props.data, event);
                 }}
             >
-                {data.icon !== null &&
-                <ListItemIcon>
-                    <img src={data.icon + '.png'}/>
-                </ListItemIcon>}
+                {data.icon !== null && (
+                    <ListItemIcon>
+                        <img src={data.icon + '.png'}/>
+                    </ListItemIcon>
+                )}
                 <ListItemText>
                     {children}
                 </ListItemText>
@@ -104,7 +105,7 @@ class DropdownIndicator extends React.Component {
 class SelectWrapped extends React.Component {
     render() {
         const {classes, value, options, ...other} = this.props;
-        let optionValue = _.find(options, data => data.value === value);
+        const optionValue = _.find(options, data => data.value === value);
 
         return (
             <Select
@@ -151,7 +152,7 @@ class FilterSelectCmp extends React.Component {
     }
 
     render() {
-        let {classes, options, value, onChange, ...other} = this.props;
+        const {classes, options, value, onChange, ...other} = this.props;
 
         return (
             <Input
@@ -160,8 +161,8 @@ class FilterSelectCmp extends React.Component {
                 inputComponent={SelectWrapped}
                 value={value}
                 inputProps={{
-                   options,
-                   ...other
+                    options,
+                    ...other
                 }}
                 onChange={this.handleChange}
             />

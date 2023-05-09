@@ -15,7 +15,7 @@ import defaultIconRenderer from './iconRenderer';
 import {compose} from 'recompose';
 import classNames from 'classnames';
 
-let styles = theme => ({
+const styles = theme => ({
     root: {
         width: '100%'
     },
@@ -70,25 +70,25 @@ let styles = theme => ({
 
 class PickerTreeViewMaterialCmp extends React.Component {
     render() {
-        let {classes, pickerEntries, onOpenItem, onSelectItem, rootLabel, iconRenderer, loading, dataCmRole} = this.props;
+        const {classes, pickerEntries, onOpenItem, onSelectItem, rootLabel, iconRenderer, loading, dataCmRole} = this.props;
         // Sorts entries that are folder types
-        let sortedEntries = this.sortFoldersAlphabetical(pickerEntries);
+        const sortedEntries = this.sortFoldersAlphabetical(pickerEntries);
 
         return (
             <div className={classes.root}>
-                {loading &&
-                <CircularProgress classes={{root: classes.loading}}/>}
+                {loading
+                && <CircularProgress classes={{root: classes.loading}}/>}
                 <List disablePadding classes={{root: classes.root}}>
                     {
                         sortedEntries.map(entry => {
-                            let itemClass = classNames(classes.listItem, {
+                            const itemClass = classNames(classes.listItem, {
                                 // [classes.listItemDeleted]: isMarkedForDeletion(entry.node), TODO handle marked for deletion from CMM to be added
                                 [classes.listItemSelected]: entry.selected
                             });
                             return (
                                 <ListItem
                                     key={entry.path}
-                                    data-jrm-role="picker-item"
+                                    data-jrm-role='picker-item'
                                     data-cm-role={dataCmRole}
                                     className={itemClass}
                                     onDoubleClick={() => onOpenItem(entry.path, !entry.open)}
@@ -103,7 +103,7 @@ class PickerTreeViewMaterialCmp extends React.Component {
                                             icon={<KeyboardArrowRight/>}
                                             className={entry.open ? classes.openedTreeEl : classes.closedTreeEl}
                                             disabled={!(entry.openable && entry.hasChildren)}
-                                            data-jrm-role="picker-item-toggle"
+                                            data-jrm-role='picker-item-toggle'
                                             data-jrm-state={entry.open ? 'open' : 'closed'}
                                             onClick={event => {
                                                 onOpenItem(entry.path, !entry.open);
@@ -123,13 +123,11 @@ class PickerTreeViewMaterialCmp extends React.Component {
                                                 inset
                                                 className={entry.node.primaryNodeType.name === 'jnt:page' && entry.node.publicationStatus && entry.node.publicationStatus.publicationStatus === 'UNPUBLISHED' ? classes.unpublishedEntryLabel : null}
                                                 primary={
-                                                    <React.Fragment>
-                                                        <Typography color="inherit">
-                                                            {entry.depth > 0 ? entry.node.displayName : rootLabel}
-                                                        </Typography>
-                                                    </React.Fragment>
+                                                    <Typography color='inherit'>
+                                                        {entry.depth > 0 ? entry.node.displayName : rootLabel}
+                                                    </Typography>
                                                 }
-                                                data-jrm-role="picker-item-text"
+                                                data-jrm-role='picker-item-text'
                                             />
                                     </span>
                                 </ListItem>
@@ -185,7 +183,7 @@ class PickerTreeViewMaterialCmp extends React.Component {
         function dfs(node) {
             flatArray.push(node);
             if (node.children) {
-                node.children.sort(function (a, b) {
+                node.children.sort((a, b) => {
                     const A = a.node.displayName.toLocaleLowerCase();
                     const B = b.node.displayName.toLocaleLowerCase();
                     if (A < B) {
@@ -223,8 +221,8 @@ PickerTreeViewMaterialCmp.propTypes = {
 
 PickerTreeViewMaterialCmp.defaultProps = {
     iconRenderer: defaultIconRenderer,
-    onSelectItem: () => {},
-    onOpenItem: () => {}
+    onSelectItem() {},
+    onOpenItem() {}
 };
 
 export const PickerTreeViewMaterial = compose(

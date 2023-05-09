@@ -84,7 +84,7 @@ const getExtendedRange = (item, definedRange) => {
     return definedRange;
 };
 
-var getModuleFederationConfig = (packageJson, config = {}, importList = []) => {
+const getModuleFederationConfig = (packageJson, config = {}, importList = []) => {
     const deps = packageJson.dependencies;
     const shared = sharedDeps.filter(item => deps[item]).reduce((acc, item) => ({
         ...acc,

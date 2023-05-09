@@ -3,54 +3,52 @@ import PropTypes from 'prop-types';
 import {InputBase, InputAdornment, withStyles} from '@material-ui/core';
 import NumberFormat from 'react-number-format';
 
-const styles = theme => {
-    return {
-        root: {
-            borderRadius: '1px',
-            background: theme.palette.ui.epsilon,
-            border: `1px solid ${theme.palette.ui.omega}`,
-            boxSizing: 'border-box',
-            '&:hover:not($inputDisabled):not($focused):not($error):not($readOnly)': {
-                border: `1px solid ${theme.palette.ui.zeta}`
-            },
-            fontSize: theme.typography.iota.fontSize,
-            transitionDuration: '.3s',
-            padding: '3px 0px 3px 12px'
+const styles = theme => ({
+    root: {
+        borderRadius: '1px',
+        background: theme.palette.ui.epsilon,
+        border: `1px solid ${theme.palette.ui.omega}`,
+        boxSizing: 'border-box',
+        '&:hover:not($inputDisabled):not($focused):not($error):not($readOnly)': {
+            border: `1px solid ${theme.palette.ui.zeta}`
         },
-        focused: {
-            border: `1px solid ${theme.palette.brand.beta}`
-        },
-        readOnly: {
-            background: theme.palette.ui.alpha,
-            border: `1px solid ${theme.palette.ui.alpha}`
-        },
-        // Hack for disabled style as the default disabled style applies on both container AND input element.
-        inputDisabled: {
-            background: theme.palette.ui.epsilon,
-            border: `1px solid ${theme.palette.ui.zeta}`,
-            color: theme.palette.font.gamma
-        },
-        error: {
-            border: `1px solid ${theme.palette.support.alpha}`
-        },
-        inputAdornedStart: {
-            transitionDuration: '.3s'
-        },
-        inputAdornedStartFocus: {
-            color: theme.palette.brand.beta
-        },
-        inputAdornedStartError: {
-            color: theme.palette.support.alpha
-        },
-        inputAdornedEnd: {
-            marginRight: '8px',
-            cursor: 'pointer'
-        },
-        inputAdornedEndReadonly: {
-            pointerEvents: 'none !important'
-        }
-    };
-};
+        fontSize: theme.typography.iota.fontSize,
+        transitionDuration: '.3s',
+        padding: '3px 0px 3px 12px'
+    },
+    focused: {
+        border: `1px solid ${theme.palette.brand.beta}`
+    },
+    readOnly: {
+        background: theme.palette.ui.alpha,
+        border: `1px solid ${theme.palette.ui.alpha}`
+    },
+    // Hack for disabled style as the default disabled style applies on both container AND input element.
+    inputDisabled: {
+        background: theme.palette.ui.epsilon,
+        border: `1px solid ${theme.palette.ui.zeta}`,
+        color: theme.palette.font.gamma
+    },
+    error: {
+        border: `1px solid ${theme.palette.support.alpha}`
+    },
+    inputAdornedStart: {
+        transitionDuration: '.3s'
+    },
+    inputAdornedStartFocus: {
+        color: theme.palette.brand.beta
+    },
+    inputAdornedStartError: {
+        color: theme.palette.support.alpha
+    },
+    inputAdornedEnd: {
+        marginRight: '8px',
+        cursor: 'pointer'
+    },
+    inputAdornedEndReadonly: {
+        pointerEvents: 'none !important'
+    }
+});
 
 const InputCmp = React.forwardRef(({
     classes,
@@ -102,7 +100,7 @@ const InputCmp = React.forwardRef(({
                         className={`${inputAdornedStart} ${
                             !readOnly && focus ? inputAdornedStartFocus : ''
                         } ${!readOnly && error ? inputAdornedStartError : ''}`}
-                        position="start"
+                        position='start'
                     >
                         {icon}
                     </InputAdornment>
@@ -112,7 +110,7 @@ const InputCmp = React.forwardRef(({
                 interactive && (
                     <InputAdornment
                         className={`${inputAdornedEnd} ${readOnly ? inputAdornedEndReadonly : ''}`}
-                        position="end"
+                        position='end'
                     >
                         {interactive}
                     </InputAdornment>
@@ -125,16 +123,14 @@ const InputCmp = React.forwardRef(({
     );
 });
 
-const ValueForwardInputCmp = React.forwardRef(({value, isInputControlled, ...others}, ref) => {
-    return (
-        <InputCmp
+const ValueForwardInputCmp = React.forwardRef(({value, isInputControlled, ...others}, ref) => (
+    <InputCmp
             ref={ref}
             value={isInputControlled ? value : undefined}
             defaultValue={!isInputControlled ? value : undefined}
             {...others}
         />
-    );
-});
+));
 
 ValueForwardInputCmp.propTypes = {
     isInputControlled: PropTypes.bool.isRequired,
@@ -170,9 +166,9 @@ InputCmp.defaultProps = {
     inputProps: {},
     id: undefined,
     name: undefined,
-    onBlur: () => {},
-    onChange: () => {},
-    onFocus: () => {},
+    onBlur() {},
+    onChange() {},
+    onFocus() {},
     readOnly: false,
     value: undefined,
     variant: {}
@@ -181,7 +177,7 @@ InputCmp.defaultProps = {
 InputCmp.propTypes = {
     classes: PropTypes.object.isRequired,
     defaultValue: PropTypes.string,
-    // eslint-disable-next-line react/boolean-prop-naming
+
     disabled: PropTypes.bool,
     // eslint-disable-next-line react/boolean-prop-naming
     error: PropTypes.bool,
@@ -193,7 +189,7 @@ InputCmp.propTypes = {
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
-    // eslint-disable-next-line react/boolean-prop-naming
+
     readOnly: PropTypes.bool,
     value: PropTypes.string,
     variant: PropTypes.shape({

@@ -44,13 +44,13 @@ export const useNodeChecks = (variables, options, queryOptions) => {
     }
 
     const doNodeCheck = node =>
-        (!requiredPermissions || requiredPermissions.reduce((acc, val) => acc || node[val], false)) &&
-        (!requiredSitePermissions || requiredSitePermissions.reduce((acc, val) => acc || node.site[val], false)) &&
-        (!showOnNodeTypes || showOnNodeTypes.reduce((acc, val) => acc || node[val], false)) &&
-        (!hideOnNodeTypes || !hideOnNodeTypes.reduce((acc, val) => acc || node[val], false)) &&
-        (!requireModuleInstalledOnSite || requireModuleInstalledOnSite.reduce((acc, val) => acc && node.site.installedModulesWithAllDependencies.includes(val), true)) &&
-        (!hideForPaths || evaluateVisibilityPaths(false, hideForPaths, node.path || variables.path)) &&
-        (!showForPaths || evaluateVisibilityPaths(true, showForPaths, node.path || variables.path));
+        (!requiredPermissions || requiredPermissions.reduce((acc, val) => acc || node[val], false))
+        && (!requiredSitePermissions || requiredSitePermissions.reduce((acc, val) => acc || node.site[val], false))
+        && (!showOnNodeTypes || showOnNodeTypes.reduce((acc, val) => acc || node[val], false))
+        && (!hideOnNodeTypes || !hideOnNodeTypes.reduce((acc, val) => acc || node[val], false))
+        && (!requireModuleInstalledOnSite || requireModuleInstalledOnSite.reduce((acc, val) => acc && node.site.installedModulesWithAllDependencies.includes(val), true))
+        && (!hideForPaths || evaluateVisibilityPaths(false, hideForPaths, node.path || variables.path))
+        && (!showForPaths || evaluateVisibilityPaths(true, showForPaths, node.path || variables.path));
 
     const result = node ? doNodeCheck(node) : nodes.reduce((acc, val) => acc && doNodeCheck(val), true);
 

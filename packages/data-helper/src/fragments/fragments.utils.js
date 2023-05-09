@@ -63,14 +63,14 @@ function findFragmentsInSelectionSet(selectionSet) {
 
 function replaceFragmentsInSelectionSet(selectionSet, fragments, def, document) {
     if (selectionSet && selectionSet.selections) {
-        let newFragmentsSpreads = [];
-        let removedFragmentSpreads = [];
+        const newFragmentsSpreads = [];
+        const removedFragmentSpreads = [];
         // Look for all existing fragment spreads in selection set
         selectionSet.selections.filter(sel => sel.kind === 'FragmentSpread').forEach(sel => {
             // Handle only named fragments
             if (sel.name.value) {
                 // Check if spread exists in current doc - if not, we replace or remove it
-                let existing = document.definitions.find(definition => definition.kind === 'FragmentDefinition' && definition.name.value === sel.name.value);
+                const existing = document.definitions.find(definition => definition.kind === 'FragmentDefinition' && definition.name.value === sel.name.value);
 
                 if (!existing) {
                     // First remove the spread, as it has no match in document
@@ -88,18 +88,18 @@ function replaceFragmentsInSelectionSet(selectionSet, fragments, def, document) 
                             newFragmentsSpreads.push(newSpread);
 
                             // Add the new fragment definition in document if it has not already been added
-                            let existing = document.definitions.find(definition => definition.kind === 'FragmentDefinition' && definition.name.value === frag.name.value);
+                            const existing = document.definitions.find(definition => definition.kind === 'FragmentDefinition' && definition.name.value === frag.name.value);
                             if (!existing) {
                                 document.definitions.push(frag);
                             }
                         });
 
                         // Adds the associated variables to the query
-                        let allVariables = applyableFragments.reduce((result, n) => ({...result, ...n.variables}), {});
+                        const allVariables = applyableFragments.reduce((result, n) => ({...result, ...n.variables}), {});
                         Object.entries(allVariables).forEach(([name, value]) => {
-                            let existing = def.variableDefinitions.find(def => def.variable.name.value === name);
+                            const existing = def.variableDefinitions.find(def => def.variable.name.value === name);
                             if (!existing) {
-                                let type = parseType(value, {noLocation: true});
+                                const type = parseType(value, {noLocation: true});
                                 def.variableDefinitions.push({
                                     kind: 'VariableDefinition',
                                     variable: {
@@ -109,7 +109,7 @@ function replaceFragmentsInSelectionSet(selectionSet, fragments, def, document) 
                                             value: name
                                         }
                                     },
-                                    type: type
+                                    type
                                 });
                             }
                         });

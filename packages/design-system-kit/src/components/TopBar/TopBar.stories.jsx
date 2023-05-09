@@ -9,7 +9,7 @@ storiesOf('TopBar', module)
     .add('default', () => (
         <DSProvider>
             <TopBar
-                title="hello"
+                title='hello'
                 titleProps={{
                     component: 'h1'
                 }}

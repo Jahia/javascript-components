@@ -22,7 +22,7 @@ describe('composeServices', () => {
     it('should call the two action function', () => {
         const action = composeServices({
 
-            onInit: context => {
+            onInit(context) {
                 context.tata = 45;
             }
         }, {

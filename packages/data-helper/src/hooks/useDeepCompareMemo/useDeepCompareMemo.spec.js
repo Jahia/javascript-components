@@ -4,7 +4,7 @@ jest.mock('react', () => {
     let current;
 
     return ({
-        useRef: v => {
+        useRef(v) {
             if (!current) {
                 current = v;
             }
@@ -24,8 +24,8 @@ describe('useDeepCompareMemoize', () => {
     it('should return the same value', () => {
         const origValue1 = ['v1'];
         const origValue2 = ['v1'];
-        let value1 = useDeepCompareMemoize(origValue1);
-        let value2 = useDeepCompareMemoize(origValue2);
+        const value1 = useDeepCompareMemoize(origValue1);
+        const value2 = useDeepCompareMemoize(origValue2);
 
         expect(origValue1 === origValue2).toBe(false);
         expect(value1 === value2).toBe(true);
@@ -34,8 +34,8 @@ describe('useDeepCompareMemoize', () => {
     it('should not return the same value', () => {
         const origValue1 = ['v1'];
         const origValue2 = ['v2'];
-        let value1 = useDeepCompareMemoize(origValue1);
-        let value2 = useDeepCompareMemoize(origValue2);
+        const value1 = useDeepCompareMemoize(origValue1);
+        const value2 = useDeepCompareMemoize(origValue2);
 
         expect(origValue1 === origValue2).toBe(false);
         expect(value1 === value2).toBe(false);

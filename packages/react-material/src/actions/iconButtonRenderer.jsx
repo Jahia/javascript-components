@@ -5,22 +5,23 @@ import React from 'react';
 import {toIconComponent} from './toIconComponent';
 
 /* eslint-disable react/prop-types */
-let iconButtonRenderer = (buttonProps, iconProps, propagateEvent) => ({context}) => {
+const iconButtonRenderer = (buttonProps, iconProps, propagateEvent) => ({context}) => {
     if (context.enabled === false) {
         return false;
     }
 
-    let button = (
-        <IconButton data-sel-role={context.key}
-                    icon={toIconComponent(context.buttonIcon, iconProps)}
-                    onClick={e => {
+    const button = (
+        <IconButton
+data-sel-role={context.key}
+icon={toIconComponent(context.buttonIcon, iconProps)}
+onClick={e => {
                         if (!propagateEvent) {
                             e.stopPropagation();
                         }
 
                         context.onClick(context, e);
                     }}
-                    {...buttonProps}
+{...buttonProps}
         />
     );
 

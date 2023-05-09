@@ -5,18 +5,16 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import PropTypeConstants, {TextVariants} from '../PropTypesConstants';
 
-let styles = theme => ({
+const styles = theme => ({
     root: {},
     noWrap: {},
     gutterBottom: {},
     paragraph: {},
 
-    ...TextVariants.reduce((styles, variant) => {
-        return {
-            ...styles,
-            [variant]: theme.typography[variant]
-        };
-    }, {}),
+    ...TextVariants.reduce((styles, variant) => ({
+        ...styles,
+        [variant]: theme.typography[variant]
+    }), {}),
 
     colorInherit: {
         color: 'inherit'

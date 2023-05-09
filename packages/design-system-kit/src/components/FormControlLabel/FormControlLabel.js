@@ -3,7 +3,7 @@ import {FormControlLabel as MuiFormControlLabel, withStyles} from '@material-ui/
 import * as _ from 'lodash';
 import classnames from 'classnames';
 
-let styles = () => ({
+const styles = () => ({
     /* Styles applied to the root element. */
     root: {},
 
