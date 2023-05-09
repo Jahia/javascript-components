@@ -4,7 +4,9 @@
 .idea
 *.iml
 *.ipr
+*.tgz
 build
+dist
 target
 src/main/resources/javascript/bundles
 node
