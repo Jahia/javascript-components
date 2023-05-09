@@ -6,9 +6,9 @@ function composeActions(...actions) {
             _.forEach(action, (value, key) => {
                 const previous = acc[key];
                 if (typeof previous === 'function') {
-                    acc[key] = function () {
-                        this.previous(...actions);
-                        this.value(...actions);
+                    acc[key] = function (...args) {
+                        previous.apply(this, args);
+                        value.apply(this, args);
                     };
                 } else if (Array.isArray(previous)) {
                     acc[key] = _.concat(previous, value);
