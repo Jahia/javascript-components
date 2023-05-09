@@ -1,3 +1,16 @@
+# (Tue May 09 2023)
+
+#### 🐛 Bug Fix
+
+- TECH-233: Update gitignore [#238](https://github.com/Jahia/javascript-components/pull/238) ([@tdraier](https://github.com/tdraier))
+- TECH-233: Convert package to typescript [#237](https://github.com/Jahia/javascript-components/pull/237) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Thu Apr 20 2023)
 
 #### 🐛 Bug Fix
