@@ -168,10 +168,10 @@ storiesOf('actions|menuAction', module)
 
         return (
             <>
-                <div className='description'>
+                <div className="description">
                     Display all items that have the specified target
                 </div>
-                <DisplayAction actionKey='menu' path='/test' render={ButtonRenderer}/>
+                <DisplayAction actionKey="menu" path="/test" render={ButtonRenderer}/>
             </>
         );
     })
@@ -187,10 +187,10 @@ storiesOf('actions|menuAction', module)
 
         return (
             <>
-                <div className='description'>
+                <div className="description">
                     Displays a menu with items registered with a specific target
                 </div>
-                <DisplayAction actionKey='menu' path='/test' render={ButtonRenderer}/>
+                <DisplayAction actionKey="menu" path="/test" render={ButtonRenderer}/>
             </>
         );
     })
@@ -205,10 +205,10 @@ storiesOf('actions|menuAction', module)
 
         return (
             <>
-                <div className='description'>
+                <div className="description">
                     Example with asynchronous menu items
                 </div>
-                <DisplayAction actionKey='menu' path='/test' render={ButtonRenderer}/>
+                <DisplayAction actionKey="menu" path="/test" render={ButtonRenderer}/>
             </>
         );
     })
@@ -223,14 +223,14 @@ storiesOf('actions|menuAction', module)
 
         return (
             <>
-                <div className='description'>
+                <div className="description">
                     Example with asynchronous menu items - delayed menu open until loaded
                 </div>
                 <DisplayAction
-                    actionKey='menu'
-                    path='/test'
+                    actionKey="menu"
+                    path="/test"
                     render={ButtonRenderer}
-                    loading={() => <ButtonRenderer label='loading...'/>}/>
+                    loading={() => <ButtonRenderer label="loading..."/>}/>
             </>
         );
     })
@@ -245,14 +245,14 @@ storiesOf('actions|menuAction', module)
 
         return (
             <>
-                <div className='description'>
+                <div className="description">
                     Example with asynchronous menu items - preload
                 </div>
                 <DisplayAction
-                    actionKey='menu'
-                    path='/test'
+                    actionKey="menu"
+                    path="/test"
                     render={ButtonRenderer}
-                    loading={() => <ButtonRenderer label='loading...'/>}/>
+                    loading={() => <ButtonRenderer label="loading..."/>}/>
             </>
         );
     })
@@ -269,14 +269,14 @@ storiesOf('actions|menuAction', module)
 
         return (
             <>
-                <div className='description'>
+                <div className="description">
                     Example with asynchronous menu items - preload
                 </div>
                 <DisplayAction
-                    actionKey='menu'
-                    path='/test'
+                    actionKey="menu"
+                    path="/test"
                     render={ButtonRenderer}
-                    loading={() => <ButtonRenderer label='loading...'/>}/>
+                    loading={() => <ButtonRenderer label="loading..."/>}/>
             </>
         );
     });

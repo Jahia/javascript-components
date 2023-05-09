@@ -3,7 +3,7 @@ import {composeActions} from './composeActions';
 describe('composeActions', () => {
     it('should call the tow action function', () => {
         const action = composeActions({
-            // eslint-disable-next-line
+
             onInit: context => {
                 context.tata = 45;
             }

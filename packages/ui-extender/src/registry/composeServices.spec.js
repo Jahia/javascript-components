@@ -21,7 +21,7 @@ describe('composeServices', () => {
     });
     it('should call the two action function', () => {
         const action = composeServices({
-            // eslint-disable-next-line
+
             onInit: context => {
                 context.tata = 45;
             }
