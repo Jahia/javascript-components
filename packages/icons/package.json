@@ -1,27 +1,29 @@
 {
-    "name": "@jahia/icons",
-    "version": "1.1.2",
-    "scripts": {
-        "babel:js": "jahia-babel-js",
-        "babel:module": "jahia-babel-module",
-        "react2dts": "jahia-react2dts",
-        "publish-script": "jahia-publish",
-        "prepare-build": "jahia-prepare-build",
-        "build": "jahia-build",
-        "build-umd": "jahia-build-umd"
-    },
-    "main": "js/index.js",
-    "module": "esm/index.js",
-    "typings": "esm/index.d.ts",
-    "browser": "lib/icons.umd.min.js",
-    "sideEffects": false,
-    "license": "MIT",
-    "peerDependencies": {
-        "@material-ui/core": "^3.9.3"
-    },
-    "dependencies": {
-        "@material-ui/icons": "^3.0.2",
-        "mdi-material-ui": "^5.10.0",
-        "recompose": "^0.30.0"
-    }
+  "name": "@jahia/icons",
+  "version": "1.1.2",
+  "scripts": {
+    "babel:js": "jahia-babel-js",
+    "babel:module": "jahia-babel-module",
+    "react2dts": "jahia-react2dts",
+    "publish-script": "jahia-publish",
+    "prepare-build": "jahia-prepare-build",
+    "build": "jahia-build",
+    "build-umd": "jahia-build-umd",
+    "lint": "eslint --ext js,jsx src",
+    "lint:fix": "yarn lint --fix"
+  },
+  "main": "js/index.js",
+  "module": "esm/index.js",
+  "typings": "esm/index.d.ts",
+  "browser": "lib/icons.umd.min.js",
+  "sideEffects": false,
+  "license": "MIT",
+  "peerDependencies": {
+    "@material-ui/core": "^3.9.3"
+  },
+  "dependencies": {
+    "@material-ui/icons": "^3.0.2",
+    "mdi-material-ui": "^5.10.0",
+    "recompose": "^0.30.0"
+  }
 }

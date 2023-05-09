@@ -10,6 +10,8 @@
     "build": "jahia-build",
     "build-umd": "jahia-build-umd",
     "storybook": "start-storybook",
+    "lint": "eslint --ext js,jsx src",
+    "lint:fix": "yarn lint --fix",
     "test": "jest --coverage"
   },
   "main": "js/index.js",
