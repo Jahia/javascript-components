@@ -8,7 +8,7 @@
         "publish": "lerna --concurrency 1 run publish-script",
         "lint": "eslint --ext js,jsx .",
         "lint:fix": "yarn lint --fix .",
-        "test": "lerna --scope @jahia/test-framework run build && jest --coverage",
+        "test": "lerna --scope @jahia/test-framework run build && lerna --concurrency 1 run test",
         "tdd": "jest --watch"
     },
     "husky": {

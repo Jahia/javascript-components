@@ -2,7 +2,8 @@
   "name": "@jahia/webpack-config",
   "version": "1.0.0",
   "scripts": {
-    "publish-script": "jahia-publish"
+    "publish-script": "jahia-publish",
+    "test": "jest --coverage"
   },
   "description": "Webpack shareable config for Jahia project",
   "main": "index.js",

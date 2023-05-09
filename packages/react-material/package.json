@@ -8,7 +8,8 @@
     "publish-script": "jahia-publish",
     "prepare-build": "jahia-prepare-build",
     "build": "jahia-build",
-    "build-umd": "jahia-build-umd"
+    "build-umd": "jahia-build-umd",
+    "test": "jest --coverage"
   },
   "main": "js/index.js",
   "module": "esm/index.js",

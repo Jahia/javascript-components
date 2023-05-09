@@ -1,31 +1,32 @@
 {
-    "name": "@jahia/design-system-kit",
-    "version": "1.1.12",
-    "scripts": {
-        "babel:js": "jahia-babel-js",
-        "babel:module": "jahia-babel-module",
-        "react2dts": "jahia-react2dts",
-        "publish-script": "jahia-publish",
-        "prepare-build": "jahia-prepare-build",
-        "build": "jahia-build",
-        "build-umd": "jahia-build-umd",
-        "storybook": "start-storybook"
-    },
-    "main": "js/index.js",
-    "module": "esm/index.js",
-    "typings": "esm/index.d.ts",
-    "browser": "lib/design-system-kit.umd.min.js",
-    "sideEffects": false,
-    "license": "MIT",
-    "peerDependencies": {
-        "@material-ui/core": "^3.9.3",
-        "react": "^16.8.0"
-    },
-    "dependencies": {
-        "@material-ui/core": "^3.9.3",
-        "classnames": "^2.2.6",
-        "lodash": "^4.17.13",
-        "prop-types": "^15.6.2",
-        "react-number-format": "^4.2.0"
-    }
+  "name": "@jahia/design-system-kit",
+  "version": "1.1.12",
+  "scripts": {
+    "babel:js": "jahia-babel-js",
+    "babel:module": "jahia-babel-module",
+    "react2dts": "jahia-react2dts",
+    "publish-script": "jahia-publish",
+    "prepare-build": "jahia-prepare-build",
+    "build": "jahia-build",
+    "build-umd": "jahia-build-umd",
+    "storybook": "start-storybook",
+    "test": "jest --coverage"
+  },
+  "main": "js/index.js",
+  "module": "esm/index.js",
+  "typings": "esm/index.d.ts",
+  "browser": "lib/design-system-kit.umd.min.js",
+  "sideEffects": false,
+  "license": "MIT",
+  "peerDependencies": {
+    "@material-ui/core": "^3.9.3",
+    "react": "^16.8.0"
+  },
+  "dependencies": {
+    "@material-ui/core": "^3.9.3",
+    "classnames": "^2.2.6",
+    "lodash": "^4.17.13",
+    "prop-types": "^15.6.2",
+    "react-number-format": "^4.2.0"
+  }
 }

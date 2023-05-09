@@ -6,7 +6,8 @@
     "build": "yarn tsc && yarn compile:js",
     "lint": "eslint --ext js,jsx,ts,tsx src",
     "lint:fix": "yarn lint --fix",
-    "publish-script": "jahia-publish"
+    "publish-script": "jahia-publish",
+    "test": "jest --coverage"
   },
   "main": "js/index.js",
   "module": "dist/index.js",
