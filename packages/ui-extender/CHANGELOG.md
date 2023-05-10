@@ -1,3 +1,15 @@
+# (Wed May 10 2023)
+
+#### 🐛 Bug Fix
+
+- TECH-233: use single entrypoint for js and ts, generate cjs and mjs [#241](https://github.com/Jahia/javascript-components/pull/241) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Tue May 09 2023)
 
 #### 🐛 Bug Fix
