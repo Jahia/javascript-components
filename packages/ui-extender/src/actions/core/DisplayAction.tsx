@@ -45,7 +45,7 @@ class DisplayAction extends React.PureComponent<DisplayActionProps> {
 
     render() {
         const {context, actionKey, render, loading, ...otherProps} = this.props;
-        const action: StoredService & { init?: ((ctx: object, props: object) => void)} = registry.get('action', actionKey);
+        const action: StoredService = registry.get('action', actionKey);
 
         if (!action) {
             return null;
@@ -60,10 +60,21 @@ class DisplayAction extends React.PureComponent<DisplayActionProps> {
         // Merge props and context. To remove when context is not supported anymore
         const mergedProps = {...context, ...otherProps};
 
-        const componentProps = {...action, ...mergedProps, originalContext: mergedProps, id: this.id, actionKey};
+        const componentProps: {[key: string]: unknown, init?: ((ctx: object, props: object) => void)} = {...action, ...mergedProps, originalContext: mergedProps, id: this.id, actionKey};
 
         if (componentProps.init) {
             componentProps.init(componentProps, this.props);
+        }
+
+        const info: { [key: string]: unknown } = {};
+
+        info['data-registry-key'] = action.type + ':' + action.key;
+
+        if (otherProps.target && action.targets) {
+            const foundTarget = action.targets.find(t => t.id === otherProps.target);
+            if (foundTarget) {
+                info['data-registry-target'] = foundTarget.id + ':' + foundTarget.priority;
+            }
         }
 
         // Props are passed as as context and props. Context can be removed when not supported anymore
@@ -71,6 +82,10 @@ class DisplayAction extends React.PureComponent<DisplayActionProps> {
             <Component
                 key={this.id}
                 {...componentProps}
+                buttonProps={{
+                    ...(componentProps.buttonProps as object),
+                    ...info
+                }}
                 context={componentProps}
                 render={this.RenderWrapper}
                 loading={loading}
