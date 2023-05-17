@@ -68,12 +68,12 @@ class DisplayAction extends React.PureComponent<DisplayActionProps> {
 
         const info: { [key: string]: unknown } = {};
 
-        info['registry-key'] = action.type + ':' + action.key;
+        info['data-registry-key'] = action.type + ':' + action.key;
 
         if (otherProps.target && action.targets) {
             const foundTarget = action.targets.find(t => t.id === otherProps.target);
             if (foundTarget) {
-                info['registry-target'] = foundTarget.id + ':' + foundTarget.priority;
+                info['data-registry-target'] = foundTarget.id + ':' + foundTarget.priority;
             }
         }
 
