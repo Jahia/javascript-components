@@ -1,3 +1,15 @@
+# (Wed May 17 2023)
+
+#### 🐛 Bug Fix
+
+- BACKLOG-20968: Add registry target info [#242](https://github.com/Jahia/javascript-components/pull/242) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Wed May 10 2023)
 
 #### 🐛 Bug Fix
