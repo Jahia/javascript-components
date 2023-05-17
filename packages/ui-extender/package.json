@@ -1,6 +1,6 @@
 {
   "name": "@jahia/ui-extender",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "scripts": {
     "compile:js": "node ./build.mjs",
     "build": "yarn tsc && yarn compile:js",
