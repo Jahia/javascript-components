@@ -107,7 +107,7 @@ export const useNodeInfo = (variables, options, queryOptions) => {
         };
     }, [client, currentRequest]);
 
-    if (queryHasChanged) {
+    if (queryHasChanged && !result.loading) {
         setResult({
             loading: true
         });
