@@ -1,4 +1,4 @@
-import {useSiteInfo} from './index.js';
+import {useSiteInfo} from './useSiteInfo';
 
 jest.mock('react-apollo', () => ({
     useQuery: jest.fn(() => ({

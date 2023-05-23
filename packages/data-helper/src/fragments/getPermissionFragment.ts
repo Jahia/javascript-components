@@ -1,12 +1,13 @@
 import gql from 'graphql-tag';
 import {encodeName} from './encodeName';
+import {Fragment} from '~/fragments/PredefinedFragments';
 
-const fragments = {};
+const fragments:{[key:string]: Fragment} = {};
 
-export const getPermissionFragment = name => {
+export const getPermissionFragment = (name: string) => {
     const encodedName = getEncodedPermissionName(name);
     if (!fragments[encodedName]) {
-        const fragment = {
+        fragments[encodedName] = {
             applyFor: 'node',
             variables: {
                 [encodedName]: 'String!'
@@ -15,8 +16,6 @@ export const getPermissionFragment = name => {
                 ${encodedName}:hasPermission(permissionName: $${encodedName})
             }`
         };
-
-        fragments[encodedName] = fragment;
     }
 
     return {
@@ -27,10 +26,10 @@ export const getPermissionFragment = name => {
     };
 };
 
-export const getSitePermissionFragment = name => {
+export const getSitePermissionFragment = (name: string) => {
     const encodedName = getEncodedPermissionName(name);
     if (!fragments['site_' + encodedName]) {
-        const fragment = {
+        fragments['site_' + encodedName] = {
             applyFor: 'node',
             variables: {
                 [encodedName]: 'String!'
@@ -42,8 +41,6 @@ export const getSitePermissionFragment = name => {
                 }
             }`
         };
-
-        fragments['site_' + encodedName] = fragment;
     }
 
     return {
@@ -54,4 +51,4 @@ export const getSitePermissionFragment = name => {
     };
 };
 
-export const getEncodedPermissionName = name => 'permission_' + encodeName(name);
+export const getEncodedPermissionName = (name: string) => 'permission_' + encodeName(name);

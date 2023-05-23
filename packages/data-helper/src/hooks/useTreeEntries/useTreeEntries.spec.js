@@ -1,4 +1,4 @@
-import {useTreeEntries} from './index.js';
+import {useTreeEntries} from './useTreeEntries';
 import {useQuery} from 'react-apollo';
 import {print} from 'graphql/language/printer';
 

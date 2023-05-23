@@ -1,7 +1,7 @@
 import {useQuery} from 'react-apollo';
 import {SITE_INFO_QUERY} from './useSiteInfo.gql-queries';
 
-const adaptSiteInfo = data => {
+const adaptSiteInfo = (data: any) => {
     if (data && (data.jcr || data.wsDefault)) {
         const res = data.jcr ? data.jcr.result : data.wsDefault.result;
         if (res) {
@@ -14,7 +14,7 @@ const adaptSiteInfo = data => {
     };
 };
 
-export const useSiteInfo = ({siteKey, displayLanguage}) => {
+export const useSiteInfo = ({siteKey, displayLanguage}: {siteKey: string, displayLanguage: string}) => {
     const variables = {
         path: '/sites/' + siteKey,
         displayLanguage

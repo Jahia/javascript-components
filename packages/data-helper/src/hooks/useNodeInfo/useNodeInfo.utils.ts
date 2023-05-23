@@ -1,15 +1,15 @@
-const isObject = obj => obj !== null && typeof obj === 'object';
+const isObject = (obj: unknown): obj is {[key:string]: any} => obj !== null && typeof obj === 'object';
 
-export const merge = (target, source) => {
+export const merge = (target: {[key:string]: any}, source: {[key:string]: any}) => {
     if (Array.isArray(target) && Array.isArray(source)) {
         return [...target, ...source.filter(f => target.indexOf(f) === -1)];
     }
 
     if (isObject(target) && isObject(source)) {
         Object.keys(source).forEach(sourceKey => {
-            const sourceValue = source[sourceKey];
+            const sourceValue: any = (source as any)[sourceKey];
             if (Object.prototype.hasOwnProperty.call(target, sourceKey)) {
-                const targetValue = target[sourceKey];
+                const targetValue: any = target[sourceKey];
                 target[sourceKey] = merge(targetValue, sourceValue);
             } else if (Array.isArray(sourceValue)) {
                 target[sourceKey] = [...sourceValue];
@@ -26,7 +26,7 @@ export const merge = (target, source) => {
     return target;
 };
 
-export const isSubset = (superObj, subObj) => Object.keys(subObj).every(ele => {
+export const isSubset = (superObj:{[key:string]: any}, subObj:{[key:string]: any}):boolean => Object.keys(subObj).every(ele => {
     const obj1 = subObj[ele];
     const obj2 = superObj[ele];
     if (Array.isArray(obj1) && Array.isArray(obj2)) {

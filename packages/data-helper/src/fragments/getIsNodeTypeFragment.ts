@@ -1,12 +1,13 @@
 import gql from 'graphql-tag';
 import {encodeName} from './encodeName';
+import {Fragment} from '~/fragments/PredefinedFragments';
 
-const fragments = {};
+const fragments:{[key:string]: Fragment} = {};
 
-export const getNodeTypeFragment = name => {
+export const getNodeTypeFragment = (name: string) => {
     const encodedName = getEncodedNodeTypeName(name);
     if (!fragments[encodedName]) {
-        const fragment = {
+        fragments[encodedName] = {
             applyFor: 'node',
             variables: {
                 [encodedName]: 'InputNodeTypesInput!'
@@ -15,8 +16,6 @@ export const getNodeTypeFragment = name => {
                 ${encodedName}:isNodeType(type: $${encodedName})
             }`
         };
-
-        fragments[encodedName] = fragment;
     }
 
     return {
@@ -29,4 +28,4 @@ export const getNodeTypeFragment = name => {
     };
 };
 
-export const getEncodedNodeTypeName = name => 'nodeType_' + encodeName(name);
+export const getEncodedNodeTypeName = (name:string) => 'nodeType_' + encodeName(name);

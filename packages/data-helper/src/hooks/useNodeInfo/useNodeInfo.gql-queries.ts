@@ -20,8 +20,13 @@ import {
 } from '../../fragments';
 import {getPermissionFragment, getSitePermissionFragment} from '../../fragments/getPermissionFragment';
 import {getNodeTypeFragment} from '../../fragments/getIsNodeTypeFragment';
+import {DocumentNode} from 'graphql';
 
-const getBaseQueryAndVariables = variables => {
+const getBaseQueryAndVariables = (variables: {[key:string]: any}): {
+    baseQuery: DocumentNode,
+    generatedVariables:{[key:string]: unknown},
+    skip: boolean
+} => {
     if (variables.paths) {
         return {
             baseQuery: gql`
@@ -105,6 +110,30 @@ const getBaseQueryAndVariables = variables => {
     };
 };
 
+export type NodeInfoOptions = Partial<{
+    getDisplayName: boolean,
+    getPrimaryNodeType: boolean,
+    getParent: boolean,
+    getAggregatedPublicationInfo: {
+        subNodes: boolean, reference: boolean
+    },
+    getOperationSupport: boolean,
+    getPermissions: string[],
+    getSitePermissions: string[],
+    getIsNodeTypes: string[],
+    getProperties: string[],
+    getSiteInstalledModules: boolean,
+    getSiteLanguages: boolean,
+    getDisplayableNodePath: boolean,
+    getLockInfo: boolean,
+    getChildNodeTypes: boolean,
+    getContributeTypesRestrictions: boolean,
+    getSubNodesCount: {
+        types?: string[]
+    },
+    getMimeType: boolean,
+}>;
+
 export const validOptions = [
     'getDisplayName',
     'getPrimaryNodeType',
@@ -125,7 +154,7 @@ export const validOptions = [
     'getMimeType'
 ];
 
-export const getQuery = (variables, schemaResult, options = {}) => {
+export const getQuery = (variables: {[key:string]: any}, schemaResult: any, options: NodeInfoOptions = {}) => {
     const fragments = [];
 
     const {baseQuery, generatedVariables, skip} = getBaseQueryAndVariables(variables);
@@ -142,12 +171,12 @@ export const getQuery = (variables, schemaResult, options = {}) => {
 
         if (options.getPrimaryNodeType) {
             fragments.push(primaryNodeType);
-            if (!variables.displayLanguage) {
-                generatedVariables.displayLanguageSet = false;
-                generatedVariables.displayLanguage = '';
-            } else {
+            if (variables.displayLanguage) {
                 generatedVariables.displayLanguageSet = true;
                 generatedVariables.displayLanguage = variables.displayLanguage;
+            } else {
+                generatedVariables.displayLanguageSet = false;
+                generatedVariables.displayLanguage = '';
             }
         }
 
@@ -156,7 +185,7 @@ export const getQuery = (variables, schemaResult, options = {}) => {
         }
 
         if (options.getAggregatedPublicationInfo) {
-            const supportsExistsInLive = schemaResult && schemaResult.__type && schemaResult.__type.fields && schemaResult.__type.fields.find(field => field.name === 'existsInLive') !== undefined;
+            const supportsExistsInLive = schemaResult && schemaResult.__type && schemaResult.__type.fields && schemaResult.__type.fields.find((field: any) => field.name === 'existsInLive') !== undefined;
             if (supportsExistsInLive) {
                 fragments.push(aggregatedPublicationInfoWithExistInLive);
             } else {
@@ -178,25 +207,25 @@ export const getQuery = (variables, schemaResult, options = {}) => {
 
         if (options.getPermissions) {
             options.getPermissions.forEach(name => {
-                const {fragment, variables} = getPermissionFragment(name);
+                const {fragment, variables: fragmentVariables} = getPermissionFragment(name);
                 fragments.push(fragment);
-                Object.assign(generatedVariables, variables);
+                Object.assign(generatedVariables, fragmentVariables);
             });
         }
 
         if (options.getSitePermissions) {
             options.getSitePermissions.forEach(name => {
-                const {fragment, variables} = getSitePermissionFragment(name);
+                const {fragment, variables: fragmentVariables} = getSitePermissionFragment(name);
                 fragments.push(fragment);
-                Object.assign(generatedVariables, variables);
+                Object.assign(generatedVariables, fragmentVariables);
             });
         }
 
         if (options.getIsNodeTypes) {
             options.getIsNodeTypes.forEach(name => {
-                const {fragment, variables} = getNodeTypeFragment(name);
+                const {fragment, variables: fragmentVariables} = getNodeTypeFragment(name);
                 fragments.push(fragment);
-                Object.assign(generatedVariables, variables);
+                Object.assign(generatedVariables, fragmentVariables);
             });
         }
 

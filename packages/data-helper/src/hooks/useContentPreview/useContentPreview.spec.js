@@ -1,4 +1,4 @@
-import {useContentPreview} from './index.js';
+import {useContentPreview} from './useContentPreview';
 
 jest.mock('react-apollo', () => ({
     useQuery: jest.fn(() => ({

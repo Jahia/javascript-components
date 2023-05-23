@@ -1,4 +1,4 @@
-import {useNodeInfo} from './index.js';
+import {useNodeInfo} from './useNodeInfo';
 import {getQuery} from './useNodeInfo.gql-queries';
 import React from 'react';
 
@@ -33,7 +33,9 @@ jest.mock('react-apollo', () => {
                 subscribe(inputFcn) {
                     inputFcn(data);
                     return {
-                        unsubscribe() {}
+                        unsubscribe() {
+                            //
+                        }
                     };
                 }
             })
