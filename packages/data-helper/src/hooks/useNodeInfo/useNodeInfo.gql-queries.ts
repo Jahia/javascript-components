@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 import {
-    aggregatedPublicationInfoWithExistInLive,
     aggregatedPublicationInfo,
+    aggregatedPublicationInfoWithExistInLive,
     childNodeTypes,
     contentRestrictions,
     displayableNode,

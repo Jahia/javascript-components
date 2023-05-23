@@ -1,8 +1,7 @@
-import {useQuery} from 'react-apollo';
+import {QueryHookOptions, useQuery} from '@apollo/client';
 import {replaceFragmentsInDocument} from '../../fragments/fragments.utils';
 import {TREE_QUERY} from './useTreeEntries.gql-queries';
 import {Fragment} from '~/fragments';
-import {QueryHookOptions} from '@apollo/client';
 
 export type UseTreeEntriesArgs = Partial<{
     fragments: (string|Fragment)[],

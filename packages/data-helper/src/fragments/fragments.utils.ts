@@ -3,7 +3,8 @@ import {
     DocumentNode,
     FragmentSpreadNode,
     NameNode,
-    parseType, SelectionNode,
+    parseType,
+    SelectionNode,
     SelectionSetNode,
     VariableDefinitionNode
 } from 'graphql';

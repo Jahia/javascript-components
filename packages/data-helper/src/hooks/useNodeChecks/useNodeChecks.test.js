@@ -6,7 +6,7 @@ const wait = (time = 1000) => new Promise(resolve => {
     setTimeout(resolve, time);
 });
 
-jest.mock('react-apollo', () => {
+jest.mock('@apollo/client', () => {
     const data = {
         data: {
             jcr: {

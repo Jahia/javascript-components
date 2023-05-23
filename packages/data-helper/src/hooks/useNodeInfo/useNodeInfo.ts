@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {useApolloClient} from 'react-apollo';
+import {ApolloClient, ApolloError, NetworkStatus, useApolloClient, WatchQueryOptions} from '@apollo/client';
 import {getQuery, NodeInfoOptions} from './useNodeInfo.gql-queries';
 import {getEncodedPermissionName} from '../../fragments/getPermissionFragment';
 import {getEncodedNodeTypeName} from '../../fragments/getIsNodeTypeFragment';
@@ -7,7 +7,6 @@ import {SCHEMA_FIELDS_QUERY} from '../useSchemaFields/useSchemaFields.gql-querie
 import {isSubset, merge} from './useNodeInfo.utils';
 import {useMemoRequest} from './useMemoRequest';
 import deepEquals from 'fast-deep-equal';
-import {ApolloClient, ApolloError, NetworkStatus, WatchQueryOptions} from '@apollo/client';
 import {DocumentNode, GraphQLError} from 'graphql';
 import {Subscription} from 'zen-observable-ts';
 
@@ -41,7 +40,7 @@ let schemaResult: any;
 let timeout: number;
 let observedQueries: Subscription[] = [];
 
-function scheduleQueue(client: ApolloClient<unknown>) {
+function scheduleQueue(client: ApolloClient<object>) {
     if (!timeout && schemaResult) {
         timeout = setTimeout(() => {
             timeoutHandler(client);
@@ -51,7 +50,7 @@ function scheduleQueue(client: ApolloClient<unknown>) {
     }
 }
 
-const timeoutHandler = (client: ApolloClient<unknown>) => {
+const timeoutHandler = (client: ApolloClient<object>) => {
     const mergedQueue: MergedRequest[] = [];
 
     queue.forEach(request => {

@@ -1,14 +1,13 @@
 import {useSiteInfo} from './useSiteInfo';
+import {useQuery} from '@apollo/client';
 
-jest.mock('react-apollo', () => ({
+jest.mock('@apollo/client', () => ({
     useQuery: jest.fn(() => ({
         data: {},
         loading: false,
         error: null
     }))
 }));
-
-import {useQuery} from 'react-apollo';
 
 describe('useSiteInfo', () => {
     it('should trigger a graphql request', () => {

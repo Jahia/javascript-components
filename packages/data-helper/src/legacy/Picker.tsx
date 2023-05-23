@@ -1,10 +1,10 @@
 import React from 'react';
-import {Query} from 'react-apollo';
+import {Query} from '@apollo/react-components';
 import gql from 'graphql-tag';
 import {displayName, Fragment, nodeCacheRequiredFields, replaceFragmentsInDocument} from '../fragments';
 import {PickerItemsFragment} from './Picker.gql-fragments';
 import {DocumentNode} from 'graphql';
-import {OperationVariables, QueryResult} from '@apollo/client';
+import {QueryResult} from '@apollo/client';
 import rfdc from 'rfdc';
 import deepEquals from 'fast-deep-equal';
 
@@ -353,7 +353,7 @@ export class Picker extends React.Component<PropType, StateType> {
 
         return (
             <Query query={this.query} variables={vars} fetchPolicy='cache-first'>
-                {({error, loading, data, refetch}: QueryResult<any, OperationVariables>) => {
+                {({error, loading, data, refetch}: QueryResult) => {
                     if (setRefetch) {
                         setRefetch({
                             query: this.query,

@@ -1,6 +1,5 @@
-import {useQuery} from 'react-apollo';
+import {FetchPolicy, useQuery} from '@apollo/client';
 import {CONTENT_PREVIEW_QUERY} from './useContentPreview.gql-queries';
-import {FetchPolicy} from '@apollo/client';
 
 type RequestAttribute = {
     name: string, value:string

@@ -1,4 +1,4 @@
-import {useQuery} from 'react-apollo';
+import {useQuery} from '@apollo/client';
 import {SITE_INFO_QUERY} from './useSiteInfo.gql-queries';
 
 const adaptSiteInfo = (data: any) => {
