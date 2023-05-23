@@ -97,7 +97,7 @@ export const useNodeInfo = (variables, options, queryOptions) => {
     }
 
     // Normalize and memoize request
-    const [currentRequest] = useMemoRequest(variables, queryOptions, options, setResult);
+    const [currentRequest, queryHasChanged] = useMemoRequest(variables, queryOptions, options, setResult);
     useEffect(() => {
         queue.push(currentRequest);
         scheduleQueue(client);
@@ -106,6 +106,13 @@ export const useNodeInfo = (variables, options, queryOptions) => {
             queue.splice(queue.indexOf(currentRequest), 1);
         };
     }, [client, currentRequest]);
+
+    if (queryHasChanged) {
+        setResult({
+            loading: true
+        });
+        return {loading: true};
+    }
 
     return result;
 };
