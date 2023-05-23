@@ -224,9 +224,9 @@ describe('useNodeInfo', () => {
 
         await wait();
 
-        expect(setStateMock.mock.calls[0][0].node).toBeDefined();
-        expect(setStateMock.mock.calls[0][0].variables).toBeDefined();
-        expect(setStateMock.mock.calls[0][0].variables.path).toBe('/test');
+        expect(setStateMock.mock.calls[1][0].node).toBeDefined();
+        expect(setStateMock.mock.calls[1][0].variables).toBeDefined();
+        expect(setStateMock.mock.calls[1][0].variables.path).toBe('/test');
     });
 
     it('should trigger a graphql request with multiple paths', async () => {
@@ -238,8 +238,8 @@ describe('useNodeInfo', () => {
 
         await wait();
 
-        expect(setStateMock.mock.calls[0][0].node).toBeDefined();
-        expect(setStateMock.mock.calls[0][0].variables).toBeDefined();
-        expect(setStateMock.mock.calls[0][0].variables.paths).toBe(paths);
+        expect(setStateMock.mock.calls[1][0].node).toBeDefined();
+        expect(setStateMock.mock.calls[1][0].variables).toBeDefined();
+        expect(setStateMock.mock.calls[1][0].variables.paths).toBe(paths);
     });
 });
