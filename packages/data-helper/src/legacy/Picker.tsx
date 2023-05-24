@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 import {displayName, Fragment, nodeCacheRequiredFields, replaceFragmentsInDocument} from '../fragments';
 import {PickerItemsFragment} from './Picker.gql-fragments';
 import {DocumentNode} from 'graphql';
-import {QueryResult, OperationVariables} from '@apollo/client';
+import {QueryResult} from '@apollo/client';
 import rfdc from 'rfdc';
 import deepEquals from 'fast-deep-equal';
 
