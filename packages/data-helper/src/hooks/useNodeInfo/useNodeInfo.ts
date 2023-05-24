@@ -108,7 +108,7 @@ const timeoutHandler = (client: ApolloClient<object>) => {
     });
 };
 
-export const useNodeInfo = (variables: {[key:string]: unknown}, options: NodeInfoOptions, queryOptions: Partial<WatchQueryOptions>) => {
+export const useNodeInfo = (variables: {[key:string]: unknown}, options?: NodeInfoOptions, queryOptions?: Partial<WatchQueryOptions>) => {
     const [result, setResult] = useState<NodeInfoResult>({
         loading: true
     });
@@ -134,6 +134,16 @@ export const useNodeInfo = (variables: {[key:string]: unknown}, options: NodeInf
     }, [client, currentRequest]);
 
     if (queryHasChanged && !result.loading) {
+        if (queryOptions?.fetchPolicy !== 'no-cache' && queryOptions?.fetchPolicy !== 'network-only') {
+            const infoQuery = getQuery(currentRequest.variables, schemaResult, currentRequest.options);
+            const res = client.readQuery({query: infoQuery.query, variables: infoQuery.generatedVariables});
+            if (res) {
+                const result = getResult(res, {}, currentRequest.options, infoQuery.query, infoQuery.generatedVariables);
+                setResult(result);
+                return result;
+            }
+        }
+
         setResult({
             loading: true
         });
