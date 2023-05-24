@@ -8,7 +8,6 @@ import {isSubset, merge} from './useNodeInfo.utils';
 import {useMemoRequest} from './useMemoRequest';
 import deepEquals from 'fast-deep-equal';
 import {DocumentNode, GraphQLError} from 'graphql';
-import {Subscription} from 'zen-observable-ts';
 
 export type Request = {
     variables:{[key:string]: any},
@@ -38,7 +37,7 @@ export type NodeInfoResult = {
 const queue: QueuedRequest[] = [];
 let schemaResult: any;
 let timeout: number;
-let observedQueries: Subscription[] = [];
+let observedQueries: { unsubscribe: () => void }[] = [];
 
 function scheduleQueue(client: ApolloClient<object>) {
     if (!timeout && schemaResult) {

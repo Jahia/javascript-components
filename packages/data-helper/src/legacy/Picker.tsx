@@ -353,7 +353,7 @@ export class Picker extends React.Component<PropType, StateType> {
 
         return (
             <Query query={this.query} variables={vars} fetchPolicy='cache-first'>
-                {({error, loading, data, refetch}: QueryResult) => {
+                {({error, loading, data, refetch}: QueryResult): React.JSX.Element => {
                     if (setRefetch) {
                         setRefetch({
                             query: this.query,
