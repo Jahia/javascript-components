@@ -134,7 +134,7 @@ export const useNodeInfo = (variables: {[key:string]: unknown}, options?: NodeIn
     }, [client, currentRequest]);
 
     if (queryHasChanged && !result.loading) {
-        if (queryOptions.fetchPolicy !== 'no-cache' && queryOptions.fetchPolicy !== 'network-only') {
+        if (queryOptions?.fetchPolicy !== 'no-cache' && queryOptions?.fetchPolicy !== 'network-only') {
             const infoQuery = getQuery(currentRequest.variables, schemaResult, currentRequest.options);
             const res = client.readQuery({query: infoQuery.query, variables: infoQuery.generatedVariables});
             if (res) {
