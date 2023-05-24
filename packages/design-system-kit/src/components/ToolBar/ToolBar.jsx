@@ -26,18 +26,17 @@ const styles = theme => ({
 });
 
 export const ToolBar = ({classes, contextPath, label, title}) => (
-    <AppBar position='static'>
+    <AppBar position="static">
         <Toolbar className={classes.topBar}>
-            <Typography color='invert' variant='epsilon' className={classes.topBarText}>
+            <Typography color="invert" variant="epsilon" className={classes.topBarText}>
                 {title}
             </Typography>
-            <Button
-className={classes.topBarButton}
-onClick={() => {
+            <Button className={classes.topBarButton}
+                    onClick={() => {
                             window.location.href = `${contextPath}/tools`;
                         }}
             >
-                <Typography color='invert' variant='zeta'>
+                <Typography color="invert" variant="zeta">
                     {label}
                 </Typography>
             </Button>

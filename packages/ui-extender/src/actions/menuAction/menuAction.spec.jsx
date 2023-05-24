@@ -27,13 +27,13 @@ const MenuRenderer = ({menuKey, isSubMenu, isOpen, isLoading, onClose, onExited,
 
     return (
         <>
-            {!isSubMenu && <div className='backdrop' onClick={onClose}/>}
+            {!isSubMenu && <div className="backdrop" onClick={onClose}/>}
             <div
                 className={isOpen && !isLoading ? 'menu' : 'xxxx'}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
             >
-                <div className='menuItems' id={'menu-' + menuKey}>
+                <div className="menuItems" id={'menu-' + menuKey}>
                     {children}
                 </div>
             </div>
@@ -54,7 +54,7 @@ MenuRenderer.propTypes = {
 };
 
 const MenuItemRenderer = ({label, actionKey, onClick, onMouseEnter, onMouseLeave}) => (
-    <div className='menuItem' id={'item-' + actionKey} onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+    <div className="menuItem" id={'item-' + actionKey} onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
         {label}
     </div>
 );
@@ -141,7 +141,7 @@ function advanceTime(wrapper) {
 function getWrapper() {
     return mount(
         <ComponentRendererProvider>
-            <DisplayAction actionKey='menu' path='/test' render={ButtonRenderer}/>
+            <DisplayAction actionKey="menu" path="/test" render={ButtonRenderer}/>
         </ComponentRendererProvider>
     );
 }

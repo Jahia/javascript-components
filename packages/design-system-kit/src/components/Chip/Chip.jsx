@@ -61,14 +61,14 @@ const Chip = withStyles(styles, {name: 'DsChip'})(
     )
 );
 
-Chip.propTypes
-    = process.env.NODE_ENV !== 'production'
-        ? {
+Chip.propTypes =
+    process.env.NODE_ENV !== 'production' ?
+        {
             size: PropTypesConstants.ChipSizes,
             color: PropTypesConstants.ChipColors,
             variant: PropTypesConstants.ChipVariants
-        }
-        : {};
+        } :
+        {};
 
 Chip.defaultProps = {
     color: 'default',

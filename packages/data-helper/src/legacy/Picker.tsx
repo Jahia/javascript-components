@@ -1,14 +1,95 @@
-// TODO BACKLOG-12393 - refactor Legacy Picker into hook without lodash
 import React from 'react';
-import {Query} from 'react-apollo';
+import {Query} from '@apollo/react-components';
 import gql from 'graphql-tag';
-import * as _ from 'lodash';
-import PropTypes from 'prop-types';
-import {displayName, nodeCacheRequiredFields, replaceFragmentsInDocument} from '../fragments';
+import {displayName, Fragment, nodeCacheRequiredFields, replaceFragmentsInDocument} from '../fragments';
 import {PickerItemsFragment} from './Picker.gql-fragments';
+import {DocumentNode} from 'graphql';
+import {QueryResult} from '@apollo/client';
+import rfdc from 'rfdc';
+import deepEquals from 'fast-deep-equal';
 
-export class Picker extends React.Component {
-    constructor(props) {
+const clone = rfdc();
+
+type PropType = {
+    /**
+     * Optional set of fragments to add to the graphQL query. Can be a string that identify a predefinedFragment or a fragment definition
+     */
+    fragments?: (string| Fragment)[],
+
+    /**
+     * List of root paths for the picker
+     */
+    rootPaths?: string[],
+
+    onOpenItem?: (path:string, open:boolean) => void
+
+    onSelectItem?: (path:string, selected: boolean, multiple:boolean) => void,
+
+    /**
+     * List of open folders in controlled mode
+     */
+    openPaths?: string[],
+
+    /**
+     * List of selected path in controlled mode
+     */
+    selectedPaths?: string[],
+
+    /**
+     * Preselected items path (uncontrolled mode)
+     */
+    defaultSelectedPaths?: string[],
+
+    /**
+     * Callback when the selection has changed
+     */
+    onSelectionChange?: (paths:string[]) => void,
+
+    /**
+     * List of folder paths that are open by default (uncontrolled mode)
+     */
+    defaultOpenPaths?: string[],
+
+    /**
+     * List of node types that can be "opened" (folders)
+     */
+    openableTypes?: string[],
+
+    /**
+     * List of node types that can be "selected" (items)
+     */
+    selectableTypes?: string[],
+
+    onLoading: (l: boolean) => void,
+
+    /**
+     * Optional set of variable to pass to the graphQL query, in order to fulfill fragments needs
+     */
+    queryVariables?: {[key:string]: any},
+
+    hideRoot?: boolean,
+
+    /**
+     * Optional function which receives refetch function of the Query component when the component is strapped
+     */
+    setRefetch: (p: any) => void,
+
+    children: (p: any) => React.ReactElement
+};
+
+type StateType = {
+    isOpenControlled?: boolean,
+    isSelectControlled?: boolean,
+    openPaths?: string[],
+    selectedPaths?: string[]
+};
+
+export class Picker extends React.Component<PropType, StateType> {
+    query: DocumentNode;
+    eventsHandlers: {onOpenItem?: (path:string, open:boolean) => void, onSelectItem?: (path:string, selected: boolean, multiple:boolean) => void};
+    previousEntries: any;
+
+    constructor(props: PropType) {
         super(props);
 
         const {
@@ -22,6 +103,8 @@ export class Picker extends React.Component {
             onSelectionChange,
             defaultOpenPaths
         } = props;
+
+        const resolvedFragments = fragments || [PickerItemsFragment.mixinTypes, PickerItemsFragment.primaryNodeType, PickerItemsFragment.isPublished, displayName];
 
         this.query = gql`
             query PickerQuery($rootPaths:[String!]!, $selectable:[String]!, $openable:[String]!, $openPaths:[String!]!, $types:[String]!) {
@@ -58,9 +141,9 @@ export class Picker extends React.Component {
                 }
             }
         ${nodeCacheRequiredFields.gql}`;
-        this.query = replaceFragmentsInDocument(this.query, fragments);
+        this.query = replaceFragmentsInDocument(this.query, resolvedFragments);
 
-        const state = {};
+        const state: StateType = {};
 
         this.eventsHandlers = {};
 
@@ -70,9 +153,9 @@ export class Picker extends React.Component {
             state.openPaths = [];
             this.eventsHandlers.onOpenItem = (path, open) => {
                 this.setState(prevState => ({
-                    openPaths: open
-                        ? [...prevState.openPaths, path]
-                        : _.filter(prevState.openPaths, thispath => thispath !== path)
+                    openPaths: open ?
+                        [...prevState.openPaths, path] :
+                        prevState.openPaths.filter(thispath => thispath !== path)
                 }));
             };
 
@@ -89,7 +172,7 @@ export class Picker extends React.Component {
         if (selectedPaths === null) {
             // Uncontrolled mode
             state.isSelectControlled = false;
-            state.selectedPaths = defaultSelectedPaths ? _.clone(defaultSelectedPaths) : [];
+            state.selectedPaths = defaultSelectedPaths ? clone(defaultSelectedPaths) : [];
             // Open selected path if open is uncontrolled
             if (defaultSelectedPaths && !state.isOpenControlled) {
                 state.openPaths = this.addPathToOpenPath(defaultSelectedPaths, rootPaths, state.openPaths);
@@ -97,9 +180,9 @@ export class Picker extends React.Component {
 
             this.eventsHandlers.onSelectItem = (path, selected, multiple) => {
                 this.setState(prevState => {
-                    const newSelectedPaths = selected
-                        ? [...(multiple ? prevState.selectedPaths : []), path]
-                        : _.filter(prevState.selectedPaths, thispath => thispath !== path);
+                    const newSelectedPaths = selected ?
+                        [...(multiple ? prevState.selectedPaths : []), path] :
+                        prevState.selectedPaths.filter(thispath => thispath !== path);
                     onSelectionChange(newSelectedPaths);
                     return {
                         selectedPaths: newSelectedPaths
@@ -119,18 +202,18 @@ export class Picker extends React.Component {
         this.openPaths = this.openPaths.bind(this);
     }
 
-    static getDerivedStateFromProps(nextProps, prevState) {
+    static getDerivedStateFromProps(nextProps: PropType, prevState: StateType) {
         if ((prevState.isOpenControlled !== (nextProps.openPaths !== null)) || (prevState.isSelectControlled !== (nextProps.selectedPaths !== null))) {
             console.warn('Cannot change between controlled/uncontrolled modes');
         }
 
-        const newState = {};
+        const newState: StateType = {};
 
-        if (prevState.isOpenControlled && !_.eq(nextProps.openPaths, prevState.openPaths)) {
+        if (prevState.isOpenControlled && !deepEquals(nextProps.openPaths, prevState.openPaths)) {
             newState.openPaths = nextProps.openPaths;
         }
 
-        if (prevState.isSelectControlled && !_.eq(nextProps.selectedPaths, prevState.selectedPaths)) {
+        if (prevState.isSelectControlled && !deepEquals(nextProps.selectedPaths, prevState.selectedPaths)) {
             newState.selectedPaths = nextProps.selectedPaths;
         }
 
@@ -141,44 +224,44 @@ export class Picker extends React.Component {
         return null;
     }
 
-    getVariables(selectedPaths, openPaths) {
+    getVariables(selectedPaths: string[], openPaths: string[]) {
         const {rootPaths, openableTypes, selectableTypes, queryVariables} = this.props;
 
         const vars = {
             rootPaths,
-            types: _.union(openableTypes, selectableTypes),
+            types: [...new Set([...openableTypes, ...selectableTypes])],
             selectable: selectableTypes,
             openable: openableTypes,
             openPaths
         };
 
         if (queryVariables) {
-            _.assign(vars, queryVariables);
+            Object.assign(vars, queryVariables);
         }
 
         return vars;
     }
 
-    getPickerEntries(data, selectedPaths, openPaths) {
-        let pickerEntries = [];
-        const nodesById = {};
+    getPickerEntries(data: any, selectedPaths: string[], openPaths: string[]) {
+        let pickerEntries: any[] = [];
+        const nodesById:any = {};
         const {jcr} = data;
 
-        const addNode = function (node, depth, index) {
+        const addNode = function (node:any, depth:number, index:number) {
             let selected = false;
             if (node.selectable) {
-                selected = _.indexOf(selectedPaths, node.path) !== -1;
+                selected = selectedPaths.indexOf(node.path) !== -1;
             }
 
             const pickerNode = {
                 name: node.name,
                 path: node.path,
-                open: node.openable && _.indexOf(openPaths, node.path) !== -1,
+                open: node.openable && openPaths.indexOf(node.path) !== -1,
                 selected,
                 openable: node.openable,
                 selectable: node.selectable,
                 depth,
-                prefix: _.repeat('&nbsp;', depth * 3),
+                prefix: '&nbsp;'.repeat(depth * 3),
                 node,
                 hidden: false,
                 hasChildren: node.children.pageInfo.nodesCount > 0
@@ -190,51 +273,54 @@ export class Picker extends React.Component {
 
         if (jcr) {
             if (jcr.rootNodes) {
-                _.forEach(jcr.rootNodes, rootNode => {
+                jcr.rootNodes.forEach((rootNode: any) => {
                     const root = addNode(rootNode, 0, 0);
-                    root.hidden = this.props.hideRoot;
+                    root.hidden = this.props.hideRoot || false;
                 });
             }
 
             if (jcr.openNodes) {
-                _.sortBy(jcr.openNodes, ['path']).forEach(node => {
-                    const parent = nodesById[node.uuid];
-                    if (parent) {
-                        const parentIndex = _.indexOf(pickerEntries, parent);
-                        _.forEachRight(node.children.nodes, child => {
-                            addNode(child, parent.depth + 1, parentIndex + 1);
-                        });
-                    }
-                });
+                jcr.openNodes.concat()
+                    .sort((a: any, b: any) => (a.path > b.path) ? 1 : ((b.path > a.path) ? -1 : 0))
+                    .forEach((node: any) => {
+                        const parent = nodesById[node.uuid];
+                        if (parent) {
+                            const parentIndex = pickerEntries.indexOf(parent);
+                            node.children.nodes.slice().reverse().forEach((child: any) => {
+                                addNode(child, parent.depth + 1, parentIndex + 1);
+                            });
+                        }
+                    });
             }
         }
 
         // Nodes loaded, fill selection list
-        const selectedNodes = _.filter(pickerEntries, node => node.selected).map(node => node.node);
+        const selectedNodes = pickerEntries.filter(node => node.selected).map(node => node.node);
 
-        selectedPaths = _.map(selectedNodes, 'path');
-        pickerEntries = _.filter(pickerEntries, pickerNode => !pickerNode.hidden);
+        selectedPaths = selectedNodes.map(s => s.path);
+        pickerEntries = pickerEntries.filter(pickerNode => !pickerNode.hidden);
 
         return pickerEntries;
     }
 
-    addPathToOpenPath(pathsToOpen, rootPaths, openPaths) {
-        _.each(pathsToOpen, path => {
-            let rootFound = false;
+    addPathToOpenPath(pathsToOpen: string[], rootPaths:string[], openPaths: string[]) {
+        pathsToOpen.forEach(path => {
+            let rootFound: false | string = false;
             if (!path.endsWith('/')) {
                 path += '/';
             }
 
-            _.tail(_.split(path, '/')).reduce((acc, it) => {
+            const [...tail] = path.split('/');
+            tail.reduce((acc, it) => {
                 if (!rootFound) {
-                    _.forEach(rootPaths, rootPath => {
-                        rootFound = rootFound || (_.startsWith(acc, rootPath) && rootPath);
+                    rootPaths.forEach(rootPath => {
+                        rootFound = rootFound || (acc.startsWith(rootPath) && rootPath);
                     });
                 }
 
-                if (rootFound && !_.includes(openPaths, acc)) {
+                if (rootFound && !openPaths.includes(acc)) {
                     openPaths.push(acc);
-                    if (!_.includes(openPaths, rootFound)) {
+                    if (!openPaths.includes(rootFound)) {
                         openPaths.push(rootFound);
                     }
                 }
@@ -245,7 +331,7 @@ export class Picker extends React.Component {
         return openPaths;
     }
 
-    openPaths(paths) {
+    openPaths(paths: string[]) {
         if (!(paths instanceof Array)) {
             paths = [paths];
         }
@@ -261,13 +347,14 @@ export class Picker extends React.Component {
         let openPaths = this.state.openPaths ? this.state.openPaths : this.props.openPaths;
         const {setRefetch} = this.props;
 
-        openPaths = _.clone(openPaths);
+        openPaths = clone(openPaths);
 
         const vars = this.getVariables(selectedPaths, openPaths);
 
         return (
-            <Query query={this.query} variables={vars} fetchPolicy='cache-first'>
-                {({error, loading, data, refetch}) => {
+            <Query query={this.query} variables={vars} fetchPolicy="cache-first">
+                {(result: QueryResult): React.JSX.Element => {
+                    const {error, loading, data, refetch} = result;
                     if (setRefetch) {
                         setRefetch({
                             query: this.query,
@@ -302,91 +389,3 @@ export class Picker extends React.Component {
         );
     }
 }
-
-Picker.defaultProps = {
-    onLoading: null,
-    defaultOpenPaths: null,
-    openPaths: null,
-    defaultSelectedPaths: null,
-    selectedPaths: null,
-    setRefetch: null,
-    queryVariables: null,
-    fragments: [PickerItemsFragment.mixinTypes, PickerItemsFragment.primaryNodeType, PickerItemsFragment.isPublished, displayName],
-    onSelectionChange: null,
-    onOpenItem: null,
-    onSelectItem: null,
-    children: null,
-    hideRoot: false
-};
-
-Picker.propTypes = {
-
-    /**
-     * List of root paths for the picker
-     */
-    rootPaths: PropTypes.arrayOf(PropTypes.string).isRequired,
-
-    /**
-     * List of folder paths that are open by default (uncontrolled mode)
-     */
-    defaultOpenPaths: PropTypes.arrayOf(PropTypes.string),
-
-    /**
-     * List of node types that can be "opened" (folders)
-     */
-    openableTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
-
-    /**
-     * List of open folders in controlled mode
-     */
-    openPaths: PropTypes.arrayOf(PropTypes.string),
-
-    /**
-     * List of node types that can be "selected" (items)
-     */
-    selectableTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
-
-    /**
-     * Preselected items path (uncontrolled mode)
-     */
-    defaultSelectedPaths: PropTypes.arrayOf(PropTypes.string),
-
-    /**
-     * List of selected path in controlled mode
-     */
-    selectedPaths: PropTypes.arrayOf(PropTypes.string),
-
-    /**
-     * Callback when the selection has changed
-     */
-    onSelectionChange: PropTypes.func,
-
-    /**
-     * Optional function which receives refetch function of the Query component when the component is strapped
-     */
-    setRefetch: PropTypes.func,
-
-    /**
-     * Optional set of fragments to add to the graphQL query. Can be a string that identify a predefinedFragment or a fragment definition
-     */
-    fragments: PropTypes.arrayOf(PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.shape({
-            applyFor: PropTypes.string.isRequired,
-            variables: PropTypes.object,
-            gql: PropTypes.object.isRequired
-        })
-    ])),
-
-    /**
-     * Optional set of variable to pass to the graphQL query, in order to fulfill fragments needs
-     */
-    queryVariables: PropTypes.object,
-
-    // eslint-disable-next-line react/boolean-prop-naming
-    hideRoot: PropTypes.bool,
-    children: PropTypes.func,
-    onOpenItem: PropTypes.func,
-    onSelectItem: PropTypes.func,
-    onLoading: PropTypes.func
-};

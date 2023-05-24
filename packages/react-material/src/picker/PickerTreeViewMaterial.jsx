@@ -76,8 +76,8 @@ class PickerTreeViewMaterialCmp extends React.Component {
 
         return (
             <div className={classes.root}>
-                {loading
-                && <CircularProgress classes={{root: classes.loading}}/>}
+                {loading &&
+                <CircularProgress classes={{root: classes.loading}}/>}
                 <List disablePadding classes={{root: classes.root}}>
                     {
                         sortedEntries.map(entry => {
@@ -88,7 +88,7 @@ class PickerTreeViewMaterialCmp extends React.Component {
                             return (
                                 <ListItem
                                     key={entry.path}
-                                    data-jrm-role='picker-item'
+                                    data-jrm-role="picker-item"
                                     data-cm-role={dataCmRole}
                                     className={itemClass}
                                     onDoubleClick={() => onOpenItem(entry.path, !entry.open)}
@@ -103,7 +103,7 @@ class PickerTreeViewMaterialCmp extends React.Component {
                                             icon={<KeyboardArrowRight/>}
                                             className={entry.open ? classes.openedTreeEl : classes.closedTreeEl}
                                             disabled={!(entry.openable && entry.hasChildren)}
-                                            data-jrm-role='picker-item-toggle'
+                                            data-jrm-role="picker-item-toggle"
                                             data-jrm-state={entry.open ? 'open' : 'closed'}
                                             onClick={event => {
                                                 onOpenItem(entry.path, !entry.open);
@@ -123,11 +123,11 @@ class PickerTreeViewMaterialCmp extends React.Component {
                                                 inset
                                                 className={entry.node.primaryNodeType.name === 'jnt:page' && entry.node.publicationStatus && entry.node.publicationStatus.publicationStatus === 'UNPUBLISHED' ? classes.unpublishedEntryLabel : null}
                                                 primary={
-                                                    <Typography color='inherit'>
+                                                    <Typography color="inherit">
                                                         {entry.depth > 0 ? entry.node.displayName : rootLabel}
                                                     </Typography>
                                                 }
-                                                data-jrm-role='picker-item-text'
+                                                data-jrm-role="picker-item-text"
                                             />
                                     </span>
                                 </ListItem>

@@ -49,21 +49,20 @@ const styles = theme => ({
 });
 
 export const TopBar = ({classes, title, titleProps, contextModifiers, path, actions}) => (
-    <div className={classes.root} data-sel-role='top-bar'>
+    <div className={classes.root} data-sel-role="top-bar">
         <div className={classes.topBarContext}>
             <div>
-                {typeof path === 'string' ? <Typography noWrap gutterBottom variant='omega' color='invert'>{path}</Typography> : path}
+                {typeof path === 'string' ? <Typography noWrap gutterBottom variant="omega" color="invert">{path}</Typography> : path}
             </div>
 
             <div className={classes.topBarTitle}>
-                <Typography
-gutterBottom
-variant='beta'
-color='invert'
-className={classes.typoTitle}
-data-sel-role='top-bar-title'
-component='h2'
-{...titleProps}
+                <Typography gutterBottom
+                            variant="beta"
+                            color="invert"
+                            className={classes.typoTitle}
+                            data-sel-role="top-bar-title"
+                            component="h2"
+                            {...titleProps}
                 >
                     {title}
                 </Typography>

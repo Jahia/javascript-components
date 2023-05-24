@@ -1,8 +1,8 @@
-import {useTreeEntries} from './index.js';
-import {useQuery} from 'react-apollo';
+import {useTreeEntries} from './useTreeEntries';
+import {useQuery} from '@apollo/client';
 import {print} from 'graphql/language/printer';
 
-jest.mock('react-apollo', () => ({
+jest.mock('@apollo/client', () => ({
     useQuery: jest.fn(() => ({
         data: {},
         loading: false,

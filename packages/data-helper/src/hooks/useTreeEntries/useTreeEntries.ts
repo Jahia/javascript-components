@@ -1,6 +1,20 @@
-import {useQuery} from 'react-apollo';
+import {QueryHookOptions, useQuery} from '@apollo/client';
 import {replaceFragmentsInDocument} from '../../fragments/fragments.utils';
 import {TREE_QUERY} from './useTreeEntries.gql-queries';
+import {Fragment} from '~/fragments';
+
+export type UseTreeEntriesArgs = Partial<{
+    fragments: (string|Fragment)[],
+    rootPaths: string[],
+    openPaths: string[],
+    selectedPaths: string[],
+    openableTypes: string[],
+    selectableTypes: string[],
+    recursionTypesFilter: object,
+    queryVariables: {[key:string]: any},
+    hideRoot: boolean,
+    sortBy: string,
+}>
 
 export const useTreeEntries = ({
     fragments,
@@ -13,15 +27,15 @@ export const useTreeEntries = ({
     queryVariables,
     hideRoot,
     sortBy
-}, queryOptions) => {
+}: UseTreeEntriesArgs, queryOptions: QueryHookOptions) => {
     const query = replaceFragmentsInDocument(TREE_QUERY, fragments);
 
-    const getTreeEntries = (data, selectedPaths, openPaths) => {
-        const treeEntries = [];
-        const nodesById = {};
-        const jcr = data ? data.jcr : {};
+    const getTreeEntries = (data: any) => {
+        const treeEntries: any[] = [];
+        const nodesById: {[key:string]: any} = {};
+        const jcr: any = data ? data.jcr : {};
 
-        const addNode = function (node, depth, index) {
+        const addNode = function (node: any, depth: number, index: number) {
             let selected = false;
             if (node.selectable) {
                 selected = selectedPaths.indexOf(node.path) !== -1;
@@ -47,7 +61,7 @@ export const useTreeEntries = ({
 
         if (jcr) {
             if (jcr.rootNodes) {
-                jcr.rootNodes.forEach(rootNode => {
+                jcr.rootNodes.forEach((rootNode: any) => {
                     const root = addNode(rootNode, 0, 0);
                     root.hidden = hideRoot;
                 });
@@ -66,9 +80,6 @@ export const useTreeEntries = ({
             }
         }
 
-        // Nodes loaded, fill selection list
-        selectedPaths = treeEntries.filter(node => node.selected).map(node => node.node.path);
-
         return treeEntries.filter(treeNode => !treeNode.hidden);
     };
 
@@ -84,5 +95,5 @@ export const useTreeEntries = ({
     };
 
     const {data, ...others} = useQuery(query, {...queryOptions, variables: vars});
-    return {treeEntries: getTreeEntries(data, selectedPaths, openPaths), ...others};
+    return {treeEntries: getTreeEntries(data), ...others};
 };

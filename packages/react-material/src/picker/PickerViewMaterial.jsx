@@ -81,24 +81,23 @@ let PickerViewMaterial = props => {
         key={entry.path}
         button
         divider
-        data-jrm-role='picker-item'
+        data-jrm-role="picker-item"
         className={entry.selected ? (classes.listItem + ' ' + classes.listItemSelected) : classes.listItem}
         onClick={() => entry.selectable ? onSelectItem(entry.path, !entry.selected) : onOpenItem(entry.path, !entry.open)}
     >
         <ListItemIcon className={entry.selected ? (classes.listItemToggle + ' ' + classes.selectedText) : classes.listItemToggle} style={{paddingLeft: (entry.depth + 1) * 20, opacity: (entry.openable && entry.hasChildren ? 1 : 0)}}>
-            <IconButton
-className={classes.buttonContainer}
-disabled={!(entry.openable && entry.hasChildren)}
-data-jrm-role='picker-item-toggle'
-data-jrm-state={entry.open ? 'open' : 'closed'}
-onClick={event => {
+            <IconButton className={classes.buttonContainer}
+                        disabled={!(entry.openable && entry.hasChildren)}
+                        data-jrm-role="picker-item-toggle"
+                        data-jrm-state={entry.open ? 'open' : 'closed'}
+                        onClick={event => {
                             onOpenItem(entry.path, !entry.open);
                             event.stopPropagation();
                         }}
             >
-                {entry.open
-                    ? <KeyboardArrowDown className={entry.selected ? (classes.toggleSelected) : classes.toggleUnSelected}/>
-                    : <KeyboardArrowRight className={entry.selected ? (classes.toggleSelected) : classes.toggleUnSelected}/>}
+                {entry.open ?
+                    <KeyboardArrowDown className={entry.selected ? (classes.toggleSelected) : classes.toggleUnSelected}/> :
+                    <KeyboardArrowRight className={entry.selected ? (classes.toggleSelected) : classes.toggleUnSelected}/>}
             </IconButton>
         </ListItemIcon>
 

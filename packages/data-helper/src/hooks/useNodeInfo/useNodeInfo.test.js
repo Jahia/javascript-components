@@ -1,4 +1,4 @@
-import {useNodeInfo} from './index.js';
+import {useNodeInfo} from './useNodeInfo';
 import {getQuery} from './useNodeInfo.gql-queries';
 import React from 'react';
 
@@ -6,7 +6,7 @@ const wait = (time = 1000) => new Promise(resolve => {
     setTimeout(resolve, time);
 });
 
-jest.mock('react-apollo', () => {
+jest.mock('@apollo/client', () => {
     const data = {
         data: {
             jcr: {
@@ -33,7 +33,9 @@ jest.mock('react-apollo', () => {
                 subscribe(inputFcn) {
                     inputFcn(data);
                     return {
-                        unsubscribe() {}
+                        unsubscribe() {
+                            //
+                        }
                     };
                 }
             })

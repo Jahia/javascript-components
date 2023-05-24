@@ -11,17 +11,16 @@ const iconButtonRenderer = (buttonProps, iconProps, propagateEvent) => ({context
     }
 
     const button = (
-        <IconButton
-data-sel-role={context.key}
-icon={toIconComponent(context.buttonIcon, iconProps)}
-onClick={e => {
+        <IconButton data-sel-role={context.key}
+                    icon={toIconComponent(context.buttonIcon, iconProps)}
+                    onClick={e => {
                         if (!propagateEvent) {
                             e.stopPropagation();
                         }
 
                         context.onClick(context, e);
                     }}
-{...buttonProps}
+                    {...buttonProps}
         />
     );
 

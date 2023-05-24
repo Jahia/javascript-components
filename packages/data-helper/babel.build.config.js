@@ -1,8 +1,8 @@
-const isTest = String(process.env.NODE_ENV) === 'test';
+// eslint-disable-next-line
+const babelConfig = require('./babel.config');
 
 module.exports = {
-    presets: [['@babel/preset-env', {modules: isTest ? 'commonjs' : false}], '@babel/preset-react', '@babel/preset-typescript'],
-    sourceMaps: true,
+    ...babelConfig,
     plugins: [
         ['module-resolver', {
             root: ['./src'],
@@ -13,6 +13,8 @@ module.exports = {
         }],
         ['babel-plugin-typescript-to-proptypes', {
             comments: true
-        }]
+        }],
+        ['transform-rename-import', {original: '^(.+?)\\.scss$', replacement: '$1.css'}],
+        ['@babel/plugin-transform-runtime']
     ]
 };

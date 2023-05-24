@@ -14,7 +14,7 @@ const color = () => select('Color', ['default', 'inverted'], LanguageSwitcher.de
 storiesOf('Language switcher', module)
     .addDecorator(withKnobs)
     .add('One language', () => (
-        <DSProvider><LanguageSwitcher color={color()} lang='en' languages={oneAvailableLanguage()} onSelectLanguage={action('language-selected')}/></DSProvider>
+        <DSProvider><LanguageSwitcher color={color()} lang="en" languages={oneAvailableLanguage()} onSelectLanguage={action('language-selected')}/></DSProvider>
     ), {notes: {markdown: doc}})
     .add('Two languages', () => (
         <DSProvider><LanguageSwitcher color={color()} lang={selectFromTwoLanguages()} languages={twoAvailableLanguages()} onSelectLanguage={action('language-selected')}/></DSProvider>

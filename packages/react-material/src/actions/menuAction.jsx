@@ -99,12 +99,11 @@ const display = (context, anchor) => {
 
     menuStatus[context.id].open = true;
     context.currentMenuHandler = context.renderComponent(
-        <PureMenu
-open
-className={context.classes.loading}
-id={'menu-' + context.id}
-{...anchor}
-action={c => {
+        <PureMenu open
+                  className={context.classes.loading}
+                  id={'menu-' + context.id}
+                  {...anchor}
+                  action={c => {
                       menuStatus[context.id].onMenuLoaded = displayed => {
                           if (menuStatus[context.id].open) {
                               c.updatePosition();
@@ -112,17 +111,17 @@ action={c => {
                           }
                       };
                   }}
-BackdropProps={{
+                  BackdropProps={{
                       invisible: true,
                       onContextMenu(e) {
                           e.preventDefault();
                           context.currentMenuHandler.setProps({open: false});
                       }
                   }}
-onClose={() => {
+                  onClose={() => {
                       context.currentMenuHandler.setProps({open: false});
                   }}
-onExit={() => {
+                  onExit={() => {
                       menuStatus[context.id].open = false;
                       if (context.onExit) {
                           context.onExit(context);
@@ -138,41 +137,39 @@ onExit={() => {
                           context.currentOpenSubmenuContext.currentMenuHandler.setProps({open: false});
                       }
                   }}
-onExited={() => {
+                  onExited={() => {
                       // Free resources after exit
                       context.currentMenuHandler.destroy();
                       delete menuStatus[context.id];
                   }}
-onMouseEnter={() => {
+                  onMouseEnter={() => {
                       menuStatus[context.id].inMenu = true;
                   }}
-onMouseLeave={() => {
+                  onMouseLeave={() => {
                       menuStatus[context.id].inMenu = false;
                   }}
-{...subMenuProps}
+                  {...subMenuProps}
         >
             <Translation>{t => (
                 <React.Fragment>
-                    {context.menuEmptyMessage
-                        && <MenuItem disabled classes={{root: context.classes.emptyMenuItem}}>{t(context.menuEmptyMessage)}</MenuItem>}
-                    <DisplayActions
-ref={r => setActionsRef(r, context)}
-context={{
+                    {context.menuEmptyMessage &&
+                        <MenuItem disabled classes={{root: context.classes.emptyMenuItem}}>{t(context.menuEmptyMessage)}</MenuItem>}
+                    <DisplayActions ref={r => setActionsRef(r, context)}
+                                    context={{
                                         ...context.originalContext,
                                         displayDisabled: context.menuDisplayDisabled,
                                         parent: context
                                     }}
-filter={context.menuFilter}
-render={
+                                    filter={context.menuFilter}
+                                    render={
                                         ({context}) => {
                                             context.parent.menuDisplayed = true;
                                             const disabled = context.enabled !== null && context.enabled === false;
                                             return (
-                                                <MenuItem
-data-sel-role={context.key}
-data-sel-disabled={disabled}
-disabled={disabled}
-onClick={e => {
+                                                <MenuItem data-sel-role={context.key}
+                                                          data-sel-disabled={disabled}
+                                                          disabled={disabled}
+                                                          onClick={e => {
                                                               // First close all menu by closing main menu
                                                               let rootContext = context;
                                                               while (rootContext.parent && rootContext.parent.currentMenuHandler) {
@@ -183,7 +180,7 @@ onClick={e => {
                                                               // Send click event
                                                               context.onClick(context, e);
                                                           }}
-onMouseEnter={e => {
+                                                          onMouseEnter={e => {
                                                               // If a submenu was open, close it
                                                               if (context.parent.currentOpenSubmenuContext) {
                                                                   context.parent.currentOpenSubmenuContext.currentMenuHandler.setProps({open: false});
@@ -194,15 +191,15 @@ onMouseEnter={e => {
                                                                   context.onMouseEnter(context, e);
                                                               }
                                                           }}
-onMouseLeave={context.onMouseLeave && (e => {
+                                                          onMouseLeave={context.onMouseLeave && (e => {
                                                               context.onMouseLeave(context, e);
                                                           })}
                                                 >
                                                     {showIcons && (
                                                         <ListItemIcon>
-                                                            {context.buttonIcon
-                                                                ? toIconComponent(context.buttonIcon)
-                                                                : <span className={noIconClass}/>}
+                                                            {context.buttonIcon ?
+                                                                toIconComponent(context.buttonIcon) :
+                                                                <span className={noIconClass}/>}
                                                         </ListItemIcon>
                                                     )}
                                                     {/* eslint-disable-next-line react/no-danger */}
@@ -212,7 +209,7 @@ onMouseLeave={context.onMouseLeave && (e => {
                                             );
                                         }
                                     }
-target={context.menu}
+                                    target={context.menu}
                     />
                 </React.Fragment>
             )}

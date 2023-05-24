@@ -29,14 +29,14 @@ class SettingsLayoutCmp extends React.Component {
         const {classes, appBar, children, footer, appBarStyle} = this.props;
         return (
             <section className={classes.root}>
-                <AppBar position='fixed' classes={{root: classes.appBar}} style={appBarStyle}>
+                <AppBar position="fixed" classes={{root: classes.appBar}} style={appBarStyle}>
                     {appBar}
                 </AppBar>
                 <section className={classes.main}>
                     {children}
                 </section>
                 <footer className={classes.footer}>
-                    <Typography gutterBottom align='center' color='textSecondary'>
+                    <Typography gutterBottom align="center" color="textSecondary">
                         {footer}
                     </Typography>
                 </footer>

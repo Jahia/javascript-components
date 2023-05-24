@@ -11,24 +11,21 @@ storiesOf('Badge', module)
     .addDecorator(withKnobs)
     .add('Simple badge', () => (
         <DSProvider>
-            <Badge
-badgeContent='With knobs'
-variant={select('variant', variants)}
-color={select('color', colors)}
+            <Badge badgeContent="With knobs"
+                   variant={select('variant', variants)}
+                   color={select('color', colors)}
             />
             <br/>
             <br/>
             <br/>
 
-            <Badge
-badgeContent='Simple badge'
-variant='normal'
+            <Badge badgeContent="Simple badge"
+                   variant="normal"
             />
 
-            <Badge
-badgeContent='Warning badge'
-variant='normal'
-color='warning'
+            <Badge badgeContent="Warning badge"
+                   variant="normal"
+                   color="warning"
             />
         </DSProvider>
     ));

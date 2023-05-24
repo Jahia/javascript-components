@@ -1,6 +1,15 @@
 import gql from 'graphql-tag';
+import {DocumentNode} from 'graphql';
 
-export const displayName = {
+export type Fragment = {
+    variables?: {
+        [key: string]: string
+    },
+    applyFor: string
+    gql: DocumentNode
+}
+
+export const displayName: Fragment = {
     variables: {
         language: 'String!'
     },
@@ -10,7 +19,7 @@ export const displayName = {
     }`
 };
 
-export const primaryNodeType = {
+export const primaryNodeType: Fragment = {
     variables: {
         displayLanguage: 'String!',
         displayLanguageSet: 'Boolean!'
@@ -25,7 +34,7 @@ export const primaryNodeType = {
     }`
 };
 
-export const parentNode = {
+export const parentNode: Fragment = {
     applyFor: 'node',
     gql: gql`fragment ParentNodeInfo on JCRNode {
         parent {
@@ -36,7 +45,7 @@ export const parentNode = {
     }`
 };
 
-export const aggregatedPublicationInfo = {
+export const aggregatedPublicationInfo: Fragment = {
     variables: {
         language: 'String!',
         aggregatedPublicationInfoSubNodes: 'Boolean',
@@ -50,7 +59,7 @@ export const aggregatedPublicationInfo = {
     }`
 };
 
-export const aggregatedPublicationInfoWithExistInLive = {
+export const aggregatedPublicationInfoWithExistInLive: Fragment = {
     variables: {
         language: 'String!',
         aggregatedPublicationInfoSubNodes: 'Boolean',
@@ -65,7 +74,7 @@ export const aggregatedPublicationInfoWithExistInLive = {
     }`
 };
 
-export const operationSupport = {
+export const operationSupport: Fragment = {
     applyFor: 'node',
     gql: gql`fragment OperationSupport on JCRNode {
         operationsSupport {
@@ -76,7 +85,7 @@ export const operationSupport = {
     }`
 };
 
-export const allProperties = {
+export const allProperties: Fragment = {
     variables: {
         language: 'String!'
     },
@@ -90,7 +99,7 @@ export const allProperties = {
     }`
 };
 
-export const getProperties = {
+export const getProperties: Fragment = {
     variables: {
         language: 'String!',
         getPropertiesNames: '[String!]!'
@@ -105,7 +114,7 @@ export const getProperties = {
     }`
 };
 
-export const installedModules = {
+export const installedModules: Fragment = {
     applyFor: 'node',
     gql: gql`fragment SiteInstalledModules on JCRNode {
         site {
@@ -115,7 +124,7 @@ export const installedModules = {
     }`
 };
 
-export const siteLanguages = {
+export const siteLanguages: Fragment = {
     applyFor: 'node',
     gql: gql`fragment SiteLanguages on JCRNode {
         site {
@@ -130,7 +139,7 @@ export const siteLanguages = {
     }`
 };
 
-export const displayableNode = {
+export const displayableNode: Fragment = {
     applyFor: 'node',
     gql: gql`fragment DisplayableNodePath on JCRNode {
         displayableNode {
@@ -140,7 +149,7 @@ export const displayableNode = {
     }`
 };
 
-export const lockInfo = {
+export const lockInfo: Fragment = {
     applyFor: 'node',
     gql: gql`fragment LockInfo on JCRNode {
         lockOwner: property(name: "jcr:lockOwner") {
@@ -152,7 +161,7 @@ export const lockInfo = {
     }`
 };
 
-export const subNodesCount = {
+export const subNodesCount: Fragment = {
     variables: {
         subNodesCountTypes: '[String!]!'
     },
@@ -166,7 +175,7 @@ export const subNodesCount = {
     }`
 };
 
-export const childNodeTypes = {
+export const childNodeTypes: Fragment = {
     applyFor: 'node',
     gql: gql`fragment AllowedChildNodeType on JCRNode {
         allowedChildNodeTypes(includeSubTypes: false) {
@@ -175,7 +184,7 @@ export const childNodeTypes = {
     }`
 };
 
-export const contentRestrictions = {
+export const contentRestrictions: Fragment = {
     applyFor: 'node',
     gql: gql`fragment ContentRestriction on JCRNode {
         contributeTypes: property(name: "j:contributeTypes") {
@@ -190,7 +199,7 @@ export const contentRestrictions = {
     }`
 };
 
-export const siteHomePage = {
+export const siteHomePage: Fragment = {
     applyFor: 'node',
     gql: gql`fragment NodeSiteHomePage on JCRNode {
         children(typesFilter:{types:["jnt:page"]}, propertiesFilter:{filters:[{property:"j:isHomePage", value:"true" }]}) {
@@ -202,7 +211,7 @@ export const siteHomePage = {
     }`
 };
 
-export const nodeCacheRequiredFields = {
+export const nodeCacheRequiredFields: Fragment = {
     applyFor: 'node',
     gql: gql`fragment NodeCacheRequiredFields on JCRNode {
         uuid
@@ -211,7 +220,7 @@ export const nodeCacheRequiredFields = {
     }`
 };
 
-export const nodeTypeDisplayName = {
+export const nodeTypeDisplayName: Fragment = {
     variables: {
         language: 'String!'
     },
@@ -221,7 +230,7 @@ export const nodeTypeDisplayName = {
     }`
 };
 
-export const nodeTypeSubTypes = {
+export const nodeTypeSubTypes: Fragment = {
     variables: {
         language: 'String!'
     },
@@ -238,7 +247,7 @@ export const nodeTypeSubTypes = {
     }`
 };
 
-export const mimeTypes = {
+export const mimeTypes: Fragment = {
     applyFor: 'node',
     gql: gql`fragment NodeInfoResourceNode on JCRNode {
         resourceChildren: children(names: ["jcr:content"]) {
@@ -252,7 +261,7 @@ export const mimeTypes = {
     }`
 };
 
-export const PredefinedFragments = {
+export const PredefinedFragments: {[key:string]: Fragment} = {
     displayName,
     primaryNodeType,
     parentNode,

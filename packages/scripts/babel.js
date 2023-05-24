@@ -5,12 +5,21 @@ const fs = require('fs');
 const glob = require('glob');
 const fx = require('mkdir-recursive');
 
-function transform(buildFolder, conf) {
+const defaultIgnore = [
+    '__mocks__/**',
+    '__storybook__/**',
+    '**/*.test.[tj]s',
+    '**/*.spec.[tj]s',
+    '**/*.test.[tj]sx',
+    '**/*.spec.[tj]sx',
+    '**/*.stories.[tj]sx',
+    '**/*.d.ts'
+];
+
+function transform(buildFolder, conf, ignore) {
     const files = [
-        ...glob.sync('**/*.js', {ignore: '**/*.test.js', cwd: 'src'}),
-        ...glob.sync('**/*.jsx', {ignore: '**/*.test.jsx', cwd: 'src'}),
-        ...glob.sync('**/*.ts', {ignore: ['**/*.test.ts', '**/*.d.ts'], cwd: 'src'}),
-        ...glob.sync('**/*.tsx', {ignore: '**/*.test.tsx', cwd: 'src'})
+        ...glob.sync('**/*.[tj]s', {ignore: ignore || defaultIgnore, cwd: 'src'}),
+        ...glob.sync('**/*.[tj]sx', {ignore: ignore || defaultIgnore, cwd: 'src'})
     ];
 
     files.forEach(file => {

@@ -1,19 +1,45 @@
 import {useEffect, useState} from 'react';
-import {useApolloClient} from 'react-apollo';
-import {getQuery} from './useNodeInfo.gql-queries';
+import {ApolloClient, ApolloError, NetworkStatus, useApolloClient, WatchQueryOptions} from '@apollo/client';
+import {getQuery, NodeInfoOptions} from './useNodeInfo.gql-queries';
 import {getEncodedPermissionName} from '../../fragments/getPermissionFragment';
 import {getEncodedNodeTypeName} from '../../fragments/getIsNodeTypeFragment';
 import {SCHEMA_FIELDS_QUERY} from '../useSchemaFields/useSchemaFields.gql-queries';
 import {isSubset, merge} from './useNodeInfo.utils';
 import {useMemoRequest} from './useMemoRequest';
 import deepEquals from 'fast-deep-equal';
+import {DocumentNode, GraphQLError} from 'graphql';
 
-const queue = [];
-let schemaResult;
-let timeout;
-let observedQueries = [];
+export type Request = {
+    variables:{[key:string]: any},
+    options: NodeInfoOptions,
+    queryOptions: Partial<WatchQueryOptions>,
+}
 
-function scheduleQueue(client) {
+export type QueuedRequest = Request & {
+    result?: any,
+    setResult: (data: any) => void
+}
+
+export type MergedRequest = Request & { originals: QueuedRequest[] };
+
+export type NodeInfoResult = {
+    node?: any,
+    nodes?: any[],
+    errors?: readonly GraphQLError[],
+    error?: ApolloError,
+    loading?: boolean,
+    networkStatus?: NetworkStatus,
+    partial?: boolean,
+    query?: DocumentNode,
+    variables?: {[key:string]: any}
+}
+
+const queue: QueuedRequest[] = [];
+let schemaResult: any;
+let timeout: number;
+let observedQueries: { unsubscribe: () => void }[] = [];
+
+function scheduleQueue(client: ApolloClient<object>) {
     if (!timeout && schemaResult) {
         timeout = setTimeout(() => {
             timeoutHandler(client);
@@ -23,8 +49,8 @@ function scheduleQueue(client) {
     }
 }
 
-const timeoutHandler = client => {
-    const mergedQueue = [];
+const timeoutHandler = (client: ApolloClient<object>) => {
+    const mergedQueue: MergedRequest[] = [];
 
     queue.forEach(request => {
         const toInsert = {
@@ -82,15 +108,15 @@ const timeoutHandler = client => {
     });
 };
 
-export const useNodeInfo = (variables, options, queryOptions) => {
-    const [result, setResult] = useState({
+export const useNodeInfo = (variables: {[key:string]: unknown}, options: NodeInfoOptions, queryOptions: Partial<WatchQueryOptions>) => {
+    const [result, setResult] = useState<NodeInfoResult>({
         loading: true
     });
 
     const client = useApolloClient();
 
     if (!schemaResult) {
-        client.query({query: SCHEMA_FIELDS_QUERY, variables: {type: 'GqlPublicationInfo'}}).then(({data}) => {
+        client.query({query: SCHEMA_FIELDS_QUERY, variables: {type: 'GqlPublicationInfo'}}).then(({data}: {data: any}) => {
             schemaResult = data;
             scheduleQueue(client);
         });
@@ -117,9 +143,9 @@ export const useNodeInfo = (variables, options, queryOptions) => {
     return result;
 };
 
-const getResult = (data, others, options, query, generatedVariables) => {
-    const node = (data && data.jcr && (data.jcr.nodeByPath || data.jcr.nodeById)) || null;
-    const nodes = (data && data.jcr && (data.jcr.nodesByPath || data.jcr.nodesById)) || null;
+const getResult = (data: any, others: NodeInfoResult, options: NodeInfoOptions, query: DocumentNode, generatedVariables: {[key:string]: unknown}) => {
+    const node: object = (data && data.jcr && (data.jcr.nodeByPath || data.jcr.nodeById)) || null;
+    const nodes: object[] = (data && data.jcr && (data.jcr.nodesByPath || data.jcr.nodesById)) || null;
     let result = others;
 
     if (node) {
@@ -143,7 +169,7 @@ const getResult = (data, others, options, query, generatedVariables) => {
     return result;
 };
 
-const decodeResult = (nodeOrig, options) => {
+const decodeResult = (nodeOrig: any, options: NodeInfoOptions) => {
     const node = {...nodeOrig};
     if (node.site) {
         node.site = {...node.site};

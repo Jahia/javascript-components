@@ -54,7 +54,7 @@ class Option extends React.Component {
         return (
             <MenuItem
                 selected={isFocused}
-                component='div'
+                component="div"
                 style={{
                     fontWeight: isSelected ? 500 : 400
                 }}
