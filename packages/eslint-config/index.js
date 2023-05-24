@@ -36,10 +36,12 @@ module.exports = {
         'no-useless-escape': 'warn',
         camelcase: 'error',
         'comma-dangle': ['error', 'never'],
+        'operator-linebreak': ['error', 'after'],
         // React specific rules
         'react/jsx-fragments': 'off',
         'react/jsx-indent': ['error', 4],
         'react/jsx-indent-props': ['error', 'first'],
+        'react/jsx-first-prop-new-line': 0,
         'react/jsx-max-props-per-line': ['error', {
             maximum: 1,
             when: 'multiline'
