@@ -1,5 +1,17 @@
 # (Wed May 24 2023)
 
+#### 🐛 Bug Fix
+
+- QA-14773: Return result from cache if available [#245](https://github.com/Jahia/javascript-components/pull/245) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
+# (Wed May 24 2023)
+
 #### 🚀 Enhancement
 
 - TECH-233: Convert package to typescript [#243](https://github.com/Jahia/javascript-components/pull/243) ([@tdraier](https://github.com/tdraier))
