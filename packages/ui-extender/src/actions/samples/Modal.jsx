@@ -4,7 +4,7 @@ import React from 'react';
 export const Modal = ({context, onExited}) => (
     <>
         <div
-            className='backdrop'
+            className="backdrop"
             style={{
                  position: 'absolute',
                  width: '100%',
@@ -17,7 +17,7 @@ export const Modal = ({context, onExited}) => (
             onClick={onExited}
         />
         <div
-            className='modal'
+            className="modal"
             style={{
                  position: 'absolute',
                  width: '200px',

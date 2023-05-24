@@ -42,7 +42,7 @@ export const LeftMenuItem = ({classes, drawer, context}) => {
             {Boolean(icon) && icon}
             <Typography
                 className={drawer ? classes.typographyIcon : classes.typographyIconLight}
-                data-sel-role='left-menu-item-text'
+                data-sel-role="left-menu-item-text"
             >
                 {buttonLabel}
             </Typography>
@@ -54,9 +54,9 @@ export const LeftMenuItem = ({classes, drawer, context}) => {
             {badge ? (
                 <Badge
                     badgeContent={badge}
-                    color='error'
+                    color="error"
                     classes={{root: classes.badgeRoot, badge: classes.badgeBadge}}
-                    data-sel-role='badge'
+                    data-sel-role="badge"
                 >
                     {Content}
                 </Badge>

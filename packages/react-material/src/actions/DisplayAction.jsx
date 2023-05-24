@@ -20,9 +20,8 @@ class StateActionComponent extends React.Component {
             const Render = this.props.render;
             if (enhancedContext.actions) {
                 return _.map(enhancedContext.actions, action => (
-                    <Render
-key={action.key}
-context={{
+                    <Render key={action.key}
+                            context={{
                     ...enhancedContext,
                     ...action
                 }}/>
@@ -122,8 +121,8 @@ DisplayActionComponent.propTypes = {
 };
 
 const shallowEquals = (obj1, obj2) =>
-    Object.keys(obj1).length === Object.keys(obj2).length
-    && Object.keys(obj1).every(key => obj1[key] === obj2[key]);
+    Object.keys(obj1).length === Object.keys(obj2).length &&
+    Object.keys(obj1).every(key => obj1[key] === obj2[key]);
 
 class DisplayAction extends React.Component {
     constructor(props) {

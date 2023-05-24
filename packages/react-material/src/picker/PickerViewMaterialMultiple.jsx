@@ -6,13 +6,12 @@ import PropTypes from 'prop-types';
 let PickerViewMaterialMultiple = props => (
     <List>
         {props.pickerEntries.map(entry => (
-            <ListItem
-key={entry.path}
-button
-onClick={() => entry.selectable ? props.onSelectItem(entry.path, !entry.selected, true) : props.onOpenItem(entry.path, !entry.open)}
+            <ListItem key={entry.path}
+                      button
+                      onClick={() => entry.selectable ? props.onSelectItem(entry.path, !entry.selected, true) : props.onOpenItem(entry.path, !entry.open)}
             >
-                <ListItemIcon style={entry.selectable ? {} : {opacity: 0}}>{entry.selected ? <CheckBox/>
-                    : <CheckBoxOutlineBlank/>}
+                <ListItemIcon style={entry.selectable ? {} : {opacity: 0}}>{entry.selected ? <CheckBox/> :
+                <CheckBoxOutlineBlank/>}
                 </ListItemIcon>
                 <ListItemText
                                   inset
@@ -21,8 +20,8 @@ onClick={() => entry.selectable ? props.onSelectItem(entry.path, !entry.selected
                                   />
                 <ListItemSecondaryAction>
                     {entry.openable && entry.hasChildren ? (
-                        <IconButton onClick={() => props.onOpenItem(entry.path, !entry.open)}>{entry.open
-                                ? <ExpandLess/> : <ExpandMore/>}
+                        <IconButton onClick={() => props.onOpenItem(entry.path, !entry.open)}>{entry.open ?
+                            <ExpandLess/> : <ExpandMore/>}
                         </IconButton>) : null}
                 </ListItemSecondaryAction>
             </ListItem>

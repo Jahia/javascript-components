@@ -42,9 +42,9 @@ export const NotificationProvider = ({children}) => {
         closeButton: {
             action: [
                 <IconButton
-                    key='close'
-                    aria-label='Close'
-                    color='inherit'
+                    key="close"
+                    aria-label="Close"
+                    color="inherit"
                     onClick={() => notificationContext.closeNotification()}
                 >
                     <Close/>
@@ -80,7 +80,7 @@ export const NotificationProvider = ({children}) => {
                 ContentProps={{
                     'aria-describedby': 'message-id'
                 }}
-                message={<span id='message-id'>{notificationState.message}</span>}
+                message={<span id="message-id">{notificationState.message}</span>}
                 onClose={notificationContext.closeNotification}
                 {...options}
             />

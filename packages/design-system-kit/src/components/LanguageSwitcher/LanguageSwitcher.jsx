@@ -23,25 +23,23 @@ const LanguageSwitcher = ({color, lang, languages, onSelectLanguage}) => {
         <React.Fragment>
             {languages.length > 1 ? (
                 <React.Fragment>
-                    <Button
-aria-owns={anchorEl ? 'language-switcher' : null}
-aria-haspopup='true'
-data-cm-role='language-switcher'
-size='compact'
-color={color}
-onClick={handleClick}
+                    <Button aria-owns={anchorEl ? 'language-switcher' : null}
+                            aria-haspopup="true"
+                            data-cm-role="language-switcher"
+                            size="compact"
+                            color={color}
+                            onClick={handleClick}
                     >
-                        <Typography noWrap variant='zeta' color='inherit'>
+                        <Typography noWrap variant="zeta" color="inherit">
                             {uppercaseFirst(_.find(languages, language => language.language === lang).displayName)}
                             &nbsp;
                         </Typography>
-                        <ChevronDown fontSize='small' color='inherit'/>
+                        <ChevronDown fontSize="small" color="inherit"/>
                     </Button>
-                    <Menu
-id='language-switcher'
-anchorEl={anchorEl}
-open={Boolean(anchorEl)}
-onClose={handleClose}
+                    <Menu id="language-switcher"
+                          anchorEl={anchorEl}
+                          open={Boolean(anchorEl)}
+                          onClose={handleClose}
                     >
                         {languages.map(language => (
                             <MenuItem
@@ -58,15 +56,14 @@ onClose={handleClose}
                     </Menu>
                 </React.Fragment>
             ) : (
-                <Button
-aria-owns={anchorEl ? 'language-switcher' : null}
-aria-haspopup='true'
-data-cm-role='language-switcher'
-size='compact'
-color={color}
-onClick={handleClick}
+                <Button aria-owns={anchorEl ? 'language-switcher' : null}
+                        aria-haspopup="true"
+                        data-cm-role="language-switcher"
+                        size="compact"
+                        color={color}
+                        onClick={handleClick}
                 >
-                    <Typography noWrap variant='zeta' color='inherit'>
+                    <Typography noWrap variant="zeta" color="inherit">
                         {uppercaseFirst(_.find(languages, language => language.language === lang).displayName)}
                             &nbsp;
                     </Typography>

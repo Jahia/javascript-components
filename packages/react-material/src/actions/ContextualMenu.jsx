@@ -9,10 +9,9 @@ export class ContextualMenu extends React.Component {
 
     render() {
         return (
-            <DisplayAction
-actionKey={this.props.actionKey}
-context={this.props.context}
-render={({context}) => {
+            <DisplayAction actionKey={this.props.actionKey}
+                           context={this.props.context}
+                           render={({context}) => {
                                 this.ctx = context;
                                 return false;
                             }}/>
