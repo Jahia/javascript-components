@@ -28,6 +28,7 @@ const sharedDeps = [
     '@jahia/data-helper',
 
     // Apollo
+    '@apollo/client',
     '@apollo/react-common',
     '@apollo/react-components',
     '@apollo/react-hooks',
@@ -55,6 +56,7 @@ const singletonDeps = [
     'redux',
     '@jahia/moonstone',
     '@jahia/ui-extender',
+    '@apollo/client',
     '@apollo/react-common',
     '@apollo/react-components',
     '@apollo/react-hooks',
