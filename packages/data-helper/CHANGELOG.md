@@ -1,5 +1,17 @@
 # (Wed May 24 2023)
 
+#### 🚀 Enhancement
+
+- TECH-233: Convert package to typescript [#243](https://github.com/Jahia/javascript-components/pull/243) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
+# (Wed May 24 2023)
+
 #### 🐛 Bug Fix
 
 - QA-14773: ensure we return loading : true if query has changed [#244](https://github.com/Jahia/javascript-components/pull/244) ([@cedmail](https://github.com/cedmail))
