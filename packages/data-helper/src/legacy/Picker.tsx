@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 import {displayName, Fragment, nodeCacheRequiredFields, replaceFragmentsInDocument} from '../fragments';
 import {PickerItemsFragment} from './Picker.gql-fragments';
 import {DocumentNode} from 'graphql';
-import {QueryResult} from '@apollo/client';
+import {QueryResult, OperationVariables} from '@apollo/client';
 import rfdc from 'rfdc';
 import deepEquals from 'fast-deep-equal';
 
@@ -353,7 +353,8 @@ export class Picker extends React.Component<PropType, StateType> {
 
         return (
             <Query query={this.query} variables={vars} fetchPolicy='cache-first'>
-                {({error, loading, data, refetch}: QueryResult): React.JSX.Element => {
+                {(result: QueryResult<any, OperationVariables>): React.JSX.Element => {
+                    const {error, loading, data, refetch} = result;
                     if (setRefetch) {
                         setRefetch({
                             query: this.query,
