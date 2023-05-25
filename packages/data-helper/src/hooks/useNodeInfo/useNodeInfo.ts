@@ -41,7 +41,7 @@ let observedQueries: { unsubscribe: () => void }[] = [];
 
 function scheduleQueue(client: ApolloClient<object>) {
     if (!timeout && schemaResult) {
-        timeout = setTimeout(() => {
+        timeout = window.setTimeout(() => {
             timeoutHandler(client);
             clearTimeout(timeout);
             timeout = null;
