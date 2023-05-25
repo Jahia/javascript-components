@@ -1,3 +1,15 @@
+# (Thu May 25 2023)
+
+#### 🐛 Bug Fix
+
+- TECH-233: Removed unused dependency [#246](https://github.com/Jahia/javascript-components/pull/246) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Wed May 24 2023)
 
 #### 🐛 Bug Fix
