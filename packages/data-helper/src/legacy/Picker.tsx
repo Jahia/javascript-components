@@ -149,7 +149,7 @@ export class Picker extends React.Component<PropType, StateType> {
 
         this.eventsHandlers = {};
 
-        if (openPaths === null) {
+        if (!openPaths) {
             // Uncontrolled mode
             state.isOpenControlled = false;
             state.openPaths = [];
@@ -171,7 +171,7 @@ export class Picker extends React.Component<PropType, StateType> {
             }
         }
 
-        if (selectedPaths === null) {
+        if (!selectedPaths) {
             // Uncontrolled mode
             state.isSelectControlled = false;
             state.selectedPaths = defaultSelectedPaths ? clone(defaultSelectedPaths) : [];
@@ -205,7 +205,7 @@ export class Picker extends React.Component<PropType, StateType> {
     }
 
     static getDerivedStateFromProps(nextProps: PropType, prevState: StateType) {
-        if ((prevState.isOpenControlled !== (nextProps.openPaths !== null)) || (prevState.isSelectControlled !== (nextProps.selectedPaths !== null))) {
+        if ((prevState.isOpenControlled !== Boolean(nextProps.openPaths)) || (prevState.isSelectControlled !== Boolean(nextProps.selectedPaths))) {
             console.warn('Cannot change between controlled/uncontrolled modes');
         }
 
@@ -346,7 +346,7 @@ export class Picker extends React.Component<PropType, StateType> {
 
     render() {
         const selectedPaths = this.state.selectedPaths ? this.state.selectedPaths : this.props.selectedPaths;
-        let openPaths = this.state.openPaths ? this.state.openPaths : this.props.openPaths;
+        let openPaths = this.state.openPaths || this.props.openPaths || this.props.defaultOpenPaths;
         const {setRefetch} = this.props;
 
         openPaths = clone(openPaths);
