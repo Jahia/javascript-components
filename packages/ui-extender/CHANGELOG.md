@@ -1,3 +1,19 @@
+# (Tue May 30 2023)
+
+#### 🚀 Enhancement
+
+- TECH-233: Convert package to typescript [#243](https://github.com/Jahia/javascript-components/pull/243) ([@tdraier](https://github.com/tdraier))
+
+#### 🐛 Bug Fix
+
+- TECH-233: Optional props [#248](https://github.com/Jahia/javascript-components/pull/248) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Wed May 17 2023)
 
 #### 🐛 Bug Fix
