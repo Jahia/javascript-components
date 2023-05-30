@@ -1,3 +1,15 @@
+# (Tue May 30 2023)
+
+#### 🐛 Bug Fix
+
+- BACKLOG-21054: Fix legacy picker for vanity urls [#247](https://github.com/Jahia/javascript-components/pull/247) ([@gflores-jahia](https://github.com/gflores-jahia))
+
+#### Authors: 1
+
+- Geofrey Flores ([@gflores-jahia](https://github.com/gflores-jahia))
+
+---
+
 # (Thu May 25 2023)
 
 #### 🐛 Bug Fix
