@@ -242,7 +242,7 @@ type MenuState = {
     isOpen: boolean,
     isInMenu: boolean,
     isSubMenu: boolean,
-    subMenuContext: MenuContext,
+    subMenuContext?: MenuContext,
     loadingItems: string[],
     loadedItems: string[]
 }
@@ -378,7 +378,7 @@ export type MenuActionComponentProps = {
     /**
      * Helps determine if action is visible
      */
-    visibilityPredicate: (state: MenuState) => boolean
+    visibilityPredicate?: (state: MenuState) => boolean
 }
 
 const MenuActionComponent = (props: MenuActionComponentProps) => {
