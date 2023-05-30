@@ -346,7 +346,7 @@ export class Picker extends React.Component<PropType, StateType> {
 
     render() {
         const selectedPaths = this.state.selectedPaths ? this.state.selectedPaths : this.props.selectedPaths;
-        let openPaths = this.state.openPaths || this.props.openPaths || this.props.defaultOpenPaths;
+        let openPaths = this.state.openPaths || this.props.openPaths;
         const {setRefetch} = this.props;
 
         openPaths = clone(openPaths);
