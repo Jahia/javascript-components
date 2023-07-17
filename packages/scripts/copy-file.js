@@ -3,10 +3,10 @@ const fs = require('fs');
 const fx = require('mkdir-recursive');
 
 function copyFile(srcFolder, destFolder, file, newFile) {
-    let source = path.resolve(srcFolder, file);
+    const source = path.resolve(srcFolder, file);
     if (fs.lstatSync(source).isFile()) {
         newFile = newFile || file;
-        let target = path.resolve(destFolder, newFile);
+        const target = path.resolve(destFolder, newFile);
         fx.mkdirSync(path.resolve(target, '..'));
         fs.createReadStream(source).pipe(fs.createWriteStream(target));
         console.log(`Copied ${source} to ${target}`);

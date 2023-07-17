@@ -49,15 +49,15 @@ module.exports = {
         'react/require-default-props': 0,
         'react/static-property-placement': 0,
         'react/state-in-constructor': 0,
-        'react/boolean-prop-naming': ['error', {'rule': '^((is|has)[A-Z]([A-Za-z0-9]?)+|disabled|readOnly|autoFocus)'}],
+        'react/boolean-prop-naming': ['error', {rule: '^((is|has)[A-Z]([A-Za-z0-9]?)+|disabled|readOnly|autoFocus)'}],
         'react/function-component-definition': [
             'error',
             {
-                'namedComponents': 'arrow-function',
-                'unnamedComponents': 'arrow-function'
+                namedComponents: 'arrow-function',
+                unnamedComponents: 'arrow-function'
             }
         ],
-        'react/jsx-no-useless-fragment': ['error', {'allowExpressions': true}],
+        'react/jsx-no-useless-fragment': ['error', {allowExpressions: true}],
         'jsx-quotes': [
             'error',
             'prefer-double'
