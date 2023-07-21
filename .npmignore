@@ -9,3 +9,6 @@ src/main
 node
 node_modules
 yarn-error.log
+*.tgz
+.env
+.autorc
