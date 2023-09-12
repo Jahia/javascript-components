@@ -1,3 +1,15 @@
+# (Tue Sep 12 2023)
+
+#### 🐛 Bug Fix
+
+- BACKLOG-21525: fixed query refetch [#252](https://github.com/Jahia/javascript-components/pull/252) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Tue May 30 2023)
 
 #### 🐛 Bug Fix
