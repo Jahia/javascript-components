@@ -88,22 +88,22 @@ const timeoutHandler = (client: ApolloClient<object>) => {
                 });
             });
         } else {
-            const watchedQuery = client.watchQuery({query, errorPolicy: 'ignore', ...queryOptions, variables: generatedVariables}).subscribe(({data, ...others}) => {
+            const observableQuery = client.watchQuery({query, errorPolicy: 'ignore', ...queryOptions, variables: generatedVariables});
+            const subscription = observableQuery.subscribe(({data, ...others}) => {
                 const result = getResult(data, others, options, query, generatedVariables);
-
                 originals.forEach(request => {
                     if (!deepEquals(request.result, result)) {
                         request.result = result;
                         request.setResult({
                             ...result,
                             refetch() {
-                                client.refetchQueries({include: [query]});
+                                return observableQuery.refetch(generatedVariables);
                             }
                         });
                     }
                 });
             });
-            observedQueries.push(watchedQuery);
+            observedQueries.push(subscription);
         }
     });
 };
