@@ -14,11 +14,18 @@ const adaptSiteInfo = (data: any) => {
     };
 };
 
-export const useSiteInfo = ({siteKey, displayLanguage}: {siteKey: string, displayLanguage: string}) => {
+export const useSiteInfo = ({siteKey, displayLanguage, uiLanguage}: {siteKey: string, displayLanguage: string, uiLanguage: string}) => {
     const variables = {
         path: '/sites/' + siteKey,
-        displayLanguage
+        displayLanguage,
+        skipUILanguage: true,
+        uiLanguage: ''
     };
+
+    if (uiLanguage !== undefined) {
+        variables.skipUILanguage = false;
+        variables.uiLanguage = uiLanguage;
+    }
 
     const res = useQuery(SITE_INFO_QUERY, {variables, errorPolicy: 'ignore'});
 
