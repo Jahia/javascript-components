@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
-import {nodeCacheRequiredFields} from '../../fragments/PredefinedFragments';
+import {nodeCacheRequiredFields} from '~/fragments';
 
 export const SITE_INFO_QUERY = gql`
-    query siteInfo($path: String!, $displayLanguage:String!) {
+    query siteInfo($path: String!, $displayLanguage:String!, $uiLanguage:String, $skipUILanguage:Boolean!) {
         jcr(workspace: LIVE) {
             result:nodeByPath(path: $path) {
                 site {
@@ -29,6 +29,8 @@ export const SITE_INFO_QUERY = gql`
         description
         languages {
             displayName
+            localizedDisplayName: displayName(language: $displayLanguage)
+            uiLanguageDisplayName: displayName(language: $uiLanguage) @skip(if: $skipUILanguage)
             language
             activeInEdit
         }
