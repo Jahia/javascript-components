@@ -1,3 +1,15 @@
+# (Fri Nov 17 2023)
+
+#### 🐛 Bug Fix
+
+- BACKLOG-20677: return languages in their own locale, displayLanguage or newly added uiLanguage if requested [#253](https://github.com/Jahia/javascript-components/pull/253) ([@cedmail](https://github.com/cedmail))
+
+#### Authors: 1
+
+- Cedric Mailleux ([@cedmail](https://github.com/cedmail))
+
+---
+
 # (Tue Sep 12 2023)
 
 #### 🐛 Bug Fix
