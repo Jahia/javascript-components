@@ -8,6 +8,7 @@ import {isSubset, merge} from './useNodeInfo.utils';
 import {useMemoRequest} from './useMemoRequest';
 import deepEquals from 'fast-deep-equal';
 import {DocumentNode, GraphQLError} from 'graphql';
+import {getEncodedSubNodesCountName} from '../../fragments/getSubNodesCountFragment';
 
 export type Request = {
     variables:{[key:string]: any},
@@ -133,17 +134,17 @@ export const useNodeInfo = (variables: {[key:string]: unknown}, options?: NodeIn
         };
     }, [client, currentRequest]);
 
-    if (queryHasChanged && !result.loading) {
-        if (queryOptions?.fetchPolicy !== 'no-cache' && queryOptions?.fetchPolicy !== 'network-only') {
-            const infoQuery = getQuery(currentRequest.variables, schemaResult, currentRequest.options);
-            const res = client.readQuery({query: infoQuery.query, variables: infoQuery.generatedVariables});
-            if (res) {
-                const result = getResult(res, {}, currentRequest.options, infoQuery.query, infoQuery.generatedVariables);
-                setResult(result);
-                return result;
-            }
+    if (queryHasChanged && queryOptions?.fetchPolicy !== 'no-cache' && queryOptions?.fetchPolicy !== 'network-only') {
+        const infoQuery = getQuery(currentRequest.variables, schemaResult, currentRequest.options);
+        const res = client.readQuery({query: infoQuery.query, variables: infoQuery.generatedVariables});
+        if (res) {
+            const result = getResult(res, {}, currentRequest.options, infoQuery.query, infoQuery.generatedVariables);
+            setResult(result);
+            return result;
         }
+    }
 
+    if (queryHasChanged && !result.loading) {
         setResult({
             loading: true
         });
@@ -214,6 +215,14 @@ const decodeResult = (nodeOrig: any, options: NodeInfoOptions) => {
             const {nodes} = node.resourceChildren;
             node.mimeType = (nodes.length !== 0 && nodes[0].mimeType.value) || null;
             delete node.resourceChildren;
+        }
+
+        if (options.getSubNodesCount) {
+            options.getSubNodesCount.forEach(name => {
+                const res = node[getEncodedSubNodesCountName(name)];
+                delete node[getEncodedSubNodesCountName(name)];
+                node['subNodesCount_' + name] = res?.pageInfo?.totalCount;
+            });
         }
     }
 
