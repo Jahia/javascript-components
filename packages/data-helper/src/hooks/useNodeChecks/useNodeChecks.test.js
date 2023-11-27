@@ -38,7 +38,8 @@ jest.mock('@apollo/client', () => {
                         }
                     };
                 }
-            })
+            }),
+            readQuery: () => null
         }))
     };
 });

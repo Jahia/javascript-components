@@ -38,7 +38,8 @@ jest.mock('@apollo/client', () => {
                         }
                     };
                 }
-            })
+            }),
+            readQuery: () => null
         }))
     };
 });
@@ -205,7 +206,7 @@ describe('useNodeInfo', () => {
             getDisplayableNodePath: true,
             getLockInfo: true,
             getContributeTypesRestrictions: true,
-            getSubNodesCount: {types: ['jnt:file']},
+            getSubNodesCount: ['jnt:file'],
             getMimeType: true
         });
 

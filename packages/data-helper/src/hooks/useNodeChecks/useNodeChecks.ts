@@ -1,5 +1,5 @@
 import {NodeInfoResult, useNodeInfo} from '../useNodeInfo';
-import {NodeInfoOptions} from '~/hooks/useNodeInfo/useNodeInfo.gql-queries';
+import {NodeInfoOptions} from '../useNodeInfo/useNodeInfo.gql-queries';
 import {WatchQueryOptions} from '@apollo/client';
 
 export type NodeCheckOptions = NodeInfoOptions & Partial<{
@@ -33,7 +33,7 @@ function addArrayOptionValues(newValue: string[], useNodeInfoOptions: NodeInfoOp
     }
 }
 
-export const useNodeChecks = (variables: {[key:string]: any}, options: NodeCheckOptions, queryOptions: WatchQueryOptions): NodeCheckResult => {
+export const useNodeChecks = (variables: {[key:string]: any}, options?: NodeCheckOptions, queryOptions?: WatchQueryOptions): NodeCheckResult => {
     const {requiredPermission, requiredSitePermission, showOnNodeTypes, hideOnNodeTypes, requireModuleInstalledOnSite, showForPaths, hideForPaths, ...othersOptions} = options;
     const useNodeInfoOptions = {...othersOptions};
 

@@ -21,6 +21,7 @@ import {
 import {getPermissionFragment, getSitePermissionFragment} from '../../fragments/getPermissionFragment';
 import {getNodeTypeFragment} from '../../fragments/getIsNodeTypeFragment';
 import {DocumentNode} from 'graphql';
+import {getSubNodesCountFragment} from '~/fragments/getSubNodesCountFragment';
 
 const getBaseQueryAndVariables = (variables: {[key:string]: any}): {
     baseQuery: DocumentNode,
@@ -128,9 +129,7 @@ export type NodeInfoOptions = Partial<{
     getLockInfo: boolean,
     getChildNodeTypes: boolean,
     getContributeTypesRestrictions: boolean,
-    getSubNodesCount: {
-        types?: string[]
-    },
+    getSubNodesCount: string[],
     getMimeType: boolean,
 }>;
 
@@ -265,8 +264,11 @@ export const getQuery = (variables: {[key:string]: any}, schemaResult: any, opti
         }
 
         if (options.getSubNodesCount) {
-            fragments.push(subNodesCount);
-            generatedVariables.subNodesCountTypes = options.getSubNodesCount.types ? options.getSubNodesCount.types : ['nt:base'];
+            options.getSubNodesCount.forEach(name => {
+                const {fragment, variables: fragmentVariables} = getSubNodesCountFragment(name);
+                fragments.push(fragment);
+                Object.assign(generatedVariables, fragmentVariables);
+            });
         }
 
         if (options.getMimeType) {
