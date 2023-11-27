@@ -1,3 +1,15 @@
+# (Mon Nov 27 2023)
+
+#### 🐛 Bug Fix
+
+- BACKLOG-21921: Fixed invalid merge with subNodesCount [#254](https://github.com/Jahia/javascript-components/pull/254) ([@tdraier](https://github.com/tdraier))
+
+#### Authors: 1
+
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Fri Nov 17 2023)
 
 #### 🐛 Bug Fix
