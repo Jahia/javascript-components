@@ -10,6 +10,7 @@ export type NodeCheckOptions = NodeInfoOptions & Partial<{
     requireModuleInstalledOnSite: string[],
     showForPaths: string[],
     hideForPaths: string[],
+    hideOnExternal: boolean
 }>
 
 export type NodeCheckResult = NodeInfoResult & Partial<{
@@ -34,7 +35,7 @@ function addArrayOptionValues(newValue: string[], useNodeInfoOptions: NodeInfoOp
 }
 
 export const useNodeChecks = (variables: {[key:string]: any}, options?: NodeCheckOptions, queryOptions?: WatchQueryOptions): NodeCheckResult => {
-    const {requiredPermission, requiredSitePermission, showOnNodeTypes, hideOnNodeTypes, requireModuleInstalledOnSite, showForPaths, hideForPaths, ...othersOptions} = options;
+    const {requiredPermission, requiredSitePermission, showOnNodeTypes, hideOnNodeTypes, requireModuleInstalledOnSite, showForPaths, hideForPaths, hideOnExternal, ...othersOptions} = options;
     const useNodeInfoOptions = {...othersOptions};
 
     const requiredPermissions = (typeof requiredPermission === 'string') ? [requiredPermission] : requiredPermission;
@@ -66,7 +67,8 @@ export const useNodeChecks = (variables: {[key:string]: any}, options?: NodeChec
         (!hideOnNodeTypes || !hideOnNodeTypes.reduce((acc, val) => acc || currentNode[val], false)) &&
         (!requireModuleInstalledOnSite || requireModuleInstalledOnSite.reduce((acc, val) => acc && currentNode.site.installedModulesWithAllDependencies.includes(val), true)) &&
         (!hideForPaths || evaluateVisibilityPaths(false, hideForPaths, currentNode.path || variables.path)) &&
-        (!showForPaths || evaluateVisibilityPaths(true, showForPaths, currentNode.path || variables.path));
+        (!showForPaths || evaluateVisibilityPaths(true, showForPaths, currentNode.path || variables.path)) &&
+        (hideOnExternal && !currentNode.isExternal);
 
     const result = node ? doNodeCheck(node) : nodes.reduce((acc, val) => acc && doNodeCheck(val), true);
 
