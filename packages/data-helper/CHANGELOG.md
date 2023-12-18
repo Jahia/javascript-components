@@ -1,15 +1,3 @@
-# (Mon Dec 18 2023)
-
-#### 🐛 Bug Fix
-
-- QA-15005: Add isExternal into useNodeChecks [#255](https://github.com/Jahia/javascript-components/pull/255) ([@cedmail](https://github.com/cedmail))
-
-#### Authors: 1
-
-- Cedric Mailleux ([@cedmail](https://github.com/cedmail))
-
----
-
 # (Mon Nov 27 2023)
 
 #### 🐛 Bug Fix
