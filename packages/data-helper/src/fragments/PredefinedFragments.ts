@@ -261,6 +261,13 @@ export const mimeTypes: Fragment = {
     }`
 };
 
+export const isExternal: Fragment = {
+    applyFor: 'node',
+    gql: gql`fragment External on JCRNode {
+        isExternal
+    }`
+};
+
 export const PredefinedFragments: {[key:string]: Fragment} = {
     displayName,
     primaryNodeType,
@@ -279,5 +286,6 @@ export const PredefinedFragments: {[key:string]: Fragment} = {
     nodeCacheRequiredFields,
     nodeTypeDisplayName,
     nodeTypeSubTypes,
-    mimeTypes
+    mimeTypes,
+    isExternal
 };

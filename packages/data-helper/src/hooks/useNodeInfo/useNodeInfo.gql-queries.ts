@@ -7,7 +7,7 @@ import {
     displayableNode,
     displayName,
     getProperties,
-    installedModules,
+    installedModules, isExternal,
     lockInfo,
     mimeTypes,
     nodeCacheRequiredFields,
@@ -15,8 +15,7 @@ import {
     parentNode,
     primaryNodeType,
     replaceFragmentsInDocument,
-    siteLanguages,
-    subNodesCount
+    siteLanguages
 } from '../../fragments';
 import {getPermissionFragment, getSitePermissionFragment} from '../../fragments/getPermissionFragment';
 import {getNodeTypeFragment} from '../../fragments/getIsNodeTypeFragment';
@@ -37,10 +36,12 @@ const getBaseQueryAndVariables = (variables: {[key:string]: any}): {
                             name
                             ...node
                             ...NodeCacheRequiredFields
+                            ...External
                         }
                     }
                 }
                 ${nodeCacheRequiredFields.gql}
+                ${isExternal.gql}
             `,
             generatedVariables: {
                 paths: variables.paths
@@ -79,10 +80,12 @@ const getBaseQueryAndVariables = (variables: {[key:string]: any}): {
                             name
                             ...node
                             ...NodeCacheRequiredFields
+                            ...External
                         }
                     }
                 }
                 ${nodeCacheRequiredFields.gql}
+                ${isExternal.gql}
             `,
             generatedVariables: {
                 uuids: variables.uuids
@@ -99,10 +102,12 @@ const getBaseQueryAndVariables = (variables: {[key:string]: any}): {
                         name
                         ...node
                         ...NodeCacheRequiredFields
+                        ...External
                     }
                 }
             }
             ${nodeCacheRequiredFields.gql}
+            ${isExternal.gql}
         `,
         generatedVariables: {
             path: variables.path
@@ -130,7 +135,7 @@ export type NodeInfoOptions = Partial<{
     getChildNodeTypes: boolean,
     getContributeTypesRestrictions: boolean,
     getSubNodesCount: string[],
-    getMimeType: boolean,
+    getMimeType: boolean
 }>;
 
 export const validOptions = [
