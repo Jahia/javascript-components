@@ -2,6 +2,18 @@
 
 #### 🐛 Bug Fix
 
+- QA-15005: Add isExternal into useNodeChecks uuid query [#256](https://github.com/Jahia/javascript-components/pull/256) ([@cedmail](https://github.com/cedmail))
+
+#### Authors: 1
+
+- Cedric Mailleux ([@cedmail](https://github.com/cedmail))
+
+---
+
+# (Tue Dec 19 2023)
+
+#### 🐛 Bug Fix
+
 - QA-15005: Add isExternal into useNodeChecks [#255](https://github.com/Jahia/javascript-components/pull/255) ([@cedmail](https://github.com/cedmail))
 
 #### Authors: 1
