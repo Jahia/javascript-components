@@ -1,4 +1,4 @@
-import {NodeInfoResult, useNodeInfo} from '../useNodeInfo';
+import {NodeInfoResult, useNodeInfo} from '~/hooks';
 import {NodeInfoOptions} from '../useNodeInfo/useNodeInfo.gql-queries';
 import {WatchQueryOptions} from '@apollo/client';
 
@@ -68,7 +68,7 @@ export const useNodeChecks = (variables: {[key:string]: any}, options?: NodeChec
         (!requireModuleInstalledOnSite || requireModuleInstalledOnSite.reduce((acc, val) => acc && currentNode.site.installedModulesWithAllDependencies.includes(val), true)) &&
         (!hideForPaths || evaluateVisibilityPaths(false, hideForPaths, currentNode.path || variables.path)) &&
         (!showForPaths || evaluateVisibilityPaths(true, showForPaths, currentNode.path || variables.path)) &&
-        (hideOnExternal && !currentNode.isExternal);
+        (!hideOnExternal || !currentNode.isExternal);
 
     const result = node ? doNodeCheck(node) : nodes.reduce((acc, val) => acc && doNodeCheck(val), true);
 
