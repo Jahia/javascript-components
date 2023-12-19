@@ -59,10 +59,12 @@ const getBaseQueryAndVariables = (variables: {[key:string]: any}): {
                             name
                             ...node
                             ...NodeCacheRequiredFields
+                            ...External
                         }
                     }
                 }
                 ${nodeCacheRequiredFields.gql}
+                ${isExternal.gql}
             `,
             generatedVariables: {
                 uuid: variables.uuid
