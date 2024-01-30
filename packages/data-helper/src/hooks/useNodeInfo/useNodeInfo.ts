@@ -80,7 +80,25 @@ const timeoutHandler = (client: ApolloClient<object>) => {
 
     mergedQueue.forEach(mergedRequest => {
         const {variables, queryOptions, options, originals} = mergedRequest;
-        const {query, generatedVariables, skip} = getQuery(variables, schemaResult, options);
+        let query: any;
+        let generatedVariables: any;
+        let skip;
+
+        try {
+            const r = getQuery(variables, schemaResult, options);
+            query = r.query;
+            generatedVariables = r.generatedVariables;
+            skip = r.skip;
+        } catch (e) {
+            const error = {message: `One of the batched queries resulted in error: ${e.message}`} as ApolloError;
+            originals.forEach(request => {
+                request.setResult({
+                    loading: false,
+                    error
+                });
+            });
+        }
+
         if (skip) {
             // No query to execute
             originals.forEach(request => {
@@ -135,7 +153,15 @@ export const useNodeInfo = (variables: {[key:string]: unknown}, options?: NodeIn
     }, [client, currentRequest]);
 
     if (queryHasChanged && queryOptions?.fetchPolicy !== 'no-cache' && queryOptions?.fetchPolicy !== 'network-only') {
-        const infoQuery = getQuery(currentRequest.variables, schemaResult, currentRequest.options);
+        let infoQuery;
+
+        try {
+            infoQuery = getQuery(currentRequest.variables, schemaResult, currentRequest.options);
+        } catch (e) {
+            const error = {message: e.message} as ApolloError;
+            return {loading: false, error};
+        }
+
         const res = client.readQuery({query: infoQuery.query, variables: infoQuery.generatedVariables});
         if (res) {
             const result = getResult(res, {}, currentRequest.options, infoQuery.query, infoQuery.generatedVariables);
