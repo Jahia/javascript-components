@@ -1,15 +1,3 @@
-# (Thu Feb 08 2024)
-
-#### 🐛 Bug Fix
-
-- SUP-383 Fail useNodeInfo gracefully, propagate error message [#258](https://github.com/Jahia/javascript-components/pull/258) ([@AKarmanov](https://github.com/AKarmanov))
-
-#### Authors: 1
-
-- Alex Karmanov ([@AKarmanov](https://github.com/AKarmanov))
-
----
-
 # (Tue Dec 19 2023)
 
 #### 🐛 Bug Fix
