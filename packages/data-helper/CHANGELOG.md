@@ -1,3 +1,17 @@
+# (Thu Feb 08 2024)
+
+#### 🐛 Bug Fix
+
+- Revert data-helper version [#259](https://github.com/Jahia/javascript-components/pull/259) ([@gflores-jahia](https://github.com/gflores-jahia))
+- SUP-383 Fail useNodeInfo gracefully, propagate error message [#258](https://github.com/Jahia/javascript-components/pull/258) ([@AKarmanov](https://github.com/AKarmanov))
+
+#### Authors: 2
+
+- Alex Karmanov ([@AKarmanov](https://github.com/AKarmanov))
+- Geofrey Flores ([@gflores-jahia](https://github.com/gflores-jahia))
+
+---
+
 # (Tue Dec 19 2023)
 
 #### 🐛 Bug Fix
