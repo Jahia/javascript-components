@@ -6,6 +6,7 @@ import {
     contentRestrictions,
     displayableNode,
     displayName,
+    Fragment,
     getProperties,
     installedModules, isExternal,
     lockInfo,
@@ -137,7 +138,8 @@ export type NodeInfoOptions = Partial<{
     getChildNodeTypes: boolean,
     getContributeTypesRestrictions: boolean,
     getSubNodesCount: string[],
-    getMimeType: boolean
+    getMimeType: boolean,
+    applyFragment: Fragment
 }>;
 
 export const validOptions = [
@@ -157,7 +159,8 @@ export const validOptions = [
     'getChildNodeTypes',
     'getContributeTypesRestrictions',
     'getSubNodesCount',
-    'getMimeType'
+    'getMimeType',
+    'applyFragment'
 ];
 
 export const getQuery = (variables: {[key:string]: any}, schemaResult: any, options: NodeInfoOptions = {}) => {
@@ -280,6 +283,10 @@ export const getQuery = (variables: {[key:string]: any}, schemaResult: any, opti
 
         if (options.getMimeType) {
             fragments.push(mimeTypes);
+        }
+
+        if (options.applyFragment) {
+            fragments.push(options.applyFragment);
         }
     }
 
