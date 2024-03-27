@@ -1,3 +1,27 @@
+# (Wed Mar 27 2024)
+
+#### 🐛 Bug Fix
+
+- BACKLOG-22172 Add option to supply fragment [#260](https://github.com/Jahia/javascript-components/pull/260) ([@AKarmanov](https://github.com/AKarmanov))
+
+#### Authors: 1
+
+- Alex Karmanov ([@AKarmanov](https://github.com/AKarmanov))
+
+---
+
+# (Wed Mar 27 2024)
+
+#### 🐛 Bug Fix
+
+- BACKLOG-22172 Add option to supply fragment [#260](https://github.com/Jahia/javascript-components/pull/260) ([@AKarmanov](https://github.com/AKarmanov))
+
+#### Authors: 1
+
+- Alex Karmanov ([@AKarmanov](https://github.com/AKarmanov))
+
+---
+
 # (Thu Feb 08 2024)
 
 #### 🐛 Bug Fix
