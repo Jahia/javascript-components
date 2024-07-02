@@ -23,6 +23,7 @@ jobs:
       - name: Execute yarn build
         shell: bash
         run: |
+          yarn global add lerna
           yarn build
 
   test:
