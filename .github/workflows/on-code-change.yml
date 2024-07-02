@@ -23,3 +23,23 @@ jobs:
         shell: bash
         run: |
           yarn build
+
+  test:
+    name: Test Components
+    needs: [build]
+    if: github.ref == 'refs/heads/master'
+    runs-on: self-hosted
+    container:
+      image: jahia/cimg-mvn-cache:ga_cimg_openjdk_11.0.20-node
+      credentials:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+    steps:
+      - name: Run linting
+        shell: bash
+        run: |
+          yarn lint
+      - name: Run tests
+        shell: bash
+        run: |
+          yarn test
