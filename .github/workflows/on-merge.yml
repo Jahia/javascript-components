@@ -1,0 +1,64 @@
+# This workflow is triggered every time a change is pushed to any branches
+# Github actions command reference: https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions
+name: On merge to master
+
+# The workflow could also be triggered on PRs
+on:
+  push:
+    branches:
+      - 'master'
+    tags-ignore:
+      - '**'
+
+jobs:
+  build:
+    name: Build Components
+    runs-on: self-hosted
+    env:
+      NEXUS_INTERNAL_URL: ${{ secrets.NEXUS_INTERNAL_URL }}
+    container:
+      image: jahia/cimg-mvn-cache:ga_cimg_openjdk_11.0.20-node
+      credentials:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+    steps:
+      - name: Execute yarn build
+        shell: bash
+        run: |
+          yarn build
+
+  test:
+    name: Test Components
+    needs: [build]
+    if: github.ref == 'refs/heads/master'
+    runs-on: self-hosted
+    container:
+      image: jahia/cimg-mvn-cache:ga_cimg_openjdk_11.0.20-node
+      credentials:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+    steps:
+      - name: Run linting
+        shell: bash
+        run: |
+          yarn publish
+      - name: Run tests
+        shell: bash
+        run: |
+          yarn test
+
+  publish:
+    name: Publish Components
+    needs: [test]
+    if: github.ref == 'refs/heads/master'
+    runs-on: self-hosted
+    container:
+      image: jahia/cimg-mvn-cache:ga_cimg_openjdk_11.0.20-node
+      credentials:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+    steps:
+      - name: Execute yarn publish
+        shell: bash
+        run: |
+          yarn publish
