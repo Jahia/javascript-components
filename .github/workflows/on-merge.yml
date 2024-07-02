@@ -41,7 +41,7 @@ jobs:
       - name: Run linting
         shell: bash
         run: |
-          yarn publish
+          yarn lint
       - name: Run tests
         shell: bash
         run: |
