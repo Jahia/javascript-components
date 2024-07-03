@@ -40,6 +40,10 @@ jobs:
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
     steps:
       - uses: actions/checkout@v3
+      - name: Install dependencies
+        shell: bash
+        run: |
+          yarn install
       - name: Run linting
         shell: bash
         run: |
@@ -63,4 +67,5 @@ jobs:
       - name: Execute yarn publish
         shell: bash
         run: |
+          yarn install
           yarn publish
