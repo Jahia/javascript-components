@@ -29,7 +29,6 @@ jobs:
   test:
     name: Test Components
     needs: [build]
-    if: github.ref == 'refs/heads/master'
     runs-on: self-hosted
     container:
       image: jahia/cimg-mvn-cache:ga_cimg_openjdk_11.0.20-node
