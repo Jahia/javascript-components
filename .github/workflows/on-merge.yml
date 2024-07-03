@@ -26,13 +26,12 @@ jobs:
       - name: Execute yarn build
         shell: bash
         run: |
-          yarn global add lerna
+          yarn install
           yarn build
 
   test:
     name: Test Components
     needs: [build]
-    if: github.ref == 'refs/heads/master'
     runs-on: self-hosted
     container:
       image: jahia/cimg-mvn-cache:ga_cimg_openjdk_11.0.20-node
@@ -53,7 +52,6 @@ jobs:
   publish:
     name: Publish Components
     needs: [test]
-    if: github.ref == 'refs/heads/master'
     runs-on: self-hosted
     container:
       image: jahia/cimg-mvn-cache:ga_cimg_openjdk_11.0.20-node
