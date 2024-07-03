@@ -1,0 +1,42 @@
+# This workflow is triggered every time a change is pushed to any branches
+# Github actions command reference: https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions
+name: On Code Change (PR)
+
+# The workflow could also be triggered on PRs
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  build:
+    name: Build Components
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        shell: bash
+        run: |
+          yarn install
+      - name: Execute yarn build
+        shell: bash
+        run: |
+          yarn build
+
+  test:
+    name: Test Components
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        shell: bash
+        run: |
+          yarn install
+      - name: Run linting
+        shell: bash
+        run: |
+          yarn lint
+      - name: Run tests
+        shell: bash
+        run: |
+          yarn test
