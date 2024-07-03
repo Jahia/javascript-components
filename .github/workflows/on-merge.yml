@@ -11,35 +11,11 @@ on:
       - '**'
 
 jobs:
-  build:
-    name: Build Components
-    runs-on: self-hosted
-    env:
-      NEXUS_INTERNAL_URL: ${{ secrets.NEXUS_INTERNAL_URL }}
-    container:
-      image: jahia/cimg-mvn-cache:ga_cimg_openjdk_11.0.20-node
-      credentials:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_PASSWORD }}
-    steps:
-      - uses: actions/checkout@v3
-      - name: Execute yarn build
-        shell: bash
-        run: |
-          yarn install
-          yarn build
-
   test:
     name: Test Components
-    needs: [build]
-    runs-on: self-hosted
-    container:
-      image: jahia/cimg-mvn-cache:ga_cimg_openjdk_11.0.20-node
-      credentials:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install dependencies
         shell: bash
         run: |
@@ -53,19 +29,32 @@ jobs:
         run: |
           yarn test
 
-  publish:
-    name: Publish Components
-    needs: [test]
-    runs-on: self-hosted
-    container:
-      image: jahia/cimg-mvn-cache:ga_cimg_openjdk_11.0.20-node
-      credentials:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+  build:
+    name: Build Components
+    needs: test
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Execute yarn publish
+      - uses: actions/checkout@v4
+      - name: Install dependencies
         shell: bash
         run: |
           yarn install
+      - name: Execute yarn build
+        shell: bash
+        run: |
+          yarn build
+
+  publish:
+    name: Publish Components
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        shell: bash
+        run: |
+          yarn install
+      - name: Execute yarn publish
+        shell: bash
+        run: |
           yarn publish
