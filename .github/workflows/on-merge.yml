@@ -63,6 +63,7 @@ jobs:
         shell: bash
         run: |
           echo "//registry.npmjs.org/:_authToken=${{ env.NPM_TOKEN }}" > .npmrc
+          npm set registry https://registry.npmjs.org/
       - name: Execute yarn publish
         shell: bash
         run: |
