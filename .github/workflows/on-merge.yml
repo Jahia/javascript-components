@@ -54,10 +54,16 @@ jobs:
         shell: bash
         run: |
           yarn install
+      - name: Set env vars
+        shell: bash
+        run: |
+          echo "GITHUB_TOKEN=${{ secrets.GH_API_TOKEN }}" >> $GITHUB_ENV
+          echo "NPM_TOKEN=${{ secrets.NPMJS_PUBLISH_TOKEN  }}" >> $GITHUB_ENV
+      - name: Authenticate with registry
+        shell: bash
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ env.NPM_TOKEN }}" > ~/source/.npmrc
       - name: Execute yarn publish
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_API_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPMJS_PUBLISH_TOKEN }}
         shell: bash
         run: |
           yarn publish
