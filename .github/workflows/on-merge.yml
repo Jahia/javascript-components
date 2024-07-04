@@ -62,7 +62,7 @@ jobs:
       - name: Authenticate with registry
         shell: bash
         run: |
-          echo "//registry.npmjs.org/:_authToken=${{ env.NPM_TOKEN }}" > ~/source/.npmrc
+          echo "//registry.npmjs.org/:_authToken=${{ env.NPM_TOKEN }}" > .npmrc
       - name: Execute yarn publish
         shell: bash
         run: |
