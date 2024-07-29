@@ -161,6 +161,16 @@ export const lockInfo: Fragment = {
     }`
 };
 
+export const canLockUnlock: Fragment = {
+    applyFor: 'node',
+    gql: gql`fragment CanLockUnlockInfo on JCRNode {
+        lockInfo {
+            canLock,
+            canUnlock,
+        }
+    }`
+};
+
 export const subNodesCount: Fragment = {
     variables: {
         subNodesCountTypes: '[String!]!'
