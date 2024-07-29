@@ -2,6 +2,7 @@ import gql from 'graphql-tag';
 import {
     aggregatedPublicationInfo,
     aggregatedPublicationInfoWithExistInLive,
+    canLockUnlock,
     childNodeTypes,
     contentRestrictions,
     displayableNode,
@@ -135,6 +136,7 @@ export type NodeInfoOptions = Partial<{
     getSiteLanguages: boolean,
     getDisplayableNodePath: boolean,
     getLockInfo: boolean,
+    getCanLockUnlock: boolean,
     getChildNodeTypes: boolean,
     getContributeTypesRestrictions: boolean,
     getSubNodesCount: string[],
@@ -156,6 +158,7 @@ export const validOptions = [
     'getSiteLanguages',
     'getDisplayableNodePath',
     'getLockInfo',
+    'getCanLockUnlock',
     'getChildNodeTypes',
     'getContributeTypesRestrictions',
     'getSubNodesCount',
@@ -263,6 +266,10 @@ export const getQuery = (variables: {[key:string]: any}, schemaResult: any, opti
 
         if (options.getLockInfo) {
             fragments.push(lockInfo);
+        }
+
+        if (options.getCanLockUnlock) {
+            fragments.push(canLockUnlock);
         }
 
         if (options.getChildNodeTypes) {

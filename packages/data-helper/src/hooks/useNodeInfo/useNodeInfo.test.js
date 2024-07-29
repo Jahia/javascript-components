@@ -188,6 +188,22 @@ describe('useNodeInfo', () => {
         expect(result.value.query.definitions.find(d => d.name.value === 'NodeProperties').selectionSet.selections.map(m => m.name.value)).toContain('properties');
     });
 
+    it('should request can lock unlock info', async () => {
+        const setStateMock = jest.fn();
+        const useStateMock = useState => [useState, setStateMock];
+        jest.spyOn(React, 'useState').mockImplementation(useStateMock);
+        useNodeInfo({path: '/test', language: 'en'}, {getCanLockUnlock: true});
+
+        await wait();
+
+        expect(getQuery).toHaveBeenCalled();
+        const {mock} = getQuery;
+        const result = mock.results[mock.results.length - 1];
+        const variables = result.value.generatedVariables;
+        result.value.query.definitions[0].variableDefinitions.map(v => v.variable.name.value).forEach(v => expect(Object.keys(variables)).toContain(v));
+        expect(result.value.query.definitions.map(d => d.name.value)).toContain('CanLockUnlockInfo');
+    });
+
     it('should request all data', async () => {
         const setStateMock = jest.fn();
         const useStateMock = useState => [useState, setStateMock];
@@ -205,6 +221,7 @@ describe('useNodeInfo', () => {
             getSiteLanguages: true,
             getDisplayableNodePath: true,
             getLockInfo: true,
+            getCanLockUnlock: true,
             getContributeTypesRestrictions: true,
             getSubNodesCount: ['jnt:file'],
             getMimeType: true
