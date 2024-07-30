@@ -1,3 +1,15 @@
+# (Tue Jul 30 2024)
+
+#### 🐛 Bug Fix
+
+- BACKLOG-23059 Added `lockInfo` to node info query [#268](https://github.com/Jahia/javascript-components/pull/268) ([@r3dm1ke](https://github.com/r3dm1ke))
+
+#### Authors: 1
+
+- Michael Krasnov ([@r3dm1ke](https://github.com/r3dm1ke))
+
+---
+
 # (Wed Mar 27 2024)
 
 #### 🐛 Bug Fix
