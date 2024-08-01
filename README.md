@@ -75,7 +75,7 @@ In order to build every package, in the root folder, run:
 yarn build
 ```
 
-The final build will reside in the `build` subfolder of each package.
+The final build will reside in the `dist` subfolder of each package.
 
 Modules can also be built independently by going to packages subfolder, and use `yarn build`.
 
