@@ -12,7 +12,7 @@ function pack() {
         console.log(execSync('yarn pack', {encoding: 'utf8'}));
     } else if (semver.gte(yarnVersion, '2.0.0')) {
         console.log('Yarn Berry detected');
-        console.log(execSync(`yarn pack --out ${cleanPackageName}-v${process.env.npm_package_version}.tgz`, {encoding: 'utf8'}));
+        console.log(execSync(`yarn pack --out  /dist/${cleanPackageName}-v${process.env.npm_package_version}.tgz`, {encoding: 'utf8'}));
     }
 }
 
