@@ -34,9 +34,9 @@ const spawnSync = (command, params, options) => {
 
 console.log('Releasing code from branch : ' + branchName);
 
-// Ensure code is called from master
-if (branchName !== 'master') {
-    console.log('Can only release from master branch');
+// Ensure can only publish in master and backport branches
+if (branchName !== 'master' && !branchName.endsWith('_x')) {
+    console.log('Can only release from master or backport branches branch');
     process.exit(1);
 }
 
