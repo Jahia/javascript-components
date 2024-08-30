@@ -3,18 +3,16 @@ import {useApolloClient} from 'react-apollo';
 import {getQuery} from './useNodeInfo.gql-queries';
 import {getEncodedPermissionName} from '../../fragments/getPermissionFragment';
 import {getEncodedNodeTypeName} from '../../fragments/getIsNodeTypeFragment';
-import {SCHEMA_FIELDS_QUERY} from '../useSchemaFields/useSchemaFields.gql-queries';
 import {isSubset, merge} from './useNodeInfo.utils';
 import {useMemoRequest} from './useMemoRequest';
 import deepEquals from 'fast-deep-equal';
 
 const queue = [];
-let schemaResult;
 let timeout;
 let observedQueries = [];
 
 function scheduleQueue(client) {
-    if (!timeout && schemaResult) {
+    if (!timeout) {
         timeout = setTimeout(() => {
             timeoutHandler(client);
             clearTimeout(timeout);
@@ -53,7 +51,7 @@ const timeoutHandler = client => {
 
     mergedQueue.forEach(mergedRequest => {
         const {variables, queryOptions, options, originals} = mergedRequest;
-        const {query, generatedVariables, skip} = getQuery(variables, schemaResult, options);
+        const {query, generatedVariables, skip} = getQuery(variables, options);
         if (skip) {
             // No query to execute
             originals.forEach(request => {
@@ -88,13 +86,6 @@ export const useNodeInfo = (variables, options, queryOptions) => {
     });
 
     const client = useApolloClient();
-
-    if (!schemaResult) {
-        client.query({query: SCHEMA_FIELDS_QUERY, variables: {type: 'GqlPublicationInfo'}}).then(({data}) => {
-            schemaResult = data;
-            scheduleQueue(client);
-        });
-    }
 
     // Normalize and memoize request
     const [currentRequest, queryHasChanged] = useMemoRequest(variables, queryOptions, options, setResult);

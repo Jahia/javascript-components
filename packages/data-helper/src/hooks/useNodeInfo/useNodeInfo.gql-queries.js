@@ -1,6 +1,5 @@
 import gql from 'graphql-tag';
 import {
-    aggregatedPublicationInfoWithExistInLive,
     aggregatedPublicationInfo,
     childNodeTypes,
     contentRestrictions,
@@ -125,7 +124,7 @@ export const validOptions = [
     'getMimeType'
 ];
 
-export const getQuery = (variables, schemaResult, options = {}) => {
+export const getQuery = (variables, options = {}) => {
     const fragments = [];
 
     const {baseQuery, generatedVariables, skip} = getBaseQueryAndVariables(variables);
@@ -156,13 +155,7 @@ export const getQuery = (variables, schemaResult, options = {}) => {
         }
 
         if (options.getAggregatedPublicationInfo) {
-            const supportsExistsInLive = schemaResult && schemaResult.__type && schemaResult.__type.fields && schemaResult.__type.fields.find(field => field.name === 'existsInLive') !== undefined;
-            if (supportsExistsInLive) {
-                fragments.push(aggregatedPublicationInfoWithExistInLive);
-            } else {
-                fragments.push(aggregatedPublicationInfo);
-            }
-
+            fragments.push(aggregatedPublicationInfo);
             if (!variables.language) {
                 throw Error('language is required');
             }
