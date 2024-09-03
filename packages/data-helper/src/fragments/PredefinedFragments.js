@@ -46,20 +46,6 @@ export const aggregatedPublicationInfo = {
     gql: gql`fragment AggregatedPublicationInfo on JCRNode {
         aggregatedPublicationInfo(language: $language, subNodes: $aggregatedPublicationInfoSubNodes, references:$aggregatedPublicationInfoIncludeReference) {
             publicationStatus
-        }
-    }`
-};
-
-export const aggregatedPublicationInfoWithExistInLive = {
-    variables: {
-        language: 'String!',
-        aggregatedPublicationInfoSubNodes: 'Boolean',
-        aggregatedPublicationInfoIncludeReference: 'Boolean'
-    },
-    applyFor: 'node',
-    gql: gql`fragment AggregatedPublicationInfoWithExistsInLive on JCRNode {
-        aggregatedPublicationInfo(language: $language, subNodes: $aggregatedPublicationInfoSubNodes, references:$aggregatedPublicationInfoIncludeReference) {
-            publicationStatus
             existsInLive
         }
     }`

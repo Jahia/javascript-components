@@ -107,6 +107,18 @@ Run `yarn build`.
 
 Run `yarn publish-script` in the package that you want to publish. Be sure to stop the CircleCI build to avoid the creation of unnecessary branches, etc.
 
+## Manual publish 
+
+Prerequisites: 
+
+* npm publish permissions
+* Verify version to be published is reflected in package.json for the current branch to be published
+
+1. In root `javascript-components` folder: `rm -rf node_modules`
+2. go to the package to be deployed e.g. `cd packages/data-helper`
+3. Run `yarn build`
+4. Run `cd build; npm publish --tag ${tag}` where `${tag}` is replaced by the version tag, e.g. `npm publish --tag 1.0`
+
 ## Author
 
 👤 **Jahia Group**
