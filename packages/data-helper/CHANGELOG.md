@@ -1,3 +1,15 @@
+# v1.1.14 (Wed Sep 11 2024)
+
+#### 🐛 Bug Fix
+
+- QA-15174 Make view prop nullable in preview query [#272](https://github.com/Jahia/javascript-components/pull/272) ([@r3dm1ke](https://github.com/r3dm1ke))
+
+#### Authors: 1
+
+- Michael Krasnov ([@r3dm1ke](https://github.com/r3dm1ke))
+
+---
+
 # (Tue Jul 30 2024)
 
 #### 🐛 Bug Fix
