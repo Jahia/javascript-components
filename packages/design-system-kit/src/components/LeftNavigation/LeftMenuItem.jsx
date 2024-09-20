@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {Badge, Button, Typography, withStyles} from '@material-ui/core';
 import {compose} from 'recompose';
-import {toIconComponent} from '@jahia/react-material';
+import {toIconComponent} from '../../actions';
 
 const styles = theme => ({
     badgeRoot: {

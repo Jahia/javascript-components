@@ -22,7 +22,8 @@
   "license": "MIT",
   "peerDependencies": {
     "@material-ui/core": "^3.9.3",
-    "react": "^16.8.0"
+    "react": "^16.8.0",
+    "rxjs": "^6.4.0"
   },
   "dependencies": {
     "@material-ui/core": "^3.9.3",
