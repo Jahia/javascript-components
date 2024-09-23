@@ -1,3 +1,21 @@
+# (Mon Sep 23 2024)
+
+#### 🚀 Enhancement
+
+- TECH-233: Convert package to typescript [#243](https://github.com/Jahia/javascript-components/pull/243) (tdraier@jahia.com)
+
+#### 🐛 Bug Fix
+
+- QA-15281 : copy react-matrials component to design-system-kit package to prevent endless loop in dependencies resolution. [#276](https://github.com/Jahia/javascript-components/pull/276) ([@dgriffon](https://github.com/dgriffon))
+- TECH-233: Convert package to typescript [#237](https://github.com/Jahia/javascript-components/pull/237) (tdraier@jahia.com)
+
+#### Authors: 2
+
+- David Griffon ([@dgriffon](https://github.com/dgriffon))
+- Thomas Draier ([@tdraier](https://github.com/tdraier))
+
+---
+
 # (Thu Apr 20 2023)
 
 #### 🐛 Bug Fix
