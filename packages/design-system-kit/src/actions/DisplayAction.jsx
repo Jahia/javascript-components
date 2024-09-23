@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {actionsRegistry} from './actionsRegistry';
 import * as _ from 'lodash';
-import {Observable, combineLatest, of} from 'rxjs';
-import {first} from 'rxjs/operators';
 
 let count = 0;
 
@@ -56,44 +54,12 @@ class DisplayActionComponent extends React.Component {
             subscription.unsubscribe();
         }
 
-        let enhancedContext = {...context};
+        const enhancedContext = {...context};
         if (enhancedContext.init) {
             enhancedContext.init(enhancedContext, _.omit(this.props, ['context']));
         }
 
-        // Check observers
-        const observersObj = _.pickBy(enhancedContext, value => value instanceof Observable);
-        const keys = Object.keys(observersObj);
-
-        if (keys.length > 0) {
-            // Prepare an updateContext method for subscription - first set it as synchronous update of the context object
-            const update = v => {
-                if (this.innerRef.current) {
-                    this.innerRef.current.setState(v);
-                } else {
-                    enhancedContext = _.assign(enhancedContext, v);
-                }
-            };
-
-            // Concat with a sync observer to always get an initial value
-            const observers = Object.values(observersObj);
-
-            keys.forEach(k => _.set(enhancedContext, k, null));
-
-            // Related to https://jira.jahia.org/browse/QA-11271
-            // this empty subscription is auto cancelled with the first operator
-            // and resolve a problem where the observer was never resolved is some cases
-            _.each(observers, observer => observer.pipe(first()).subscribe());
-
-            // Combine all observers into one
-            const combinedObserver = combineLatest(...observers, (...vals) => _.zipObject(keys, vals));
-            this.subscription = combinedObserver.subscribe(v => update(v));
-            if (this.props.observerRef) {
-                this.props.observerRef(combinedObserver);
-            }
-        } else if (this.props.observerRef) {
-            this.props.observerRef(of(null));
-        }
+        console.warn('Action won\'t be updated anymore, please use @jahia/ui-extender actions components instead');
 
         return <StateActionComponent ref={this.innerRef} context={enhancedContext} render={render}/>;
     }
@@ -111,13 +77,11 @@ class DisplayActionComponent extends React.Component {
 }
 
 DisplayActionComponent.defaultProps = {
-    observerRef: null
 };
 
 DisplayActionComponent.propTypes = {
     context: PropTypes.object.isRequired,
-    render: PropTypes.func.isRequired,
-    observerRef: PropTypes.func
+    render: PropTypes.func.isRequired
 };
 
 const shallowEquals = (obj1, obj2) =>
