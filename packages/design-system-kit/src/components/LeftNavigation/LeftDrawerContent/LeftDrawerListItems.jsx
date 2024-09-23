@@ -3,7 +3,7 @@ import {List, ListItem, Typography, withStyles} from '@material-ui/core';
 import {ChevronRight, ExpandMore} from '@material-ui/icons';
 import React from 'react';
 import {lodash as _} from 'lodash';
-import {DisplayActions, toIconComponent} from '@jahia/react-material';
+import {DisplayActions, toIconComponent} from '../../../actions';
 import {compose} from 'recompose';
 
 const styles = theme => ({

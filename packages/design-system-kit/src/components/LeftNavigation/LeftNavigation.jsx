@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {List, withStyles} from '@material-ui/core';
 import classNames from 'classnames';
-import {DisplayActions} from '@jahia/react-material';
+import {DisplayActions} from '../../actions';
 import LeftMenuItem from './LeftMenuItem';
 import {compose} from 'recompose';
 import styleConstants from '../../theme/styleConstants';
