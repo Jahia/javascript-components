@@ -1,5 +1,17 @@
 # (Mon Sep 23 2024)
 
+#### 🐛 Bug Fix
+
+- QA-15281 : remove RXJS usage from design-system-kit [#277](https://github.com/Jahia/javascript-components/pull/277) ([@dgriffon](https://github.com/dgriffon))
+
+#### Authors: 1
+
+- David Griffon ([@dgriffon](https://github.com/dgriffon))
+
+---
+
+# (Mon Sep 23 2024)
+
 #### 🚀 Enhancement
 
 - TECH-233: Convert package to typescript [#243](https://github.com/Jahia/javascript-components/pull/243) (tdraier@jahia.com)
