@@ -1,3 +1,15 @@
+# (Wed Sep 25 2024)
+
+#### 🐛 Bug Fix
+
+- BACKLOG-22972: Adapt scripts to support snapshot artifacts [#274](https://github.com/Jahia/javascript-components/pull/274) ([@baptistegrimaud](https://github.com/baptistegrimaud))
+
+#### Authors: 1
+
+- Baptiste Grimaud ([@baptistegrimaud](https://github.com/baptistegrimaud))
+
+---
+
 # (Wed May 24 2023)
 
 #### 🚀 Enhancement
