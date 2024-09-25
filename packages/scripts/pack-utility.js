@@ -1,4 +1,4 @@
-import fs from "fs";
+const fs = require('fs');
 
 function getPackageFilename(packageJsonPath, packageName, packageVersion) {
     const packageJsonContent = fs.readFileSync(packageJsonPath, { encoding: 'utf8' });
