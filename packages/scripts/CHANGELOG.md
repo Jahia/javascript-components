@@ -1,3 +1,15 @@
+# v1.3.5 (Wed Sep 25 2024)
+
+#### 🐛 Bug Fix
+
+- BACKLOG-22972: Fix fs import [#278](https://github.com/Jahia/javascript-components/pull/278) ([@baptistegrimaud](https://github.com/baptistegrimaud))
+
+#### Authors: 1
+
+- Baptiste Grimaud ([@baptistegrimaud](https://github.com/baptistegrimaud))
+
+---
+
 # (Wed Sep 25 2024)
 
 #### 🐛 Bug Fix
