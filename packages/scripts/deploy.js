@@ -2,12 +2,13 @@
 require('dotenv').config();
 const {execSync} = require('child_process');
 const pack = require('./pack-project');
+const {getPackageFilename} = require("./pack-utility");
 const fs = require('fs');
+const path = require("path");
 
 const args = process.argv.slice(2);
 const deployMethod = process.env.JAHIA_DEPLOY_METHOD;
-const cleanPackageName = process.env.npm_package_name.replace(/@/g, '').replace(/\//g, '-');
-const packageFileName = `${cleanPackageName}-v${process.env.npm_package_version}.tgz`;
+const packageFileName = getPackageFilename(path.join(process.cwd(), 'package.json'), process.env.npm_package_name, process.env.npm_package_version);
 
 if (!fs.existsSync(packageFileName)) {
     console.log('Package hasn\'t been built previously, packing now using jahia-pack...');
