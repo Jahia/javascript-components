@@ -1,3 +1,15 @@
+# v1.3.6 (Fri Nov 08 2024)
+
+#### 🐛 Bug Fix
+
+- BACKLOG-23333: Pack from dist/build/ and deploy dist/*.tgz [#279](https://github.com/Jahia/javascript-components/pull/279) ([@baptistegrimaud](https://github.com/baptistegrimaud))
+
+#### Authors: 1
+
+- Baptiste Grimaud ([@baptistegrimaud](https://github.com/baptistegrimaud))
+
+---
+
 # v1.3.5 (Wed Sep 25 2024)
 
 #### 🐛 Bug Fix
