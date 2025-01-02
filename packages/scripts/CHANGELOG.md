@@ -1,3 +1,15 @@
+# v1.3.7 (Thu Jan 02 2025)
+
+#### 🐛 Bug Fix
+
+- QA-15406: Fix curl deployment (yarn watch/deploy) [#280](https://github.com/Jahia/javascript-components/pull/280) ([@baptistegrimaud](https://github.com/baptistegrimaud))
+
+#### Authors: 1
+
+- Baptiste Grimaud ([@baptistegrimaud](https://github.com/baptistegrimaud))
+
+---
+
 # v1.3.6 (Fri Nov 08 2024)
 
 #### 🐛 Bug Fix
