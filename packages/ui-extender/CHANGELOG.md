@@ -1,3 +1,15 @@
+# v1.1.1 (Fri Feb 07 2025)
+
+#### 🐛 Bug Fix
+
+- feat: Allow multiple targets for DisplayActions [#291](https://github.com/Jahia/javascript-components/pull/291) ([@AKarmanov](https://github.com/AKarmanov))
+
+#### Authors: 1
+
+- Alex Karmanov ([@AKarmanov](https://github.com/AKarmanov))
+
+---
+
 # (Tue May 30 2023)
 
 #### 🚀 Enhancement
