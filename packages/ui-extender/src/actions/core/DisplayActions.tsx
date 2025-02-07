@@ -40,7 +40,10 @@ export const DisplayActions = ({target, filter, ...others}: DisplayActionsProps)
     }
 
     targets.forEach(t => {
-        actionsToDisplay.push(...registry.find({type: 'action', target: t}).filter(filter ? filter : () => true).map(action => <DisplayAction {...others} key={action.key} target={t} actionKey={action.key}/>));
+        const actions = registry.find({type: 'action', target: t})
+            .filter(filter ? filter : () => true)
+            .map(action => <DisplayAction {...others} key={action.key} target={t} actionKey={action.key}/>);
+        actionsToDisplay.push(...actions);
     });
 
     return <>{actionsToDisplay}</>;
