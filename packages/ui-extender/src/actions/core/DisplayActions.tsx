@@ -30,13 +30,20 @@ export type DisplayActionsProps = {
 }
 
 export const DisplayActions = ({target, filter, ...others}: DisplayActionsProps) => {
-    let actionsToDisplay = registry.find({type: 'action', target});
+    const actionsToDisplay: any[] = [];
+    let targets = [];
 
-    if (filter) {
-        actionsToDisplay = actionsToDisplay && actionsToDisplay.filter(filter);
+    if (Array.isArray(target)) {
+        targets = target;
+    } else {
+        targets.push(target);
     }
 
-    return <>{actionsToDisplay.map(action => <DisplayAction {...others} key={action.key} target={target} actionKey={action.key}/>)}</>;
+    targets.forEach(t => {
+        actionsToDisplay.push(...registry.find({type: 'action', target: t}).filter(filter ? filter : () => true).map(action => <DisplayAction {...others} key={action.key} target={t} actionKey={action.key}/>));
+    });
+
+    return <>{actionsToDisplay}</>;
 };
 
 DisplayActions.defaultProps = {
