@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+console.log("⚠ Deprecated ⚠ : Please deploy with 'jahia-deploy' provided by @jahia/javascript-modules-library.")
+
 require('dotenv').config();
 const {execSync} = require('child_process');
 const pack = require('./pack-project');
