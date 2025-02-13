@@ -4,7 +4,11 @@ const path = require('path');
 const {getPackageFilename} = require('./pack-utility');
 const fs = require('fs');
 
+/**
+ * @deprecated Use `yarn pack --out package.tgz` instead. The renaming (to include the module name & version) is done by the CI.
+ */
 function pack() {
+    console.log("⚠ Deprecated ⚠ : Please pack with 'yarn pack' directly.")
     console.log('Node version detected:', process.versions.node);
     const yarnVersion = execSync('yarn --version', {encoding: 'utf8'});
     console.log('Yarn version:', yarnVersion);
