@@ -166,6 +166,7 @@ export const validOptions = [
     'applyFragment'
 ];
 
+// eslint-disable-next-line complexity
 export const getQuery = (variables: {[key:string]: any}, schemaResult: any, options: NodeInfoOptions = {}) => {
     const fragments = [];
 

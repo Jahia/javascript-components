@@ -95,10 +95,10 @@ const Badge = withStyles(styles, {name: 'DsBadge'})(
     )
 );
 
-Badge.propTypes = process.env.NODE_ENV !== 'production' ? {
+Badge.propTypes = process.env.NODE_ENV === 'production' ? {} : {
     icon: PropTypes.node,
     variant: PropTypes.oneOf(['normal', 'dot', 'circle'])
-} : {};
+};
 
 Badge.defaultProps = {
     color: 'primary',

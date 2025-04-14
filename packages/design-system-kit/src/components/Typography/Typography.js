@@ -53,7 +53,7 @@ const Typography = withStyles(styles, {name: 'DsTypography'})(
     )
 );
 
-Typography.propTypes = process.env.NODE_ENV !== 'production' ? {
+Typography.propTypes = process.env.NODE_ENV === 'production' ? {} : {
     /**
      * Set the text-align on the component.
      */
@@ -125,7 +125,7 @@ Typography.propTypes = process.env.NODE_ENV !== 'production' ? {
      * Use `body1` as the default value with the legacy implementation and `body2` with the new one.
      */
     variant: PropTypeConstants.TextVariants
-} : {};
+};
 
 Typography.defaultProps = {
     align: undefined,

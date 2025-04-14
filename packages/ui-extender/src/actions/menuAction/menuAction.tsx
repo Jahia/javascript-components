@@ -369,12 +369,12 @@ export type MenuActionComponentProps = {
     /**
      * Render for the action button
      */
-    render: React.FunctionComponent<any>,
+    render: React.FunctionComponent<unknown>,
 
     /**
      * Render for the action button
      */
-    loading: React.FunctionComponent<any>,
+    loading: React.FunctionComponent<unknown>,
     /**
      * Helps determine if action is visible
      */

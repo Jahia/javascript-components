@@ -73,7 +73,7 @@ const ExpansionPanelSummary = withStyles(styles, {name: 'DsExpansionPanelSummary
 /*
   Proptype of component
  */
-ExpansionPanelSummary.propTypes = process.env.NODE_ENV !== 'production' ? {
+ExpansionPanelSummary.propTypes = process.env.NODE_ENV === 'production' ? {} : {
     children: PropTypes.node,
     classes: PropTypes.object,
     className: PropTypes.string,
@@ -86,7 +86,7 @@ ExpansionPanelSummary.propTypes = process.env.NODE_ENV !== 'production' ? {
     onChange: PropTypes.func,
     onClick: PropTypes.func,
     onFocusVisible: PropTypes.func
-} : {};
+};
 
 /*
    Default Props

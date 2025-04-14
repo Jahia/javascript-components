@@ -127,7 +127,7 @@ const ValueForwardInputCmp = React.forwardRef(({value, isInputControlled, ...oth
     <InputCmp
             ref={ref}
             value={isInputControlled ? value : undefined}
-            defaultValue={!isInputControlled ? value : undefined}
+            defaultValue={isInputControlled ? undefined : value}
             {...others}
         />
 ));
@@ -166,8 +166,11 @@ InputCmp.defaultProps = {
     inputProps: {},
     id: undefined,
     name: undefined,
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onBlur() {},
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onChange() {},
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onFocus() {},
     readOnly: false,
     value: undefined,

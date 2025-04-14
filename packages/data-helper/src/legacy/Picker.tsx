@@ -149,7 +149,12 @@ export class Picker extends React.Component<PropType, StateType> {
 
         this.eventsHandlers = {};
 
-        if (!openPaths) {
+        if (openPaths) {
+            state.isOpenControlled = true;
+            if (onOpenItem) {
+                this.eventsHandlers.onOpenItem = onOpenItem;
+            }
+        } else {
             // Uncontrolled mode
             state.isOpenControlled = false;
             state.openPaths = [];
@@ -163,11 +168,6 @@ export class Picker extends React.Component<PropType, StateType> {
 
             if (defaultOpenPaths) {
                 state.openPaths = this.addPathToOpenPath(defaultOpenPaths, rootPaths, state.openPaths);
-            }
-        } else {
-            state.isOpenControlled = true;
-            if (onOpenItem) {
-                this.eventsHandlers.onOpenItem = onOpenItem;
             }
         }
 

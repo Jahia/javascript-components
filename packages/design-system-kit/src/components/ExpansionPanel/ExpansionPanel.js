@@ -129,7 +129,7 @@ const ExpansionPanel = withStyles(styles, {name: 'DsExpansionPanel'})(
 /*
   Proptype of component
  */
-ExpansionPanel.propTypes = process.env.NODE_ENV !== 'production' ? {
+ExpansionPanel.propTypes = process.env.NODE_ENV === 'production' ? {} : {
     variant: PropTypeConstants.ExpansionPanelVariants,
     color: PropTypeConstants.ExpansionPanelColors,
     children: PropTypes.node.isRequired,
@@ -140,7 +140,7 @@ ExpansionPanel.propTypes = process.env.NODE_ENV !== 'production' ? {
     disabled: PropTypes.bool,
     expanded: PropTypes.bool,
     onChange: PropTypes.func
-} : {};
+};
 
 /*
    Default Props

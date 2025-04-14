@@ -22,8 +22,7 @@ const ListItemIcon = withStyles(styles, {name: 'DsListItemIcon'})(
     )
 );
 
-ListItemIcon.propTypes = process.env.NODE_ENV !== 'production' ? {
-} : {};
+ListItemIcon.propTypes = {};
 
 ListItemIcon.displayName = 'DsListItemIcon';
 
