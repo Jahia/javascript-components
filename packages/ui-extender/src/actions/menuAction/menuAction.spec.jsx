@@ -130,9 +130,9 @@ function addAsyncItem(key, targets, minTime, isUseLoading, isVisible) {
     });
 }
 
-function advanceTime(wrapper) {
+function advanceTime(wrapper, timeout = 100) {
     act(() => {
-        jest.advanceTimersByTime(100);
+        jest.advanceTimersByTime(timeout);
     });
     wrapper.update();
 }
@@ -146,7 +146,6 @@ function getWrapper() {
 }
 
 describe('Menu', () => {
-
     beforeEach(() => {
         registry.clear();
         readyList.length = 0;
@@ -154,6 +153,7 @@ describe('Menu', () => {
     });
 
     afterEach(() => {
+        act(() => jest.runAllTimers());
         jest.useRealTimers();
     });
 
@@ -238,37 +238,37 @@ describe('Menu', () => {
         advanceTime(wrapper);
 
         expect(wrapper.find('.menu').length).toBe(1);
-        // expect(wrapper.find('.menu .menuItem').length).toBe(5);
-        //
-        // // Hover 5th item (submenu-3)
-        // wrapper.find('.menu .menuItem').at(4).simulate('mouseenter');
-        // advanceTime(wrapper);
-        //
-        // expect(wrapper.find('.menu').length).toBe(2);
-        // expect(wrapper.find('.menu .menuItem').length).toBe(6);
-        //
-        // // Hover 4th item (submenu-2), previous sub-menu should be closed
-        // wrapper.find('.menu .menuItem').at(3).simulate('mouseenter');
-        // advanceTime(wrapper);
-        //
-        // expect(wrapper.find('.menu').length).toBe(2);
-        // expect(wrapper.find('.menu .menuItem').length).toBe(7);
-        //
-        // // Hover sub-sub-menu item
-        // const subMenu = wrapper.find('.menu').at(1);
-        // subMenu.find('.menuItem').at(1).simulate('mouseenter');
-        // advanceTime(wrapper);
-        //
-        // expect(wrapper.find('.menu').length).toBe(3);
-        // expect(wrapper.find('.menu .menuItem').length).toBe(8);
-        //
-        // // Click item in sub-sub-menu
-        // wrapper.find('#menu-submenu2 #item-item1').last().simulate('click');
-        // advanceTime(wrapper);
-        //
-        // expect(wrapper.find('.menu').length).toBe(0);
-        // expect(fn.mock.calls.length).toBe(1);
-        // expect(fn.mock.calls[0][0].label).toBe('item1');
+        expect(wrapper.find('.menu .menuItem').length).toBe(5);
+
+        // Hover 5th item (submenu-3)
+        wrapper.find('.menu .menuItem').at(4).simulate('mouseenter');
+        advanceTime(wrapper);
+
+        expect(wrapper.find('.menu').length).toBe(2);
+        expect(wrapper.find('.menu .menuItem').length).toBe(6);
+
+        // Hover 4th item (submenu-2), previous sub-menu should be closed
+        wrapper.find('.menu .menuItem').at(3).simulate('mouseenter');
+        advanceTime(wrapper);
+
+        expect(wrapper.find('.menu').length).toBe(2);
+        expect(wrapper.find('.menu .menuItem').length).toBe(7);
+
+        // Hover sub-sub-menu item
+        const subMenu = wrapper.find('.menu').at(1);
+        subMenu.find('.menuItem').at(1).simulate('mouseenter');
+        advanceTime(wrapper);
+
+        expect(wrapper.find('.menu').length).toBe(3);
+        expect(wrapper.find('.menu .menuItem').length).toBe(8);
+
+        // Click item in sub-sub-menu
+        wrapper.find('#menu-submenu2 #item-item1').last().simulate('click');
+        advanceTime(wrapper);
+
+        expect(wrapper.find('.menu').length).toBe(0);
+        expect(fn.mock.calls.length).toBe(1);
+        expect(fn.mock.calls[0][0].label).toBe('item1');
     });
 
     it('should update when using asynchronouns items', () => {

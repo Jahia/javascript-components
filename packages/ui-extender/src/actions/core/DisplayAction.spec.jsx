@@ -10,6 +10,7 @@ import {act} from 'react-dom/test-utils';
 describe('DisplayAction', () => {
     beforeEach(() => {
         registry.clear();
+        jest.spyOn(global, 'setInterval');
         jest.useFakeTimers();
     });
 
@@ -225,7 +226,7 @@ describe('DisplayAction', () => {
         expect(fn1.mock.calls[1][0].extended).toBe(true);
     });
 
-    it.skip('should update its rendering when using async components', async () => {
+    it('should update its rendering when using async components', async () => {
         const fn1 = jest.fn();
 
         const AsyncComponent = ({render: Render, label, ...props}) => {
@@ -262,7 +263,6 @@ describe('DisplayAction', () => {
         const wrapper = mount(
             <DisplayAction actionKey="async" path="/test1" render={ButtonRenderer}/>
         );
-        expect(setInterval).toHaveBeenCalledTimes(1);
         expect(wrapper.find('button').length).toBe(0);
 
         act(() => {

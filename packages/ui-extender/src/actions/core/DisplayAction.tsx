@@ -1,6 +1,7 @@
 import React from 'react';
 import {registry} from '~/registry';
 import {StoredService} from '~/registry/service';
+import {MenuProps} from '~/actions';
 
 let count = 0;
 
@@ -21,6 +22,8 @@ export type DisplayActionProps = {
      * The render component
      */
     loading?: React.FunctionComponent<object>
+
+    onClick?: (p: MenuProps, e: Event) => void;
 
     [key: string]: unknown
 }

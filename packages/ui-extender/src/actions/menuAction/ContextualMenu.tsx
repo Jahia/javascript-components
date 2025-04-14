@@ -1,5 +1,5 @@
 import React from 'react';
-import {DisplayAction} from '../core';
+import {DisplayAction, DisplayActionProps} from '../core';
 import {MenuProps} from '~/actions';
 
 export type ContextualMenuProps = {
@@ -30,7 +30,7 @@ export class ContextualMenu extends React.Component<ContextualMenuProps> {
         return (
             <DisplayAction
                 {...this.props}
-                render={props => {
+                render={(props: DisplayActionProps) => {
                     const {onClick} = props;
                     this.onClickRef.current = onClick;
                     return null;
