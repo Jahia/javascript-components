@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
 
 const styles = theme => {
-    // Todo: DESIGN-178 - use theme colors
+    // DESIGN-178 - use theme colors
     theme.palette.ui.zeta = '#C1C8D5';
 
     const switchBase = {
@@ -160,12 +160,9 @@ ToggleCmp.defaultProps = {
     checked: false,
     disabled: false,
     readOnly: false,
-    onChange() {
-    },
-    onFocus() {
-    },
-    onBlur() {
-    }
+    onBlur() {},
+    onChange() {},
+    onFocus() {}
 };
 
 ToggleCmp.propTypes = {

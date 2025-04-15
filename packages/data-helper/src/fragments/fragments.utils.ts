@@ -58,11 +58,17 @@ function replaceFragmentsInDocument(doc: DocumentNode, fragments: (string|Fragme
 
 function findParametersInSelectionSet(selectionSet: SelectionSetNode): string[] {
     if (selectionSet && selectionSet.selections) {
-        return selectionSet.selections.flatMap(sel => 'arguments' in sel &&
-            sel.arguments.filter(arg => (arg.value.kind === 'Variable')).flatMap(arg => 'name' in arg.value ? arg.value.name.value : [])
-                .concat(findParametersInSelectionSet(sel.selectionSet))
-                .filter(f => typeof f !== 'undefined')
-        );
+        return selectionSet.selections.flatMap(sel => {
+            if ('arguments' in sel) {
+                return sel.arguments
+                    .filter(arg => (arg.value.kind === 'Variable'))
+                    .flatMap(arg => 'name' in arg.value ? [arg.value.name.value] : [])
+                    .concat(findParametersInSelectionSet(sel.selectionSet))
+                    .filter(f => typeof f !== 'undefined');
+            }
+
+            return [];
+        });
     }
 
     return [];

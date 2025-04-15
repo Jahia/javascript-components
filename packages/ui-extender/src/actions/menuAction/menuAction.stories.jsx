@@ -139,6 +139,7 @@ function addItem(key, targets, fn) {
     });
 }
 
+/* eslint-disable max-params */
 function addAsyncItem(key, targets, minTime, isUseLoading, isVisible) {
     registry.addOrReplace('action', key, {
         targets,

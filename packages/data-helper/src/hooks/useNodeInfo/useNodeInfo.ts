@@ -180,6 +180,7 @@ export const useNodeInfo = (variables: {[key:string]: unknown}, options?: NodeIn
     return result;
 };
 
+/* eslint-disable max-params */
 const getResult = (data: any, others: NodeInfoResult, options: NodeInfoOptions, query: DocumentNode, generatedVariables: {[key:string]: unknown}) => {
     const node: object = (data && data.jcr && (data.jcr.nodeByPath || data.jcr.nodeById)) || null;
     const nodes: object[] = (data && data.jcr && (data.jcr.nodesByPath || data.jcr.nodesById)) || null;

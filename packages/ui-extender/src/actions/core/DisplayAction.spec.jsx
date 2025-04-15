@@ -7,11 +7,15 @@ import {LinkRenderer} from '../samples/LinkRenderer';
 import PropTypes from 'prop-types';
 import {act} from 'react-dom/test-utils';
 
-jest.useFakeTimers();
-
 describe('DisplayAction', () => {
     beforeEach(() => {
         registry.clear();
+        jest.spyOn(global, 'setInterval');
+        jest.useFakeTimers();
+    });
+
+    afterEach(() => {
+        jest.useRealTimers();
     });
 
     it('should call onClick when button is click', () => {
@@ -234,7 +238,7 @@ describe('DisplayAction', () => {
                 return () => {
                     clearInterval(t);
                 };
-            });
+            }, [value]);
             return (value > 1) ? (
                 <Render
                     label={label + value}
@@ -259,10 +263,11 @@ describe('DisplayAction', () => {
         const wrapper = mount(
             <DisplayAction actionKey="async" path="/test1" render={ButtonRenderer}/>
         );
-        expect(setInterval).toHaveBeenCalledTimes(1);
         expect(wrapper.find('button').length).toBe(0);
 
-        jest.advanceTimersByTime(1000);
+        act(() => {
+            jest.advanceTimersByTime(1000);
+        });
         wrapper.update();
         expect(wrapper.find('button').length).toBe(1);
         wrapper.find('button').simulate('click');

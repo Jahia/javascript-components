@@ -46,8 +46,7 @@ const FormControlLabel = withStyles(styles, {name: 'DsFormControlLabel'})(
     )
 );
 
-FormControlLabel.propTypes = process.env.NODE_ENV !== 'production' ? {
-} : {};
+FormControlLabel.propTypes = {};
 
 FormControlLabel.defaultProps = {
     labelPlacement: 'end'

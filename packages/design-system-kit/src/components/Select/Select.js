@@ -65,10 +65,10 @@ const Select = withStyles(styles, {name: 'DsSelect'})(
 /*
   Proptype of component
  */
-Select.propTypes = process.env.NODE_ENV !== 'production' ? {
+Select.propTypes = process.env.NODE_ENV === 'production' ? {} : {
     color: PropTypeConstants.SelectColors,
     variant: PropTypeConstants.SelectVariants
-} : {};
+};
 
 /*
    Default Props

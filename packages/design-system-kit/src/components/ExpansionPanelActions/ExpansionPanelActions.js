@@ -42,11 +42,11 @@ const ExpansionPanelActions = withStyles(styles, {name: 'DsExpansionPanelActions
 /*
   Proptype of component
  */
-ExpansionPanelActions.propTypes = process.env.NODE_ENV !== 'production' ? {
+ExpansionPanelActions.propTypes = process.env.NODE_ENV === 'production' ? {} : {
     children: PropTypes.node.isRequired,
     classes: PropTypes.object,
     className: PropTypes.string
-} : {};
+};
 
 /*
    Default Props

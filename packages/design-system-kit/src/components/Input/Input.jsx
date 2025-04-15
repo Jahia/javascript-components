@@ -127,7 +127,7 @@ const ValueForwardInputCmp = React.forwardRef(({value, isInputControlled, ...oth
     <InputCmp
             ref={ref}
             value={isInputControlled ? value : undefined}
-            defaultValue={!isInputControlled ? value : undefined}
+            defaultValue={isInputControlled ? undefined : value}
             {...others}
         />
 ));

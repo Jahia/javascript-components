@@ -88,12 +88,12 @@ const Button = withStyles(styles, {name: 'DsButton'})(
     )
 );
 
-Button.propTypes = process.env.NODE_ENV !== 'production' ? {
+Button.propTypes = process.env.NODE_ENV === 'production' ? {} : {
     icon: PropTypes.node,
     color: PropTypeConstants.ButtonColors,
     variant: PropTypeConstants.ButtonVariants,
     size: PropTypeConstants.ButtonSizes
-} : {};
+};
 
 Button.defaultProps = {
     color: 'default',

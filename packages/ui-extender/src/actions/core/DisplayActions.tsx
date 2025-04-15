@@ -30,7 +30,7 @@ export type DisplayActionsProps = {
 }
 
 export const DisplayActions = ({target, filter, ...others}: DisplayActionsProps) => {
-    const actionsToDisplay: any[] = [];
+    const actionsToDisplay: unknown[] = [];
     let targets = [];
 
     if (Array.isArray(target)) {

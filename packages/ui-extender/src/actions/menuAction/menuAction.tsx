@@ -369,12 +369,12 @@ export type MenuActionComponentProps = {
     /**
      * Render for the action button
      */
-    render: React.FunctionComponent<any>,
+    render: React.FunctionComponent<any>, /* eslint-disable @typescript-eslint/no-explicit-any */
 
     /**
      * Render for the action button
      */
-    loading: React.FunctionComponent<any>,
+    loading: React.FunctionComponent<any>, /* eslint-disable @typescript-eslint/no-explicit-any */
     /**
      * Helps determine if action is visible
      */

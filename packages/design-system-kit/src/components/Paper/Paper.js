@@ -29,8 +29,7 @@ const Paper = withStyles(styles, {name: 'DsPaper'})(
     )
 );
 
-Paper.propTypes = process.env.NODE_ENV !== 'production' ? {
-} : {};
+Paper.propTypes = {};
 
 Paper.defaultProps = {
     color: 'light'

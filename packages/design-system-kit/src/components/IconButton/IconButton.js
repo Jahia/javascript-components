@@ -99,7 +99,7 @@ const IconButton = withStyles(styles, {name: 'DsIconButton'})(
 /*
     Proptype of component
  */
-IconButton.propTypes = process.env.NODE_ENV !== 'production' ? {
+IconButton.propTypes = process.env.NODE_ENV === 'production' ? {} : {
     /**
      * The icon element.
      */
@@ -141,7 +141,7 @@ IconButton.propTypes = process.env.NODE_ENV !== 'production' ? {
      */
     size: PropTypeConstants.IconButtonSizes
 
-} : {};
+};
 
 /*
 

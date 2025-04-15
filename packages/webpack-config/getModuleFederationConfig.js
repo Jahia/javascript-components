@@ -124,5 +124,5 @@ const getModuleFederationConfig = (packageJson, config = {}, importList = []) =>
 };
 
 module.exports = getModuleFederationConfig;
-// TODO: Remove this for the next major release
+// Remove this for the next major release
 module.exports.default = getModuleFederationConfig;

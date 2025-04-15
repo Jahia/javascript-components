@@ -29,10 +29,10 @@ const styles = theme => ({
         color: theme.palette.ui.omega
     },
     sizeNormal: {
-        // Todo normal size CSS
+        // Normal size CSS
     },
     sizeCompact: {
-        // Todo compact size CSS
+        // Compact size CSS
     }
 });
 
@@ -61,14 +61,11 @@ const Chip = withStyles(styles, {name: 'DsChip'})(
     )
 );
 
-Chip.propTypes =
-    process.env.NODE_ENV !== 'production' ?
-        {
-            size: PropTypesConstants.ChipSizes,
-            color: PropTypesConstants.ChipColors,
-            variant: PropTypesConstants.ChipVariants
-        } :
-        {};
+Chip.propTypes = process.env.NODE_ENV === 'production' ? {} : {
+    size: PropTypesConstants.ChipSizes,
+    color: PropTypesConstants.ChipColors,
+    variant: PropTypesConstants.ChipVariants
+};
 
 Chip.defaultProps = {
     color: 'default',

@@ -8,8 +8,6 @@ import {mount} from 'enzyme';
 import {ComponentRendererProvider} from '../../ComponentRenderer';
 import {act} from 'react-dom/test-utils';
 
-jest.useFakeTimers();
-
 const MenuRenderer = ({menuKey, isSubMenu, isOpen, isLoading, onClose, onExited, onMouseEnter, onMouseLeave, children}) => {
     // Simulate close animation, calls onExited after isOpen is set to false
     const [previousOpen, setPreviousOpen] = useState(false);
@@ -120,6 +118,7 @@ function addItem(key, targets, fn) {
     });
 }
 
+/* eslint-disable max-params */
 function addAsyncItem(key, targets, minTime, isUseLoading, isVisible) {
     registry.addOrReplace('action', key, {
         targets,
@@ -131,11 +130,11 @@ function addAsyncItem(key, targets, minTime, isUseLoading, isVisible) {
     });
 }
 
-function advanceTime(wrapper) {
+function advanceTime(wrapper, timeout = 100) {
     act(() => {
-        jest.advanceTimersByTime(100);
-        wrapper.update();
+        jest.advanceTimersByTime(timeout);
     });
+    wrapper.update();
 }
 
 function getWrapper() {
@@ -150,6 +149,12 @@ describe('Menu', () => {
     beforeEach(() => {
         registry.clear();
         readyList.length = 0;
+        jest.useFakeTimers();
+    });
+
+    afterEach(() => {
+        act(() => jest.runAllTimers());
+        jest.useRealTimers();
     });
 
     it('should open menu on click', () => {
