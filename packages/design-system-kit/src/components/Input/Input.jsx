@@ -166,11 +166,8 @@ InputCmp.defaultProps = {
     inputProps: {},
     id: undefined,
     name: undefined,
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onBlur() {},
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onChange() {},
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onFocus() {},
     readOnly: false,
     value: undefined,

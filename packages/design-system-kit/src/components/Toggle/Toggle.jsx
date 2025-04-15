@@ -160,11 +160,8 @@ ToggleCmp.defaultProps = {
     checked: false,
     disabled: false,
     readOnly: false,
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onBlur() {},
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onChange() {},
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onFocus() {}
 };
 

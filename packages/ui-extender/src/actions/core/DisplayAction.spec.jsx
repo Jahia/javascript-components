@@ -226,7 +226,7 @@ describe('DisplayAction', () => {
         expect(fn1.mock.calls[1][0].extended).toBe(true);
     });
 
-    it('should update its rendering when using async components', async () => {
+    it('should update its rendering when using async components', () => {
         const fn1 = jest.fn();
 
         const AsyncComponent = ({render: Render, label, ...props}) => {
