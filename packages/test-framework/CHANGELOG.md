@@ -1,3 +1,15 @@
+# v1.2.2 (Tue May 13 2025)
+
+#### 🐛 Bug Fix
+
+- build: Update moonstone 2.13+ support (test-framework) [#305](https://github.com/Jahia/javascript-components/pull/305) ([@gflores-jahia](https://github.com/gflores-jahia))
+
+#### Authors: 1
+
+- Geofrey Flores ([@gflores-jahia](https://github.com/gflores-jahia))
+
+---
+
 # (Thu Jun 10 2021)
 
 #### 🐛  Bug Fix
