@@ -20,7 +20,7 @@
   "peerDependencies": {
     "babel-jest": "^29.7.0",
     "jest": "^29.7.0",
-    "@jahia/moonstone": ">= 2.14.0"
+    "@jahia/moonstone": ">=2.14.0"
   },
   "peerDependenciesMeta": {
     "@jahia/moonstone": {
