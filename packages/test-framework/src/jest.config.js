@@ -4,7 +4,7 @@ module.exports = {
         '^react-i18next$': '<rootDir>/node_modules/@jahia/test-framework/build/js/__mocks__/react-i18next.js',
         '\\.(css|scss)$': 'identity-obj-proxy',
         '~/(.*)': '<rootDir>/src/javascript/$1',
-        '@jahia/moonstone': '@jahia/moonstone/dist/lib/main'
+        '@jahia/moonstone': '<rootDir>/node_modules/@jahia/moonstone/dist/index.cjs',
     },
     setupFilesAfterEnv: [
         '<rootDir>/node_modules/@jahia/test-framework/build/js/setupTests.js'
