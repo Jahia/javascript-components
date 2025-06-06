@@ -1,3 +1,15 @@
+# v1.3.1 (Fri Jun 06 2025)
+
+#### 🐛 Bug Fix
+
+- fix: Include __mocks__ folder in @jahia/test-framework build [#313](https://github.com/Jahia/javascript-components/pull/313) ([@gflores-jahia](https://github.com/gflores-jahia))
+
+#### Authors: 1
+
+- Geofrey Flores ([@gflores-jahia](https://github.com/gflores-jahia))
+
+---
+
 # v1.2.2 (Tue May 13 2025)
 
 #### 🐛 Bug Fix
