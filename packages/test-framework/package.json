@@ -2,7 +2,7 @@
   "name": "@jahia/test-framework",
   "version": "1.3.0",
   "scripts": {
-    "build": "jahia-babel-js",
+    "build": "./babel-test.js",
     "publish-script": "jahia-publish"
   },
   "description": "This Jahia test-framework for React Apps",
