@@ -56,6 +56,7 @@ const singletonDeps = [
     'redux',
     '@jahia/moonstone',
     '@jahia/ui-extender',
+    '@jahia/data-helper',
     '@apollo/client',
     '@apollo/react-common',
     '@apollo/react-components',
