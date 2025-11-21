@@ -3,7 +3,6 @@ import {ApolloClient, ApolloError, NetworkStatus, useApolloClient, WatchQueryOpt
 import {getQuery, NodeInfoOptions} from './useNodeInfo.gql-queries';
 import {getEncodedPermissionName} from '../../fragments/getPermissionFragment';
 import {getEncodedNodeTypeName} from '../../fragments/getIsNodeTypeFragment';
-import {SCHEMA_FIELDS_QUERY} from '../useSchemaFields/useSchemaFields.gql-queries';
 import {isSubset, merge} from './useNodeInfo.utils';
 import {useMemoRequest} from './useMemoRequest';
 import deepEquals from 'fast-deep-equal';
@@ -36,12 +35,11 @@ export type NodeInfoResult = {
 }
 
 const queue: QueuedRequest[] = [];
-let schemaResult: any;
 let timeout: number;
 let observedQueries: { unsubscribe: () => void }[] = [];
 
 function scheduleQueue(client: ApolloClient<object>) {
-    if (!timeout && schemaResult) {
+    if (!timeout) {
         timeout = window.setTimeout(() => {
             timeoutHandler(client);
             clearTimeout(timeout);
@@ -85,7 +83,7 @@ const timeoutHandler = (client: ApolloClient<object>) => {
         let skip;
 
         try {
-            const r = getQuery(variables, schemaResult, options);
+            const r = getQuery(variables, options);
             query = r.query;
             generatedVariables = r.generatedVariables;
             skip = r.skip;
@@ -134,13 +132,6 @@ export const useNodeInfo = (variables: {[key:string]: unknown}, options?: NodeIn
 
     const client = useApolloClient();
 
-    if (!schemaResult) {
-        client.query({query: SCHEMA_FIELDS_QUERY, variables: {type: 'GqlPublicationInfo'}}).then(({data}: {data: any}) => {
-            schemaResult = data;
-            scheduleQueue(client);
-        });
-    }
-
     // Normalize and memoize request
     const [currentRequest, queryHasChanged] = useMemoRequest(variables, queryOptions, options, setResult);
     useEffect(() => {
@@ -156,7 +147,7 @@ export const useNodeInfo = (variables: {[key:string]: unknown}, options?: NodeIn
         let infoQuery;
 
         try {
-            infoQuery = getQuery(currentRequest.variables, schemaResult, currentRequest.options);
+            infoQuery = getQuery(currentRequest.variables, currentRequest.options);
         } catch (e) {
             const error = {message: e.message} as ApolloError;
             return {loading: false, error};
