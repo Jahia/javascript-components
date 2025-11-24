@@ -1,7 +1,6 @@
 import gql from 'graphql-tag';
 import {
     aggregatedPublicationInfo,
-    aggregatedPublicationInfoWithExistInLive,
     canLockUnlock,
     childNodeTypes,
     contentRestrictions,
@@ -166,8 +165,7 @@ export const validOptions = [
     'applyFragment'
 ];
 
-// eslint-disable-next-line complexity
-export const getQuery = (variables: {[key:string]: any}, schemaResult: any, options: NodeInfoOptions = {}) => {
+export const getQuery = (variables: {[key:string]: any}, options: NodeInfoOptions = {}) => {
     const fragments = [];
 
     const {baseQuery, generatedVariables, skip} = getBaseQueryAndVariables(variables);
@@ -198,13 +196,7 @@ export const getQuery = (variables: {[key:string]: any}, schemaResult: any, opti
         }
 
         if (options.getAggregatedPublicationInfo) {
-            const supportsExistsInLive = schemaResult && schemaResult.__type && schemaResult.__type.fields && schemaResult.__type.fields.find((field: any) => field.name === 'existsInLive') !== undefined;
-            if (supportsExistsInLive) {
-                fragments.push(aggregatedPublicationInfoWithExistInLive);
-            } else {
-                fragments.push(aggregatedPublicationInfo);
-            }
-
+            fragments.push(aggregatedPublicationInfo);
             if (!variables.language) {
                 throw Error('language is required');
             }
