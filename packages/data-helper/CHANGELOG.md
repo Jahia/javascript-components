@@ -1,3 +1,16 @@
+# v1.1.15 (Mon Nov 24 2025)
+
+#### 🐛 Bug Fix
+
+- fix: Remove usage of introspection query SCHEMA_FIELDS_QUERY [#321](https://github.com/Jahia/javascript-components/pull/321) ([@gflores-jahia](https://github.com/gflores-jahia))
+- chore: Tech day updates [#298](https://github.com/Jahia/javascript-components/pull/298) ([@gflores-jahia](https://github.com/gflores-jahia))
+
+#### Authors: 1
+
+- Geofrey Flores ([@gflores-jahia](https://github.com/gflores-jahia))
+
+---
+
 # v1.1.14 (Wed Sep 11 2024)
 
 #### 🐛 Bug Fix
