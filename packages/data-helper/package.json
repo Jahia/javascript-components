@@ -17,7 +17,6 @@
   "license": "SEE LICENSE IN ../../LICENSE.txt FILE",
   "dependencies": {
     "@apollo/client": "^3.7.14",
-    "@apollo/react-components": "^4.0.0",
     "fast-deep-equal": "^3.1.1",
     "graphql": "^15.4.0",
     "graphql-tag": "^2.11.0",
