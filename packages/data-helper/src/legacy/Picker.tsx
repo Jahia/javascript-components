@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import React from 'react';
-import {Query} from '@apollo/react-components';
+import {Query} from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 import {displayName, Fragment, nodeCacheRequiredFields, replaceFragmentsInDocument} from '../fragments';
 import {PickerItemsFragment} from './Picker.gql-fragments';
