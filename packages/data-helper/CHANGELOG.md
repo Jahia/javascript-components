@@ -1,3 +1,15 @@
+# v1.1.16 (Tue Nov 25 2025)
+
+#### 🐛 Bug Fix
+
+- chore: Remove @apollo/react-components dependency [#324](https://github.com/Jahia/javascript-components/pull/324) ([@gflores-jahia](https://github.com/gflores-jahia))
+
+#### Authors: 1
+
+- Geofrey Flores ([@gflores-jahia](https://github.com/gflores-jahia))
+
+---
+
 # v1.1.15 (Mon Nov 24 2025)
 
 #### 🐛 Bug Fix
