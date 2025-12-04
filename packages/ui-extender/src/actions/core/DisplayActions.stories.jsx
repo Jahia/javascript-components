@@ -4,7 +4,7 @@ import {DisplayActions} from './DisplayActions';
 import {withKnobs} from '@storybook/addon-knobs';
 import markdownNotes from './DisplayActions.md';
 import {ButtonRenderer} from '../samples/ButtonRenderer';
-import {registry} from '../../registry';
+import {registry} from '../..';
 
 storiesOf('actions|DisplayActions', module)
     .addParameters({

@@ -1,7 +1,7 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {DisplayActions} from '../core/DisplayActions';
-import {registry} from '../../registry';
+import {registry} from '../..';
 import {withKnobs} from '@storybook/addon-knobs';
 import {ComponentRendererProvider} from '../../ComponentRenderer';
 import {componentRendererAction, ComponentRendererActionComponent} from './componentRenderAction';

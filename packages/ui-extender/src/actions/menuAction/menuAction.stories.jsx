@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {storiesOf} from '@storybook/react';
 import {DisplayAction} from '../core/DisplayAction';
-import {registry} from '../../registry';
+import {registry} from '../..';
 import {boolean, number, withKnobs} from '@storybook/addon-knobs';
-import PropTypes from 'prop-types';
-import {ComponentRendererProvider} from '../../ComponentRenderer';
+import {ComponentRendererProvider} from '../..';
 import {menuAction, MenuActionComponent} from './menuAction';
 import {action} from '@storybook/addon-actions';
 import markdownNotes from './README.md';
@@ -58,30 +57,11 @@ const MenuRenderer = ({isSubMenu, anchor, isOpen, isLoading, onClose, onExited, 
     );
 };
 
-MenuRenderer.propTypes = {
-    isSubMenu: PropTypes.bool.isRequired,
-    isOpen: PropTypes.bool.isRequired,
-    isLoading: PropTypes.bool.isRequired,
-    anchor: PropTypes.object.isRequired,
-    onExited: PropTypes.func.isRequired,
-    onMouseEnter: PropTypes.func.isRequired,
-    onMouseLeave: PropTypes.func.isRequired,
-    onClose: PropTypes.func.isRequired,
-    children: PropTypes.node.isRequired
-};
-
 const MenuItemRenderer = ({label, onClick, onMouseEnter, onMouseLeave}) => (
     <div style={{margin: 5}} onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
         {label}
     </div>
 );
-
-MenuItemRenderer.propTypes = {
-    label: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired,
-    onMouseEnter: PropTypes.func,
-    onMouseLeave: PropTypes.func
-};
 
 const readyList = [];
 
@@ -110,14 +90,6 @@ const AsyncComponent = ({render: Render, loading: Loading, ...props}) => {
             onClick={() => window.alert('Async action')} // eslint-disable-line no-alert
         />
     );
-};
-
-AsyncComponent.propTypes = {
-    id: PropTypes.string.isRequired,
-    minTime: PropTypes.number,
-    isUseLoading: PropTypes.bool,
-    render: PropTypes.func.isRequired,
-    loading: PropTypes.func.isRequired
 };
 
 function addMenu(key, targets, isMenuPreload) {

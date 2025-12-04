@@ -61,6 +61,9 @@ module.exports = {
         'jsx-quotes': [
             'error',
             'prefer-double'
-        ]
+        ],
+
+        // "prop-types" is deprecated in favor of TypeScript, stop enforcing it
+        'react/prop-types': 'off'
     }
 };

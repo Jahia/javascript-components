@@ -1,6 +1,5 @@
 import React, {useRef} from 'react';
 import {ComponentRenderer} from './ComponentRenderer';
-import PropTypes from 'prop-types';
 import {ComponentRendererContext} from './ComponentRendererContext';
 
 export const ComponentRendererProvider = ({children}: React.PropsWithChildren<object>) => {
@@ -13,12 +12,3 @@ export const ComponentRendererProvider = ({children}: React.PropsWithChildren<ob
         </ComponentRendererContext.Provider>
     );
 };
-
-ComponentRendererProvider.defaultProps = {
-    children: null
-};
-
-ComponentRendererProvider.propTypes = {
-    children: PropTypes.element
-};
-

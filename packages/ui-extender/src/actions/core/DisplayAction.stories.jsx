@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {storiesOf} from '@storybook/react';
 import {DisplayAction} from './DisplayAction';
-import {registry} from '../../registry';
+import {registry} from '../..';
 import {withKnobs} from '@storybook/addon-knobs';
-import PropTypes from 'prop-types';
 import markdownNotes from './DisplayAction.md';
 import {ButtonRenderer} from '../samples/ButtonRenderer';
 import {LinkRenderer} from '../samples/LinkRenderer';
@@ -152,11 +151,6 @@ storiesOf('actions|DisplayAction', module)
             }}/>
         );
 
-        TestComponent1.propTypes = {
-            context: PropTypes.object.isRequired,
-            render: PropTypes.func.isRequired
-        };
-
         registry.addOrReplace('action', 'component-1', {
             label: 'component 1',
             component: TestComponent1
@@ -181,19 +175,9 @@ storiesOf('actions|DisplayAction', module)
             }}/>
         );
 
-        TestComponent1.propTypes = {
-            context: PropTypes.object.isRequired,
-            render: PropTypes.func.isRequired
-        };
-
         const TestComponent2 = ({context, render}, refOrContext, Previous) => (
             <Previous render={render} context={{...context, label: context.label + ' overriden'}}/>
         );
-
-        TestComponent2.propTypes = {
-            context: PropTypes.object.isRequired,
-            render: PropTypes.func.isRequired
-        };
 
         const base = registry.addOrReplace('action', 'base', {
             component: TestComponent1
@@ -237,11 +221,6 @@ storiesOf('actions|DisplayAction', module)
             );
         };
 
-        AsyncComponent.propTypes = {
-            context: PropTypes.object.isRequired,
-            render: PropTypes.func.isRequired
-        };
-
         registry.addOrReplace('action', 'async', {
             label: 'async',
             component: AsyncComponent
@@ -268,11 +247,6 @@ storiesOf('actions|DisplayAction', module)
                             onClick: () => window.alert('Spawn action ' + name) // eslint-disable-line no-alert
                         }}/>
         ));
-
-        SpawnActionsComponent.propTypes = {
-            context: PropTypes.object.isRequired,
-            render: PropTypes.func.isRequired
-        };
 
         registry.addOrReplace('action', 'spawn', {
             label: 'child action',

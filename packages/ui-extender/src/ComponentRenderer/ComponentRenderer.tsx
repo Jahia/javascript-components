@@ -2,8 +2,8 @@ import React, {useContext, useEffect, useState} from 'react';
 import {ComponentRendererContext} from './ComponentRendererContext';
 
 type StateType = {
-    components: {[key:string]: React.FunctionComponent},
-    componentsProps: {[key:string]: React.PropsWithChildren<unknown>}
+    components: Record<string, React.ComponentType<any>>;
+    componentsProps: Record<string, React.PropsWithChildren<any>>;
 }
 
 export const ComponentRenderer: React.FunctionComponent = () => {
@@ -12,15 +12,10 @@ export const ComponentRenderer: React.FunctionComponent = () => {
     const value = useContext(ComponentRendererContext);
 
     useEffect(() => {
-        value.render = (key, component, props) => setState(previous => {
-            const newState = {
-                components: {...previous.components},
-                componentsProps: {...previous.componentsProps}
-            };
-            newState.components[key] = component;
-            newState.componentsProps[key] = {...props};
-            return newState;
-        });
+        value.render = (key, component, props) => setState(previous => ({
+            components: {...previous.components, [key]: component},
+            componentsProps: {...previous.componentsProps, [key]: {...props}}
+        }));
 
         value.setProperties = (key, props) => setState(previous => {
             if (previous.components[key]) {

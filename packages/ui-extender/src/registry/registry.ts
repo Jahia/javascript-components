@@ -1,26 +1,25 @@
 import {composeServices} from './composeServices';
-import {Service, StoredService, Target} from '~/registry/service';
+import {Service, StoredService} from './service';
 
 class Registry {
-    registry: {[key: string]: StoredService};
+    registry: Record<string, StoredService>;
 
     constructor() {
         this.registry = {};
     }
 
-    addOrReplace(type: string, key: string, ...services: Partial<Service>[]): StoredService {
+    addOrReplace(type: string, key: string, ...services: Array<Partial<Service>>): StoredService {
         const registryKey = type + '-' + key;
 
         const service = composeServices(...services);
-        const targets = (service.targets) ?
-            service.targets.map(t => {
-                if (typeof t === 'string') {
-                    const spl = t.split(':');
-                    return ({id: spl[0], priority: spl[1] ? spl[1] : 0}) as Target;
-                }
+        const targets = service.targets?.map(t => {
+            if (typeof t === 'string') {
+                const [id, priority = '0'] = t.split(':');
+                return ({id, priority: Number(priority)});
+            }
 
-                return t;
-            }) : [];
+            return t;
+        }) ?? [];
 
         const storedService: StoredService = {
             ...service,
@@ -33,7 +32,7 @@ class Registry {
         return storedService;
     }
 
-    add(type: string, key: string, ...services: Partial<Service>[]): StoredService {
+    add(type: string, key: string, ...services: Array<Partial<Service>>): StoredService {
         const registryKey = type + '-' + key;
         if (this.registry[registryKey]) {
             throw new Error('Entry already exist for key ' + key);
@@ -65,24 +64,22 @@ class Registry {
         const {target, ...otherFilters} = filters;
         if (target) {
             result = result
-                .filter(item => item.targets && item.targets
-                    .map(t => t.id)
-                    .includes(filters.target))
+                .filter(item => item.targets?.map(t => t.id).includes(target))
                 .sort((a, b) => {
                     const foundA = a.targets && a.targets.find(t => t.id === filters.target);
                     const foundB = b.targets && b.targets.find(t => t.id === filters.target);
                     const priorityA = foundA && Number(foundA.priority);
                     const priorityB = foundB && Number(foundB.priority);
 
-                    if (isNaN(priorityA) && isNaN(priorityB)) {
+                    if ((priorityA === undefined || isNaN(priorityA)) && (priorityB === undefined || isNaN(priorityB))) {
                         return 0;
                     }
 
-                    if (isNaN(priorityA)) {
+                    if (priorityA === undefined || isNaN(priorityA)) {
                         return -1;
                     }
 
-                    if (isNaN(priorityB)) {
+                    if (priorityB === undefined || isNaN(priorityB)) {
                         return 1;
                     }
 
@@ -102,6 +99,4 @@ class Registry {
     }
 }
 
-const registry = new Registry();
-
-export {registry};
+export const registry = new Registry();

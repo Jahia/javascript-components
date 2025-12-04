@@ -1,8 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {registry} from '~/registry';
+import {registry} from '../../registry/registry';
 import {DisplayAction} from './DisplayAction';
-import {StoredService} from '~/registry/service';
+import {StoredService} from '../../registry/service';
+import {ItemLoadingProps, ItemRenderProps} from '../menuAction/menuAction';
 
 export type DisplayActionsProps = {
     /**
@@ -16,11 +16,11 @@ export type DisplayActionsProps = {
     /**
      * The render component
      */
-    render: React.FunctionComponent<object>,
+    render: React.FunctionComponent<ItemRenderProps>,
     /**
      * The render component
      */
-    loading?: React.FunctionComponent<object>,
+    loading: React.FunctionComponent<ItemLoadingProps>,
     /**
      * Additional filter function
      */
@@ -47,30 +47,4 @@ export const DisplayActions = ({target, filter, ...others}: DisplayActionsProps)
     });
 
     return <>{actionsToDisplay}</>;
-};
-
-DisplayActions.defaultProps = {
-    filter: null
-};
-
-DisplayActions.propTypes = {
-    /**
-     * The target from which the items will be selected
-     */
-    target: PropTypes.string.isRequired,
-
-    /**
-     * The render component
-     */
-    render: PropTypes.func.isRequired,
-
-    /**
-     * The loading component
-     */
-    loading: PropTypes.func,
-
-    /**
-     * Additional filter function
-     */
-    filter: PropTypes.func
 };

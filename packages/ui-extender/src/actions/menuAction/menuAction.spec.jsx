@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {DisplayAction} from '../core/DisplayAction';
-import {registry} from '../../registry';
-import PropTypes from 'prop-types';
+import {registry} from '../..';
 import {menuAction} from './menuAction';
 import {ButtonRenderer} from '../samples/ButtonRenderer';
 import {mount} from 'enzyme';
-import {ComponentRendererProvider} from '../../ComponentRenderer';
+import {ComponentRendererProvider} from '../../ComponentRenderer/ComponentRendererProvider';
 import {act} from 'react-dom/test-utils';
 
 const MenuRenderer = ({menuKey, isSubMenu, isOpen, isLoading, onClose, onExited, onMouseEnter, onMouseLeave, children}) => {
@@ -39,31 +38,11 @@ const MenuRenderer = ({menuKey, isSubMenu, isOpen, isLoading, onClose, onExited,
     );
 };
 
-MenuRenderer.propTypes = {
-    menuKey: PropTypes.string.isRequired,
-    isSubMenu: PropTypes.bool.isRequired,
-    isOpen: PropTypes.bool.isRequired,
-    isLoading: PropTypes.bool.isRequired,
-    onExited: PropTypes.func,
-    onMouseEnter: PropTypes.func,
-    onMouseLeave: PropTypes.func,
-    onClose: PropTypes.func.isRequired,
-    children: PropTypes.node.isRequired
-};
-
 const MenuItemRenderer = ({label, actionKey, onClick, onMouseEnter, onMouseLeave}) => (
     <div className="menuItem" id={'item-' + actionKey} onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
         {label}
     </div>
 );
-
-MenuItemRenderer.propTypes = {
-    actionKey: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired,
-    onMouseEnter: PropTypes.func,
-    onMouseLeave: PropTypes.func
-};
 
 const readyList = [];
 
@@ -89,14 +68,6 @@ const AsyncComponent = ({render: Render, loading: Loading, ...props}) => {
     return (
         <Render {...props} onClick={jest.fn}/>
     );
-};
-
-AsyncComponent.propTypes = {
-    id: PropTypes.string.isRequired,
-    minTime: PropTypes.number,
-    isUseLoading: PropTypes.bool,
-    render: PropTypes.func.isRequired,
-    loading: PropTypes.func.isRequired
 };
 
 function addMenu(key, targets, isMenuPreload) {
