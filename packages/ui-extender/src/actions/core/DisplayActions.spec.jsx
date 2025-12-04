@@ -1,7 +1,7 @@
 import React from 'react';
 import {DisplayActions} from './DisplayActions';
 import {ButtonRenderer} from '../samples/ButtonRenderer';
-import {registry} from '../../registry';
+import {registry} from '../..';
 import {mount} from 'enzyme';
 
 describe('DisplayActions', () => {

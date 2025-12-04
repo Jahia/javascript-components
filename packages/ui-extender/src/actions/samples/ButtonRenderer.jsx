@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 const ButtonRenderer = ({onClick, isVisible, enabled, label, ...props}) => (
     (isVisible !== false) && (
@@ -20,13 +19,5 @@ const ButtonRenderer = ({onClick, isVisible, enabled, label, ...props}) => (
         </button>
     )
 );
-
-ButtonRenderer.propTypes = {
-    onClick: PropTypes.func,
-    isVisible: PropTypes.bool,
-    // eslint-disable-next-line react/boolean-prop-naming
-    enabled: PropTypes.bool,
-    label: PropTypes.string
-};
 
 export {ButtonRenderer};

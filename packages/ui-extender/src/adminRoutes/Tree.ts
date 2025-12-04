@@ -1,9 +1,9 @@
 const filterTree = (tree: TreeData[], predicate: (d: TreeData) => boolean): TreeData[] => tree
     .filter(predicate)
-    .map(item => ({...item, children: filterTree(item.children, predicate)}));
+    .map(item => ({...item, children: item.children && filterTree(item.children, predicate)}));
 
 const mapTree = (tree: TreeData[], mapFunction: (o: TreeData) => TreeData): TreeData[] => tree
-    .map(item => ({...mapFunction(item), children: mapTree(item.children, mapFunction)}));
+    .map(item => ({...mapFunction(item), children: item.children && mapTree(item.children, mapFunction)}));
 
 export type TreeData = {
     [key: string]: unknown,

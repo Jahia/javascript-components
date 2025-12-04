@@ -1,7 +1,8 @@
 import React from 'react';
-import {registry} from '~/registry';
-import {StoredService} from '~/registry/service';
-import {MenuProps} from '~/actions';
+import {registry} from '../../registry/registry';
+import {StoredService} from '../../registry/service';
+import {MenuProps} from '../../actions/menuAction/menuAction';
+import {ItemRenderProps} from '../menuAction/menuAction';
 
 let count = 0;
 
@@ -17,19 +18,19 @@ export type DisplayActionProps = {
     /**
      * The render component
      */
-    render: React.FunctionComponent<object>,
+    render: React.FunctionComponent<ItemRenderProps>,
     /**
      * The render component
      */
-    loading?: React.FunctionComponent<object>
+    loading?: React.FunctionComponent<ItemRenderProps>
 
     onClick?: (p: MenuProps, e: Event) => void;
 
     [key: string]: unknown
 }
 
-const getRenderWrapper = (Render: React.FunctionComponent): React.FunctionComponent => {
-    const RenderWrapper = ({context, ...otherProps}: React.PropsWithChildren<{context: object}>) => (
+const getRenderWrapper = (Render: React.FunctionComponent<ItemRenderProps>): React.FunctionComponent<ItemRenderProps> => {
+    const RenderWrapper = ({context, ...otherProps}: React.PropsWithChildren<ItemRenderProps>) => (
         <Render {...context} {...otherProps}/>
     );
 
@@ -38,7 +39,7 @@ const getRenderWrapper = (Render: React.FunctionComponent): React.FunctionCompon
 
 class DisplayAction extends React.PureComponent<DisplayActionProps> {
     id: string;
-    RenderWrapper: React.FunctionComponent;
+    RenderWrapper: React.FunctionComponent<ItemRenderProps>;
 
     constructor(props: DisplayActionProps) {
         super(props);

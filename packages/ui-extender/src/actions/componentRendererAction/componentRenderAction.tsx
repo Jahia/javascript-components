@@ -1,6 +1,5 @@
 import React, {useContext, useEffect} from 'react';
-import PropTypes from 'prop-types';
-import {ComponentRendererContext} from '~/ComponentRenderer';
+import {ComponentRendererContext} from '../../ComponentRenderer/ComponentRendererContext';
 
 type RenderProps = {
     id: string,
@@ -13,39 +12,47 @@ type BaseProps = {
 }
 
 export type ComponentRendererActionComponentProps<Type extends BaseProps> = {
-    render: React.FunctionComponent<Partial<RenderProps>>,
+    render: React.ComponentType<Partial<RenderProps>>,
 
-    componentToRender: React.FunctionComponent<Type>,
+    componentToRender: React.ComponentType<Type>,
 } & RenderProps;
 
 export const ComponentRendererActionComponent = <Type extends BaseProps, >({render: Render, componentToRender, ...otherProps}: ComponentRendererActionComponentProps<Type>) => {
     const componentRenderer = useContext(ComponentRendererContext);
 
     const componentContext: {
-        id?: string,
+        id: string,
         render?: (component: React.FunctionComponent<Type>, props?: React.PropsWithChildren<Type>) => void,
         handleDestroy?: () => void,
         setProperties?: (props: React.PropsWithChildren<Type>) => void
-    } = {};
+    } = {
+        id: 'actionComponent-' + otherProps.id
+    };
 
     useEffect(() => {
         componentContext.id = 'actionComponent-' + otherProps.id;
         componentContext.render = (component, properties) => {
-            componentRenderer.render(componentContext.id, component, {...otherProps, onExited: componentContext.handleDestroy, ...properties});
+            // @ts-expect-error Why bother with genericity if we add extra props anyway?
+            componentRenderer.render?.(componentContext.id, component, {
+                ...otherProps,
+                onExited: componentContext.handleDestroy,
+                ...properties
+            });
         };
 
         componentContext.handleDestroy = () => {
-            componentRenderer.destroy(componentContext.id);
+            componentRenderer.destroy?.(componentContext.id);
         };
 
         componentContext.setProperties = properties => {
-            componentRenderer.setProperties(componentContext.id, properties);
+            componentRenderer.setProperties?.(componentContext.id, properties);
         };
     });
 
     if (!otherProps.onClick) {
         return (
             <Render
+                // @ts-expect-error TS is right: otherProps supposedly always has onClick defined
                 onClick={() => componentContext.render(componentToRender)}
                 {...otherProps}
             />
@@ -53,12 +60,6 @@ export const ComponentRendererActionComponent = <Type extends BaseProps, >({rend
     }
 
     return <Render {...otherProps}/>;
-};
-
-ComponentRendererActionComponent.propTypes = {
-    context: PropTypes.object.isRequired,
-    render: PropTypes.func.isRequired,
-    componentToRender: PropTypes.node
 };
 
 /**

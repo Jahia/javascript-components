@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 declare global {
     interface Window {
@@ -21,7 +20,3 @@ export const IframeRenderer = (props:IframeRendererProps) => {
 };
 
 export const getIframeRenderer = (url: string) => <IframeRenderer url={url}/>;
-
-IframeRenderer.propTypes = {
-    url: PropTypes.string.isRequired
-};
