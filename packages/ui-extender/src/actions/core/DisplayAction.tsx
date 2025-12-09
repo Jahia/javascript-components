@@ -1,7 +1,7 @@
 import React from 'react';
 import {registry} from '../../registry/registry';
 import {StoredService} from '../../registry/service';
-import {MenuProps} from '../../actions/menuAction/menuAction';
+import {ItemLoadingProps, MenuProps} from '../../actions/menuAction/menuAction';
 import {ItemRenderProps} from '../menuAction/menuAction';
 
 let count = 0;
@@ -22,7 +22,7 @@ export type DisplayActionProps = {
     /**
      * The render component
      */
-    loading?: React.ComponentType<ItemRenderProps>
+    loading?: React.ComponentType<ItemLoadingProps>
 
     onClick?: (p: MenuProps, e: Event) => void;
 
