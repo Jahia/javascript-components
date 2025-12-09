@@ -22,7 +22,7 @@ export const ComponentRendererActionComponent = <Type extends BaseProps, >({rend
 
     const componentContext: {
         id: string,
-        render?: (component: React.FunctionComponent<Type>, props?: React.PropsWithChildren<Type>) => void,
+        render?: (component: React.ComponentType<Type>, props?: React.PropsWithChildren<Type>) => void,
         handleDestroy?: () => void,
         setProperties?: (props: React.PropsWithChildren<Type>) => void
     } = {

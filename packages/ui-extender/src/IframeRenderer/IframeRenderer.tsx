@@ -2,7 +2,7 @@ import React from 'react';
 
 declare global {
     interface Window {
-        jahia: { ui: { IframeRenderer: React.FunctionComponent<IframeRendererProps> } };
+        jahia: { ui: { IframeRenderer: React.ComponentType<IframeRendererProps> } };
     }
 }
 

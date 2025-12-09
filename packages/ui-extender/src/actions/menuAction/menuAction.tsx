@@ -323,14 +323,14 @@ export type MenuActionComponentProps = {
     /**
      * Renderer used to render the menu
      */
-    menuRenderer: React.FunctionComponent<MenuRendererProps>,
+    menuRenderer: React.ComponentType<MenuRendererProps>,
 
     actionKey: string,
 
     /**
      * Renderer used to render an item in the menu
      */
-    menuItemRenderer: React.FunctionComponent,
+    menuItemRenderer: React.ComponentType,
 
     /**
      * Should the actions of the menu be preloaded
@@ -370,12 +370,12 @@ export type MenuActionComponentProps = {
     /**
      * Render for the action button
      */
-    render: React.FunctionComponent<any>, /* eslint-disable @typescript-eslint/no-explicit-any */
+    render: React.ComponentType<any>, /* eslint-disable @typescript-eslint/no-explicit-any */
 
     /**
      * Render for the action button
      */
-    loading: React.FunctionComponent<any>,
+    loading: React.ComponentType<any>,
     /**
      * Helps determine if action is visible
      */
