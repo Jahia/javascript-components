@@ -37,7 +37,7 @@ export type ItemLoadingProps = {
 
     parentMenuContext?: MenuContext,
 
-    menuItemRenderer: React.FunctionComponent<{ onClick?: (event: React.MouseEvent) => void }>
+    menuItemRenderer: React.ComponentType<{ onClick?: (event: React.MouseEvent) => void }>
 }
 
 const ItemLoading = (props: ItemLoadingProps) => {
@@ -66,7 +66,7 @@ type MenuItemRendererProps = {
 export type ItemRenderProps = {
     context?: object,
     id: string,
-    menuItemRenderer: React.FunctionComponent<MenuItemRendererProps>,
+    menuItemRenderer: React.ComponentType<MenuItemRendererProps>,
     rootMenuContext?: MenuContext,
     parentMenuContext?: MenuContext,
     menuContext?: MenuContext

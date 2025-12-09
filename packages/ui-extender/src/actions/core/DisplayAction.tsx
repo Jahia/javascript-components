@@ -18,18 +18,18 @@ export type DisplayActionProps = {
     /**
      * The render component
      */
-    render: React.FunctionComponent<ItemRenderProps>,
+    render: React.ComponentType<ItemRenderProps>,
     /**
      * The render component
      */
-    loading?: React.FunctionComponent<ItemRenderProps>
+    loading?: React.ComponentType<ItemRenderProps>
 
     onClick?: (p: MenuProps, e: Event) => void;
 
     [key: string]: unknown
 }
 
-const getRenderWrapper = (Render: React.FunctionComponent<ItemRenderProps>): React.FunctionComponent<ItemRenderProps> => {
+const getRenderWrapper = (Render: React.ComponentType<ItemRenderProps>): React.ComponentType<ItemRenderProps> => {
     const RenderWrapper = ({context, ...otherProps}: React.PropsWithChildren<ItemRenderProps>) => (
         <Render {...context} {...otherProps}/>
     );
@@ -39,7 +39,7 @@ const getRenderWrapper = (Render: React.FunctionComponent<ItemRenderProps>): Rea
 
 class DisplayAction extends React.PureComponent<DisplayActionProps> {
     id: string;
-    RenderWrapper: React.FunctionComponent<ItemRenderProps>;
+    RenderWrapper: React.ComponentType<ItemRenderProps>;
 
     constructor(props: DisplayActionProps) {
         super(props);

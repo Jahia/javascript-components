@@ -16,11 +16,11 @@ export type DisplayActionsProps = {
     /**
      * The render component
      */
-    render: React.FunctionComponent<ItemRenderProps>,
+    render: React.ComponentType<ItemRenderProps>,
     /**
      * The render component
      */
-    loading: React.FunctionComponent<ItemLoadingProps>,
+    loading?: React.ComponentType<ItemLoadingProps>,
     /**
      * Additional filter function
      */
