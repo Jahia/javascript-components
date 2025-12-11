@@ -2,7 +2,7 @@ name: Comment PR
 on:
   pull_request_target:
     branches:
-      - main
+      - master
   workflow_dispatch: null
 permissions:
   contents: write
