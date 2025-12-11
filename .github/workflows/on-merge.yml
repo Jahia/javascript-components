@@ -43,28 +43,3 @@ jobs:
         shell: bash
         run: |
           yarn build
-
-#  publish:
-#    name: Publish Components
-#    needs: build
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v4
-#      - name: Install dependencies
-#        shell: bash
-#        run: |
-#          yarn install
-#      - name: Set env vars
-#        shell: bash
-#        run: |
-#          echo "GITHUB_TOKEN=${{ secrets.GH_API_TOKEN }}" >> $GITHUB_ENV
-#          echo "NPM_TOKEN=${{ secrets.NPMJS_PUBLISH_TOKEN  }}" >> $GITHUB_ENV
-#      - name: Authenticate with registry
-#        shell: bash
-#        run: |
-#          echo "//registry.npmjs.org/:_authToken=${{ env.NPM_TOKEN }}" > .npmrc
-#          npm set registry https://registry.npmjs.org/
-#      - name: Execute yarn publish
-#        shell: bash
-#        run: |
-#          yarn publish

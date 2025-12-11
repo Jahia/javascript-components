@@ -6,7 +6,8 @@
         "clean": "rm -rf packages/**/build/",
         "build": "yarn workspaces foreach --all --topological-dev run build",
         "lint": "eslint .",
-        "test": "yarn workspaces foreach --all --topological-dev run test"
+        "test": "yarn workspaces foreach --all --topological-dev run test",
+        "tdd": "jest --watch"
     },
     "license": "SEE LICENSE IN LICENSE.txt FILE",
     "devDependencies": {

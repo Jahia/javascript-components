@@ -46,8 +46,7 @@ or with yarn : `yarn add @jahia/package-name`.
 
 ### Getting started
 
-We are using Yarn for each project at Jahia and in this project specially the [yarn workspaces](https://yarnpkg.com/lang/en/docs/workspaces/) feature. You can install *yarn* with `npm i -g yarn`.
-It won't work with npm, please only use yarn for building.
+This monorepo uses Node and Yarn. The easiest way to install Node and Yarn is to use [mise install](https://mise.jdx.dev/).
 
 Before starting developing, you have to install dependencies:
 
@@ -82,30 +81,7 @@ Modules can also be built independently by going to packages subfolder, and use 
 
 ### Publish
 
-When you make changes to javascript-components, a new version is built and published automatically. Releases and
-publish are done thanks to [auto](https://intuit.github.io/auto/). Version are incremented according to
-[PR labels](https://intuit.github.io/auto/pages/autorc.html#labels).
-
-
-You need to provide environment variables with [GIT and NPM keys](https://intuit.github.io/auto/pages/getting-started.html#2.-environment-variables) :
-```
-GH_TOKEN=xxx
-NPM_TOKEN=xxx
-```
-They can be set in your environment or in a `.env` file.
-
-Ensure that you're logged into the Jahia organization on the *public* npm registry:
-```
-npm set registry https://registry.npmjs.org/
-npm adduser --registry https://registry.npmjs.org/
-```
-You can request an npm account for the Jahia organization from IT.
-
-Ensure that your `node_modules` are up to date for the javascript-components repo as a whole and for the specific package you want to publish.
-
-Run `yarn build`.
-
-Run `yarn publish-script` in the package that you want to publish. Be sure to stop the CircleCI build to avoid the creation of unnecessary branches, etc.
+Publication is done automatically when merging the [release PR created by Chachalog](https://github.com/GauBen/chachalog).
 
 ## Author
 
