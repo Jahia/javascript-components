@@ -1,0 +1,29 @@
+name: Release
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: null
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  prepare-next-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - run: npx chachalog@0.4 prepare-next-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  publish-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: jdx/mise-action@v3
+      - name: Build and publish
+        run: |
+          yarn install && yarn build
+          yarn workspaces foreach -Avv --no-private npm publish --access public --tolerate-republish
+      - run: npx chachalog@0.4 publish-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

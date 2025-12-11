@@ -1811,6 +1811,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@chachalog/types@npm:^0.4.2":
+  version: 0.4.2
+  resolution: "@chachalog/types@npm:0.4.2"
+  checksum: 10c0/c1f570ec928d7ea57f391fb9666549959c9ef56c8af44508f4ea91e3c6e0642195a465384e9b081d84b26659613844e12d27a396718cd6b28f90333c09db59ab
+  languageName: node
+  linkType: hard
+
 "@colors/colors@npm:1.5.0":
   version: 1.5.0
   resolution: "@colors/colors@npm:1.5.0"
@@ -2201,6 +2208,7 @@ __metadata:
     "@babel/preset-env": "npm:^7.21.5"
     "@babel/preset-react": "npm:^7.0.0"
     "@babel/preset-typescript": "npm:^7.21.5"
+    "@chachalog/types": "npm:^0.4.2"
     "@storybook/addon-actions": "npm:^6.5.12"
     "@storybook/addon-knobs": "npm:^6.4.0"
     "@storybook/addons": "npm:^6.5.12"

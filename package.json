@@ -20,6 +20,7 @@
         "@babel/preset-env": "^7.21.5",
         "@babel/preset-react": "^7.0.0",
         "@babel/preset-typescript": "^7.21.5",
+        "@chachalog/types": "^0.4.2",
         "@storybook/addon-actions": "^6.5.12",
         "@storybook/addon-knobs": "^6.4.0",
         "@storybook/addons": "^6.5.12",
