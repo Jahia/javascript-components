@@ -68,7 +68,8 @@
     },
     "resolutions": {
         "trim": "^1.0.0",
-        "glob-parent": "^5.1.2"
+        "glob-parent": "^5.1.2",
+        "node-fetch@npm:^1.0.1": "^2.7.0"
     },
     "workspaces": [
         "packages/*"
