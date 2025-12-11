@@ -71,7 +71,6 @@
     },
     "resolutions": {
         "trim": "^1.0.0",
-        "**/recompose/**/node-fetch": "^2.6.7",
         "glob-parent": "^5.1.2"
     },
     "workspaces": [
