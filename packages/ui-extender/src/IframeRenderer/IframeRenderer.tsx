@@ -1,9 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 declare global {
     interface Window {
-        jahia: { ui: { IframeRenderer: React.FunctionComponent<IframeRendererProps> } };
+        jahia: { ui: { IframeRenderer: React.ComponentType<IframeRendererProps> } };
     }
 }
 
@@ -21,7 +20,3 @@ export const IframeRenderer = (props:IframeRendererProps) => {
 };
 
 export const getIframeRenderer = (url: string) => <IframeRenderer url={url}/>;
-
-IframeRenderer.propTypes = {
-    url: PropTypes.string.isRequired
-};

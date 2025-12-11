@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 
 export const Modal = ({context, onExited}) => (
@@ -35,8 +34,3 @@ export const Modal = ({context, onExited}) => (
         </div>
     </>
 );
-
-Modal.propTypes = {
-    context: PropTypes.object.isRequired,
-    onExited: PropTypes.func.isRequired
-};

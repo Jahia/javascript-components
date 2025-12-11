@@ -1,11 +1,10 @@
 import React from 'react';
 import {DisplayActions} from '../core/DisplayActions';
-import {registry} from '../../registry';
+import {registry, ComponentRendererProvider} from '../..';
 import {componentRendererAction} from './componentRenderAction';
 import {Modal} from '../samples/Modal';
 import {ButtonRenderer} from '../samples/ButtonRenderer';
 import {mount} from 'enzyme';
-import {ComponentRendererProvider} from '../../ComponentRenderer';
 
 describe('DisplayActions', () => {
     beforeEach(() => {

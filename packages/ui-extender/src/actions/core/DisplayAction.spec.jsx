@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {DisplayAction} from './DisplayAction';
-import {registry} from '../../registry';
+import {registry} from '../..';
 import {mount} from 'enzyme';
 import {ButtonRenderer} from '../samples/ButtonRenderer';
 import {LinkRenderer} from '../samples/LinkRenderer';
-import PropTypes from 'prop-types';
 import {act} from 'react-dom/test-utils';
 
 describe('DisplayAction', () => {
@@ -161,10 +160,6 @@ describe('DisplayAction', () => {
             <Render {...props} onClick={fn1}/>
         );
 
-        TestComponent1.propTypes = {
-            render: PropTypes.func.isRequired
-        };
-
         registry.addOrReplace('action', 'component-1', {
             label: 'component 1',
             component: TestComponent1
@@ -185,18 +180,9 @@ describe('DisplayAction', () => {
             <Render {...props} onClick={fn1}/>
         );
 
-        TestComponent1.propTypes = {
-            render: PropTypes.func.isRequired
-        };
-
         const TestComponent2 = ({render, label, ...props}, refOrContext, Previous) => (
             <Previous extended render={render} label={label + ' overriden'} {...props}/>
         );
-
-        TestComponent2.propTypes = {
-            label: PropTypes.string.isRequired,
-            render: PropTypes.func.isRequired
-        };
 
         const base = registry.addOrReplace('action', 'base', {
             component: TestComponent1
@@ -250,11 +236,6 @@ describe('DisplayAction', () => {
             );
         };
 
-        AsyncComponent.propTypes = {
-            label: PropTypes.string.isRequired,
-            render: PropTypes.func.isRequired
-        };
-
         registry.addOrReplace('action', 'async', {
             label: 'async',
             component: AsyncComponent
@@ -285,12 +266,6 @@ describe('DisplayAction', () => {
                 {...props}
                 onClick={fn1}/>
         ));
-
-        SpawnActionsComponent.propTypes = {
-            label: PropTypes.string.isRequired,
-            names: PropTypes.arrayOf(PropTypes.string).isRequired,
-            render: PropTypes.func.isRequired
-        };
 
         registry.addOrReplace('action', 'spawn', {
             label: 'child action',

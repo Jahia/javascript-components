@@ -1,6 +1,6 @@
 import React, {Reducer, useEffect, useMemo, useReducer, useRef} from 'react';
 import ReactDOM from 'react-dom';
-import {DisplayActions} from '../core';
+import {DisplayActions} from '../core/DisplayActions';
 
 export declare type AnchorPosition = {
     top: number;
@@ -27,17 +27,18 @@ type MenuContext = {
 
     dispatch: (action: ActionType) => void
 
-    display: (currentCtx: object, anchor: Anchor) => void
+    display: (currentCtx: object | null, anchor: Anchor) => void
 }
 
-type ItemLoadingProps = {
+export type ItemLoadingProps = {
     id: string,
 
+    // Legacy bag of props
     context?: object,
 
-    parentMenuContext?: MenuContext,
+    parentMenuContext: MenuContext,
 
-    menuItemRenderer?: React.FunctionComponent<{ onClick: () => void }>
+    menuItemRenderer: React.ComponentType<{ onClick?: (event: React.MouseEvent) => void }>
 }
 
 const ItemLoading = (props: ItemLoadingProps) => {
@@ -63,13 +64,13 @@ type MenuItemRendererProps = {
     onMouseLeave?: (event: React.MouseEvent) => void
 }
 
-type ItemRenderProps = {
+export type ItemRenderProps = {
     context?: object,
     id: string,
-    menuItemRenderer?: React.FunctionComponent<MenuItemRendererProps>,
-    rootMenuContext?: MenuContext,
-    parentMenuContext?: MenuContext,
-    menuContext?: MenuContext
+    menuItemRenderer: React.ComponentType<MenuItemRendererProps>,
+    rootMenuContext: MenuContext,
+    parentMenuContext: MenuContext,
+    menuContext: MenuContext
     menuState?: MenuState,
     onClick?: (props: ItemRenderProps, event: React.MouseEvent) => void,
     isVisible?: boolean
@@ -87,7 +88,7 @@ const ItemRender = (props: ItemRenderProps) => {
         isVisible
     } = {...props.context, ...props};
     useEffect(() => {
-        parentMenuContext.dispatch({type: 'loaded', item: id, isVisible});
+        parentMenuContext.dispatch({type: 'loaded', item: id, isVisible: isVisible !== false});
     });
 
     // Values for menuContext / menuState are set only if this item is a submenu item.
@@ -139,8 +140,8 @@ const ItemRender = (props: ItemRenderProps) => {
 export type MenuProps = {
     id: string,
     actionKey: string,
-    menuRenderer?: React.FunctionComponent<MenuRendererProps>,
-    menuItemRenderer?: React.FunctionComponent<MenuItemRendererProps>,
+    menuRenderer: React.ComponentType<MenuRendererProps>,
+    menuItemRenderer: React.ComponentType<MenuItemRendererProps>,
     menuItemProps?: object,
     isMenuPreload?: boolean,
     menuTarget: string,
@@ -148,10 +149,10 @@ export type MenuProps = {
     isMenuUseEventPosition?: boolean,
     buttonIcon?: React.ReactElement,
     originalContext?: object,
-    rootMenuContext?: MenuContext,
-    parentMenuContext?: MenuContext,
+    rootMenuContext: MenuContext,
+    parentMenuContext: MenuContext,
     menuContext: MenuContext,
-    menuState?: MenuState
+    menuState: MenuState
 }
 
 export type MenuRendererProps = {
@@ -242,15 +243,15 @@ type MenuState = {
     isOpen: boolean,
     isInMenu: boolean,
     isSubMenu: boolean,
-    subMenuContext?: MenuContext,
+    subMenuContext?: MenuContext | null,
     loadingItems: string[],
     loadedItems: string[]
 }
 
 type ActionType =
-    { type: 'render', currentCtx: object } | { type: 'destroy' } |
+    { type: 'render', currentCtx: object | null } | { type: 'destroy' } |
     { type: 'open', anchor: Anchor } | { type: 'close' } | { type: 'leaveItem' } |
-    { type: 'enterMenu' } | { type: 'leaveMenu' } | { type: 'setSubMenuContext', value: MenuContext } |
+    { type: 'enterMenu' } | { type: 'leaveMenu' } | { type: 'setSubMenuContext', value: MenuContext | null } |
     { type: 'loading', item: string } | { type: 'loaded', item: string, isVisible: boolean };
 
 type ReducerType = (state: MenuState, action: ActionType) => MenuState;
@@ -289,7 +290,7 @@ const reducer: ReducerType = (state, action) => {
 
             if (state.subMenuContext && state.subMenuContext !== action.value) {
                 setTimeout(() => {
-                    state.subMenuContext.dispatch({type: 'close'});
+                    state.subMenuContext?.dispatch({type: 'close'});
                 }, 0);
             }
 
@@ -322,14 +323,14 @@ export type MenuActionComponentProps = {
     /**
      * Renderer used to render the menu
      */
-    menuRenderer?: React.FunctionComponent,
+    menuRenderer: React.ComponentType<MenuRendererProps>,
 
     actionKey: string,
 
     /**
      * Renderer used to render an item in the menu
      */
-    menuItemRenderer?: React.FunctionComponent,
+    menuItemRenderer: React.ComponentType,
 
     /**
      * Should the actions of the menu be preloaded
@@ -359,22 +360,22 @@ export type MenuActionComponentProps = {
     /**
      * Root menu context, if sub menu (internal)
      */
-    rootMenuContext?: MenuContext,
+    rootMenuContext: MenuContext,
 
     /**
      * Parent menu context, if sub menu (internal)
      */
-    parentMenuContext?: MenuContext,
+    parentMenuContext: MenuContext,
 
     /**
      * Render for the action button
      */
-    render: React.FunctionComponent<any>, /* eslint-disable @typescript-eslint/no-explicit-any */
+    render: React.ComponentType<any>, /* eslint-disable @typescript-eslint/no-explicit-any */
 
     /**
      * Render for the action button
      */
-    loading: React.FunctionComponent<any>, /* eslint-disable @typescript-eslint/no-explicit-any */
+    loading: React.ComponentType<any>,
     /**
      * Helps determine if action is visible
      */
@@ -420,7 +421,7 @@ const MenuActionComponent = (props: MenuActionComponentProps) => {
     const menuContext: MenuContext = useMemo(() => ({
         id,
         dispatch,
-        display(currentCtx: object, anchor: Anchor) {
+        display(currentCtx: object | null, anchor: Anchor) {
             dispatch({type: 'render', currentCtx});
             // If there's a parent, set the current context as submenu. Previous value should be null
             if (parentMenuContext) {

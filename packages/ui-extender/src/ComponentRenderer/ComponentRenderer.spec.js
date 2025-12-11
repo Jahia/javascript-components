@@ -1,14 +1,9 @@
 import React, {useContext} from 'react';
 import {mount} from 'enzyme';
 import {ComponentRendererProvider} from './ComponentRendererProvider';
-import PropTypes from 'prop-types';
 import {ComponentRendererContext} from './ComponentRendererContext';
 
 const RenderedComponent = ({label}) => <div className="component">{label}</div>;
-
-RenderedComponent.propTypes = {
-    label: PropTypes.string
-};
 
 const Render = () => {
     const renderer = useContext(ComponentRendererContext);

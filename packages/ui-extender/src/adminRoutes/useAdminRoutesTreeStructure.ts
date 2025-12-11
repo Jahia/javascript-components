@@ -1,8 +1,8 @@
 import {useMemo} from 'react';
-import {registry} from '~/registry';
-import {getIframeRenderer} from '~/IframeRenderer';
+import {registry} from '../registry/registry';
+import {getIframeRenderer} from '../IframeRenderer/IframeRenderer';
 import {Tree, TreeData} from './Tree';
-import {StoredService} from '~/registry/service';
+import {StoredService} from '../registry/service';
 
 export const useAdminRouteTreeStructure = function (target: string, selected: string) {
     const result = useMemo(() => {
@@ -41,9 +41,9 @@ export const useAdminRouteTreeStructure = function (target: string, selected: st
     const defaultOpenedItems: string[] = [];
 
     if (selected) {
-        let selectedItem = registry.get('adminRoute', selected);
+        let selectedItem: StoredService | null = registry.get('adminRoute', selected);
         while (selectedItem) {
-            const parentTarget = selectedItem.targets.find(t => t.id.startsWith(target + '-'));
+            const parentTarget = selectedItem.targets?.find(t => t.id.startsWith(target + '-'));
             if (parentTarget) {
                 const parent = parentTarget.id.substr(target.length + 1);
                 defaultOpenedItems.push(parent);
