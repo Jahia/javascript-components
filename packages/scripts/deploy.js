@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-console.log("⚠ Deprecated ⚠ : Please deploy with 'jahia-deploy' provided by @jahia/javascript-modules-library.")
+console.log('⚠ Deprecated ⚠ : Please deploy with \'jahia-deploy\' provided by @jahia/vite-plugin.');
 
 require('dotenv').config();
 const {execSync} = require('child_process');

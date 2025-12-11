@@ -20,9 +20,9 @@ async function build() {
         return name.replace(/[@_-]/g, '').replace(/\//, '.');
     }
 
-    let baseName = 'build/lib' + json.name.substr(json.name.indexOf('/'));
+    const baseName = 'build/lib' + json.name.substr(json.name.indexOf('/'));
 
-    let output = {
+    const output = {
         file: baseName + '.umd.js',
         format: 'umd',
         name: getName(json.name),
