@@ -1,9 +1,6 @@
 {
   "name": "@jahia/eslint-config",
   "version": "2.1.2",
-  "scripts": {
-    "publish-script": "jahia-publish"
-  },
   "description": "ESLint shareable config for Jahia project",
   "main": "index.js",
   "license": "MIT",
