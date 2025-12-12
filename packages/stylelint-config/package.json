@@ -1,6 +1,6 @@
 {
   "name": "@jahia/stylelint-config",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Stylelint shareable config for Jahia projects",
   "main": "index.js",
   "license": "MIT",

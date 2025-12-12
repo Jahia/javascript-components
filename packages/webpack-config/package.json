@@ -1,6 +1,6 @@
 {
   "name": "@jahia/webpack-config",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "scripts": {
     "test": "run --top-level jest --coverage"
   },
