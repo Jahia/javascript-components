@@ -6,6 +6,8 @@ import yarn from "chachalog/yarn";
 
 export default defineConfig(() => ({
   allowedBumps: ["patch", "minor", "major"],
-  platform: github(),
+  platform: github({
+    base: "master",
+  }),
   managers: yarn(),
 }));
