@@ -1,6 +1,6 @@
 {
   "name": "@jahia/ui-extender",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "scripts": {
     "build": "tsc && yarn node ./build.mjs",
     "test": "run --top-level jest --coverage"
