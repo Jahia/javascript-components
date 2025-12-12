@@ -4,6 +4,10 @@
   "description": "Stylelint shareable config for Jahia projects",
   "main": "index.js",
   "license": "MIT",
+  "repository": {
+    "url": "https://github.com/Jahia/javascript-components",
+    "directory": "packages/stylelint-config"
+  },
   "peerDependencies": {
     "stylelint": "^13.0.0"
   },

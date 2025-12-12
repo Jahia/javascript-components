@@ -4,6 +4,10 @@
   "description": "ESLint shareable config for Jahia project",
   "main": "index.js",
   "license": "MIT",
+  "repository": {
+    "url": "https://github.com/Jahia/javascript-components",
+    "directory": "packages/eslint-config"
+  },
   "peerDependencies": {
     "eslint": ">= 5.15.1",
     "eslint-plugin-import": ">=2.25.2",

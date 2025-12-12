@@ -7,6 +7,10 @@
   "description": "Webpack shareable config for Jahia project",
   "main": "index.js",
   "license": "MIT",
+  "repository": {
+    "url": "https://github.com/Jahia/javascript-components",
+    "directory": "packages/webpack-config"
+  },
   "dependencies": {
     "camelcase": "5",
     "semver": "^7.4.0"
