@@ -7,6 +7,10 @@
   "description": "This Jahia test-framework for React Apps",
   "main": "index.js",
   "license": "MIT",
+  "repository": {
+    "url": "https://github.com/Jahia/javascript-components",
+    "directory": "packages/test-framework"
+  },
   "files": [
     "./build",
     "./index.js"

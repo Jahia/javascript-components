@@ -11,6 +11,10 @@
   "browser": "lib/react-apollo.umd.min.js",
   "sideEffects": false,
   "license": "SEE LICENSE IN ../../LICENSE.txt FILE",
+  "repository": {
+    "url": "https://github.com/Jahia/javascript-components",
+    "directory": "packages/data-helper"
+  },
   "dependencies": {
     "@apollo/client": "^3.7.14",
     "fast-deep-equal": "^3.1.1",
