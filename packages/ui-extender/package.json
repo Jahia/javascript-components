@@ -5,6 +5,10 @@
     "build": "tsc && yarn node ./build.mjs",
     "test": "run --top-level jest --coverage"
   },
+  "repository": {
+    "url": "https://github.com/Jahia/javascript-components",
+    "directory": "packages/ui-extender"
+  },
   "main": "dist/js/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
