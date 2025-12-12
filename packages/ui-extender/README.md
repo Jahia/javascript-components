@@ -21,6 +21,8 @@ yarn add @jahia/ui-extender
 
 The documentation will be uploaded soon. Impatient ? You can download this project and run `yarn storybook`.
 
+The package now correctly exposes types for Typescript.
+
 ## How it work ?
 
 ![UI-extender architecture](./doc/ui-extender-architecture.svg)
