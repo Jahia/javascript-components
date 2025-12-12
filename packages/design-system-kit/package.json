@@ -5,14 +5,11 @@
     "babel:js": "jahia-babel-js",
     "babel:module": "jahia-babel-module",
     "react2dts": "jahia-react2dts",
-    "publish-script": "jahia-publish",
     "prepare-build": "jahia-prepare-build",
     "build": "jahia-build",
     "build-umd": "jahia-build-umd",
     "storybook": "start-storybook",
-    "lint": "eslint --ext js,jsx src",
-    "lint:fix": "yarn lint --fix",
-    "test": "jest --coverage"
+    "test": "run --top-level jest --coverage"
   },
   "main": "js/index.js",
   "module": "esm/index.js",
@@ -30,5 +27,8 @@
     "lodash": "^4.17.13",
     "prop-types": "^15.6.2",
     "react-number-format": "^4.2.0"
+  },
+  "devDependencies": {
+    "@jahia/scripts": "workspace:"
   }
 }

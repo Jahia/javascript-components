@@ -4,11 +4,9 @@
     "version": "1.0.0",
     "scripts": {
         "clean": "rm -rf packages/**/build/",
-        "build": "lerna run build",
-        "publish": "lerna --concurrency 1 run publish-script",
-        "lint": "lerna run lint",
-        "lint:fix": "lerna run lint:fix",
-        "test": "lerna --scope @jahia/test-framework run build && lerna run test",
+        "build": "yarn workspaces foreach --all --topological-dev run build",
+        "lint": "eslint .",
+        "test": "yarn workspaces foreach --all --topological-dev run test",
         "tdd": "jest --watch"
     },
     "license": "SEE LICENSE IN LICENSE.txt FILE",
@@ -23,6 +21,7 @@
         "@babel/preset-env": "^7.21.5",
         "@babel/preset-react": "^7.0.0",
         "@babel/preset-typescript": "^7.21.5",
+        "@chachalog/types": "^0.4.2",
         "@storybook/addon-actions": "^6.5.12",
         "@storybook/addon-knobs": "^6.4.0",
         "@storybook/addons": "^6.5.12",
@@ -36,7 +35,6 @@
         "@types/react-dom": "^16",
         "@typescript-eslint/eslint-plugin": "^5.59.2",
         "@typescript-eslint/parser": "^5.59.2",
-        "auto": "^11.3.0",
         "babel-eslint": "^10.0.1",
         "babel-jest": "^29.5.0",
         "babel-loader": "^9.1.2",
@@ -58,7 +56,6 @@
         "eslint-plugin-react-hooks": "^4.6.0",
         "jest": "^29.7",
         "jest-environment-jsdom": "^29.7",
-        "lerna": "^8.2.2",
         "postcss-cssnext": "^3.1.1",
         "postcss-each": "^0.10.0",
         "postcss-import": "^11.0.0",
@@ -71,11 +68,11 @@
     },
     "resolutions": {
         "trim": "^1.0.0",
-        "**/recompose/**/node-fetch": "^2.6.7",
-        "glob-parent": "^5.1.2"
+        "glob-parent": "^5.1.2",
+        "node-fetch@npm:^1.0.1": "^2.7.0"
     },
     "workspaces": [
         "packages/*"
     ],
-    "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+    "packageManager": "yarn@4.12.0"
 }

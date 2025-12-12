@@ -4,9 +4,9 @@ Object.defineProperty(exports, '__esModule', {
     value: true
 });
 
-var _build = require('./build/js');
+const _build = require('./build/js');
 
-Object.keys(_build).forEach(function (key) {
+Object.keys(_build).forEach(key => {
     if (key === 'default' || key === '__esModule') {
         return;
     }

@@ -10,10 +10,10 @@ const IMPORTS_TO_ADD = 'importsToAdd';
 module.exports = () => ({
     visitor: {
         Program: {
-            enter: (path, {file}) => {
+            enter(path, {file}) {
                 file.set(IMPORTS_TO_ADD, []);
             },
-            exit: (path, {file}) => {
+            exit(path, {file}) {
                 const imports = file
                     .get(IMPORTS_TO_ADD)
                     .concat()
@@ -25,7 +25,7 @@ module.exports = () => ({
             }
         },
         Import: {
-            enter: (path, {file}) => {
+            enter(path, {file}) {
                 const moduleName = path.container.arguments[0].extra.rawValue;
 
                 const importsToAdd = file.get(IMPORTS_TO_ADD);

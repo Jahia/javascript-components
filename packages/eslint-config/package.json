@@ -1,16 +1,13 @@
 {
   "name": "@jahia/eslint-config",
   "version": "2.1.2",
-  "scripts": {
-    "publish-script": "jahia-publish"
-  },
   "description": "ESLint shareable config for Jahia project",
   "main": "index.js",
   "license": "MIT",
   "peerDependencies": {
     "eslint": ">= 5.15.1",
     "eslint-plugin-import": ">=2.25.2",
-    "eslint-plugin-jest": "=>27.2.1",
+    "eslint-plugin-jest": ">=27.2.1",
     "eslint-plugin-n": ">=15.0.0",
     "eslint-plugin-promise": ">=6.0.0",
     "eslint-plugin-react": ">=7.32.2",
