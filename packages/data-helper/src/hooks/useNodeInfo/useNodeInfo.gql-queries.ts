@@ -17,9 +17,9 @@ import {
     primaryNodeType,
     replaceFragmentsInDocument,
     siteLanguages
-} from '../../fragments';
-import {getPermissionFragment, getSitePermissionFragment} from '../../fragments/getPermissionFragment';
-import {getNodeTypeFragment} from '../../fragments/getIsNodeTypeFragment';
+} from '~/fragments';
+import {getPermissionFragment, getSitePermissionFragment} from '~/fragments/getPermissionFragment';
+import {getNodeTypeFragment} from '~/fragments/getIsNodeTypeFragment';
 import {DocumentNode} from 'graphql';
 import {getSubNodesCountFragment} from '~/fragments/getSubNodesCountFragment';
 
@@ -165,17 +165,25 @@ export const validOptions = [
     'applyFragment'
 ];
 
+export const validateQuery = (variables: {[key:string]: any}, options: NodeInfoOptions = {}) => {
+    const requiresLanguage = ['getDisplayName', 'getAggregatedPublicationInfo', 'getProperties'] as const;
+    const missingLanguageOptions = requiresLanguage
+        .filter(attr => Boolean(options[attr as keyof NodeInfoOptions]));
+    if (missingLanguageOptions.length > 0 && !variables.language) {
+        const msg = `language is required for useNodeInfo options ${missingLanguageOptions.join(',')}`;
+        throw new Error(msg);
+    }
+};
+
 export const getQuery = (variables: {[key:string]: any}, options: NodeInfoOptions = {}) => {
     const fragments = [];
 
     const {baseQuery, generatedVariables, skip} = getBaseQueryAndVariables(variables);
 
     if (!skip) {
+        validateQuery(variables, options);
         if (options.getDisplayName) {
             fragments.push(displayName);
-            if (!variables.language) {
-                throw Error('language is required');
-            }
 
             generatedVariables.language = variables.language;
         }
@@ -197,9 +205,6 @@ export const getQuery = (variables: {[key:string]: any}, options: NodeInfoOption
 
         if (options.getAggregatedPublicationInfo) {
             fragments.push(aggregatedPublicationInfo);
-            if (!variables.language) {
-                throw Error('language is required');
-            }
 
             generatedVariables.language = variables.language;
             generatedVariables.aggregatedPublicationInfoSubNodes = Boolean(options.getAggregatedPublicationInfo.subNodes);
@@ -237,10 +242,6 @@ export const getQuery = (variables: {[key:string]: any}, options: NodeInfoOption
         if (options.getProperties) {
             fragments.push(getProperties);
             generatedVariables.getPropertiesNames = options.getProperties;
-
-            if (!variables.language) {
-                throw Error('language is required');
-            }
 
             generatedVariables.language = variables.language;
         }
