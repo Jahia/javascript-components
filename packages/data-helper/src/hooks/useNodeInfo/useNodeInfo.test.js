@@ -67,6 +67,7 @@ jest.mock('./useNodeInfo.gql-queries', () => {
     const original = jest.requireActual('./useNodeInfo.gql-queries');
     return {
         getQuery: jest.fn(original.getQuery),
+        validateQuery: original.validateQuery,
         validOptions: original.validOptions
     };
 });
@@ -126,8 +127,14 @@ describe('useNodeInfo', () => {
         expect(result.value.query.definitions.find(d => d.name.value === 'NodePermission_permission_encoded_Y2FuV3JpdGU').selectionSet.selections.map(m => m.alias.value)).toContain('permission_encoded_Y2FuV3JpdGU');
     });
 
-    it('should throw an error if a variable is missing', () => {
-        expect(() => useNodeInfo({path: '/test'}, {getDisplayName: true})).toThrow();
+    it('should return an error if a variable is missing', () => {
+        const setStateMock = jest.fn();
+        const useStateMock = useState => [useState, setStateMock];
+        jest.spyOn(React, 'useState').mockImplementation(useStateMock);
+        const result = useNodeInfo({path: '/test'}, {getDisplayName: true});
+        expect(result.error).toBeDefined();
+        expect(result.error.message).toContain('language is required');
+        expect(result.loading).toBe(false);
     });
 
     it('should request site permissions', async () => {
@@ -261,5 +268,35 @@ describe('useNodeInfo', () => {
         expect(setStateMock.mock.calls[0][0].node).toBeDefined();
         expect(setStateMock.mock.calls[0][0].variables).toBeDefined();
         expect(setStateMock.mock.calls[0][0].variables.paths).toBe(paths);
+    });
+
+    it('should return error when getDisplayName is used without language', () => {
+        const setStateMock = jest.fn();
+        const useStateMock = useState => [useState, setStateMock];
+        jest.spyOn(React, 'useState').mockImplementation(useStateMock);
+        const result = useNodeInfo({path: '/test'}, {getDisplayName: true});
+        expect(result.error).toBeDefined();
+        expect(result.error.message).toContain('language is required for useNodeInfo options');
+        expect(result.loading).toBe(false);
+    });
+
+    it('should return error when getAggregatedPublicationInfo is used without language', () => {
+        const setStateMock = jest.fn();
+        const useStateMock = useState => [useState, setStateMock];
+        jest.spyOn(React, 'useState').mockImplementation(useStateMock);
+        const result = useNodeInfo({path: '/test'}, {getAggregatedPublicationInfo: true});
+        expect(result.error).toBeDefined();
+        expect(result.error.message).toContain('language is required for useNodeInfo options');
+        expect(result.loading).toBe(false);
+    });
+
+    it('should return error when getProperties is used without language', () => {
+        const setStateMock = jest.fn();
+        const useStateMock = useState => [useState, setStateMock];
+        jest.spyOn(React, 'useState').mockImplementation(useStateMock);
+        const result = useNodeInfo({path: '/test'}, {getProperties: ['propA']});
+        expect(result.error).toBeDefined();
+        expect(result.error.message).toContain('language is required for useNodeInfo options');
+        expect(result.loading).toBe(false);
     });
 });

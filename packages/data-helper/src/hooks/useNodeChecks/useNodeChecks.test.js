@@ -67,6 +67,7 @@ jest.mock('../useNodeInfo/useNodeInfo.gql-queries', () => {
     const original = jest.requireActual('../useNodeInfo/useNodeInfo.gql-queries');
     return {
         getQuery: jest.fn(original.getQuery),
+        validateQuery: jest.fn(original.validateQuery),
         validOptions: original.validOptions
     };
 });

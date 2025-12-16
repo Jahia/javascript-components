@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {ApolloClient, ApolloError, NetworkStatus, useApolloClient, WatchQueryOptions} from '@apollo/client';
-import {getQuery, NodeInfoOptions} from './useNodeInfo.gql-queries';
+import {getQuery, NodeInfoOptions, validateQuery} from './useNodeInfo.gql-queries';
 import {getEncodedPermissionName} from '../../fragments/getPermissionFragment';
 import {getEncodedNodeTypeName} from '../../fragments/getIsNodeTypeFragment';
 import {isSubset, merge} from './useNodeInfo.utils';
@@ -95,6 +95,7 @@ const timeoutHandler = (client: ApolloClient<object>) => {
                     error
                 });
             });
+            return;
         }
 
         if (skip) {
@@ -132,16 +133,35 @@ export const useNodeInfo = (variables: {[key:string]: unknown}, options?: NodeIn
 
     const client = useApolloClient();
 
+    // We do pre-error checks from getQuery and fail faster.
+    // This makes issues easier to trace before requests are queued and merged, which is harder to debug.
+    let validationError: ApolloError | null = null;
+    try {
+        validateQuery(variables, options);
+    } catch (e) {
+        console.error(e);
+        validationError = {message: e.message} as ApolloError;
+    }
+
     // Normalize and memoize request
     const [currentRequest, queryHasChanged] = useMemoRequest(variables, queryOptions, options, setResult);
     useEffect(() => {
+        if (validationError) {
+            return;
+        }
+
         queue.push(currentRequest);
         scheduleQueue(client);
 
         return () => {
             queue.splice(queue.indexOf(currentRequest), 1);
         };
-    }, [client, currentRequest]);
+    }, [client, currentRequest, validationError]);
+
+    // Return early with error if validation failed
+    if (validationError) {
+        return {loading: false, error: validationError};
+    }
 
     if (queryHasChanged && queryOptions?.fetchPolicy !== 'no-cache' && queryOptions?.fetchPolicy !== 'network-only') {
         let infoQuery;
