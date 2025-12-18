@@ -6,7 +6,7 @@ import {getEncodedNodeTypeName} from '../../fragments/getIsNodeTypeFragment';
 import {isSubset, merge} from './useNodeInfo.utils';
 import {useMemoRequest} from './useMemoRequest';
 import deepEquals from 'fast-deep-equal';
-import {DocumentNode, GraphQLError} from 'graphql';
+import {DocumentNode, GraphQLFormattedError} from 'graphql';
 import {getEncodedSubNodesCountName} from '../../fragments/getSubNodesCountFragment';
 
 export type Request = {
@@ -25,7 +25,7 @@ export type MergedRequest = Request & { originals: QueuedRequest[] };
 export type NodeInfoResult = {
     node?: any,
     nodes?: any[],
-    errors?: readonly GraphQLError[],
+    errors?: readonly GraphQLFormattedError[],
     error?: ApolloError,
     loading?: boolean,
     networkStatus?: NetworkStatus,
