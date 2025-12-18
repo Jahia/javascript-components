@@ -106,6 +106,7 @@ export default function jahiaFederationPlugin(
         ckeditor5: "window:appShell.remotes.ckeditor5",
         ...options.remotes,
       },
+      // Resolves to the build output of ./federation-window-plugin.ts
       runtimePlugins: [pkg.name + "/federation-window-plugin", ...(options.runtimePlugins ?? [])],
     }),
   ];
