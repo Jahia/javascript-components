@@ -6,7 +6,7 @@ import {ItemRenderProps} from '../menuAction/menuAction';
 
 let count = 0;
 
-export type DisplayActionProps = {
+export type DisplayActionProps = Readonly<{
     /**
      * The key of the action to display
      */
@@ -27,7 +27,7 @@ export type DisplayActionProps = {
     onClick?: (p: MenuProps, e: Event) => void;
 
     [key: string]: unknown
-}
+}>
 
 const getRenderWrapper = (Render: React.ComponentType<ItemRenderProps>): React.ComponentType<ItemRenderProps> => {
     const RenderWrapper = ({context, ...otherProps}: React.PropsWithChildren<ItemRenderProps>) => (

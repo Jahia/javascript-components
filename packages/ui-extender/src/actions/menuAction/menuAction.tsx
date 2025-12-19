@@ -30,7 +30,7 @@ type MenuContext = {
     display: (currentCtx: object | null, anchor: Anchor) => void
 }
 
-export type ItemLoadingProps = {
+export type ItemLoadingProps = Readonly<{
     id: string,
 
     // Legacy bag of props
@@ -39,7 +39,7 @@ export type ItemLoadingProps = {
     parentMenuContext: MenuContext,
 
     menuItemRenderer: React.ComponentType<{ onClick?: (event: React.MouseEvent) => void }>
-}
+}>
 
 const ItemLoading = (props: ItemLoadingProps) => {
     const {id, parentMenuContext, menuItemRenderer: MenuItemRenderer} = {...props.context, ...props};
@@ -64,7 +64,7 @@ type MenuItemRendererProps = {
     onMouseLeave?: (event: React.MouseEvent) => void
 }
 
-export type ItemRenderProps = {
+export type ItemRenderProps = Readonly<{
     context?: object,
     id: string,
     menuItemRenderer: React.ComponentType<MenuItemRendererProps>,
@@ -74,7 +74,7 @@ export type ItemRenderProps = {
     menuState?: MenuState,
     onClick?: (props: ItemRenderProps, event: React.MouseEvent) => void,
     isVisible?: boolean
-};
+}>;
 
 const ItemRender = (props: ItemRenderProps) => {
     const {
@@ -137,7 +137,7 @@ const ItemRender = (props: ItemRenderProps) => {
     );
 };
 
-export type MenuProps = {
+export type MenuProps = Readonly<{
     id: string,
     actionKey: string,
     menuRenderer: React.ComponentType<MenuRendererProps>,
@@ -153,7 +153,7 @@ export type MenuProps = {
     parentMenuContext: MenuContext,
     menuContext: MenuContext,
     menuState: MenuState
-}
+}>
 
 export type MenuRendererProps = {
     id: string,
@@ -314,7 +314,7 @@ const reducer: ReducerType = (state, action) => {
     }
 };
 
-export type MenuActionComponentProps = {
+export type MenuActionComponentProps = Readonly<{
     /**
      * Action unique id
      */
@@ -380,7 +380,7 @@ export type MenuActionComponentProps = {
      * Helps determine if action is visible
      */
     visibilityPredicate?: (state: MenuState) => boolean
-}
+}>
 
 const MenuActionComponent = (props: MenuActionComponentProps) => {
     const {

@@ -2,11 +2,11 @@ import React from 'react';
 import {DisplayAction} from '../core/DisplayAction';
 import {MenuProps} from '../menuAction/menuAction';
 
-export type ContextualMenuProps = {
+export type ContextualMenuProps = Readonly<{
     setOpenRef: React.MutableRefObject<(e: React.MouseEvent, newProps: MenuProps) => void>,
     loading?: React.FunctionComponent<object>,
     actionKey: string
-};
+}>;
 
 export class ContextualMenu extends React.Component<ContextualMenuProps> {
     onClickRef: React.MutableRefObject<((p: MenuProps, e: React.MouseEvent) => void) | null | undefined>;
