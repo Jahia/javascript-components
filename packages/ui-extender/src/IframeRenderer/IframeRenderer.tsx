@@ -6,9 +6,9 @@ declare global {
     }
 }
 
-export type IframeRendererProps = {
+export type IframeRendererProps = Readonly<{
     url: string
-}
+}>
 
 export const IframeRenderer = (props:IframeRendererProps) => {
     const IframeRendererComp = window?.jahia?.ui?.IframeRenderer;

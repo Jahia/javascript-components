@@ -4,7 +4,7 @@ import {DisplayAction} from './DisplayAction';
 import {StoredService} from '../../registry/service';
 import {ItemLoadingProps, ItemRenderProps} from '../menuAction/menuAction';
 
-export type DisplayActionsProps = {
+export type DisplayActionsProps = Readonly<{
     /**
      * The target from which the items will be selected
      */
@@ -27,7 +27,7 @@ export type DisplayActionsProps = {
     filter?: (value: StoredService) => boolean,
 
     [key: string]: unknown
-}
+}>
 
 export const DisplayActions = ({target, filter, ...others}: DisplayActionsProps) => {
     const actionsToDisplay: unknown[] = [];
