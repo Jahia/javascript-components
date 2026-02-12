@@ -1,6 +1,6 @@
 import {NodeInfoResult, useNodeInfo} from '~/hooks';
 import {NodeInfoOptions} from '../useNodeInfo/useNodeInfo.gql-queries';
-import {WatchQueryOptions} from '@apollo/client';
+import { WatchQueryOptions} from '@apollo/client';
 
 export type NodeCheckOptions = NodeInfoOptions & Partial<{
     requiredPermission: string | string[],
@@ -10,7 +10,8 @@ export type NodeCheckOptions = NodeInfoOptions & Partial<{
     requireModuleInstalledOnSite: string[],
     showForPaths: string[],
     hideForPaths: string[],
-    hideOnExternal: boolean
+    hideOnExternal: boolean,
+    mapResults: boolean
 }>
 
 export type NodeCheckResult = NodeInfoResult & Partial<{
@@ -70,7 +71,24 @@ export const useNodeChecks = (variables: {[key:string]: any}, options?: NodeChec
         (!showForPaths || evaluateVisibilityPaths(true, showForPaths, currentNode.path || variables.path)) &&
         (!hideOnExternal || !currentNode.isExternal);
 
-    const result = node ? doNodeCheck(node) : nodes.reduce((acc, val) => acc && doNodeCheck(val), true);
+    const map = options?.mapResults;
+    const result = node ? doNodeCheck(node) : nodes.reduce((acc, val) => {
+        const r = doNodeCheck(val);
+        val.checksResult = r;
 
-    return {node, nodes, checksResult: result, loading, ...othersResults};
+        if (map) {
+            acc.nodes[val.path] = val;
+        }
+
+        acc.checksResult = acc.checksResult && r;
+        return acc;
+    }, map ? {nodes: {}, checksResult: true} : {checksResult: true});
+
+    return {
+        node,
+        nodes: map ? result.nodes : nodes,
+        checksResult: result.checksResult,
+        loading,
+        ...othersResults
+    };
 };
