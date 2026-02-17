@@ -72,21 +72,28 @@ export const useNodeChecks = (variables: {[key:string]: any}, options?: NodeChec
         (!hideOnExternal || !currentNode.isExternal);
 
     const map = options?.mapResults;
-    const result = node ? doNodeCheck(node) : nodes.reduce((acc, val) => {
+
+    if (!map) {
+        const result = node ? doNodeCheck(node) : nodes.reduce((acc, val) => acc && doNodeCheck(val), true);
+
+        return {node, nodes, checksResult: result, loading, ...othersResults};
+    }
+
+    // A map of nodes can be very useful, especially when dealing with a lot of nodes. In this case each node will
+    // have an extra checksResult prop and will be a part of map {path: node}.
+    const checkedNodes = node ? [node] : nodes;
+    const result = checkedNodes.reduce((acc, val) => {
         const r = doNodeCheck(val);
         val.checksResult = r;
-
-        if (map) {
-            acc.nodes[val.path] = val;
-        }
+        acc.nodes[val.path] = val;
 
         acc.checksResult = acc.checksResult && r;
         return acc;
-    }, map ? {nodes: {}, checksResult: true} : {checksResult: true});
+    }, {nodes: {}, checksResult: true});
 
     return {
         node,
-        nodes: map ? result.nodes : nodes,
+        nodes: result.nodes,
         checksResult: result.checksResult,
         loading,
         ...othersResults
