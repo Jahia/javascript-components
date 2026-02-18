@@ -158,7 +158,7 @@ export const useNodeInfo = (variables: {[key:string]: unknown}, options?: NodeIn
         };
     }, [client, currentRequest, validationError]);
 
-    if (options.skip) {
+    if (options && options.skip) {
         return {loading: false};
     }
 
