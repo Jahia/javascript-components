@@ -1,6 +1,6 @@
 import {NodeInfoResult, useNodeInfo} from '~/hooks';
 import {NodeInfoOptions} from '../useNodeInfo/useNodeInfo.gql-queries';
-import { WatchQueryOptions} from '@apollo/client';
+import {WatchQueryOptions} from '@apollo/client';
 
 export type NodeCheckOptions = NodeInfoOptions & Partial<{
     requiredPermission: string | string[],
