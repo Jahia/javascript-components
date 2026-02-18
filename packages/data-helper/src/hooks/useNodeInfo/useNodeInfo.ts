@@ -158,6 +158,10 @@ export const useNodeInfo = (variables: {[key:string]: unknown}, options?: NodeIn
         };
     }, [client, currentRequest, validationError]);
 
+    if (options.skip) {
+        return {loading: false};
+    }
+
     // Return early with error if validation failed
     if (validationError) {
         return {loading: false, error: validationError};
