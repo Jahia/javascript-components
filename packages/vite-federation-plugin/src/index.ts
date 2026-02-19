@@ -44,7 +44,7 @@ export default function jahiaFederationPlugin(
     throw new Error("npm_package_json is not defined in the env vars.");
   }
 
-  const { name, dependencies = {} } = JSON.parse(
+  const { name, dependencies = {}, jahia: sourceJahia } = JSON.parse(
     readFileSync(process.env.npm_package_json, "utf-8"),
   );
 
@@ -86,7 +86,10 @@ export default function jahiaFederationPlugin(
           type: "asset",
           fileName: "package.json",
           source: JSON.stringify({
-            jahia: { remotes: { jahia: "javascript/apps/remoteEntry.js" } },
+            jahia: {
+              ...sourceJahia,
+              remotes: { jahia: "javascript/apps/remoteEntry.js" },
+            },
           }),
         });
       },
