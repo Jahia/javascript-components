@@ -89,7 +89,11 @@ export default function jahiaFederationPlugin(
             jahia: {
               ...sourceJahia,
               remotes: {
-                ...(typeof sourceJahia?.remotes === "object" ? sourceJahia.remotes : {}),
+                ...(sourceJahia?.remotes &&
+                  typeof sourceJahia.remotes === "object" &&
+                  !Array.isArray(sourceJahia.remotes)
+                  ? sourceJahia.remotes
+                  : {}),
                 jahia: "javascript/apps/remoteEntry.js",
               },
             },
