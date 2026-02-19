@@ -140,8 +140,7 @@ export type NodeInfoOptions = Partial<{
     getContributeTypesRestrictions: boolean,
     getSubNodesCount: string[],
     getMimeType: boolean,
-    applyFragment: Fragment,
-    skip: boolean
+    applyFragment: Fragment
 }>;
 
 export const validOptions = [
