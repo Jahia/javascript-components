@@ -10,7 +10,8 @@ export type NodeCheckOptions = NodeInfoOptions & Partial<{
     requireModuleInstalledOnSite: string[],
     showForPaths: string[],
     hideForPaths: string[],
-    hideOnExternal: boolean
+    hideOnExternal: boolean,
+    mapResults: boolean
 }>
 
 export type NodeCheckResult = NodeInfoResult & Partial<{
@@ -70,7 +71,24 @@ export const useNodeChecks = (variables: {[key:string]: any}, options?: NodeChec
         (!showForPaths || evaluateVisibilityPaths(true, showForPaths, currentNode.path || variables.path)) &&
         (!hideOnExternal || !currentNode.isExternal);
 
-    const result = node ? doNodeCheck(node) : nodes.reduce((acc, val) => acc && doNodeCheck(val), true);
+    const map = options?.mapResults;
 
-    return {node, nodes, checksResult: result, loading, ...othersResults};
+    // A map of nodes can be very useful, especially when dealing with a lot of nodes. In this case each node will
+    // have an extra checksResult prop and will be a part of map {path: node}.
+    const checkedNodes = node ? [node] : nodes;
+    const result = checkedNodes.reduce((acc, val) => {
+        const r = doNodeCheck(val);
+        val.checksResult = r;
+        acc.nodes[val.path] = val;
+        acc.checksResult = acc.checksResult && r;
+        return acc;
+    }, {nodes: {}, checksResult: true});
+    return {
+        node,
+        // Return list of nodes, or map of node path to node, depending on mapResults option
+        nodes: map ? result.nodes : nodes,
+        checksResult: result.checksResult,
+        loading,
+        ...othersResults
+    };
 };

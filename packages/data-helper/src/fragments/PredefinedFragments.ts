@@ -176,6 +176,8 @@ export const childNodeTypes: Fragment = {
     gql: gql`fragment AllowedChildNodeType on JCRNode {
         allowedChildNodeTypes(includeSubTypes: false) {
             name
+            displayName(language: $language)
+            icon
         }
     }`
 };
