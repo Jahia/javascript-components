@@ -88,7 +88,7 @@ export default function jahiaFederationPlugin(
           source: JSON.stringify({
             jahia: {
               ...sourceJahia,
-              remotes: { jahia: "javascript/apps/remoteEntry.js" },
+              remotes: { ...sourceJahia?.remotes, jahia: "javascript/apps/remoteEntry.js" },
             },
           }),
         });
