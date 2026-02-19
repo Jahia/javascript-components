@@ -1,6 +1,6 @@
 ---
 # Allowed version bumps: patch, minor, major
-"@jahia/data-helper": minor
+"@jahia/data-helper": patch
 # "@jahia/design-system-kit": minor
 # "@jahia/eslint-config": minor
 # "@jahia/icons": minor
