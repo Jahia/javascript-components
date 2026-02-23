@@ -1,5 +1,9 @@
 # @jahia/data-helper Changelog
 
+## 1.1.19
+
+* Allow to skip on useNodeInfo query (#352)
+
 ## 1.1.18
 
 * Allow to map checksResult to individual nodes  (#346)
