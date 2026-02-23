@@ -146,7 +146,7 @@ export const useNodeInfo = (variables: {[key:string]: unknown}, options?: NodeIn
     // Normalize and memoize request
     const [currentRequest, queryHasChanged] = useMemoRequest(variables, queryOptions, options, setResult);
     useEffect(() => {
-        if (validationError) {
+        if (validationError || options?.skip) {
             return;
         }
 
@@ -156,11 +156,15 @@ export const useNodeInfo = (variables: {[key:string]: unknown}, options?: NodeIn
         return () => {
             queue.splice(queue.indexOf(currentRequest), 1);
         };
-    }, [client, currentRequest, validationError]);
+    }, [client, currentRequest, options?.skip, validationError]);
 
     // Return early with error if validation failed
     if (validationError) {
         return {loading: false, error: validationError};
+    }
+
+    if (options?.skip) {
+        return {loading: false};
     }
 
     if (queryHasChanged && queryOptions?.fetchPolicy !== 'no-cache' && queryOptions?.fetchPolicy !== 'network-only') {
