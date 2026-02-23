@@ -1,21 +1,21 @@
 import React, {useContext, useEffect} from 'react';
 import {ComponentRendererContext} from '../../ComponentRenderer/ComponentRendererContext';
 
-type RenderProps = {
+type RenderProps = Readonly<{
     id: string,
 
     onClick: () => void
-}
+}>
 
 type BaseProps = {
     onExited: () => void
 }
 
-export type ComponentRendererActionComponentProps<Type extends BaseProps> = {
+export type ComponentRendererActionComponentProps<Type extends BaseProps> = Readonly<{
     render: React.ComponentType<Partial<RenderProps>>,
 
     componentToRender: React.ComponentType<Type>,
-} & RenderProps;
+}> & RenderProps;
 
 export const ComponentRendererActionComponent = <Type extends BaseProps, >({render: Render, componentToRender, ...otherProps}: ComponentRendererActionComponentProps<Type>) => {
     const componentRenderer = useContext(ComponentRendererContext);

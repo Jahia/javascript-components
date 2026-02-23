@@ -12,7 +12,7 @@ import deepEquals from 'fast-deep-equal';
 
 const clone = rfdc();
 
-type PropType = {
+type PropType = Readonly<{
     /**
      * Optional set of fragments to add to the graphQL query. Can be a string that identify a predefinedFragment or a fragment definition
      */
@@ -77,7 +77,7 @@ type PropType = {
     setRefetch: (p: any) => void,
 
     children: (p: any) => React.ReactElement
-};
+}>;
 
 type StateType = {
     isOpenControlled?: boolean,
