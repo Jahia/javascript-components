@@ -140,7 +140,8 @@ export type NodeInfoOptions = Partial<{
     getContributeTypesRestrictions: boolean,
     getSubNodesCount: string[],
     getMimeType: boolean,
-    applyFragment: Fragment
+    applyFragment: Fragment,
+    skip: boolean
 }>;
 
 export const validOptions = [
@@ -162,7 +163,8 @@ export const validOptions = [
     'getContributeTypesRestrictions',
     'getSubNodesCount',
     'getMimeType',
-    'applyFragment'
+    'applyFragment',
+    'skip'
 ];
 
 export const validateQuery = (variables: {[key:string]: any}, options: NodeInfoOptions = {}) => {
