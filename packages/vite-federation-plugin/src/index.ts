@@ -1,7 +1,7 @@
 import { federation } from "@module-federation/vite";
 import type { ModuleFederationOptions } from "@module-federation/vite/lib/utils/normalizeModuleFederationOptions";
 import moduleFederationVitePkg from "@module-federation/vite/package.json" with { type: "json" };
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import type { Plugin } from "vite";
 import pkg from "../package.json" with { type: "json" };
 
@@ -40,13 +40,7 @@ export default function jahiaFederationPlugin(
     >;
   } & Omit<ModuleFederationOptions, "name" | "filename" | "exposes" | "shared">,
 ): Plugin[] {
-  if (!process.env.npm_package_json) {
-    throw new Error("npm_package_json is not defined in the env vars.");
-  }
-
-  const { name, dependencies = {} } = JSON.parse(
-    readFileSync(process.env.npm_package_json, "utf-8"),
-  );
+  const { name, dependencies = {}, jahia = {} } = readPackageJson();
 
   // Unless explicitly specified, use the package name as the federation module name
   options.name ??= name;
@@ -86,7 +80,13 @@ export default function jahiaFederationPlugin(
           type: "asset",
           fileName: "package.json",
           source: JSON.stringify({
-            jahia: { remotes: { jahia: "javascript/apps/remoteEntry.js" } },
+            jahia: {
+              ...jahia,
+              remotes: {
+                jahia: "javascript/apps/remoteEntry.js",
+                ...jahia?.remotes,
+              },
+            },
           }),
         });
       },
@@ -110,4 +110,16 @@ export default function jahiaFederationPlugin(
       runtimePlugins: [pkg.name + "/federation-window-plugin", ...(options.runtimePlugins ?? [])],
     }),
   ];
+}
+
+function readPackageJson() {
+  if (existsSync("package.json")) {
+    return JSON.parse(readFileSync("package.json", "utf-8"));
+  }
+
+  if (!process.env.npm_package_json) {
+    throw new Error("npm_package_json is not defined in the env vars.");
+  }
+
+  return JSON.parse(readFileSync(process.env.npm_package_json, "utf-8"));
 }
