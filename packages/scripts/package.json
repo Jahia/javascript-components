@@ -26,7 +26,7 @@
     "git-branch": "^2.0.1",
     "mkdir-recursive": "^0.4.0",
     "react-to-typescript-definitions": "^3.1.1",
-    "rollup": "^1.10.1",
+    "rollup": "^2.79.2",
     "rollup-plugin-node-resolve": "^4.2.3",
     "semver": "^7.5.4"
   }
