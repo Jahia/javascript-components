@@ -2403,7 +2403,7 @@ __metadata:
     git-branch: "npm:^2.0.1"
     mkdir-recursive: "npm:^0.4.0"
     react-to-typescript-definitions: "npm:^3.1.1"
-    rollup: "npm:^1.10.1"
+    rollup: "npm:^2.79.2"
     rollup-plugin-node-resolve: "npm:^4.2.3"
     semver: "npm:^7.5.4"
   bin:
@@ -5322,7 +5322,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"acorn@npm:^7.0.0, acorn@npm:^7.1.0, acorn@npm:^7.4.1":
+"acorn@npm:^7.0.0, acorn@npm:^7.4.1":
   version: 7.4.1
   resolution: "acorn@npm:7.4.1"
   bin:
@@ -17523,16 +17523,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:^1.10.1":
-  version: 1.32.1
-  resolution: "rollup@npm:1.32.1"
+"rollup@npm:^2.79.2":
+  version: 2.80.0
+  resolution: "rollup@npm:2.80.0"
   dependencies:
-    "@types/estree": "npm:*"
-    "@types/node": "npm:*"
-    acorn: "npm:^7.1.0"
+    fsevents: "npm:~2.3.2"
+  dependenciesMeta:
+    fsevents:
+      optional: true
   bin:
     rollup: dist/bin/rollup
-  checksum: 10c0/543df647c89ed94a2d043caef49c695d7a6a2d85e5e091f7a573dec0e5d5c1e0bb4eb26c68a508728461f055be982e4ed1360222dc402f728acbaaab27342195
+  checksum: 10c0/48ad7b79a4ef9332cf90692d28c05f904132820964f012941372ec4f31c18635e1b7909823058964fb2b216154713bfbe82ec00920d71b15f3fe13bb9df3eac8
   languageName: node
   linkType: hard
 
