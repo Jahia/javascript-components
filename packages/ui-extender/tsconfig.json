@@ -8,7 +8,7 @@
     "target": "ESNext",
     "jsx": "react-jsx",
     "declaration": true,
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "lib": ["DOM", "ESNext"],
