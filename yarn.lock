@@ -2463,7 +2463,8 @@ __metadata:
     vitest: "npm:^4.0.18"
     vitest-browser-react: "npm:^2.0.5"
   peerDependencies:
-    react: ">=16.14.0"
+    react: ">=18"
+    react-dom: ">=18"
   languageName: unknown
   linkType: soft
 
