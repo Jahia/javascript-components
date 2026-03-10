@@ -11,7 +11,6 @@ import { act } from "react-dom/test-utils";
 describe("DisplayAction", () => {
   beforeEach(() => {
     registry.clear();
-    vi.spyOn(globalThis, "setInterval");
     vi.useFakeTimers();
   });
 

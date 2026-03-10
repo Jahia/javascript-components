@@ -88,7 +88,7 @@ const AsyncComponent = ({ render: Render, loading: Loading, ...props }) => {
     return false;
   }
 
-  return <Render {...props} onClick={vi.fn} />;
+  return <Render {...props} onClick={vi.fn()} />;
 };
 
 function addMenu(key, targets, isMenuPreload) {

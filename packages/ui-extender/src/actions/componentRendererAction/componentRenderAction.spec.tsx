@@ -13,7 +13,6 @@ describe("DisplayActions", () => {
   });
 
   it("should display component on click", async () => {
-    expect(true).toBeTruthy();
     const openModalAction = registry.addOrReplace(
       "action",
       "base-component",
