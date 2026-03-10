@@ -21,6 +21,6 @@ jobs:
         run: |
           yarn install && yarn build
           yarn workspaces foreach -Avv --no-private npm publish --access public --tolerate-republish --provenance
-      - run: npx chachalog@0.4 publish-release
+      - run: npx chachalog@0.5 publish-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
