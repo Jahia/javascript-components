@@ -12,13 +12,6 @@ permissions:
   pull-requests: write
 
 jobs:
-  prepare-next-release:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - run: npx chachalog@0.4 prepare-next-release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   publish-release:
     runs-on: ubuntu-latest
     steps:
