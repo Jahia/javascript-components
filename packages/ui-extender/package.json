@@ -4,7 +4,7 @@
   "version": "1.2.0",
   "scripts": {
     "build": "tsc || true",
-    "test": "vitest src"
+    "test": "vitest"
   },
   "repository": {
     "url": "https://github.com/Jahia/javascript-components",

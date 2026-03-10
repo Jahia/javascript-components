@@ -6,6 +6,7 @@ export default defineConfig({
         jsx: 'automatic'
     },
     test: {
+        exclude: ['dist'],
         browser: {
             enabled: true,
             provider: playwright(),
