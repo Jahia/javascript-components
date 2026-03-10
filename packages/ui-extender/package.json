@@ -1,22 +1,21 @@
 {
   "name": "@jahia/ui-extender",
+  "type": "module",
   "version": "1.2.0",
   "scripts": {
-    "build": "tsc && yarn node ./build.mjs",
-    "test": "run --top-level jest --coverage"
+    "build": "tsc",
+    "test": "vitest src"
   },
   "repository": {
     "url": "https://github.com/Jahia/javascript-components",
     "directory": "packages/ui-extender"
   },
-  "main": "dist/js/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/types/index.d.ts",
   "sideEffects": false,
   "license": "MIT",
   "devDependencies": {
     "react": "^16.14.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
   },
   "peerDependencies": {
     "react": ">=16.14.0"
