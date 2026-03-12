@@ -1,13 +1,14 @@
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {registry} from '../registry/registry';
 import {useAdminRouteTreeStructure} from './useAdminRoutesTreeStructure';
 
-jest.mock('react', () => ({
-    useMemo: v => v()
+vi.mock('react', () => ({
+    useMemo: <T>(v: () => T) => v()
 }));
 
-jest.mock('../IframeRenderer/IframeRenderer', () => {
-    //
-});
+vi.mock('../IframeRenderer/IframeRenderer', () => ({
+    getIframeRenderer: () => {}
+}));
 
 describe('useAdminRoutesTreeStructure', () => {
     beforeEach(() => {

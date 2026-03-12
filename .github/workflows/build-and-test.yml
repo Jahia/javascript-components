@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: jdx/mise-action@v3
-      - run: yarn install
+      - run: yarn install && yarn playwright install chromium --only-shell
       - run: yarn build
       - run: yarn test
       - run: yarn lint

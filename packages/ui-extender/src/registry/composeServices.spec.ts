@@ -1,3 +1,4 @@
+import {describe, expect, it} from 'vitest';
 import {composeServices} from './composeServices';
 
 describe('composeServices', () => {
