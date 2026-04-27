@@ -1,5 +1,5 @@
 import { federation } from "@module-federation/vite";
-import type { ModuleFederationOptions } from "@module-federation/vite/lib/utils/normalizeModuleFederationOptions";
+import type { ModuleFederationOptions } from "@module-federation/vite";
 import moduleFederationVitePkg from "@module-federation/vite/package.json" with { type: "json" };
 import { existsSync, readFileSync } from "node:fs";
 import type { Plugin } from "vite";
