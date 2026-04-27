@@ -2463,7 +2463,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@jahia/vite-federation-plugin@workspace:packages/vite-federation-plugin"
   dependencies:
-    "@module-federation/runtime-core": "npm:^0.21.6"
+    "@module-federation/runtime-core": "npm:^2.3.3"
     "@module-federation/vite": "npm:^1.14.5"
     "@types/node": "npm:^24.10.4"
     publint: "npm:^0.3.16"
@@ -2906,13 +2906,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@module-federation/error-codes@npm:0.21.6":
-  version: 0.21.6
-  resolution: "@module-federation/error-codes@npm:0.21.6"
-  checksum: 10c0/365ca6350fac7882e86730dec34bd62871161638850727604a8a7b30ac3479a62d95a9e6ee39faa6f8dfc57a960fd91274df325fbda12bbbdd554a4258d8ed7d
-  languageName: node
-  linkType: hard
-
 "@module-federation/error-codes@npm:2.3.3":
   version: 2.3.3
   resolution: "@module-federation/error-codes@npm:2.3.3"
@@ -2930,23 +2923,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@module-federation/runtime-core@npm:2.3.3":
+"@module-federation/runtime-core@npm:2.3.3, @module-federation/runtime-core@npm:^2.3.3":
   version: 2.3.3
   resolution: "@module-federation/runtime-core@npm:2.3.3"
   dependencies:
     "@module-federation/error-codes": "npm:2.3.3"
     "@module-federation/sdk": "npm:2.3.3"
   checksum: 10c0/77951f77af135844d5176c8242367cb304bc54c5379a63e675d72ee048ca2db3705a501aa123dbd139fdc3d3434e4c393ff7d09a37ad8db4c954610c3bd815ad
-  languageName: node
-  linkType: hard
-
-"@module-federation/runtime-core@npm:^0.21.6":
-  version: 0.21.6
-  resolution: "@module-federation/runtime-core@npm:0.21.6"
-  dependencies:
-    "@module-federation/error-codes": "npm:0.21.6"
-    "@module-federation/sdk": "npm:0.21.6"
-  checksum: 10c0/df986606a9f6b0f56cc9c261d497c852a1dba0e6817be5b9150db3a3d205242a6a0fedb0ad247aaa9bfb489aaeb3d58adcc7db44f4a3205cf20c5a8035e974f8
   languageName: node
   linkType: hard
 
@@ -2958,13 +2941,6 @@ __metadata:
     "@module-federation/runtime-core": "npm:2.3.3"
     "@module-federation/sdk": "npm:2.3.3"
   checksum: 10c0/c1848c937c4d96891f05797ddbf257cd249b75eb7e2257682910e6b55c89090ec4cc70d1b111672702ac4ccd948cf0782635e1ca85209a88c7ead7f99a34ef1a
-  languageName: node
-  linkType: hard
-
-"@module-federation/sdk@npm:0.21.6":
-  version: 0.21.6
-  resolution: "@module-federation/sdk@npm:0.21.6"
-  checksum: 10c0/54f33fb48e1f3db09e03b529af9f28fcd8007c4dbd8b197cb0691c392f3eb143961c526e1ecd400f1d652451976a378da962edbb961f5859f33f56edda527f88
   languageName: node
   linkType: hard
 
