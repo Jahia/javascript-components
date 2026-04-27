@@ -24,7 +24,7 @@
     "build": "tsc && publint"
   },
   "dependencies": {
-    "@module-federation/vite": "^1.9.4"
+    "@module-federation/vite": "^1.14.5"
   },
   "devDependencies": {
     "@module-federation/runtime-core": "^0.21.6",
