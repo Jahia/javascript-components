@@ -3,7 +3,7 @@ name: Comment PR
 on:
   pull_request_target:
     branches:
-      - master
+      - main
   workflow_dispatch: null
 
 permissions:
