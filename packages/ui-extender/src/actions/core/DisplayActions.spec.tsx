@@ -1,6 +1,6 @@
-import {DisplayActions} from './DisplayActions';
-import {ButtonRenderer} from '../samples/ButtonRenderer';
-import {registry} from '../..';
+import {DisplayActions} from './DisplayActions.tsx';
+import {ButtonRenderer} from '../samples/ButtonRenderer.jsx';
+import {registry} from '../../index.ts';
 import {beforeEach, describe, expect, it} from 'vitest';
 import {render} from 'vitest-browser-react';
 

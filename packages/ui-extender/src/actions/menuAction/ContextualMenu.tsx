@@ -1,6 +1,6 @@
 import React from 'react';
-import {DisplayAction} from '../core/DisplayAction';
-import {MenuProps} from '../menuAction/menuAction';
+import {DisplayAction} from '../core/DisplayAction.tsx';
+import {MenuProps} from '../menuAction/menuAction.tsx';
 
 export type ContextualMenuProps = Readonly<{
     setOpenRef: React.MutableRefObject<(e: React.MouseEvent, newProps: MenuProps) => void>,

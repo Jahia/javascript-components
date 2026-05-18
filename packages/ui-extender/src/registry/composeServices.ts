@@ -1,4 +1,4 @@
-import {Service} from './service';
+import {Service} from './service.ts';
 
 /** Value-aware merging of service objects */
 export function composeServices(...services: Array<Partial<Service>>): Partial<Service> {

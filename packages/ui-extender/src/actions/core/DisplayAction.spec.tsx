@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { DisplayAction } from "./DisplayAction";
-import { registry } from "../..";
-import { ButtonRenderer } from "../samples/ButtonRenderer";
-import { LinkRenderer } from "../samples/LinkRenderer";
+import { DisplayAction } from "./DisplayAction.tsx";
+import { registry } from "../../index.ts";
+import { ButtonRenderer } from "../samples/ButtonRenderer.jsx";
+import { LinkRenderer } from "../samples/LinkRenderer.jsx";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { render } from "vitest-browser-react";
 import { page } from "vitest/browser";

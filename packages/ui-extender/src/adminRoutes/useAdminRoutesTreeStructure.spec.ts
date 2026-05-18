@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import {registry} from '../registry/registry';
-import {useAdminRouteTreeStructure} from './useAdminRoutesTreeStructure';
+import {registry} from '../registry/registry.ts';
+import {useAdminRouteTreeStructure} from './useAdminRoutesTreeStructure.ts';
 
 vi.mock('react', () => ({
     useMemo: <T>(v: () => T) => v()

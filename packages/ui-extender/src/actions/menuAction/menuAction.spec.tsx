@@ -1,9 +1,9 @@
 import { act, useEffect, useState } from "react";
-import { DisplayAction } from "../core/DisplayAction";
-import { registry } from "../..";
-import { menuAction } from "./menuAction";
-import { ButtonRenderer } from "../samples/ButtonRenderer";
-import { ComponentRendererProvider } from "../../ComponentRenderer/ComponentRendererProvider";
+import { DisplayAction } from "../core/DisplayAction.tsx";
+import { registry } from "../../index.ts";
+import { menuAction } from "./menuAction.tsx";
+import { ButtonRenderer } from "../samples/ButtonRenderer.jsx";
+import { ComponentRendererProvider } from "../../ComponentRenderer/ComponentRendererProvider.tsx";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { render } from "vitest-browser-react";
 import { page } from "vitest/browser";

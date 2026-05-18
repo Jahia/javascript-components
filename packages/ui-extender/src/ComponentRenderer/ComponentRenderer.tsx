@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {ComponentRendererContext} from './ComponentRendererContext';
+import {ComponentRendererContext} from './ComponentRendererContext.tsx';
 
 type StateType = {
     components: Record<string, React.ComponentType<any>>;

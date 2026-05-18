@@ -1,6 +1,6 @@
 import { ReactNode, useContext, useEffect } from "react";
-import { ComponentRendererProvider } from "./ComponentRendererProvider";
-import { ComponentRendererContext } from "./ComponentRendererContext";
+import { ComponentRendererProvider } from "./ComponentRendererProvider.tsx";
+import { ComponentRendererContext } from "./ComponentRendererContext.tsx";
 import { render } from "vitest-browser-react";
 import { describe, expect, it } from "vitest";
 import { page } from "vitest/browser";

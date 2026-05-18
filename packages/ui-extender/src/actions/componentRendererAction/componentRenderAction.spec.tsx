@@ -1,8 +1,8 @@
-import { DisplayActions } from "../core/DisplayActions";
-import { registry, ComponentRendererProvider } from "../..";
-import { componentRendererAction } from "./componentRenderAction";
-import { Modal } from "../samples/Modal";
-import { ButtonRenderer } from "../samples/ButtonRenderer";
+import { DisplayActions } from "../core/DisplayActions.tsx";
+import { registry, ComponentRendererProvider } from "../../index.ts";
+import { componentRendererAction } from "./componentRenderAction.tsx";
+import { Modal } from "../samples/Modal.jsx";
+import { ButtonRenderer } from "../samples/ButtonRenderer.jsx";
 import { describe, beforeEach, it, expect } from "vitest";
 import { render } from "vitest-browser-react";
 import { page } from "vitest/browser";

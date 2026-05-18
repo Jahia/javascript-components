@@ -1,8 +1,8 @@
 import React from 'react';
-import {registry} from '../../registry/registry';
-import {DisplayAction} from './DisplayAction';
-import {StoredService} from '../../registry/service';
-import {ItemLoadingProps, ItemRenderProps} from '../menuAction/menuAction';
+import {registry} from '../../registry/registry.ts';
+import {DisplayAction} from './DisplayAction.tsx';
+import {StoredService} from '../../registry/service.ts';
+import {ItemLoadingProps, ItemRenderProps} from '../menuAction/menuAction.tsx';
 
 export type DisplayActionsProps = Readonly<{
     /**
