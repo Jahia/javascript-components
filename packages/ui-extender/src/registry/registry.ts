@@ -1,5 +1,5 @@
-import {composeServices} from './composeServices';
-import {Service, StoredService} from './service';
+import {composeServices} from './composeServices.ts';
+import {Service, StoredService} from './service.ts';
 
 class Registry {
     registry: Record<string, StoredService>;

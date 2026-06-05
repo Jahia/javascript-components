@@ -1,6 +1,6 @@
 import React, {useRef} from 'react';
-import {ComponentRenderer} from './ComponentRenderer';
-import {ComponentRendererContext} from './ComponentRendererContext';
+import {ComponentRenderer} from './ComponentRenderer.tsx';
+import {ComponentRendererContext} from './ComponentRendererContext.tsx';
 
 export const ComponentRendererProvider = ({children}: React.PropsWithChildren<object>) => {
     const value = useRef({});

@@ -1,8 +1,8 @@
 import {useMemo} from 'react';
-import {registry} from '../registry/registry';
-import {getIframeRenderer} from '../IframeRenderer/IframeRenderer';
-import {Tree, TreeData} from './Tree';
-import {StoredService} from '../registry/service';
+import {registry} from '../registry/registry.ts';
+import {getIframeRenderer} from '../IframeRenderer/IframeRenderer.tsx';
+import {Tree, TreeData} from './Tree.ts';
+import {StoredService} from '../registry/service.ts';
 
 export const useAdminRouteTreeStructure = function (target: string, selected: string) {
     const result = useMemo(() => {

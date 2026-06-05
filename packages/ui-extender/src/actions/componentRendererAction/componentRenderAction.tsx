@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from 'react';
-import {ComponentRendererContext} from '../../ComponentRenderer/ComponentRendererContext';
+import {ComponentRendererContext} from '../../ComponentRenderer/ComponentRendererContext.tsx';
 
 type RenderProps = Readonly<{
     id: string,
@@ -72,4 +72,3 @@ export const ComponentRendererActionComponent = <Type extends BaseProps, >({rend
 export const componentRendererAction = {
     component: ComponentRendererActionComponent
 };
-

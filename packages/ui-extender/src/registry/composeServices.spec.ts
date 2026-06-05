@@ -1,4 +1,5 @@
-import {composeServices} from './composeServices';
+import {describe, expect, it} from 'vitest';
+import {composeServices} from './composeServices.ts';
 
 describe('composeServices', () => {
     it('should replace values', () => {

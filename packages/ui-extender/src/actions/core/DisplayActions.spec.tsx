@@ -1,15 +1,15 @@
-import React from 'react';
-import {DisplayActions} from './DisplayActions';
-import {ButtonRenderer} from '../samples/ButtonRenderer';
-import {registry} from '../..';
-import {mount} from 'enzyme';
+import {DisplayActions} from './DisplayActions.tsx';
+import {ButtonRenderer} from '../samples/ButtonRenderer.jsx';
+import {registry} from '../../index.ts';
+import {beforeEach, describe, expect, it} from 'vitest';
+import {render} from 'vitest-browser-react';
 
 describe('DisplayActions', () => {
     beforeEach(() => {
         registry.clear();
     });
 
-    it('should render all actions matching the target', () => {
+    it('should render all actions matching the target', async () => {
         const base = {
             onClick: () => window.alert('Action') // eslint-disable-line no-alert
         };
@@ -26,17 +26,18 @@ describe('DisplayActions', () => {
             targets: ['target-1:3'],
             label: 'test action 3 (filter false)'
         });
-        const wrapper = mount(
+        const wrapper = await render(
             <DisplayActions
                 target="target-1"
                 context={{path: '/test'}}
-                render={ButtonRenderer}/>
+                render={ButtonRenderer}
+            />
         );
 
-        expect(wrapper.find('button').length).toBe(3);
+        expect(wrapper.baseElement.querySelectorAll('button').length).toBe(3);
     });
 
-    it('should use the otional filter', () => {
+    it('should use the otional filter', async () => {
         const base = {
             onClick: () => window.alert('Action') // eslint-disable-line no-alert
         };
@@ -53,14 +54,15 @@ describe('DisplayActions', () => {
             targets: ['target-2:3'],
             label: 'test action 3 (filter false)'
         });
-        const wrapper = mount(
+        const wrapper = await render(
             <DisplayActions
                 target="target-2"
                 context={{path: '/test'}}
                 filter={context => context.valueToFilter}
-                render={ButtonRenderer}/>
+                render={ButtonRenderer}
+            />
         );
 
-        expect(wrapper.find('button').length).toBe(1);
+        expect(wrapper.baseElement.querySelectorAll('button').length).toBe(1);
     });
 });

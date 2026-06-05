@@ -1,4 +1,5 @@
-import {registry} from './registry';
+import {beforeEach, describe, expect, it} from 'vitest';
+import {registry} from './registry.ts';
 
 describe('registry', () => {
     beforeEach(() => {

@@ -1,5 +1,3 @@
-import React from 'react';
-
 const ButtonRenderer = ({onClick, isVisible, enabled, label, ...props}) => (
     (isVisible !== false) && (
         <button

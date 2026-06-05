@@ -1,8 +1,8 @@
 import React from 'react';
-import {registry} from '../../registry/registry';
-import {StoredService} from '../../registry/service';
-import {ItemLoadingProps, MenuProps} from '../../actions/menuAction/menuAction';
-import {ItemRenderProps} from '../menuAction/menuAction';
+import {registry} from '../../registry/registry.ts';
+import {StoredService} from '../../registry/service.ts';
+import {ItemLoadingProps, MenuProps} from '../../actions/menuAction/menuAction.tsx';
+import {ItemRenderProps} from '../menuAction/menuAction.tsx';
 
 let count = 0;
 

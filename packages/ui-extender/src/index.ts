@@ -1,24 +1,24 @@
-export {useAdminRouteTreeStructure} from './adminRoutes/useAdminRoutesTreeStructure';
-export {ComponentRenderer} from './ComponentRenderer/ComponentRenderer';
+export {useAdminRouteTreeStructure} from './adminRoutes/useAdminRoutesTreeStructure.ts';
+export {ComponentRenderer} from './ComponentRenderer/ComponentRenderer.tsx';
 export {
     type ContextType,
     ComponentRendererConsumer,
     ComponentRendererContext
-} from './ComponentRenderer/ComponentRendererContext';
-export {ComponentRendererProvider} from './ComponentRenderer/ComponentRendererProvider';
+} from './ComponentRenderer/ComponentRendererContext.tsx';
+export {ComponentRendererProvider} from './ComponentRenderer/ComponentRendererProvider.tsx';
 export {
     componentRendererAction,
     ComponentRendererActionComponent,
     type ComponentRendererActionComponentProps
-} from './actions/componentRendererAction/componentRenderAction';
+} from './actions/componentRendererAction/componentRenderAction.tsx';
 export {
     DisplayAction,
     type DisplayActionProps
-} from './actions/core/DisplayAction';
+} from './actions/core/DisplayAction.tsx';
 export {
     DisplayActions,
     type DisplayActionsProps
-} from './actions/core/DisplayActions';
+} from './actions/core/DisplayActions.tsx';
 export {
     MenuActionComponent,
     menuAction,
@@ -28,18 +28,18 @@ export {
     type MenuProps,
     type MenuRendererProps,
     type TransformElOrigin
-} from './actions/menuAction/menuAction';
+} from './actions/menuAction/menuAction.tsx';
 export {
     ContextualMenu,
     type ContextualMenuProps
-} from './actions/menuAction/ContextualMenu';
-export {registry} from './registry/registry';
-export {composeServices} from './registry/composeServices';
+} from './actions/menuAction/ContextualMenu.tsx';
+export {registry} from './registry/registry.ts';
+export {composeServices} from './registry/composeServices.ts';
 export {
     IframeRenderer,
     getIframeRenderer,
     type IframeRendererProps
-} from './IframeRenderer/IframeRenderer';
+} from './IframeRenderer/IframeRenderer.tsx';
 
 /**
  * Adapted from https://github.com/Jahia/jahia/blob/29cd15298a82e8bf7a40f31c254a970e62536907/gwt/src/main/java/org/jahia/ajax/gwt/utils/GWTInitializer.java#L151-L243

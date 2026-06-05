@@ -1,6 +1,6 @@
 import React, {Reducer, useEffect, useMemo, useReducer, useRef} from 'react';
 import ReactDOM from 'react-dom';
-import {DisplayActions} from '../core/DisplayActions';
+import {DisplayActions} from '../core/DisplayActions.tsx';
 
 export declare type AnchorPosition = {
     top: number;
