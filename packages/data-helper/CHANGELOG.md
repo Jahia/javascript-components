@@ -1,5 +1,9 @@
 # @jahia/data-helper Changelog
 
+## 1.1.20
+
+* Require/inject language for getChildNodeTypes (#382)
+
 ## 1.1.19
 
 * Allow to skip on useNodeInfo query (#352)
