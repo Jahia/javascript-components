@@ -211,6 +211,23 @@ describe('useNodeInfo', () => {
         expect(result.value.query.definitions.map(d => d.name.value)).toContain('CanLockUnlockInfo');
     });
 
+    it('should request child node types with language', async () => {
+        const setStateMock = jest.fn();
+        const useStateMock = useState => [useState, setStateMock];
+        jest.spyOn(React, 'useState').mockImplementation(useStateMock);
+        useNodeInfo({path: '/test', language: 'en'}, {getChildNodeTypes: true});
+
+        await wait();
+
+        expect(getQuery).toHaveBeenCalled();
+        const {mock} = getQuery;
+        const result = mock.results[mock.results.length - 1];
+        const variables = result.value.generatedVariables;
+        result.value.query.definitions[0].variableDefinitions.map(v => v.variable.name.value).forEach(v => expect(Object.keys(variables)).toContain(v));
+        expect(variables.language).toBe('en');
+        expect(result.value.query.definitions.map(d => d.name.value).some(name => name.includes('AllowedChildNodeType'))).toBe(true);
+    });
+
     it('should request all data', async () => {
         const setStateMock = jest.fn();
         const useStateMock = useState => [useState, setStateMock];
@@ -295,6 +312,16 @@ describe('useNodeInfo', () => {
         const useStateMock = useState => [useState, setStateMock];
         jest.spyOn(React, 'useState').mockImplementation(useStateMock);
         const result = useNodeInfo({path: '/test'}, {getProperties: ['propA']});
+        expect(result.error).toBeDefined();
+        expect(result.error.message).toContain('language is required for useNodeInfo options');
+        expect(result.loading).toBe(false);
+    });
+
+    it('should return error when getChildNodeTypes is used without language', () => {
+        const setStateMock = jest.fn();
+        const useStateMock = useState => [useState, setStateMock];
+        jest.spyOn(React, 'useState').mockImplementation(useStateMock);
+        const result = useNodeInfo({path: '/test'}, {getChildNodeTypes: true});
         expect(result.error).toBeDefined();
         expect(result.error.message).toContain('language is required for useNodeInfo options');
         expect(result.loading).toBe(false);

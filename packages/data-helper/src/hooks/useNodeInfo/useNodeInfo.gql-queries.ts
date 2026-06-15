@@ -168,7 +168,7 @@ export const validOptions = [
 ];
 
 export const validateQuery = (variables: {[key:string]: any}, options: NodeInfoOptions = {}) => {
-    const requiresLanguage = ['getDisplayName', 'getAggregatedPublicationInfo', 'getProperties'] as const;
+    const requiresLanguage = ['getDisplayName', 'getAggregatedPublicationInfo', 'getProperties', 'getChildNodeTypes'] as const;
     const missingLanguageOptions = requiresLanguage
         .filter(attr => Boolean(options[attr as keyof NodeInfoOptions]));
     if (missingLanguageOptions.length > 0 && !variables.language) {
@@ -270,6 +270,7 @@ export const getQuery = (variables: {[key:string]: any}, options: NodeInfoOption
 
         if (options.getChildNodeTypes) {
             fragments.push(childNodeTypes);
+            generatedVariables.language = variables.language;
         }
 
         if (options.getContributeTypesRestrictions) {
