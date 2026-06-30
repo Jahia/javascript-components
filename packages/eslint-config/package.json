@@ -8,6 +8,10 @@
     "url": "https://github.com/Jahia/javascript-components",
     "directory": "packages/eslint-config"
   },
+  "homepage": "https://github.com/Jahia/javascript-components/tree/main/packages/eslint-config#readme",
+  "bugs": {
+    "url": "https://github.com/Jahia/javascript-components/issues"
+  },
   "peerDependencies": {
     "eslint": ">= 5.15.1",
     "eslint-plugin-import": ">=2.25.2",
