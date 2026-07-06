@@ -31,11 +31,13 @@ export default function jahiaFederationPlugin(
     shared?: Record<
       string,
       {
-        /** @see https://module-federation.io/configure/shared.html#singleton */
+        name?: string;
+        version?: string;
+        shareScope?: string;
         singleton?: boolean;
-        /** @see https://module-federation.io/configure/shared.html#requiredVersion */
         requiredVersion?: string;
         strictVersion?: boolean;
+        import?: string | false;
       }
     >;
   } & Omit<ModuleFederationOptions, "name" | "filename" | "exposes" | "shared">,
