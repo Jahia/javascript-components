@@ -63,7 +63,7 @@ export default function jahiaFederationPlugin(
           },
           build: {
             sourcemap: true,
-            minify: !config.build?.watch,
+            minify: config.build?.minify ?? !config.build?.watch,
             rollupOptions: { input: Object.values(options.exposes) },
           },
         };
@@ -92,6 +92,7 @@ export default function jahiaFederationPlugin(
       },
     },
     ...federation({
+      dts: false,
       ...options,
       name: options.name,
       filename: "index.js", // Referenced in the emitted remoteEntry.js
@@ -103,7 +104,7 @@ export default function jahiaFederationPlugin(
         // Common remotes provided by official Jahia modules
         "@jahia/jcontent": "window:appShell.remotes.jcontent",
         "@jahia/jahia-ui-root": "window:appShell.remotes.jahiaUi",
-        ckeditor5: "window:appShell.remotes.ckeditor5",
+        ckeditor5: "window:appShell.remotes.richtextCkeditor5",
         ...options.remotes,
       },
       // Resolves to the build output of ./federation-window-plugin.ts
