@@ -27,15 +27,19 @@ export default function jahiaFederationPlugin(
      * By default all package.json dependencies are shared as singletons.
      *
      * Additional dependencies can be specified here.
+     *
+     * @see https://module-federation.io/configure/shared.html
      */
     shared?: Record<
       string,
       {
-        /** @see https://module-federation.io/configure/shared.html#singleton */
+        name?: string;
+        version?: string;
+        shareScope?: string;
         singleton?: boolean;
-        /** @see https://module-federation.io/configure/shared.html#requiredVersion */
         requiredVersion?: string;
         strictVersion?: boolean;
+        import?: string | false;
       }
     >;
   } & Omit<ModuleFederationOptions, "name" | "filename" | "exposes" | "shared">,
@@ -63,7 +67,7 @@ export default function jahiaFederationPlugin(
           },
           build: {
             sourcemap: true,
-            minify: !config.build?.watch,
+            minify: config.build?.minify ?? !config.build?.watch,
             rollupOptions: { input: Object.values(options.exposes) },
           },
         };
@@ -92,6 +96,7 @@ export default function jahiaFederationPlugin(
       },
     },
     ...federation({
+      dts: false,
       ...options,
       name: options.name,
       filename: "index.js", // Referenced in the emitted remoteEntry.js
@@ -103,7 +108,7 @@ export default function jahiaFederationPlugin(
         // Common remotes provided by official Jahia modules
         "@jahia/jcontent": "window:appShell.remotes.jcontent",
         "@jahia/jahia-ui-root": "window:appShell.remotes.jahiaUi",
-        ckeditor5: "window:appShell.remotes.ckeditor5",
+        ckeditor5: "window:appShell.remotes.richtextCkeditor5",
         ...options.remotes,
       },
       // Resolves to the build output of ./federation-window-plugin.ts
