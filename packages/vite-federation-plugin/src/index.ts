@@ -27,6 +27,8 @@ export default function jahiaFederationPlugin(
      * By default all package.json dependencies are shared as singletons.
      *
      * Additional dependencies can be specified here.
+     *
+     * @see https://module-federation.io/configure/shared.html
      */
     shared?: Record<
       string,
