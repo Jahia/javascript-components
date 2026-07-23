@@ -3,7 +3,8 @@
 import React from 'react';
 import {Query} from '@apollo/client/react/components';
 import gql from 'graphql-tag';
-import {displayName, Fragment, nodeCacheRequiredFields, replaceFragmentsInDocument} from '../fragments';
+import {displayName, Fragment, nodeCacheRequiredFields} from '../fragments/PredefinedFragments';
+import {replaceFragmentsInDocument} from '../fragments/fragments.utils';
 import {PickerItemsFragment} from './Picker.gql-fragments';
 import {DocumentNode} from 'graphql';
 import {QueryResult} from '@apollo/client';

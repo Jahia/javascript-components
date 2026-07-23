@@ -15,9 +15,9 @@ import {
     operationSupport,
     parentNode,
     primaryNodeType,
-    replaceFragmentsInDocument,
     siteLanguages
-} from '../../fragments';
+} from '../../fragments/PredefinedFragments';
+import {replaceFragmentsInDocument} from '../../fragments/fragments.utils';
 import {getPermissionFragment, getSitePermissionFragment} from '../../fragments/getPermissionFragment';
 import {getNodeTypeFragment} from '../../fragments/getIsNodeTypeFragment';
 import {DocumentNode} from 'graphql';

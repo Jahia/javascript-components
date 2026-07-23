@@ -1,4 +1,4 @@
-import {useDeepCompareMemoize} from './index';
+import {useDeepCompareMemoize} from './useDeepCompareMemo';
 
 jest.mock('react', () => {
     let current;
