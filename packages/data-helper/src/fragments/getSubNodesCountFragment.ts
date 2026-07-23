@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import {encodeName} from './encodeName';
-import {Fragment} from '~/fragments/PredefinedFragments';
+import {Fragment} from './PredefinedFragments';
 
 const fragments:{[key:string]: Fragment} = {};
 

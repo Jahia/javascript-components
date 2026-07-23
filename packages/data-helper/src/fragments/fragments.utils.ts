@@ -8,7 +8,7 @@ import {
     SelectionSetNode,
     VariableDefinitionNode
 } from 'graphql';
-import {Fragment, PredefinedFragments} from '../fragments';
+import {Fragment, PredefinedFragments} from './PredefinedFragments';
 import {ExecutableDefinitionNode, FragmentDefinitionNode, OperationDefinitionNode} from 'graphql/language/ast';
 import rfdc from 'rfdc';
 

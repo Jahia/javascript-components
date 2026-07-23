@@ -1,4 +1,4 @@
-import {NodeInfoResult, useNodeInfo} from '~/hooks';
+import {NodeInfoResult, useNodeInfo} from '../useNodeInfo/useNodeInfo';
 import {NodeInfoOptions} from '../useNodeInfo/useNodeInfo.gql-queries';
 import {WatchQueryOptions} from '@apollo/client';
 

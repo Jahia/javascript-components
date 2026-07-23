@@ -15,13 +15,13 @@ import {
     operationSupport,
     parentNode,
     primaryNodeType,
-    replaceFragmentsInDocument,
     siteLanguages
-} from '~/fragments';
-import {getPermissionFragment, getSitePermissionFragment} from '~/fragments/getPermissionFragment';
-import {getNodeTypeFragment} from '~/fragments/getIsNodeTypeFragment';
+} from '../../fragments/PredefinedFragments';
+import {replaceFragmentsInDocument} from '../../fragments/fragments.utils';
+import {getPermissionFragment, getSitePermissionFragment} from '../../fragments/getPermissionFragment';
+import {getNodeTypeFragment} from '../../fragments/getIsNodeTypeFragment';
 import {DocumentNode} from 'graphql';
-import {getSubNodesCountFragment} from '~/fragments/getSubNodesCountFragment';
+import {getSubNodesCountFragment} from '../../fragments/getSubNodesCountFragment';
 
 const getBaseQueryAndVariables = (variables: {[key:string]: any}): {
     baseQuery: DocumentNode,
