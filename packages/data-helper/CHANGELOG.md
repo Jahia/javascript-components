@@ -1,5 +1,9 @@
 # @jahia/data-helper Changelog
 
+## 1.1.21
+
+* Fixed TypeScript types. (#390)
+
 ## 1.1.20
 
 * Require/inject language for getChildNodeTypes (#382)
