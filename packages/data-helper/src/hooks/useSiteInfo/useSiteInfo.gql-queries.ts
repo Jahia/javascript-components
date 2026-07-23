@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import {nodeCacheRequiredFields} from '~/fragments';
+import {nodeCacheRequiredFields} from '../../fragments';
 
 export const SITE_INFO_QUERY = gql`
     query siteInfo($path: String!, $displayLanguage:String!, $uiLanguage:String, $skipUILanguage:Boolean!) {

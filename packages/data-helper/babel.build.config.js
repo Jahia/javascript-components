@@ -6,10 +6,7 @@ module.exports = {
     plugins: [
         ['module-resolver', {
             root: ['./src'],
-            extensions: ['.js', '.jsx', '.es', '.es6', '.mjs', '.svg'],
-            alias: {
-                '~': './src'
-            }
+            extensions: ['.js', '.jsx', '.es', '.es6', '.mjs', '.svg']
         }],
         ['babel-plugin-typescript-to-proptypes', {
             comments: true
