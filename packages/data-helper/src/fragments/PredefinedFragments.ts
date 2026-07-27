@@ -6,7 +6,7 @@ export type Fragment = {
         [key: string]: string
     },
     applyFor: string
-    gql: TadaDocumentNode<any, any, any>
+    gql: TadaDocumentNode<unknown, unknown, unknown>
 }
 
 export const displayName = {

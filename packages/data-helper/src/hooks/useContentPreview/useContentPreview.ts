@@ -2,18 +2,7 @@ import {FetchPolicy, useQuery} from '@apollo/client';
 import {VariablesOf} from '../../gql';
 import {CONTENT_PREVIEW_QUERY} from './useContentPreview.gql-queries';
 
-type RequestAttribute = {
-    name: string, value:string
-}
-
-type UseContentPreviewType = {
-    path: string,
-    workspace: string,
-    language: string,
-    templateType: string,
-    view: string,
-    contextConfiguration: string,
-    requestAttributes?: RequestAttribute[],
+type UseContentPreviewType = VariablesOf<typeof CONTENT_PREVIEW_QUERY> & {
     fetchPolicy?: FetchPolicy
 };
 
@@ -33,7 +22,7 @@ export const useContentPreview = ({
         view,
         contextConfiguration,
         language,
-        workspace: workspace.toUpperCase() as VariablesOf<typeof CONTENT_PREVIEW_QUERY>['workspace'],
+        workspace: workspace.toUpperCase() as typeof workspace,
         requestAttributes
     };
 
