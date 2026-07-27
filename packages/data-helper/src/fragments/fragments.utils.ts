@@ -34,7 +34,7 @@ function replaceFragmentsInDocument(doc: DocumentNode, fragments: (string|Fragme
     }
 
     const key = (doc.definitions[0] as ExecutableDefinitionNode).name.value + '__' + fragments
-        .map(f => (typeof f === 'string') ? PredefinedFragments[f] : f)
+        .map(f => (typeof f === 'string') ? PredefinedFragments[f as keyof typeof PredefinedFragments] : f)
         .map(f => (f.gql.definitions[0] as FragmentDefinitionNode).name.value)
         .sort()
         .join('_');
@@ -101,13 +101,13 @@ function replaceFragmentsInSelectionSet(selectionSet: SelectionSetNode, fragment
 
                     // Check if a replacement is provided for this pseudo-fragment, then insert spreads and definitions
                     if (fragments) {
-                        const applyableFragments = fragments
-                            .map(frag => (typeof frag === 'string') ? PredefinedFragments[frag] : frag)
+                        const applyableFragments: Fragment[] = fragments
+                            .map(frag => (typeof frag === 'string') ? PredefinedFragments[frag as keyof typeof PredefinedFragments] : frag)
                             .filter(frag => frag.applyFor === sel.name.value);
 
-                        applyableFragments.flatMap((fragment:Fragment) => fragment.gql.definitions).forEach((frag: FragmentDefinitionNode) => {
+                        applyableFragments.flatMap(fragment => fragment.gql.definitions).forEach((frag: FragmentDefinitionNode) => {
                             const newSpread = clone(sel);
-                            (newSpread.name as Mutable<NameNode>).value = (frag as FragmentDefinitionNode).name.value;
+                            (newSpread.name as Mutable<NameNode>).value = frag.name.value;
                             newFragmentsSpreads.push(newSpread);
 
                             // Add the new fragment definition in document if it has not already been added

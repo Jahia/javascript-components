@@ -1,118 +1,118 @@
-import gql from 'graphql-tag';
-import {DocumentNode} from 'graphql';
+import {TadaDocumentNode} from 'gql.tada';
+import {graphql} from '../gql';
 
 export type Fragment = {
     variables?: {
         [key: string]: string
     },
     applyFor: string
-    gql: DocumentNode
+    gql: TadaDocumentNode<any, any, any>
 }
 
-export const displayName: Fragment = {
+export const displayName = {
     variables: {
         language: 'String!'
     },
     applyFor: 'node',
-    gql: gql`fragment DisplayName on JCRNode {
+    gql: graphql(`fragment DisplayName on JCRNode {
         displayName(language:$language)
-    }`
-};
+    }`)
+} satisfies Fragment;
 
-export const primaryNodeType: Fragment = {
+export const primaryNodeType = {
     variables: {
         displayLanguage: 'String!',
         displayLanguageSet: 'Boolean!'
     },
     applyFor: 'node',
-    gql: gql`fragment NodeInfoPrimaryNodeType on JCRNode {
+    gql: graphql(`fragment NodeInfoPrimaryNodeType on JCRNode {
         primaryNodeType {
             name
             displayName(language: $displayLanguage) @include(if: $displayLanguageSet)
             icon
         }
-    }`
-};
+    }`)
+} satisfies Fragment;
 
-export const parentNode: Fragment = {
+export const parentNode = {
     applyFor: 'node',
-    gql: gql`fragment ParentNodeInfo on JCRNode {
+    gql: graphql(`fragment ParentNodeInfo on JCRNode {
         parent {
             path
             name
             ...NodeCacheRequiredFields
         }
-    }`
-};
+    }`)
+} satisfies Fragment;
 
-export const aggregatedPublicationInfo: Fragment = {
+export const aggregatedPublicationInfo = {
     variables: {
         language: 'String!',
         aggregatedPublicationInfoSubNodes: 'Boolean',
         aggregatedPublicationInfoIncludeReference: 'Boolean'
     },
     applyFor: 'node',
-    gql: gql`fragment AggregatedPublicationInfo on JCRNode {
+    gql: graphql(`fragment AggregatedPublicationInfo on JCRNode {
         aggregatedPublicationInfo(language: $language, subNodes: $aggregatedPublicationInfoSubNodes, references:$aggregatedPublicationInfoIncludeReference) {
             publicationStatus
             existsInLive
         }
-    }`
-};
+    }`)
+} satisfies Fragment;
 
-export const operationSupport: Fragment = {
+export const operationSupport = {
     applyFor: 'node',
-    gql: gql`fragment OperationSupport on JCRNode {
+    gql: graphql(`fragment OperationSupport on JCRNode {
         operationsSupport {
             lock
             markForDeletion
             publication
         }
-    }`
-};
+    }`)
+} satisfies Fragment;
 
-export const allProperties: Fragment = {
+export const allProperties = {
     variables: {
         language: 'String!'
     },
     applyFor: 'node',
-    gql: gql`fragment NodeAllProperties on JCRNode {
+    gql: graphql(`fragment NodeAllProperties on JCRNode {
         properties(language:$language) {
             name
             value
             values
         }
-    }`
-};
+    }`)
+} satisfies Fragment;
 
-export const getProperties: Fragment = {
+export const getProperties = {
     variables: {
         language: 'String!',
         getPropertiesNames: '[String!]!'
     },
     applyFor: 'node',
-    gql: gql`fragment NodeProperties on JCRNode {
+    gql: graphql(`fragment NodeProperties on JCRNode {
         properties(names: $getPropertiesNames, language: $language) {
             name
             value
             values
         }
-    }`
-};
+    }`)
+} satisfies Fragment;
 
-export const installedModules: Fragment = {
+export const installedModules = {
     applyFor: 'node',
-    gql: gql`fragment SiteInstalledModules on JCRNode {
+    gql: graphql(`fragment SiteInstalledModules on JCRNode {
         site {
             installedModulesWithAllDependencies
             ...NodeCacheRequiredFields
         }
-    }`
-};
+    }`)
+} satisfies Fragment;
 
-export const siteLanguages: Fragment = {
+export const siteLanguages = {
     applyFor: 'node',
-    gql: gql`fragment SiteLanguages on JCRNode {
+    gql: graphql(`fragment SiteLanguages on JCRNode {
         site {
             defaultLanguage
             ...NodeCacheRequiredFields
@@ -122,69 +122,69 @@ export const siteLanguages: Fragment = {
                 activeInEdit
             }
         }
-    }`
-};
+    }`)
+} satisfies Fragment;
 
-export const displayableNode: Fragment = {
+export const displayableNode = {
     applyFor: 'node',
-    gql: gql`fragment DisplayableNodePath on JCRNode {
+    gql: graphql(`fragment DisplayableNodePath on JCRNode {
         displayableNode {
             path
             ...NodeCacheRequiredFields
         }
-    }`
-};
+    }`)
+} satisfies Fragment;
 
-export const lockInfo: Fragment = {
+export const lockInfo = {
     applyFor: 'node',
-    gql: gql`fragment LockInfo on JCRNode {
+    gql: graphql(`fragment LockInfo on JCRNode {
         lockOwner: property(name: "jcr:lockOwner") {
             value
         }
         lockTypes: property(name: "j:lockTypes") {
             values
         }
-    }`
-};
+    }`)
+} satisfies Fragment;
 
-export const canLockUnlock: Fragment = {
+export const canLockUnlock = {
     applyFor: 'node',
-    gql: gql`fragment CanLockUnlockInfo on JCRNode {
+    gql: graphql(`fragment CanLockUnlockInfo on JCRNode {
         lockInfo {
             canLock,
             canUnlock,
         }
-    }`
-};
+    }`)
+} satisfies Fragment;
 
-export const subNodesCount: Fragment = {
+export const subNodesCount = {
     variables: {
         subNodesCountTypes: '[String!]!'
     },
     applyFor: 'node',
-    gql: gql`fragment SubNodesCount on JCRNode {
+    gql: graphql(`fragment SubNodesCount on JCRNode {
         subNodes: children(typesFilter: {types: $subNodesCountTypes, multi: ANY}) {
             pageInfo {
                 totalCount
             }
         }
-    }`
-};
+    }`)
+} satisfies Fragment;
 
-export const childNodeTypes: Fragment = {
+export const childNodeTypes = {
     applyFor: 'node',
-    gql: gql`fragment AllowedChildNodeType on JCRNode {
+    gql: graphql(`fragment AllowedChildNodeType on JCRNode {
         allowedChildNodeTypes(includeSubTypes: false) {
             name
             displayName(language: $language)
             icon
         }
-    }`
-};
+    }`)
+} satisfies Fragment;
 
-export const contentRestrictions: Fragment = {
+export const contentRestrictions = {
     applyFor: 'node',
-    gql: gql`fragment ContentRestriction on JCRNode {
+    gql: graphql(`fragment ContentRestriction on JCRNode {
         contributeTypes: property(name: "j:contributeTypes") {
             values
         }
@@ -194,46 +194,46 @@ export const contentRestrictions: Fragment = {
                 values
             }
         }
-    }`
-};
+    }`)
+} satisfies Fragment;
 
-export const siteHomePage: Fragment = {
+export const siteHomePage = {
     applyFor: 'node',
-    gql: gql`fragment NodeSiteHomePage on JCRNode {
+    gql: graphql(`fragment NodeSiteHomePage on JCRNode {
         children(typesFilter:{types:["jnt:page"]}, propertiesFilter:{filters:[{property:"j:isHomePage", value:"true" }]}) {
             nodes {
                 path
                 ...NodeCacheRequiredFields
             }
         }
-    }`
-};
+    }`)
+} satisfies Fragment;
 
-export const nodeCacheRequiredFields: Fragment = {
+export const nodeCacheRequiredFields = {
     applyFor: 'node',
-    gql: gql`fragment NodeCacheRequiredFields on JCRNode {
+    gql: graphql(`fragment NodeCacheRequiredFields on JCRNode {
         uuid
         workspace
         path
-    }`
-};
+    }`)
+} satisfies Fragment;
 
-export const nodeTypeDisplayName: Fragment = {
+export const nodeTypeDisplayName = {
     variables: {
         language: 'String!'
     },
     applyFor: 'nodeType',
-    gql: gql`fragment NodeTypeDisplayName on JCRNodeType {
+    gql: graphql(`fragment NodeTypeDisplayName on JCRNodeType {
         displayName(language:$language)
-    }`
-};
+    }`)
+} satisfies Fragment;
 
-export const nodeTypeSubTypes: Fragment = {
+export const nodeTypeSubTypes = {
     variables: {
         language: 'String!'
     },
     applyFor: 'nodeType',
-    gql: gql`fragment NodeTypeSubTypes on JCRNodeType {
+    gql: graphql(`fragment NodeTypeSubTypes on JCRNodeType {
         subTypes {
             nodes {
                 name
@@ -242,12 +242,12 @@ export const nodeTypeSubTypes: Fragment = {
                 mixin
             }
         }
-    }`
-};
+    }`)
+} satisfies Fragment;
 
-export const mimeTypes: Fragment = {
+export const mimeTypes = {
     applyFor: 'node',
-    gql: gql`fragment NodeInfoResourceNode on JCRNode {
+    gql: graphql(`fragment NodeInfoResourceNode on JCRNode {
         resourceChildren: children(names: ["jcr:content"]) {
             nodes {
                 ...NodeCacheRequiredFields
@@ -256,17 +256,17 @@ export const mimeTypes: Fragment = {
                 }
             }
         }
-    }`
-};
+    }`)
+} satisfies Fragment;
 
-export const isExternal: Fragment = {
+export const isExternal = {
     applyFor: 'node',
-    gql: gql`fragment External on JCRNode {
+    gql: graphql(`fragment External on JCRNode {
         isExternal
-    }`
-};
+    }`)
+} satisfies Fragment;
 
-export const PredefinedFragments: {[key:string]: Fragment} = {
+export const PredefinedFragments = {
     displayName,
     primaryNodeType,
     parentNode,
@@ -286,4 +286,4 @@ export const PredefinedFragments: {[key:string]: Fragment} = {
     nodeTypeSubTypes,
     mimeTypes,
     isExternal
-};
+} satisfies Record<string, Fragment>;

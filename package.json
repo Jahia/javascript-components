@@ -71,7 +71,8 @@
         "cheerio": "1.0.0-rc.12",
         "glob-parent": "^5.1.2",
         "node-fetch@npm:^1.0.1": "^2.7.0",
-        "trim": "^1.0.0"
+        "trim": "^1.0.0",
+        "graphql": "^15.10.2"
     },
     "workspaces": [
         "packages/*"

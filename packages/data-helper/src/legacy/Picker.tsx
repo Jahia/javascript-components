@@ -2,7 +2,7 @@
 // @ts-nocheck
 import React from 'react';
 import {Query} from '@apollo/client/react/components';
-import gql from 'graphql-tag';
+import {graphql} from '../gql';
 import {displayName, Fragment, nodeCacheRequiredFields} from '../fragments/PredefinedFragments';
 import {replaceFragmentsInDocument} from '../fragments/fragments.utils';
 import {PickerItemsFragment} from './Picker.gql-fragments';
@@ -109,7 +109,7 @@ export class Picker extends React.Component<PropType, StateType> {
 
         const resolvedFragments = fragments || [PickerItemsFragment.mixinTypes, PickerItemsFragment.primaryNodeType, PickerItemsFragment.isPublished, displayName];
 
-        this.query = gql`
+        this.query = graphql(`
             query PickerQuery($rootPaths:[String!]!, $selectable:[String]!, $openable:[String]!, $openPaths:[String!]!, $types:[String]!) {
                 jcr {
                     rootNodes:nodesByPath(paths: $rootPaths) {
@@ -143,7 +143,7 @@ export class Picker extends React.Component<PropType, StateType> {
                     }
                 }
             }
-        ${nodeCacheRequiredFields.gql}`;
+        `, [nodeCacheRequiredFields.gql]);
         this.query = replaceFragmentsInDocument(this.query, resolvedFragments);
 
         const state: StateType = {};

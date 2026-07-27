@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import {graphql} from '../gql';
 import {encodeName} from './encodeName';
 import {Fragment} from './PredefinedFragments';
 
@@ -12,13 +12,13 @@ export const getSubNodesCountFragment = (name: string) => {
             variables: {
                 [encodedName]: '[String!]!'
             },
-            gql: gql`fragment SubNodesCount_${encodedName} on JCRNode {
+            gql: graphql(`fragment SubNodesCount_${encodedName} on JCRNode {
                 ${encodedName}: children(typesFilter: {types: $${encodedName}}) {
                     pageInfo {
                         totalCount
                     }
                 }
-            }`
+            }`)
         };
     }
 
