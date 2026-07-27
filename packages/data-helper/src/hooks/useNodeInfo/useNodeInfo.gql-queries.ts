@@ -162,7 +162,7 @@ export const validOptions = [
 export const validateQuery = (variables: {[key:string]: any}, options: NodeInfoOptions = {}) => {
     const requiresLanguage = ['getDisplayName', 'getAggregatedPublicationInfo', 'getProperties', 'getChildNodeTypes'] as const;
     const missingLanguageOptions = requiresLanguage
-        .filter(attr => Boolean(options[attr as keyof NodeInfoOptions]));
+        .filter(attr => Boolean(options[attr]));
     if (missingLanguageOptions.length > 0 && !variables.language) {
         const msg = `language is required for useNodeInfo options ${missingLanguageOptions.join(',')}`;
         throw new Error(msg);

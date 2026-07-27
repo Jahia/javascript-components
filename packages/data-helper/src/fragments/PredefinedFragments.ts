@@ -34,6 +34,15 @@ export const primaryNodeType = {
     }`)
 } satisfies Fragment;
 
+export const nodeCacheRequiredFields = {
+    applyFor: 'node',
+    gql: graphql(`fragment NodeCacheRequiredFields on JCRNode {
+        uuid
+        workspace
+        path
+    }`)
+} satisfies Fragment;
+
 export const parentNode = {
     applyFor: 'node',
     gql: graphql(`fragment ParentNodeInfo on JCRNode {
@@ -42,7 +51,7 @@ export const parentNode = {
             name
             ...NodeCacheRequiredFields
         }
-    }`)
+    }`, [nodeCacheRequiredFields.gql])
 } satisfies Fragment;
 
 export const aggregatedPublicationInfo = {
@@ -107,7 +116,7 @@ export const installedModules = {
             installedModulesWithAllDependencies
             ...NodeCacheRequiredFields
         }
-    }`)
+    }`, [nodeCacheRequiredFields.gql])
 } satisfies Fragment;
 
 export const siteLanguages = {
@@ -122,7 +131,7 @@ export const siteLanguages = {
                 activeInEdit
             }
         }
-    }`)
+    }`, [nodeCacheRequiredFields.gql])
 } satisfies Fragment;
 
 export const displayableNode = {
@@ -132,7 +141,7 @@ export const displayableNode = {
             path
             ...NodeCacheRequiredFields
         }
-    }`)
+    }`, [nodeCacheRequiredFields.gql])
 } satisfies Fragment;
 
 export const lockInfo = {
@@ -194,7 +203,7 @@ export const contentRestrictions = {
                 values
             }
         }
-    }`)
+    }`, [nodeCacheRequiredFields.gql])
 } satisfies Fragment;
 
 export const siteHomePage = {
@@ -206,16 +215,7 @@ export const siteHomePage = {
                 ...NodeCacheRequiredFields
             }
         }
-    }`)
-} satisfies Fragment;
-
-export const nodeCacheRequiredFields = {
-    applyFor: 'node',
-    gql: graphql(`fragment NodeCacheRequiredFields on JCRNode {
-        uuid
-        workspace
-        path
-    }`)
+    }`, [nodeCacheRequiredFields.gql])
 } satisfies Fragment;
 
 export const nodeTypeDisplayName = {
@@ -256,7 +256,7 @@ export const mimeTypes = {
                 }
             }
         }
-    }`)
+    }`, [nodeCacheRequiredFields.gql])
 } satisfies Fragment;
 
 export const isExternal = {

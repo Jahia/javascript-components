@@ -28,13 +28,13 @@ function findParametersInDocument(doc: DocumentNode): string[] {
 
 const queryCache: {[key:string]: DocumentNode} = {};
 
-function replaceFragmentsInDocument(doc: DocumentNode, fragments: (string|Fragment)[]) {
+function replaceFragmentsInDocument(doc: DocumentNode, fragments: (keyof typeof PredefinedFragments|Fragment)[]) {
     if (!fragments) {
         fragments = [];
     }
 
     const key = (doc.definitions[0] as ExecutableDefinitionNode).name.value + '__' + fragments
-        .map(f => (typeof f === 'string') ? PredefinedFragments[f as keyof typeof PredefinedFragments] : f)
+        .map(f => (typeof f === 'string') ? PredefinedFragments[f] : f)
         .map(f => (f.gql.definitions[0] as FragmentDefinitionNode).name.value)
         .sort()
         .join('_');
@@ -84,7 +84,7 @@ function findFragmentsInSelectionSet(selectionSet: SelectionSetNode): string[] {
     return [];
 }
 
-function replaceFragmentsInSelectionSet(selectionSet: SelectionSetNode, fragments: (string|Fragment)[], def: ExecutableDefinitionNode, document: Mutable<DocumentNode>) {
+function replaceFragmentsInSelectionSet(selectionSet: SelectionSetNode, fragments: (keyof typeof PredefinedFragments|Fragment)[], def: ExecutableDefinitionNode, document: Mutable<DocumentNode>) {
     if (selectionSet && selectionSet.selections) {
         const newFragmentsSpreads: FragmentSpreadNode[] = [];
         const removedFragmentSpreads: FragmentSpreadNode[] = [];
@@ -102,7 +102,7 @@ function replaceFragmentsInSelectionSet(selectionSet: SelectionSetNode, fragment
                     // Check if a replacement is provided for this pseudo-fragment, then insert spreads and definitions
                     if (fragments) {
                         const applyableFragments: Fragment[] = fragments
-                            .map(frag => (typeof frag === 'string') ? PredefinedFragments[frag as keyof typeof PredefinedFragments] : frag)
+                            .map(frag => (typeof frag === 'string') ? PredefinedFragments[frag] : frag)
                             .filter(frag => frag.applyFor === sel.name.value);
 
                         applyableFragments.flatMap(fragment => fragment.gql.definitions).forEach((frag: FragmentDefinitionNode) => {
