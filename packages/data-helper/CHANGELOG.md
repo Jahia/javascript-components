@@ -1,5 +1,9 @@
 # @jahia/data-helper Changelog
 
+## 1.2.0
+
+* All static GraphQL queries and fragments are now typed with [gql.tada](https://gql-tada.0no.co/). (#392)
+
 ## 1.1.21
 
 * Fixed TypeScript types. (#390)
