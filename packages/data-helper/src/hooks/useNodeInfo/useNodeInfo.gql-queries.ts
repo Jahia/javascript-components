@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import {graphql} from '../../gql';
 import {
     aggregatedPublicationInfo,
     canLockUnlock,
@@ -30,7 +30,7 @@ const getBaseQueryAndVariables = (variables: {[key:string]: any}): {
 } => {
     if (variables.paths) {
         return {
-            baseQuery: gql`
+            baseQuery: graphql(`
                 query NodesByPathInfoQuery($paths:[String!]!) {
                     jcr {
                         nodesByPath(paths:$paths) {
@@ -41,9 +41,7 @@ const getBaseQueryAndVariables = (variables: {[key:string]: any}): {
                         }
                     }
                 }
-                ${nodeCacheRequiredFields.gql}
-                ${isExternal.gql}
-            `,
+            `, [nodeCacheRequiredFields.gql, isExternal.gql]),
             generatedVariables: {
                 paths: variables.paths
             },
@@ -53,7 +51,7 @@ const getBaseQueryAndVariables = (variables: {[key:string]: any}): {
 
     if (variables.uuid && variables.uuid.length > 0) {
         return {
-            baseQuery: gql`
+            baseQuery: graphql(`
                 query NodeByUuidInfoQuery($uuid:String!) {
                     jcr {
                         nodeById(uuid:$uuid) {
@@ -64,9 +62,7 @@ const getBaseQueryAndVariables = (variables: {[key:string]: any}): {
                         }
                     }
                 }
-                ${nodeCacheRequiredFields.gql}
-                ${isExternal.gql}
-            `,
+            `, [nodeCacheRequiredFields.gql, isExternal.gql]),
             generatedVariables: {
                 uuid: variables.uuid
             },
@@ -76,7 +72,7 @@ const getBaseQueryAndVariables = (variables: {[key:string]: any}): {
 
     if (variables.uuids) {
         return {
-            baseQuery: gql`
+            baseQuery: graphql(`
                 query NodesByUuidInfoQuery($uuids:[String!]!) {
                     jcr {
                         nodesById(uuids:$uuids) {
@@ -87,9 +83,7 @@ const getBaseQueryAndVariables = (variables: {[key:string]: any}): {
                         }
                     }
                 }
-                ${nodeCacheRequiredFields.gql}
-                ${isExternal.gql}
-            `,
+            `, [nodeCacheRequiredFields.gql, isExternal.gql]),
             generatedVariables: {
                 uuids: variables.uuids
             },
@@ -98,7 +92,7 @@ const getBaseQueryAndVariables = (variables: {[key:string]: any}): {
     }
 
     return {
-        baseQuery: gql`
+        baseQuery: graphql(`
             query NodeByPathInfoQuery($path:String!) {
                 jcr {
                     nodeByPath(path:$path) {
@@ -109,9 +103,7 @@ const getBaseQueryAndVariables = (variables: {[key:string]: any}): {
                     }
                 }
             }
-            ${nodeCacheRequiredFields.gql}
-            ${isExternal.gql}
-        `,
+        `, [nodeCacheRequiredFields.gql, isExternal.gql]),
         generatedVariables: {
             path: variables.path
         },
@@ -170,7 +162,7 @@ export const validOptions = [
 export const validateQuery = (variables: {[key:string]: any}, options: NodeInfoOptions = {}) => {
     const requiresLanguage = ['getDisplayName', 'getAggregatedPublicationInfo', 'getProperties', 'getChildNodeTypes'] as const;
     const missingLanguageOptions = requiresLanguage
-        .filter(attr => Boolean(options[attr as keyof NodeInfoOptions]));
+        .filter(attr => Boolean(options[attr]));
     if (missingLanguageOptions.length > 0 && !variables.language) {
         const msg = `language is required for useNodeInfo options ${missingLanguageOptions.join(',')}`;
         throw new Error(msg);

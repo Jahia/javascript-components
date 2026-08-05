@@ -28,7 +28,7 @@ function findParametersInDocument(doc: DocumentNode): string[] {
 
 const queryCache: {[key:string]: DocumentNode} = {};
 
-function replaceFragmentsInDocument(doc: DocumentNode, fragments: (string|Fragment)[]) {
+function replaceFragmentsInDocument(doc: DocumentNode, fragments: (keyof typeof PredefinedFragments|Fragment)[]) {
     if (!fragments) {
         fragments = [];
     }
@@ -84,7 +84,7 @@ function findFragmentsInSelectionSet(selectionSet: SelectionSetNode): string[] {
     return [];
 }
 
-function replaceFragmentsInSelectionSet(selectionSet: SelectionSetNode, fragments: (string|Fragment)[], def: ExecutableDefinitionNode, document: Mutable<DocumentNode>) {
+function replaceFragmentsInSelectionSet(selectionSet: SelectionSetNode, fragments: (keyof typeof PredefinedFragments|Fragment)[], def: ExecutableDefinitionNode, document: Mutable<DocumentNode>) {
     if (selectionSet && selectionSet.selections) {
         const newFragmentsSpreads: FragmentSpreadNode[] = [];
         const removedFragmentSpreads: FragmentSpreadNode[] = [];
@@ -101,13 +101,13 @@ function replaceFragmentsInSelectionSet(selectionSet: SelectionSetNode, fragment
 
                     // Check if a replacement is provided for this pseudo-fragment, then insert spreads and definitions
                     if (fragments) {
-                        const applyableFragments = fragments
+                        const applyableFragments: Fragment[] = fragments
                             .map(frag => (typeof frag === 'string') ? PredefinedFragments[frag] : frag)
                             .filter(frag => frag.applyFor === sel.name.value);
 
-                        applyableFragments.flatMap((fragment:Fragment) => fragment.gql.definitions).forEach((frag: FragmentDefinitionNode) => {
+                        applyableFragments.flatMap(fragment => fragment.gql.definitions).forEach((frag: FragmentDefinitionNode) => {
                             const newSpread = clone(sel);
-                            (newSpread.name as Mutable<NameNode>).value = (frag as FragmentDefinitionNode).name.value;
+                            (newSpread.name as Mutable<NameNode>).value = frag.name.value;
                             newFragmentsSpreads.push(newSpread);
 
                             // Add the new fragment definition in document if it has not already been added

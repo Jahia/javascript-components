@@ -1,7 +1,7 @@
-import gql from 'graphql-tag';
+import {graphql} from '../../gql';
 import {nodeCacheRequiredFields} from '../../fragments/PredefinedFragments';
 
-export const SITE_INFO_QUERY = gql`
+export const SITE_INFO_QUERY = graphql(`
     query siteInfo($path: String!, $displayLanguage:String!, $uiLanguage:String, $skipUILanguage:Boolean!) {
         jcr(workspace: LIVE) {
             result:nodeByPath(path: $path) {
@@ -35,5 +35,4 @@ export const SITE_INFO_QUERY = gql`
             activeInEdit
         }
     }
-    ${nodeCacheRequiredFields.gql}
-`;
+`, [nodeCacheRequiredFields.gql]);

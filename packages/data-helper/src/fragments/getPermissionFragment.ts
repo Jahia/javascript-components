@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import {graphql} from '../gql';
 import {encodeName} from './encodeName';
 import {Fragment} from './PredefinedFragments';
 
@@ -12,9 +12,9 @@ export const getPermissionFragment = (name: string) => {
             variables: {
                 [encodedName]: 'String!'
             },
-            gql: gql`fragment NodePermission_${encodedName} on JCRNode {
+            gql: graphql(`fragment NodePermission_${encodedName} on JCRNode {
                 ${encodedName}:hasPermission(permissionName: $${encodedName})
-            }`
+            }`)
         };
     }
 
@@ -34,12 +34,12 @@ export const getSitePermissionFragment = (name: string) => {
             variables: {
                 [encodedName]: 'String!'
             },
-            gql: gql`fragment SiteNodePermission_${encodedName} on JCRNode {
+            gql: graphql(`fragment SiteNodePermission_${encodedName} on JCRNode {
                 site {
                     ...NodeCacheRequiredFields
                     ${encodedName}:hasPermission(permissionName: $${encodedName})
                 }
-            }`
+            }`)
         };
     }
 

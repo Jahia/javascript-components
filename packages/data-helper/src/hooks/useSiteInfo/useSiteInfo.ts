@@ -1,7 +1,8 @@
 import {useQuery} from '@apollo/client';
 import {SITE_INFO_QUERY} from './useSiteInfo.gql-queries';
+import {ResultOf} from '../../gql';
 
-const adaptSiteInfo = (data: any) => {
+const adaptSiteInfo = (data: ResultOf<typeof SITE_INFO_QUERY>) => {
     if (data && (data.jcr || data.wsDefault)) {
         const res = data.jcr ? data.jcr.result : data.wsDefault.result;
         if (res) {
@@ -10,7 +11,7 @@ const adaptSiteInfo = (data: any) => {
     }
 
     return {
-        languages: []
+        languages: [] as never[]
     };
 };
 

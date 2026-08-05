@@ -1,7 +1,7 @@
-import gql from 'graphql-tag';
+import {graphql} from '../../gql';
 import {nodeCacheRequiredFields} from '../../fragments/PredefinedFragments';
 
-export const TREE_QUERY = gql`
+export const TREE_QUERY = graphql(`
     query PickerQuery($rootPaths:[String!]!, $selectable:[String]!, $openable:[String]!, $openPaths:[String!]!, $types:[String]!, $recursionTypesFilter: InputNodeTypesInput, $sortBy: InputFieldSorterInput, $fieldGrouping: InputFieldGroupingInput) {
         jcr {
             rootNodes:nodesByPath(paths: $rootPaths) {
@@ -35,4 +35,4 @@ export const TREE_QUERY = gql`
             }
         }
     }
-${nodeCacheRequiredFields.gql}`;
+`, [nodeCacheRequiredFields.gql]);

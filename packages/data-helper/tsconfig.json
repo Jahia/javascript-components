@@ -17,7 +17,14 @@
     "skipLibCheck": true,
     "baseUrl": "src",
     "typeRoots": ["types", "../../node_modules/@types", "node_modules/@types"],
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "plugins": [
+      {
+        "name": "gql.tada/ts-plugin",
+        "schema": "../../schema.graphql",
+        "tadaOutputLocation": "src/gql/graphql-live.d.ts"
+      }
+    ]
   },
   "include": ["src"],
   "exclude": ["node_modules", "build", "dist", "types"]

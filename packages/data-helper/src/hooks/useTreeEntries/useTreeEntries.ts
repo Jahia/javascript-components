@@ -1,10 +1,10 @@
 import {QueryHookOptions, useQuery} from '@apollo/client';
 import {replaceFragmentsInDocument} from '../../fragments/fragments.utils';
 import {TREE_QUERY} from './useTreeEntries.gql-queries';
-import {Fragment} from '../../fragments/PredefinedFragments';
+import {Fragment, PredefinedFragments} from '../../fragments/PredefinedFragments';
 
 export type UseTreeEntriesArgs = Partial<{
-    fragments: (string|Fragment)[],
+    fragments: (keyof typeof PredefinedFragments|Fragment)[],
     rootPaths: string[],
     openPaths: string[],
     selectedPaths: string[],

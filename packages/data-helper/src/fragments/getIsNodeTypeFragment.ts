@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import {graphql} from '../gql';
 import {encodeName} from './encodeName';
 import {Fragment} from './PredefinedFragments';
 
@@ -12,9 +12,9 @@ export const getNodeTypeFragment = (name: string) => {
             variables: {
                 [encodedName]: 'InputNodeTypesInput!'
             },
-            gql: gql`fragment NodeType_${encodedName} on JCRNode {
+            gql: graphql(`fragment NodeType_${encodedName} on JCRNode {
                 ${encodedName}:isNodeType(type: $${encodedName})
-            }`
+            }`)
         };
     }
 
