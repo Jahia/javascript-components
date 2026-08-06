@@ -11,16 +11,10 @@ target
 src/main/resources/javascript/bundles
 node
 node_modules
-yarn-error.log
 .DS_Store
 *.log
-package-lock.json
 coverage/
 .env
 
-# yarn v2
-.yarn/cache
-.yarn/unplugged
-.yarn/build-state.yml
-.yarn/install-state.gz
-.pnp.*
+**/.yarn/*
+!**/.yarn/patches
