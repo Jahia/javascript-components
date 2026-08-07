@@ -5,6 +5,9 @@
     "jahia-pack": "./pack.js",
     "jahia-deploy": "./deploy.js"
   },
+  "files": [
+    "*.js"
+  ],
   "license": "MIT",
   "repository": {
     "url": "https://github.com/Jahia/javascript-components",

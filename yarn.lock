@@ -1779,10 +1779,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@chachalog/types@npm:^0.4.2":
-  version: 0.4.4
-  resolution: "@chachalog/types@npm:0.4.4"
-  checksum: 10c0/1519e963ed422bd906f84d549aa9af7e00a3831e028f59cad84eb3d0ae1905b70f4d8c21a55e210657179ad97f193d4d0caa2f1c9880d384003400a8c83a93e4
+"@chachalog/types@npm:^0.5.2":
+  version: 0.5.2
+  resolution: "@chachalog/types@npm:0.5.2"
+  checksum: 10c0/a5c971249adcd17db5cbd41710399113c90d0b29ae0b93fa9db57642613faf966d494c7dd24d6f08b68198d4f0642416af90c42032baa30ed6a400edee9d35eb
   languageName: node
   linkType: hard
 
@@ -2238,7 +2238,7 @@ __metadata:
     "@babel/preset-env": "npm:^7.21.5"
     "@babel/preset-react": "npm:^7.0.0"
     "@babel/preset-typescript": "npm:^7.21.5"
-    "@chachalog/types": "npm:^0.4.2"
+    "@chachalog/types": "npm:^0.5.2"
     "@storybook/addon-actions": "npm:^6.5.12"
     "@storybook/addon-knobs": "npm:^6.4.0"
     "@storybook/addons": "npm:^6.5.12"
@@ -2273,6 +2273,7 @@ __metadata:
     eslint-plugin-react-hooks: "npm:^4.6.0"
     jest: "npm:^29.7"
     jest-environment-jsdom: "npm:^29.7"
+    pkg-pr-new: "npm:^0.0.86"
     playwright: "npm:^1.58.2"
     postcss-cssnext: "npm:^3.1.1"
     postcss-each: "npm:^0.10.0"
@@ -15821,6 +15822,15 @@ __metadata:
   dependencies:
     find-up: "npm:^6.3.0"
   checksum: 10c0/1afb23d2efb1ec9d8b2c4a0c37bf146822ad2774f074cb05b853be5dca1b40815c5960dd126df30ab8908349262a266f31b771e877235870a3b8fd313beebec5
+  languageName: node
+  linkType: hard
+
+"pkg-pr-new@npm:^0.0.86":
+  version: 0.0.86
+  resolution: "pkg-pr-new@npm:0.0.86"
+  bin:
+    pkg-pr-new: bin/cli.js
+  checksum: 10c0/83b5a885f23fd82a29dc4c4729b3c712feed7d206ee5cd640afb6bf38c37be6515e8fc0f0af19da4dda4a37f4eb65f0728e53846da75158e143bbd3b56e9f226
   languageName: node
   linkType: hard
 
