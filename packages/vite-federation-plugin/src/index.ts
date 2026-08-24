@@ -96,6 +96,14 @@ export default function jahiaFederationPlugin(
     );
   }
 
+  const notProvided = Object.keys(peerDependencies).filter((d) => !hostSingletons.has(d));
+  if (notProvided.length > 0) {
+    throw new Error(
+      "The following libraries are declared in `peerDependencies` but are not provided by the host as singletons: " +
+        notProvided.join(", "),
+    );
+  }
+
   const shared: Record<string, Record<string, unknown>> = {
     // Bundled in the remote, pooled with the other federated modules for deduplication
     ...mapDependencies(dependencies, (requiredVersion) => ({ requiredVersion })),
