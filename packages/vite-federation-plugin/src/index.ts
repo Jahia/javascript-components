@@ -14,6 +14,7 @@ const hostSingletons = new Set([
   "react",
   "react-dom",
   "react-router",
+  "react-router-dom-v5-compat",
   "react-redux",
   "redux",
   "i18next",
@@ -153,7 +154,7 @@ export default function jahiaFederationPlugin(
         this.emitFile({
           type: "asset",
           fileName: "remoteEntry.js",
-          source: `appShell.remotes[${JSON.stringify(name)}]={builder:"${pkg.name}@${pkg.version} ${moduleFederationVitePkg.name}@${moduleFederationVitePkg.version}",async init(...a){const m=await import("./index.js");await m.init(...a);Object.assign(this,m)}};`,
+          source: `appShell.remotes[${JSON.stringify(options.name)}]={builder:"${pkg.name}@${pkg.version} ${moduleFederationVitePkg.name}@${moduleFederationVitePkg.version}",async init(...a){const m=await import("./index.js");await m.init(...a);Object.assign(this,m)}};`,
         });
         this.emitFile({
           type: "asset",
