@@ -52,7 +52,7 @@ export const useTreeEntries = ({
                 prefix: '&nbsp;'.repeat(depth * 3),
                 node,
                 hidden: false,
-                hasChildren: node.children.pageInfo.nodesCount > 0
+                hasChildren: node.children?.pageInfo.nodesCount > 0
             };
             treeEntries.splice(index, 0, treeEntry);
             nodesById[node.uuid] = treeEntry;
@@ -72,7 +72,8 @@ export const useTreeEntries = ({
                     const parent = nodesById[node.uuid];
                     if (parent) {
                         const parentIndex = treeEntries.indexOf(parent);
-                        [...node.children.nodes].reverse().forEach(child => {
+                        // With errorPolicy 'all', a connection refused by the server comes back null
+                        [...(node.children?.nodes || [])].reverse().forEach(child => {
                             addNode(child, parent.depth + 1, parentIndex + 1);
                         });
                     }
@@ -91,6 +92,8 @@ export const useTreeEntries = ({
         openable: openableTypes,
         openPaths,
         sortBy,
+        // In a session with a language, the server skips the translation nodes of every node it reads
+        validInLanguage: queryVariables?.language,
         ...queryVariables
     };
 
