@@ -1,6 +1,6 @@
 {
   "name": "@jahia/data-helper",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "scripts": {
     "build": "gql.tada generate-output && yarn tsc && node ./build.mjs",
     "test": "run --top-level jest --coverage"
