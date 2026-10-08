@@ -2,11 +2,11 @@ import {graphql} from '../../gql';
 import {nodeCacheRequiredFields} from '../../fragments/PredefinedFragments';
 
 export const TREE_QUERY = graphql(`
-    query PickerQuery($rootPaths:[String!]!, $selectable:[String]!, $openable:[String]!, $openPaths:[String!]!, $types:[String]!, $recursionTypesFilter: InputNodeTypesInput, $sortBy: InputFieldSorterInput, $fieldGrouping: InputFieldGroupingInput) {
+    query PickerQuery($rootPaths:[String!]!, $selectable:[String]!, $openable:[String]!, $openPaths:[String!]!, $types:[String]!, $recursionTypesFilter: InputNodeTypesInput, $sortBy: InputFieldSorterInput, $fieldGrouping: InputFieldGroupingInput, $validInLanguage: String) {
         jcr {
             rootNodes:nodesByPath(paths: $rootPaths) {
                 name
-                children: descendants(typesFilter:{types: $types}, recursionTypesFilter: $recursionTypesFilter, limit:1) {
+                children: descendants(typesFilter:{types: $types}, recursionTypesFilter: $recursionTypesFilter, validInLanguage: $validInLanguage, limit:1) {
                     pageInfo {
                         nodesCount
                     }
@@ -18,10 +18,10 @@ export const TREE_QUERY = graphql(`
             },
             openNodes:nodesByPath(paths: $openPaths) {
                 ... NodeCacheRequiredFields
-                children:descendants(typesFilter:{types: $types}, recursionTypesFilter: $recursionTypesFilter, fieldSorter: $sortBy, fieldGrouping: $fieldGrouping) {
+                children:descendants(typesFilter:{types: $types}, recursionTypesFilter: $recursionTypesFilter, validInLanguage: $validInLanguage, fieldSorter: $sortBy, fieldGrouping: $fieldGrouping) {
                     nodes {
                         name
-                        children: descendants(typesFilter:{types: $types}, recursionTypesFilter: $recursionTypesFilter, limit:1) {
+                        children: descendants(typesFilter:{types: $types}, recursionTypesFilter: $recursionTypesFilter, validInLanguage: $validInLanguage, limit:1) {
                             pageInfo {
                                 nodesCount
                             }
