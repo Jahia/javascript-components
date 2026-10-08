@@ -8,7 +8,9 @@
   "main": "dist/js/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
-  "browser": "lib/react-apollo.umd.min.js",
+  "files": [
+    "dist"
+  ],
   "sideEffects": false,
   "license": "SEE LICENSE IN ../../LICENSE.txt FILE",
   "repository": {
