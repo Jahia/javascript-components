@@ -21,7 +21,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc && publint"
+    "build": "tsc && publint",
+    "test": "vitest"
   },
   "dependencies": {
     "@module-federation/vite": "^1.20.0"
@@ -31,7 +32,8 @@
     "@types/node": "^24.13.3",
     "publint": "^0.3.24",
     "typescript": "^7.0.2",
-    "vite": "^8.2.2"
+    "vite": "^8.2.2",
+    "vitest": "^5.0.5"
   },
   "peerDependencies": {
     "vite": "^8.2.0"
