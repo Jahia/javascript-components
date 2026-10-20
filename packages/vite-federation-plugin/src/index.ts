@@ -4,27 +4,7 @@ import moduleFederationVitePkg from "@module-federation/vite/package.json" with 
 import { existsSync, readFileSync } from "node:fs";
 import type { Plugin } from "vite";
 import pkg from "../package.json" with { type: "json" };
-
-/**
- * Libraries the federation host (the app-shell) provides as singletons.
- *
- * @see https://github.com/Jahia/gautier-braindump/issues/71
- */
-const hostSingletons = new Set([
-  "react",
-  "react-dom",
-  "react-router",
-  "react-router-dom-v5-compat",
-  "react-redux",
-  "redux",
-  "i18next",
-  "react-i18next",
-  "formik",
-  "@jahia/ui-extender",
-  // Deprecated since 2019, remove once no remote renders <Query>/<Mutation>
-  "react-apollo",
-  "@apollo/react-components",
-]);
+import { getShared, type SharedConfig } from "./shared.js";
 
 /**
  * Vite Plugin for Jahia's Module Federation setup.
@@ -57,30 +37,17 @@ export default function jahiaFederationPlugin(
      * By default `peerDependencies` are shared as singletons imported from the host, and
      * `dependencies` are bundled and shared pooled.
      *
-     * Entries here are merged last and override that default.
+     * Entries here are merged last and override that default. They also skip the checks
+     * that libraries are in the right bucket, e.g. to target a host this plugin does not
+     * know yet.
      *
      * @see https://module-federation.io/configure/shared.html
      */
-    shared?: Record<
-      string,
-      {
-        name?: string;
-        version?: string;
-        shareScope?: string;
-        singleton?: boolean;
-        requiredVersion?: string;
-        strictVersion?: boolean;
-        import?: string | false;
-      }
-    >;
+    shared?: Record<string, SharedConfig>;
   } & Omit<ModuleFederationOptions, "name" | "filename" | "exposes" | "shared">,
 ): Plugin[] {
-  const {
-    name,
-    dependencies = {},
-    peerDependencies = {},
-    jahia = {},
-  } = readPackageJson();
+  const packageJson = readPackageJson();
+  const { name, jahia = {} } = packageJson;
 
   // Unless explicitly specified, use the package name as the federation module name
   options.name ??= name;
@@ -89,42 +56,7 @@ export default function jahiaFederationPlugin(
     throw new Error("Federation module name is not defined in options and package.json.");
   }
 
-  const misdeclared = Object.keys(dependencies).filter((d) => hostSingletons.has(d));
-  if (misdeclared.length > 0) {
-    throw new Error(
-      "The following libraries are provided by the host as singletons and must be declared in `peerDependencies`: " +
-        misdeclared.join(", "),
-    );
-  }
-
-  const notProvided = Object.keys(peerDependencies).filter((d) => !hostSingletons.has(d));
-  if (notProvided.length > 0) {
-    throw new Error(
-      "The following libraries are declared in `peerDependencies` but are not provided by the host as singletons: " +
-        notProvided.join(", "),
-    );
-  }
-
-  const shared: Record<string, Record<string, unknown>> = {
-    // Bundled in the remote, pooled with the other federated modules for deduplication
-    ...mapDependencies(dependencies, (requiredVersion) => ({ requiredVersion })),
-    // Imported from the host, never bundled
-    ...mapDependencies(peerDependencies, (requiredVersion) => ({
-      singleton: true,
-      import: false,
-      requiredVersion,
-    })),
-    ...options.shared,
-  };
-
-  // Subpath import is not automatic, configure common React subpaths
-  if (shared.react) {
-    shared["react/jsx-runtime"] ??= shared.react;
-    shared["react/jsx-dev-runtime"] ??= shared.react;
-  }
-  if (shared["react-dom"]) {
-    shared["react-dom/client"] ??= shared["react-dom"];
-  }
+  const shared = getShared(packageJson, options.shared);
 
   return [
     {
@@ -201,20 +133,4 @@ function readPackageJson() {
   }
 
   return JSON.parse(readFileSync(process.env.npm_package_json, "utf-8"));
-}
-
-/**
- * Ranges using a Yarn protocol (`workspace:^`, `npm:...`, `catalog:`, etc.) are not valid
- * SemVer, so they are dropped and Module Federation falls back to the installed version.
- */
-function mapDependencies(
-  dependencies: Record<string, string>,
-  entry: (requiredVersion: string | undefined) => Record<string, unknown>,
-) {
-  return Object.fromEntries(
-    Object.entries(dependencies).map(([dep, range]) => [
-      dep,
-      entry(range.includes(":") ? undefined : range),
-    ]),
-  );
 }
