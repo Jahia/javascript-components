@@ -62,6 +62,17 @@ describe('getShared', () => {
         );
     });
 
+    it('throws when a host singleton is only declared in devDependencies', () => {
+        expect(() =>
+            getShared({
+                devDependencies: {react: '^18.0.0', 'react-dom': '^18.0.0', vite: '^6.0.0'},
+                peerDependencies: {'react-dom': '^18.0.0'}
+            })
+        ).toThrowErrorMatchingInlineSnapshot(
+            '[Error: The following libraries are provided by the host as singletons, add them to `peerDependencies`: react]'
+        );
+    });
+
     it('throws when a peerDependency is not provided by the host', () => {
         expect(() =>
             getShared({peerDependencies: {react: '^18.0.0', lodash: '^4.0.0'}})

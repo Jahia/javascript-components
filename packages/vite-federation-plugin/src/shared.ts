@@ -42,9 +42,11 @@ export interface SharedConfig {
 export function getShared(
   {
     dependencies = {},
+    devDependencies = {},
     peerDependencies = {},
   }: {
     dependencies?: Record<string, string>;
+    devDependencies?: Record<string, string>;
     peerDependencies?: Record<string, string>;
   },
   overrides: Record<string, SharedConfig> = {}
@@ -56,6 +58,18 @@ export function getShared(
     throw new Error(
       "The following libraries are provided by the host as singletons, move them from `dependencies` to `peerDependencies`: " +
         misdeclared.join(", ")
+    );
+  }
+
+  // Keeping a host singleton in `devDependencies` is fine (Yarn does not install a workspace's
+  // own peers), as long as it is also declared in `peerDependencies`
+  const devOnly = Object.keys(devDependencies).filter(
+    (d) => hostSingletons.has(d) && !(d in peerDependencies) && !(d in overrides)
+  );
+  if (devOnly.length > 0) {
+    throw new Error(
+      "The following libraries are provided by the host as singletons, add them to `peerDependencies`: " +
+        devOnly.join(", ")
     );
   }
 

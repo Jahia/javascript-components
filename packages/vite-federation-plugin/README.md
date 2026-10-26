@@ -20,4 +20,5 @@ The libraries provided by the host as singletons are `react`, `react-dom`, `reac
 A library in the wrong bucket is a runtime bug, so the build fails with one of these errors:
 
 - `` The following libraries are provided by the host as singletons, move them from `dependencies` to `peerDependencies`: ... ``
+- `` The following libraries are provided by the host as singletons, add them to `peerDependencies`: ... `` (a host singleton may stay in `devDependencies`, e.g. for type checking, but must also be in `peerDependencies`)
 - `` The following libraries are not provided by the host as singletons, move them from `peerDependencies` to `dependencies` or `devDependencies`: ... ``
