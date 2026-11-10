@@ -9,9 +9,9 @@ export default function FederationWindowPlugin(): ModuleFederationRuntimePlugin 
   return {
     name: "federation-window-plugin",
     async loadEntry({ remoteInfo }) {
-      if (remoteInfo.type !== "var") return;
-      const { protocol, pathname } = new URL(remoteInfo.entry);
-      if (protocol !== "window:") return;
+      if (remoteInfo.type !== "var" || !remoteInfo.entry.startsWith("window:"))
+        return;
+      const { pathname } = new URL(remoteInfo.entry);
 
       return {
         init() {
