@@ -9,12 +9,30 @@ export default function FederationWindowPlugin(): ModuleFederationRuntimePlugin 
   return {
     name: "federation-window-plugin",
     async loadEntry({ remoteInfo }) {
-      if (remoteInfo.type !== "var") return;
-      const { protocol, pathname } = new URL(remoteInfo.entry);
-      if (protocol !== "window:") return;
-      let mod: any = window;
-      for (const segment of pathname.split(".")) mod = mod[segment];
-      return mod;
+      if (remoteInfo.type !== "var" || !remoteInfo.entry.startsWith("window:"))
+        return;
+      const { pathname } = new URL(remoteInfo.entry);
+
+      return {
+        init() {
+          // The container has already been initialized by the app shell, and cannot be initialized twice (throws RUNTIME-015)
+          // Do nothing
+        },
+        get(id) {
+          // Resolved on each call: the runtime caches this entry, and the container may register after it
+          let container: any = window;
+          for (const segment of pathname.split("."))
+            container = container?.[segment];
+
+          if (!container) {
+            throw new Error(
+              `'${pathname}' is undefined. Make sure the Jahia module supposed to provide it is loaded correctly.`
+            );
+          }
+
+          return container.get(id);
+        },
+      };
     },
   };
 }
