@@ -16,8 +16,20 @@ export default function FederationWindowPlugin(): ModuleFederationRuntimePlugin 
       const { protocol, pathname } = new URL(remoteInfo.entry);
       if (protocol !== "window:") return;
       let container: any = window;
-      for (const segment of pathname.split(".")) container = container[segment];
-      if (!container) return;
+      for (const segment of pathname.split("."))
+        container = container?.[segment];
+
+      if (!container) {
+        return {
+          init() {},
+          get() {
+            throw new Error(
+              `'${pathname}' is undefined. Make sure the Jahia module supposed to provide it is loaded correctly.`
+            );
+          },
+        };
+      }
+
       // Read `get` on each call: the remoteEntry.js of a Vite module only adds it in `init`
       return { init() {}, get: (id) => container.get(id) };
     },
