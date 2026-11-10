@@ -1,5 +1,9 @@
 # @jahia/vite-federation-plugin Changelog
 
+## 0.2.1
+
+* Fixed UI extensions that failed to start under app-shell 4, with the error `RUNTIME-015`.
+
 ## 0.2.0
 
 ### New Features
